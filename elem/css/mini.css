@@ -1,0 +1,307 @@
+/*----------
+max width = 800px
+for both structure and colour scheme
+------------*/
+
+@media all and (max-width: 800px) {
+body {
+	background: #f9e8f5;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color:#3D3D94;
+}
+#headerlink { display: none; }
+#outlayer {
+	
+}
+a:link, a:visited { text-decoration: none; }
+a:link,.archivdate { color: #dd1d6e; }
+a:visited { color: #ab5f7f; }
+ul { list-style-type: square; }
+.bigger { font-size: 135%; }
+.smaller { font-size:80%; }
+.d-mid {
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.d-right { float: right; }
+.d-left { float: left; }
+.mid { text-align: center; }
+.right { text-align: right; }
+.left { text-align: left; }
+.p { margin: 10px auto; }
+
+.post-inner-shell { margin: 20px auto; }
+
+.su-mode {
+	display: inline-block;
+	background: white;
+	margin:auto auto 10px 20px;
+	width:50px;
+	text-align:center;
+	border: 1px solid #f9c;
+}
+
+#footer-global {
+	text-align: center;
+	display: block;
+	font-size: 70%;
+	padding: 30px auto 20px;
+}
+#footer-global a:link {
+	text-decoration: none;
+	color: #903;
+	font-weight: bold;
+}
+
+/*--------posts layout--------*/
+.post-outer {
+	/*
+	display: block;
+	margin-bottom: 55px;
+	background: green;*/
+}
+.post-outer:last-child {
+/*
+	margin-bottom: 20px;
+*/
+}
+
+/*------- shared style ---------*/
+.post-inner h2 {
+	text-align:center;
+}
+.post-inner h3 {
+	padding: 2px 7px;
+	font-size: 130%;
+}
+blockquote {
+	width: 85%;
+}
+.line {
+	color:#de6666;
+	display:block;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+
+/*--------footer-------*/
+#footer-outer {
+	/*border:1px red solid;
+	margin: 10px 30px 20px;
+	padding: 0 0 30px;
+	*/
+}
+#footer-outer .navi-prev a, #footer-outer .navi-next a {
+	text-decoration: none;
+}
+#footer-outer .navi-prev, #footer-outer .navi-next {
+	font-size: 80%;
+	display: block;
+	padding: 3px;
+}
+#footer-outer .navi-prev {
+	text-align:left;
+}
+#footer-outer .navi-next {
+	text-align:right;
+}
+
+/*------menu bar-----------*/
+#menu-out { /* outer shell */
+/*border:1px blue solid;
+	display:block;
+	height:50px;
+	font-family: "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
+	margin-top: 165px;
+	margin-right:7%;
+	float: right;
+*/
+	margin: auto;
+	max-width:90%;
+    font-weight:bold;
+}
+ul#menu li {
+	margin-left: -40px;
+	font-size:90%;
+    list-style-type: none;
+	text-align:center;
+}
+ul#menu ul.sub-menu li {
+	margin-left: 0px;
+	border:none !important;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	background: #FFE1F5;
+	border: 1px solid #fff;
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: #9b6491;
+}
+
+/*--------effects for posts--------------*/
+.datetime {
+	color: #FF9D9F;
+	font-size: 80%;
+	margin-bottom: -15px;
+}
+.content img {
+	padding: 3px;
+	margin: 5px;
+	max-width: 85%;
+}
+.codespan { display: inline !important; }
+.archiv {
+/*	padding:5px 0 20px;*/
+}
+.archiv ul,.selyear ul {
+	list-style-type: none;
+	margin-top:-10px;
+}
+.selyear {
+	width: 90%;
+/*	margin: 30px auto -30px;*/
+}
+.selyear ul { text-align:center; }
+.archiv li a,.selyear li a {
+	text-decoration:none;
+}
+.selyear li {
+	display:inline-block;
+}
+.archiv li {
+	display:block;
+}
+.archivdate {
+	width: 9%;
+	display: inline-block;
+	text-align:right;
+	/*margin-right: 15px;
+	padding: 3px;
+	*/
+}
+/* ----------- neat show --- for individual img page
+fadein img's
+https://github.com/stevepapa/neatshowjs
+-------------*/
+.post-inner {
+	padding: 10px 15px;
+}
+blockquote {
+	width:70%;
+}
+blockquote ul {
+	/*border:blue 1px solid;*/
+	margin:0;
+	padding-left:15px;
+}
+blockquote li {
+    list-style-type: none;
+}
+.stdalone {
+	text-align:center;
+	margin: 5px 0 30px;
+}
+
+/*--------- for listing a pile of img's
+	jq collage plus
+	http://ed-lea.github.io/jquery-collagePlus/ 
+	below. selector names are the same
+	some properties are changed
+--------------*/
+.Collage{
+    /*This is where you set the padding you want between the images*/
+    padding:15px 0 0;
+	text-align:center;
+	margin:15px 40px;
+}
+.Collage img {
+    margin:0;
+    padding:0;
+    display:inline-block;
+    vertical-align:bottom;
+    opacity:1;
+}
+.Image_Wrapper{
+	/* to get the fade in effect, set opacity to 0 on the first element within the gallery area */
+	opacity:0;
+}
+/* for img wrapper caption */
+.Caption{
+    font-size:90%;
+	max-height:60px;	/*change height of title bar*/
+}
+.Caption_Content{
+	text-align: center;
+	padding:13px 10px;
+	margin:0;
+}
+
+
+/*-----------------post */
+.post-inner-shell {
+	background:#FFFCFF;	
+	border: 1px solid #e4b0d6;
+}
+
+/* ---------post title */
+.post-inner h3 {
+	background: rgba(236,196,225,0.6);
+/*
+	border: 1px solid #eab4d8;
+	box-shadow: 3px 3px 4px #e5bddb;*/
+}
+.post-inner h2, .post-inner h3,.post-inner h3 a:link,.post-inner h3 a:visited,.post-inner h3 a:active {
+	color:#8a4176;
+	/*text-shadow: 2px 2px 3px #bd8db4;*/
+}
+
+
+/*----------------navi button*/
+.navi-next,.navi-prev {
+	border: 1px solid #e2bbdb;
+	background: rgba(229,177,220,0.6);
+}
+.navi-next a,.navi-prev a {
+	color:#9b6491;
+	text-shadow: 1px 1px #bd8db4;
+}
+.navi-next:hover,.navi-prev:hover {
+	background: rgba(255,255,255,0.5);
+}
+
+.netabare {
+	color:transparent;
+}
+
+/*----- img block */
+.stdalone img { /* big stdalone img bg color*/
+	background: rgba(255,255,255,0.7);
+	box-shadow: 3px 3px 4px #e5bddb;
+}
+.content img,.stdalone img {
+	border: 6px double #e2afd4;
+}
+.Collage img:hover,.Collage img:active, .fadein img:active,.content img:active {
+	opacity:0.6;
+}
+.Collage img {
+	border: 4px double #e2afd4 /*rgba(0,0,0,0.3)*/;
+}
+.Caption_Content {
+    color:#ffffff;
+}
+
+
+
+/* ---- archiv -*/
+.archiv li:hover, .Caption {
+	background: rgba(243,209,235,0.5);
+}
+.archiv li {
+	border-bottom: 1px #ad5e9c dashed;
+}
+}

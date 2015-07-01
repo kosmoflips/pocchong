@@ -1,0 +1,36 @@
+html {
+	background: #dd9e8d url('sidebg.png') top center repeat-y fixed;
+}
+body {
+	width: 850px;
+	padding: auto 30px;
+	margin:0 auto;
+	color: #593659;
+}
+#toparea {
+	background: url('top.png') top center no-repeat;
+	height: 165px;
+	display:block;
+	width:816px;
+	margin: 0 auto 20px;
+}
+.p {
+	margin: 10px auto;
+}
+h2 {
+	background: url('header.png') bottom left no-repeat;
+	display:block;
+	height: 40px;
+	padding-left: 50px;
+}
+#botarea {
+	font-size: 90%;
+	display: block;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 25px;
+	border-top: #FFB2B2 3px dashed;
+}
+a:link {
+	color: #D92640;
+}

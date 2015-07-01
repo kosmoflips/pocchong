@@ -1,0 +1,505 @@
+@media all and (min-width: 801px) { /*intended for screen display but mobile css-ing is too tricky so i give up and keep things like this*/
+@font-face {
+	font-family: 'Cherry Cream Soda';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Cherry Cream Soda'), local('CherryCreamSoda'), url(http://themes.googleusercontent.com/static/fonts/cherrycreamsoda/v4/OrD-AUnFcZeeKa6F_c0_W7qBN36jQhVLTmQ9NDizP_4.ttf) format('truetype');
+}
+
+/*------- override default html elements -----*/
+ul { /* while changing this, remember to also adjust "ul#menu li ul.sub-menu" */
+	list-style-type: square;
+	padding-left:30px;
+}
+a:link, a:visited { text-decoration: none; }
+a:link { color: #dd1d6e; }
+a:hover {
+	color: #eaa4f9;
+	text-decoration: underline;
+}
+a:visited { color: #ab5f7f; }
+
+/*---- custom html render tags ------*/
+.bigger { font-size: 130%; }
+.smaller { font-size:80%; }
+.exbig { font-size:180%; }
+.exsmall { font-size:50%; }
+
+/*
+.horizon li { / * horizontal list * /
+	display: inline-block;
+	border-right: 2px dotted;
+	padding-right: 10px;
+	padding-left: 8px;
+}
+.horizon li.break { / * individual one-line <li> item * /
+	display: block;
+	border:none;
+}
+.horizon li:last-child {
+	border-right: none;
+}
+.horizon {
+	padding-left: 5px;
+}
+*/
+.p { /* make a <div> like a <p> . reduce getting errors of nesting p and div inproperly*/
+	margin: 10px auto;
+}
+.line { /*kiyo-styled <hr /> tag~*/
+	color:#de6666; /* used when browser doesn't work with gradient or is of non=webkit */
+	max-width:95%;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+	background: -webkit-repeating-linear-gradient(left top,#DE6666,#C996D9 8%,#6A7BD9 16%,#8CCBCF 24%,#74C285 32%,#EBDA7B 40%,#FFA154 48%, #DE6666 56%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;	
+	font-weight: bold;
+	line-height: 200%;
+	margin:10px auto;
+	vertical-align:middle;
+	font-family: "Courier New", Courier, monospace;
+	display:block; /*in case I put it in a <span>*/
+	white-space: nowrap; /* limit this elem to be in one line*/
+	overflow: hidden;
+/*
+	-webkit-touch-callout: none; / * display like an img => not selectable* /
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; */
+}
+.netabare { color:transparent; }
+.netabare:hover { color:#3D3D94; }
+/*
+.lock { / * do not apply any transition,frame * /
+	width:auto !important;
+	transition:none !important;
+	max-width:60% !important;
+	border:0 !important;
+}
+*/
+blockquote, pre, pre .codespan, .codeblock, .netabare {
+	background: rgba(247,218,239,0.5);
+}
+blockquote {
+	margin:20px auto;
+	box-shadow: 3px 3px 4px #e5bddb;
+	padding:15px 20px;
+	border-radius: 5px;
+	width: 85%;
+}
+/* not a good idea to display codes w/o syntax highlighting, but just leave them here */
+pre, pre .codespan, .codeblock { /* both are for codes */
+	font-family: "Courier New", Courier, monospace
+/*below , wrap text in <pre> */
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+pre, .codeblock { /* when it's NOT in a span */
+	display: block;
+	padding: 15px 20px;
+	margin: 10px;
+}
+.codespan {
+	display: inline !important;
+	border: none;
+	padding: 3px 5px;
+	margin: inherit;
+}
+
+
+/*-- batch formatting: center and while-select  --*/
+#outlayer, .post-outer .datetime, .post-inner-shell, .post-inner h3, .post-inner .content, .post-inner .content blockquote {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+/*-------global layout-------*/
+body {
+/* http://www.w3schools.com/cssref/css_websafe_fonts.asp */
+	font-family: Meiryo, "メイリオ", Arial,Verdana,sans-serif;
+	/*font-family: Tahoma, Geneva, sans-serif;*/
+	background: #f9e8f5 url(/elem/img/bg_pinkvert.jpg) top center fixed;
+	color:#3D3D94;
+}
+#headerlink { /* for hot linking header to homepage*/
+/*border:1px blue solid;*/
+	display:block;
+	position: absolute;
+	z-index:50;
+	top:30px;
+	left:450px;
+	width:380px;
+	height:85px;
+}
+#outlayer {
+	width: 1070px;
+	margin: 25px auto 20px;
+	display: block;
+	background: rgba(255,255,255,0.3);
+	border: 5px solid rgba(200,132,184,0.6);
+}
+#header-img {
+	background: url(/elem/img/top_mizuhiki_150405.png) top left no-repeat;
+	height:285px;
+	width: 400px;
+	display:inline-block;
+	position: absolute;
+	z-index:20;
+}
+#header-img-otherside {
+/* NOT IN USE BUT KEEP IT!
+	hope in future i can find some better img for it
+	*/
+/*
+	background: url(/elem/img/top_mizuhiki_bot_150406.png) bottom right no-repeat;
+	height:247px;
+	margin-top:-247px;
+	width: 350px;
+	display:inline-block;
+	float:right;
+	position: relative;
+	z-index:20;
+	right:0;
+*/
+}
+#header-outer {
+	height:285px; /*>=height of the top mizuhiki img*/
+	position:relative;
+}
+#header-outer h1 {
+	display:none;
+}
+#mainlayer {
+	padding: 0 17px;
+	margin-top:-110px;
+}
+#footer-global {
+	margin: auto;
+	display: block;
+	text-align: center;
+	/*border: 1px red solid;*/
+	padding-bottom: 25px;
+	font-size: 70%;
+}
+#footer-global a:link {
+	text-decoration: none;
+	color: #ab5f7f;
+	font-weight: bold;
+}
+
+/*--------- simple post layout ----------*/
+.post-simple {
+	border-bottom: 2px dashed #e4b0d6;
+	padding-bottom: 10px;
+}
+.post-simple:last-child {
+	border-bottom: none;
+}
+.post-simple .datetime {
+	float:none;
+	margin-bottom:-20px;
+}
+
+
+/*--------posts layout--------*/
+.post-outer {
+	display: block;
+	margin: auto auto 55px;
+	/*background: green;*/
+}
+.post-outer:last-child {
+	margin-bottom: 20px;
+}
+.post-inner-shell { /* applies trans-white bg , or a second img on top, etc...*/
+	position:relative;
+	margin: 0px 30px 0;
+	box-shadow: 3px 3px 4px #e2afd4;
+	background: rgba(255,255,255,0.6);
+	border: 1px solid #e4b0d6;
+	border-radius: 5px;
+}
+.post-inner { /* affects post block's bg */
+	background: url(/elem/img/clip_pinkhane.png) right bottom no-repeat;
+	padding: 15px 15px 30px; /* different from main */
+}
+.post-inner h2 {
+	/*
+	margin-left: 25px;
+	*/
+	text-align:center;
+	font-family: 'Cherry Cream Soda', cursive;
+	border: 4px double rgba(188, 137, 177,0.7);
+	padding: 8px 15px;
+	background: rgba(255,255,255,0.6);
+	box-shadow: 2px 2px 3px rgba(189, 141, 180, 0.7);
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom:10px;
+	max-width: 90%;
+}
+/*.post-inner .static h3 {
+	margin: 10px 0px;
+	font-family: 'Cherry Cream Soda', cursive;
+	font-weight: bold;
+	font-size: 110%;
+}*/
+.post-inner h3 {
+	margin: 20px 20px 10px;
+	padding: 7px 17px;
+	font-family: 'Cherry Cream Soda', cursive;
+	font-weight: bold;
+	font-size: 130%;
+	width:91%;
+	background: rgba(236,196,225,0.6);
+	box-shadow: 3px 3px 4px #e5bddb;
+	border: 1px solid #eab4d8;
+	border-radius: 3px;
+}
+.post-simple,.static,.content { /*static for general static html, b/c  'content' has special img effect */
+	padding: 5px 30px 20px;
+}
+.post-inner h4 { /* for in-post h4's*/
+	border-left: 8px solid #eab4d8;
+	padding:2px 5px; /* adjust with border-left */
+	margin:25px auto 2px; /* up down spacing */
+}
+.post-inner h2 a, .post-inner h2, .post-inner h3,.post-inner h3 a { /* batch colouring titles */
+	color:#8a4176;
+	text-shadow: 2px 2px 3px #bd8db4;
+}
+
+/*--------footer-------*/
+#footer-outer {
+	/*border:1px red solid;*/
+	margin: 10px 30px 20px;
+	padding: 0 0 30px;
+}
+#footer-outer .navi-prev a, #footer-outer .navi-next a {
+	text-decoration: none;
+	color:#9b6491;
+	text-shadow: 1px 1px #bd8db4;
+}
+#footer-outer .navi-prev, #footer-outer .navi-next {
+	border: 1px solid #e2bbdb;
+	background: rgba(229,177,220,0.6);
+	max-width: 37%;
+	font-size: 80%;
+	display: inline-block;
+	padding: 3px 10px;
+}
+#footer-outer .navi-prev {
+	float: left;
+	text-align:left;
+}
+#footer-outer .navi-next {
+	float: right;
+	text-align:right;
+}
+#footer-outer .navi-next:hover,#footer-outer .navi-prev:hover {
+	background: rgba(255,255,255,0.5);
+}
+
+/*------menu bar-----------*/
+#menu-out { /* shell for both menu and img version of h1 */
+	display:inline-block;
+	font-family: "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
+	position:absolute;
+	margin-left: 420px;
+	height: 200px;
+/*	width:100%;*/
+	background:url('/elem/img/top_text_150405.png') top left no-repeat;
+	background-position:30px 20px;
+}
+ul#menu { /* adjust menu position inside of #menu-out */
+	margin-top:130px;
+	margin-left:-100px;
+}
+ul#menu li {
+	position: relative;
+	margin:0 2px;
+	font-size:90%;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	z-index:30;
+	width: 65px;
+	text-align:center;
+    list-style-type: none;
+    display: inline-block;
+	background: rgba(229,177,220,0.7);
+	border: 1px solid rgba(82,13,64,0.3);	
+}
+ul#menu li ul.sub-menu {
+	padding-top:3px;
+	display:none;
+	position: absolute;
+	margin-left:-34px; /* adjust according to global ul/li's indent */
+}
+ul#menu li:hover ul.sub-menu { /* show sub menu on hover */ 
+	display:block;
+}
+ul#menu ul.sub-menu li {
+	margin:3px;
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: rgba(82,13,64,0.6);
+    text-decoration: none;
+    font-weight:bold;
+    padding: 4px;
+    display:inline-block;
+}
+ul#menu li:hover, ul#menu ul.sub-menu li:hover {
+	background: rgba(255,255,255,0.5);
+}
+
+/*--------individual elements--------------*/
+.datetime a {
+	color: #C27AC2;
+	text-decoration: none;
+}
+.datetime {
+	color: #C27AC2;
+	font-size: 80%;
+	float:right;
+	margin-right:35px;
+}
+.content img,.stdalone img {
+	border: 6px double #e2afd4;
+}
+.content img {
+	padding: 3px;
+	margin: 5px;
+	max-height:300px;
+	max-width: 53%;
+	transition:max-width,max-height 1s,1s;
+	-o-transition-delay: 1s;
+	-moz-transition-delay: 1s;
+	-webkit-transition-delay: 1s;
+    transition-delay: 1s;
+}
+.content img:hover {
+	max-width:100%;
+	max-height:100%;
+}
+.inline-box {
+	display: inline-block;
+	font-size: 90%;
+	background: rgba(255,255,255,0.7);
+	margin:auto auto 10px 20px;
+	width:50px;
+	text-align:center;
+	border: 1px dashed #f9c;
+}
+
+/*-------archiv -------*/
+.archiv {
+	padding:5px 0 20px;
+}
+.archiv ul {
+	list-style-type: none;
+	margin-top:-10px;
+}
+.archiv li a {
+	text-decoration:none;
+}
+.archiv li {
+	border-bottom: 1px #ad5e9c dashed;
+	margin-right: 35px;
+	padding-top: 7px;
+}
+.archiv li:hover {
+	background: rgba(243,209,235,0.5);
+}
+.archivdate {
+	color: #dd1d6e;
+	width: 11%;
+	display: inline-block;
+	text-align:right;
+	margin-right: 15px;
+}
+
+/*----  gallery img --------*/
+.Collage img:hover,.Collage img:active, .fadein img:active,.content img:active {
+	opacity:0.6;
+}
+.fadein img { /* applies to non-stdalone img, use with neatSHow.js
+https://github.com/stevepapa/neatshowjs
+*/
+	display:none;
+}
+.stdalone {
+	text-align:center;
+	margin: 5px 0 30px;
+}
+.stdalone img {
+	background: rgba(255,255,255,0.7);
+	box-shadow: 3px 3px 4px #e5bddb;
+	transition: width 1s;
+	-o-transition-delay: 1s;
+	-moz-transition-delay: 1s;
+	-webkit-transition-delay: 1s;
+    transition-delay: 1s;
+	width:60%;
+	padding: 13px; /* for border effect */
+}
+.stdalone img:hover {
+	width:93%;
+}
+/*--------- use  with js image collage
+	jq collage plus
+	http://ed-lea.github.io/jquery-collagePlus/ 
+	below. selector names are the same
+	some properties are changed
+--------------*/
+.Collage{
+    /*This is where you set the padding you want between the images*/
+    padding:15px 0 0;
+	text-align:center;
+	margin:15px 40px;
+}
+.Collage img {
+	border: 4px double #e2afd4 /*rgba(0,0,0,0.3)*/;
+    margin:0;
+    padding:0;
+    display:inline-block;
+    vertical-align:bottom;
+    opacity:1;
+}
+.Image_Wrapper{
+	/* to get the fade in effect, set opacity to 0 on the first element within the gallery area */
+	opacity:0;
+}
+/* for img wrapper caption */
+.Caption{
+	background: rgba(243,209,235,0.5);
+    font-size:90%;
+	max-height:60px;	/*change height of title bar*/
+}
+.Caption_Content{
+    color:#ffffff;
+	text-align: center;
+	padding:13px 10px;
+	margin:0;
+}
+}
+
+/* google custom search display*/
+/*search box*/
+#g-search-area .post-inner, #g-search-area .post-inner-shell {
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+.gsc-control-cse form.gsc-search-box {
+	width: 80% !important;
+	margin: auto;
+}
+.gsc-control-cse, .gsc-webResult.gsc-result, .gsc-results .gsc-imageResult, .gsc-tabHeader.gsc-tabhInactive {
+	background: transparent !important;
+	border: none !important;
+}

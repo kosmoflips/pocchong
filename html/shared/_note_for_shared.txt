@@ -1,0 +1,53 @@
+only put html FRAGMENTS in this dir, they're supposed to be used among admin/general static/cgi outputs.
+
+general order for include:
+
+digit after # is for php bundle
+
+#1	html_begin.tmpl
+	<!DOCTYPE>,<html>,<head>
+#1	head_meta.tmpl
+	<meta> tags
+#1	head_general_js.tmpl
+	common css and js files
+(#	head_img_js.tmpl)
+	js links for mygirls/photo.cgi mainly
+<title>................</title>
+<style>................</style>
+#2	head_close.tmpl
+	</head> closes
+	<body> begins
+	<div id="outlayer"> begins
+#2	page_top_banner.tmpl
+	<header-outer> begins
+	top ribbon img + title img + hot link area + h1 text
+#2	menu.tmpl
+	complete <div id="menu-out"> and <div id="menu">
+#2	page_top_close.tmpl
+	</header-outer> closes
+	<div id="mainlayer"> begins
+#2	search_box.tmpl
+	<div id="g-search-area">...</div> google custom search box
+#2	page_main_begin.tmpl
+	<div class="post-outer">
+	<div class="post-inner-shell">
+	<div class="post-inner">
+###################
+	main content block
+###################
+#3	page_main_end.tmpl
+	</div> close for:
+	.post-inner
+	.post-inner-shell
+	.post-outer
+#3	page_main_end2.tmpl
+	</div> closes for #mainlayer
+	<div id="footer-outer"> begins
+#3	page_bottom.tmpl
+	</div> for .footer-outer
+	<div id="header-img-otherside"></div> a block for bottom img, invisible right now though
+	</div> for #outlayer
+#3	page_bottom2.tmpl
+	complete <div id="footer-global">
+	</body> closes
+	</html> closes

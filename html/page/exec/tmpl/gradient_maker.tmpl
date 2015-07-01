@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gradient Maker</title>
+<style>
+body { font-family: monospace; }
+.sq2 { width: 30px; height:22px; display:inline-block; }
+.sq { width: 70px; height:22px; display:inline-block; }
+table {
+	border: none;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+</style>
+
+</head>
+<body>
+<h1>Gradient Maker</h1>
+
+<table>
+<tr>
+<td style="width: 35%">
+<form action="/exec/gradient_maker.cgi" method="post">
+<div>
+<b>colours to be code-converted/mixed</b><br />
+- "SPACE" separated, supports HEX (6- or 3- letter), RGB<br />
+- e.g.:  ff0  0,10,255 bf0040<br />
+<textarea rows="2" cols="50" name="colours"><TMPL_VAR NAME=colours></textarea>
+</div>
+<div>
+<b>mix colours?</b><br />
+levels between = <input type="text" maxlength="2" size="1" value="<TMPL_IF NAME=grad><TMPL_VAR NAME=grad></TMPL_IF>" name="grad">(1-99); <b>0/empty for no gradient.</b>
+</div>
+<div>
+<b>alpha</b> = <input type="text" maxlength="3" size="2" value="<TMPL_VAR NAME=alfa>" name="alfa">(0.1~1) || <b>background</b> = <input type="text" maxlength="11" size="6" value="<TMPL_VAR NAME=bg>" name="bg">  <input type="submit" name="" value="Go" onclick="this.form.target='_self'">
+</div>
+</form>
+</td>
+<td style="max-width:40%; vertical-align:top;"><p>inspired by w3school's colour mixer: <a href="http://www.w3schools.com/tags/ref_colormixer.asp">http://www.w3schools.com/tags/ref_colormixer.asp</a>, but is more focusing on my own demands: when I colour/gradient code much text, the &lt;span&gt; tags are ready to use; and I don't like those online rainbow text generators, they can't either process utf8 , or split all my text to single letters =&gt; a big mess</p>
+<span style="float: right"><a href="https://gist.github.com/kosmoflips/3faf44f6a2ac4e5efc5a" target="_blank">local version</a></span>
+</td>
+</tr>
+</table>
+
+<hr />
+
+<TMPL_LOOP NAME=sets>
+<h2>Set <TMPL_VAR NAME=setnumber></h2>
+<table>
+<tr>
+<th>colours</th>
+<th>hex (alpha=1)</th>
+<th>rgb(a)</th>
+</tr>
+<tr>
+<td<TMPL_IF NAME="setbg"><TMPL_VAR NAME=setbg></TMPL_IF>>
+<table>
+<TMPL_LOOP NAME="corset">
+<tr>
+<td class="sq2" style="background:<TMPL_VAR NAME=hex>"></td>
+<td class="sq" style="background:<TMPL_VAR NAME=rgba>"></td>
+<td style="color: <TMPL_VAR NAME=hex>"><TMPL_VAR NAME=hex></td>
+<td style="color: <TMPL_VAR NAME=rgba>"><TMPL_VAR NAME=rgba></td>
+</tr>
+</TMPL_LOOP>
+</table>
+</td>
+<td style="vertical-align:top;min-width: 315px">
+<textarea style="width:100%; height:100%">
+<TMPL_LOOP NAME="corset"><span style="color: <TMPL_VAR NAME=hex>"></span><TMPL_IF NAME=hex></TMPL_IF>
+</TMPL_LOOP>
+</textarea>
+</td>
+<td style="vertical-align:top;width: 430px">
+<textarea style="width:100%; height:100%">
+<TMPL_LOOP NAME="corset"><span style="color: <TMPL_VAR NAME=rgba>"></span><TMPL_IF NAME=hex></TMPL_IF>
+</TMPL_LOOP>
+</textarea>
+</td>
+</tr>
+</table>
+</TMPL_LOOP>
+<TMPL_INCLUDE NAME="../../shared/white_page_bottom_link.tmpl">
+</body>
+</html>

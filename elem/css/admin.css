@@ -1,0 +1,44 @@
+input[readonly] {
+	background: #e6ccef;
+}
+body {
+	background:#e6ccef;
+	color:#7D2652;
+	font-family: meiryo, "メイリオ", arial,verdana,sans-serif;
+}
+.left {
+	display:inline-block;
+	width:40%;
+	vertical-align: top;
+}
+.right {
+	display:inline-block;
+	width:58%;
+	vertical-align: top;
+}
+.main {
+	padding:20px;
+	width:87%;
+	margin: auto;
+	background: rgba(255,255,255,0.9);
+}
+table {
+	max-width: 100%;
+	border-collapse:collapse;
+}
+td,th {
+	padding:2px 5px;
+	border: 1px solid #933;
+	max-width: 750px;
+}
+tr:hover {
+	background: rgba(255,200,255,0.6);
+}
+pre {
+/*below , wrap text in <pre> */
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}

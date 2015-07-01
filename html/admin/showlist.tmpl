@@ -1,0 +1,38 @@
+<TMPL_INCLUDE NAME="shared_pre_a.tmpl">
+<h3><TMPL_VAR NAME=h3></h3>
+<div><a href="<TMPL_VAR NAME=mknew>">add new</a></div>
+<TMPL_IF NAME=fotoswitch><div>
+<a href="<TMPL_VAR NAME=fotoswitch>">all</a> | 
+<a href="<TMPL_VAR NAME=fotoswitch>&amp;self=1">[1]public</a> | 
+<a href="<TMPL_VAR NAME=fotoswitch>&amp;self=2">[2]circle only</a> | 
+<a href="<TMPL_VAR NAME=fotoswitch>&amp;self=3">[3]unlisted public</a> | 
+<a href="<TMPL_VAR NAME=fotoswitch>&amp;self=4">[4]self only</a></div></TMPL_IF>
+<div>
+<TMPL_IF NAME=prev><a href="<TMPL_VAR NAME=prev>">prev</a></TMPL_IF>
+<TMPL_IF NAME=next><a href="<TMPL_VAR NAME=next>">next</a></TMPL_IF>
+</div>
+<form action="/a/delete.cgi" method="post">
+<input type="hidden" name="sel" value="<TMPL_VAR NAME=switch>">
+<table>
+<tr>
+	<th>del</th>
+	<th>id</th>
+	<th>title</th>
+	<th>date/order</th>
+	<th>tag</th>
+	<th>view</th>
+	<th>edit</th>
+</tr>
+<TMPL_LOOP NAME="list"><tr>
+	<td><input type="checkbox" name="ids" value="<TMPL_VAR NAME=id>"></td>
+	<td><TMPL_VAR NAME=id></td>
+	<td><TMPL_VAR NAME=title></td>
+	<td><TMPL_VAR NAME=date></td>
+	<td><TMPL_VAR NAME=tag></td>
+	<td><a href="<TMPL_VAR NAME=view>">view</a></td>
+	<td><a href="<TMPL_VAR NAME=edit>">edit</a></td>
+</tr></TMPL_LOOP>
+</table>
+<input type="submit" value="delete selected" onclick="return confirm('delete selected?')">
+</form>
+<TMPL_INCLUDE NAME="shared_post_a.tmpl">

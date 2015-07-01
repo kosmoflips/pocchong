@@ -1,0 +1,36 @@
+<TMPL_INCLUDE NAME="../shared/html_begin.tmpl">
+<TMPL_INCLUDE NAME="../shared/head_meta.tmpl">
+<TMPL_INCLUDE NAME="../shared/head_general_js.tmpl">
+<title><TMPL_VAR NAME=PAGE_TITLE></title>
+<TMPL_INCLUDE NAME="../shared/head_close.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_top_banner.tmpl">
+<TMPL_INCLUDE NAME="../shared/menu.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_top_close.tmpl">
+<TMPL_INCLUDE NAME="../shared/search_box.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_main_begin.tmpl">
+<TMPL_LOOP NAME="posts">
+<div class="post-simple">
+<div class="datetime"><a href="<TMPL_VAR NAME=this_url>"><TMPL_VAR NAME=timestamp></a></div>
+<h4><a href="<TMPL_VAR NAME=this_url>">♪ <TMPL_VAR NAME=title></a></h4>
+<TMPL_IF NAME="need_pin">
+<blockquote>
+<form action="/post" method="post" accept-charset="utf-8">
+<input type="hidden" name="id" value="<TMPL_VAR NAME=id>">
+<div style="font-weight:bold">~pin protected content~</div>
+pin: <input type="password" name="pin" value=""><br />
+hint: <TMPL_VAR NAME="pin_hint"><br />
+<input type="submit" name="opt" value="unlock" onclick="this.form.target='_self'">
+</form>
+</blockquote>
+<TMPL_ELSE>
+<TMPL_VAR NAME=content>
+</TMPL_IF>
+<TMPL_IF NAME="edit"><div class="inline-box"><a href="<TMPL_VAR NAME=edit>">edit</a></div></TMPL_IF>
+</div><!-- .post-simple -->
+</TMPL_LOOP>
+<TMPL_INCLUDE NAME="../shared/page_main_end.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_main_end2.tmpl">
+<TMPL_IF NAME="prev"><div class="navi-prev"><a href="<TMPL_VAR NAME=prev_url>">⇦ <TMPL_VAR NAME=prev></a></div></TMPL_IF>
+<TMPL_IF NAME="next"><div class="navi-next"><a href="<TMPL_VAR NAME=next_url>"><TMPL_VAR NAME=next> ⇨</a></div></TMPL_IF>
+<TMPL_INCLUDE NAME="../shared/page_bottom.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_bottom2.tmpl">

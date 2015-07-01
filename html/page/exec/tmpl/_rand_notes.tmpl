@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<title>Random Notes Generator</title>
+<style>
+.infobox {
+	display:none;
+	margin: 20px auto;
+	padding: 15px 30px;
+	border: 5px double #7D7DA8;
+	width: 70%;
+}
+.staff {
+	background: url(/exec/rand_notes_img/staff.png) top left repeat-x;
+	height:290px;
+	max-width:100%%;
+	overflow:hidden;
+}
+.linenum {
+	z-index:2;
+	font-size:150%;
+	display:inline-block;
+	position:absolute;
+	margin-top:-240px;
+	margin-left:20px;
+}
+.staff-left {
+	padding-right: 20px;
+}
+.bar {
+	padding: 0 20px;
+}
+.note {
+	width:90px;
+	display:inline-block;
+	text-align:center;
+}
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript">
+function toggleDiv(divId) { $("#"+divId).toggle(); }
+</script>
+</head>
+<body>
+<div style="display:inline-block">
+<form action="/exec/rand_notes.cgi" method="post">
+<input type="submit" name="" value="Generate" onclick="this.form.target='_self'">
+<input type="checkbox" name="strings" value="g" <TMPL_IF NAME=chk_g>checked</TMPL_IF>>G | 
+<input type="checkbox" name="strings" value="d" <TMPL_IF NAME=chk_d>checked</TMPL_IF>>D | 
+<input type="checkbox" name="strings" value="a" <TMPL_IF NAME=chk_a>checked</TMPL_IF>>A | 
+<input type="checkbox" name="strings" value="e" <TMPL_IF NAME=chk_e>checked</TMPL_IF>>E ||
+<input type="checkbox" name="plain" value="1" <TMPL_IF NAME=chk_plain>checked</TMPL_IF>>Exclude Flats/Sharps || 
+Make <input type="text" name="lines" value="<TMPL_VAR NAME=chk_lines>" maxlength="2" size="1"> lines
+</form></div>
+<div style="display: inline-block; float:right">
+<a href="https://gist.github.com/kosmoflips/f5583b8bfcf140823c11" target="_blank">Local version</a> || 
+<a href="javascript:toggleDiv('showinfo');">About</a></div>
+<hr />
+<div id="showinfo" class="infobox">
+<h2>Random Notes Generator</h1>
+<p>I don't believe one can do advanced positions/scales easily before mastering the most basic "coordinating" between the eyes, hands and brain, so I made this script as a simple solution to do the training. It generates series of notes on specified violin string(s) and thus, one can use to practise finger positioning. Flats/sharps can be included as a bigger challenge. Because notes are completely random, it's better than using actual melodies since the sense of music won't (mis-) lead one's fingers.</p>
+<p>I made the staff big on purpose so I can see it well.</p>
+<p>I can't be doing the coordinating very frequently, but I'm interested to see how long it takes me to "retire" this page!</p>
+<p style="text-align:right">kiyo @ 2015-04-08</p>
+</div>
+<TMPL_LOOP NAME=lines><div class="staff"><TMPL_LOOP NAME=line><span class="staff-left"><img src="/exec/rand_notes_img/staff_g_clef.png" alt="clef" /></span>
+<TMPL_LOOP NAME=measures>
+	<TMPL_LOOP NAME=notes><span class="note"><img src="/exec/rand_notes_img/<TMPL_VAR NAME=note>.png" alt="<TMPL_VAR NAME=note>" /></span></TMPL_LOOP>
+	<span class="bar"><img src="/exec/rand_notes_img/bar.png" alt="bar" /></span>
+</TMPL_LOOP>
+</TMPL_LOOP>
+</div>
+<span class="linenum">[<TMPL_VAR NAME=line_number>]</span>
+</TMPL_LOOP>
+<TMPL_INCLUDE NAME="../../shared/white_page_bottom_link.tmpl">
+</body>
+</html>
