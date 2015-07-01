@@ -1,0 +1,49 @@
+<TMPL_INCLUDE NAME="shared_pre_a.tmpl">
+<h3>Add/Edit Artwork</h3>
+<form action="/a/edit_mygirls.cgi" method="post" accept-charset="utf-8" target="">
+<table>
+	<tr><td><b>id*</b></td><td><input type="text" name="id" maxlength="11" value="<TMPL_VAR NAME=id>" readonly></td></tr>
+	<tr><td><b>title*</b></td><td><input type="text" name="title" maxlength="255" size="50" value="<TMPL_VAR ESCAPE=HTML NAME=title>"></td></tr>
+	<tr><td><b>date*</b></td><td><input type="text" name="date" maxlength="6" value="<TMPL_VAR NAME=date>"></td></tr>
+	<tr><td><b>rep_id</b></td><td><input type="text" name="rep_id" maxlength="11" value="<TMPL_VAR NAME=rep_id>"></td></tr>
+	<tr><td><b>post_id</b></td><td><input type="text" name="post_id" maxlength="11" value="<TMPL_VAR NAME=post_id>"></td></tr>
+	<tr><td><b>inspiration</b></td><td><input type="text" name="notes" maxlength="255" size="50" value="<TMPL_VAR ESCAPE=HTML NAME=notes>"></td></tr>
+	<tr><td><b>current pin</b></td><td><input type="text" name="pin_md5" size="32" value="<TMPL_VAR NAME=pin_md5>" readonly> (MD5Hex)</td></tr>
+	<tr><td><b>new pin</b></td><td><input type="text" name="pin" size="17" value=""> <input type="checkbox" name="detele_pin" value="1">delete pin</td></tr>
+	<tr><td><b>pin hint</b></td><td><input type="text" name="pin_hint" maxlength="255" value="<TMPL_VAR NAME=pin_hint>" size="50"> (required while setting up the pin)</td></tr>
+</table>
+<br />
+<table>
+	<tr>
+		<th>info</th>
+		<th>preview</th>
+		<th>pcs_info</th>
+	</tr>
+<TMPL_LOOP NAME=list>
+	<tr>
+		<td>
+			<b>id:</b><input type="text" name="pcs_id" maxlength="11" size="3" value="<TMPL_VAR NAME=id>" readonly><br />
+			<b>std:</b><input type="checkbox" name="stdalone" value="1" <TMPL_IF NAME="stdalone">checked</TMPL_IF>><br />
+			<b>rep:</b><input type="radio" name="is_rep-<TMPL_VAR NAME=id>" <TMPL_IF NAME="is_rep">checked</TMPL_IF>>
+		</td>
+		<td style="padding:0 !important;">
+			<img src="<TMPL_VAR NAME=url>">
+		</td>
+		<td>
+			<div style="float:right"><b>DEL:</b><input type="checkbox" name="del-<TMPL_VAR NAME=id>" value="1"></div>
+			<b>pix_id: </b>http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=<input type="text" name="pix_url" maxlength="10" value="<TMPL_VAR NAME=pix>"><br />
+			<b>da_id: </b>
+			http://kosmoflips.deviantart.com/art/<input type="text" name="da_url" maxlength="255" size="50" value="<TMPL_VAR NAME=da>"><br />
+			<b>img_url: </b><input type="text" name="img_url" maxlength="255" size="50" value="<TMPL_VAR NAME=url>"><br />
+			<b>namelist: </b><br />
+			<TMPL_LOOP NAME="namelist"><input type="checkbox" name="namelist-<TMPL_VAR NAME=id>" <TMPL_VAR NAME="name"></TMPL_LOOP>
+		</td>
+	</tr>
+</TMPL_LOOP>
+</table>
+	<input type="submit" name="opt" value="Preview" onclick="this.form.target='_blank'">
+	<input type="reset" value="Reset" onclick="return confirm('reset everything?')">
+	<input type="submit" name="opt" value="Submit" onclick="this.form.target='_self'">
+	<input type="submit" name="opt" value="DELETE" onclick="this.form.target='_self'">
+</form>
+<TMPL_INCLUDE NAME="shared_post_a.tmpl">

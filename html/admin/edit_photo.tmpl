@@ -1,0 +1,25 @@
+<TMPL_INCLUDE NAME="shared_pre_a.tmpl">
+<h3>Add/Edit Photo Album</h3>
+<form action="/a/edit_photo.cgi" method="post" accept-charset="utf-8" target="">
+	<TMPL_IF NAME=update><input type="hidden" name="update" value="1"></TMPL_IF>
+	<TMPL_IF NAME=insert><input type="hidden" name="insert" value="1"></TMPL_IF>
+<table>
+	<tr><td><b>id*</b></td><td><input type="text" name="id" maxlength="11" value="<TMPL_VAR NAME=id>" readonly></td></tr>
+	<tr><td><b>title*</b></td><td><input type="text" name="title" maxlength="255" value="<TMPL_VAR ESCAPE=HTML NAME=title>"></td></tr>
+	<tr><td><b>date*</b></td><td><input type="text" name="date" maxlength="6" value="<TMPL_VAR NAME=date>"></td></tr>
+	<tr><td><b>date2</b></td><td><input type="text" name="date2" maxlength="6" value="<TMPL_VAR NAME=date2>"></td></tr>
+	<tr><td><b>album_id*</b></td><td><input type="text" name="album_id" maxlength="25" value="<TMPL_VAR NAME=album_id>"></td></tr>
+	<tr><td><b>post_id</b></td><td><input type="text" name="post_id" maxlength="11" value="<TMPL_VAR NAME=post_id>"></td></tr>
+	<tr><td><b>self*</b></td><td>
+	<input type="text" name="self" maxlength="1" value="<TMPL_VAR NAME=self>"><br />
+	1=public,2=unlisted (self stuff)<br />
+	3=public unlisted (game play etc),4=100% private
+	</td></tr>
+	<tr><td><b>img_url</b></td><td><input type="text" name="img_url" maxlength="255" size="50" value="<TMPL_VAR NAME=img_url>"></td></tr>
+	<TMPL_IF NAME=img_url><tr><td><b>rep::preview</b></td><td><img src="<TMPL_VAR NAME=img_url>"></td></tr></TMPL_IF>
+</table>
+<input type="reset" value="Reset" onclick="return confirm('reset everything?')">
+<input type="submit" name="opt" value="Submit" onclick="this.form.target='_self'">
+<TMPL_IF NAME=update><input type="submit" name="opt" value="DELETE" onclick="return confirm('DELETE?')" onclick="this.form.target='_self'"></TMPL_IF>
+</form>
+<TMPL_INCLUDE NAME="shared_post_a.tmpl">

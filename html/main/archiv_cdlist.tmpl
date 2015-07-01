@@ -1,0 +1,24 @@
+<TMPL_INCLUDE NAME="../shared/html_begin.tmpl">
+<TMPL_INCLUDE NAME="../shared/head_meta.tmpl">
+<TMPL_INCLUDE NAME="../shared/head_general_js.tmpl">
+<title><TMPL_VAR NAME=PAGE_TITLE></title>
+<TMPL_INCLUDE NAME="../shared/head_close.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_top_banner.tmpl">
+<TMPL_INCLUDE NAME="../shared/menu.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_top_close.tmpl">
+<TMPL_INCLUDE NAME="../shared/search_box.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_main_begin.tmpl">
+<h2>♪ <TMPL_VAR NAME=SECT_TITLE> ♪</h2>
+<div class="static">
+<div class="p" style="text-align:center">-- which merely serves as a rip log dump of my hard copy CD's --</div>
+<div class="archiv">
+<ul>
+<TMPL_LOOP NAME="list"><li><a href="<TMPL_VAR NAME=url>"><TMPL_VAR NAME=title></a></li></TMPL_LOOP>
+</ul>
+</div><!-- .archiv -->
+<TMPL_IF NAME="edit"><div class="inline-box"><a href="<TMPL_VAR NAME=edit>">edit</a></div></TMPL_IF>
+</div><!-- .static -->
+<TMPL_INCLUDE NAME="../shared/page_main_end.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_main_end2.tmpl"><!-- no prev/next here -->
+<TMPL_INCLUDE NAME="../shared/page_bottom.tmpl">
+<TMPL_INCLUDE NAME="../shared/page_bottom2.tmpl">

@@ -1,0 +1,47 @@
+<TMPL_INCLUDE NAME="shared_pre_a.tmpl">
+<div style="background: pink">session timeout: <TMPL_VAR NAME=timeout></div>
+<div class="left">
+<ul><li>create new:
+	<ul>
+	<li><a href="/a/edit_post.cgi?new=1&amp;tag=1">post</a></li>
+	<li><a href="/a/edit_mygirls.cgi?new=1">artwork</a></li>
+	<li><a href="/a/edit_photo.cgi?new=1">photo</a></li>
+	<li><a href="/a/edit_post.cgi?new=1&amp;tag=2">fragment</a></li>
+	<li><a href="/a/edit_post.cgi?new=1&amp;tag=3">cd rip log</a></li>
+	</ul>
+</li></ul>
+<ul><li>list:
+	<ul>
+	<li><a href="/a/showlist.cgi?sel=3">posts</a></li>
+	<li><a href="/a/showlist.cgi?sel=1">artworks</a></li>
+	<li><a href="/a/showlist.cgi?sel=2">photos</a></li>
+	<li><a href="/a/showlist.cgi?sel=4">fragments</a></li>
+	<li><a href="/a/showlist.cgi?sel=5">cd rip logs</a></li>
+	<li><a href="/a/showlist_pin.cgi">all protected</a></li>
+	</ul>
+</li></ul>
+<ul><li>other tasks:
+	<ul>
+	<li><a href="/a/seigyo.cgi?sel=1">rebuild rss</a></li>
+	<li><a href="/a/seigyo.cgi?sel=2">backup database</a></li>
+	<li><a href="/a/seigyo.cgi?sel=3">backup entire site (EXCLUDE /backyard and /tmp)</a></li>
+	<li><a href="/a/seigyo.cgi?sel=444" onclick="return confirm('clean up?')">clean up [tmp] dir</a></li>
+</ul>
+</li></ul>
+</div>
+
+<div class="right">
+<div><b>Notes</b><br />
+<pre><TMPL_INCLUDE NAME="_admin_notes.txt"></pre>
+</div>
+
+<div><b>doSQL</b><br />
+separate multiple statments with ";"<br />
+<form action="/a/dosql.cgi" method="post">
+<textarea name="stat" cols="70" rows="5" accept-charset="utf-8">select id,title from playground order by id desc limit 10;
+select id,title from playground order by id limit 3;</textarea><br />
+<input type="submit" name="sel" value="doSQL" onclick="this.form.target='_blank'">
+</form>
+</div>
+</div>
+<TMPL_INCLUDE NAME="shared_post_a.tmpl">

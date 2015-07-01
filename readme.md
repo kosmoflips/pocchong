@@ -1,14 +1,7 @@
-# the "legacy" branch
+# the "mysql_plug" branch
 
-contains:
-- old blogger template backups
-- images for site layout
-- site css copies
-- etc.
+dynamic cgi files here rely on a mysql database for data
+zipped database dump contains the current full DB
 
-for reference only,
-is not supposed to be complete
-
-
-last file modified on 2017-03-18
+site version: 150630_2229
 branch made to github on 2021-08-25

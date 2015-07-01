@@ -1,0 +1,9 @@
+<!-- SHTML Wrapper - 404 Not Found -->
+<html>
+<head><title>404 Not Found</title><link rel="stylesheet" type="text/css" href="/elem/css/error.css" /></head>
+<body>
+<h1>404 Not Found</h1>
+<div>The requested page might have been removed, had its name changed, is temporarily unavailable, or doesn't exist since the very beginning.</div>
+<div>But if that's you who entered the wrong url on purpose, I'll bite you~</div>
+</body>
+</html>

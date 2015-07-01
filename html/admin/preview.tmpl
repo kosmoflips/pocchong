@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/elem/js/smiley.js"></script>
+<script src="/elem/js/konami.js"></script>
+<script src="/elem/js/toggle_display.js"></script>
+<link rel="stylesheet" type="text/css" href="/elem/css/main.css" />
+<link rel="stylesheet" type="text/css" href="/elem/css/mini.css" />
+<title>PREVIEW</title>
+</head>
+<body>
+<div id="outlayer"><div id="header-img"></div>
+	<div id="header-outer">
+	<a href="/"><span id="headerlink"></span></a>
+	<TMPL_INCLUDE NAME="../shared/menu.tmpl">
+	</div><!-- #header-outer -->
+<div id="mainlayer">
+	<div class="post-outer">
+		<div class="post-inner-shell">
+			<div class="post-inner">
+<TMPL_IF NAME="post">
+	<div class="datetime">3124-Apr-01 (Wkd), 98:76@GMT+1</div>
+	<h3>♪ <TMPL_VAR NAME=title></h3>
+	<div class="content"><TMPL_VAR NAME=content></div>
+</TMPL_IF>
+<TMPL_IF NAME="mygirls">
+	<h3>❀ <TMPL_VAR NAME=title> ❀</h3>
+	<TMPL_IF NAME="intro">
+	<blockquote><ul><TMPL_VAR NAME=intro></ul></blockquote>
+	</TMPL_IF>
+	<TMPL_IF NAME="pcs1">
+	<div class="fadein">
+		<TMPL_LOOP NAME="pcs1">
+			<div class="stdalone"><img src="<TMPL_VAR NAME=img>" alt=""/><br /><TMPL_VAR NAME=url></div>
+		</TMPL_LOOP>
+	</div>
+	</TMPL_IF>
+	<TMPL_IF NAME="pcs2">
+	<div class="Collage">
+		<TMPL_LOOP NAME="pcs2">
+			<div class="Image_Wrapper"<TMPL_IF NAME="title"> data-caption="<TMPL_VAR NAME=title>"</TMPL_IF>><a href="<TMPL_VAR NAME=url>"><img src="<TMPL_VAR NAME=img>" alt=""/></a></div>
+		</TMPL_LOOP>
+	</div>
+	</TMPL_IF>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/elem/js/jquery.neatshow.min.js"></script>
+<script src="/elem/js/collageplus/jquery.collagePlus.js"></script>
+<script src="/elem/js/collageplus/jquery.removeWhitespace.min.js"></script>
+<script src="/elem/js/collageplus/jquery.collageCaption.min.js"></script>
+<script src="/elem/js/collageplus/self_load.js"></script>
+<script>$('.fadein').neatShow({ speed:444,mode: 'container'});</script>
+</TMPL_IF>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer-outer">
+<div style="position:fixed;top:50px;background:rgba(0,0,0,0.5);padding:20px 0;text-align:center;display:block;width:100%;left:0;font-size:30px;font-weight:bold;color:white">PREVIEW</div>
+</div>
+</div>
+<div id="footer-global">
+</div>
+</body>
+</html>

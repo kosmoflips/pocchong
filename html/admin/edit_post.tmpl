@@ -1,0 +1,24 @@
+<TMPL_INCLUDE NAME="shared_pre_a.tmpl">
+<h3>Add/Edit <TMPL_VAR NAME=edit_title></h3>
+<form action="/a/edit_post.cgi" method="post" accept-charset="utf-8" target="">
+	<div>table=post, tag=<TMPL_VAR NAME=tag></div>
+	<input type="hidden" name="tag" value="<TMPL_VAR NAME=tag>">
+	<TMPL_IF NAME=update><input type="hidden" name="update" value="1"></TMPL_IF>
+	<TMPL_IF NAME=insert><input type="hidden" name="insert" value="1"></TMPL_IF>
+<table>
+	<tr><td><b>id*</b></td><td><input type="text" name="id" maxlength="11" value="<TMPL_VAR NAME=id>" readonly></td></tr>
+	<tr><td><b>title*</b></td><td><input type="text" name="title" maxlength="255" size="50" value="<TMPL_VAR ESCAPE=HTML NAME=title>"></td></tr>
+	<tr><td><b>date*</b></td><td><input type="text" name="date" maxlength="6" value="<TMPL_VAR NAME=date>"></td></tr>
+	<tr><td><b>epoch*</b></td><td><input type="text" name="epoch" maxlength="12" value="<TMPL_VAR NAME=epoch>"></td></tr>
+	<tr><td><b>gmt*</b></td><td><input type="text" name="gmt" maxlength="2" value="<TMPL_VAR NAME=gmt>"></td></tr>
+	<tr><td><b>current pin</b></td><td><input type="text" name="pin_md5" size="32" value="<TMPL_VAR NAME=pin_md5>" readonly> (MD5Hex)</td></tr>
+	<tr><td><b>new pin</b></td><td><input type="text" name="pin" size="17" value=""> <input type="checkbox" name="detele_pin" value="1">delete pin</td></tr>
+	<tr><td><b>pin hint</b></td><td><input type="text" name="pin_hint" maxlength="255" value="<TMPL_VAR NAME=pin_hint>" size="50"> (required when adding pin)</td></tr>
+	<tr><td><b>content*</b><br />(max=64K)</td><td><textarea rows="30" cols="70" name="content"><TMPL_VAR NAME=content></textarea><br /></td></tr>
+</table>
+	<input type="submit" name="opt" value="Preview" onclick="this.form.target='_blank'">
+	<input type="reset" value="Reset" onclick="return confirm('reset everything?')">
+	<input type="submit" name="opt" value="Submit" onclick="this.form.target='_self'">
+	<TMPL_IF NAME=update><input type="submit" name="opt" value="DELETE" onclick="return confirm('DELETE?')" onclick="this.form.target='_self'"></TMPL_IF>
+</form>
+<TMPL_INCLUDE NAME="shared_post_a.tmpl">

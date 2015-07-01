@@ -1,0 +1,99 @@
+/* addition css for index */
+@media only screen and (min-width: 800px) {
+#index-toparea {
+	background: url('/elem/img/idxtop_celestialoct150506.png') top center no-repeat;
+	height:361px; /* same as idxtop.png */
+	width: 958px; /* pic width (974) - border width x2 */
+	margin:30px auto auto;
+	border: 8px solid rgba(171,91,151,0.4);;
+	border-radius: 5px;
+}
+#menu-out {
+	margin-top:180px;
+}
+ul#menu {
+	margin-left: -150px;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	background: rgba(171,91,151,0.8);
+	border: 2px solid #fff;
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: #fff;
+}
+ul#menu li:hover, ul#menu ul.sub-menu li:hover {
+	background: rgba(82,13,64,0.5);
+}
+#mainlayer {
+	margin-top:0;
+}
+#top-tagline {
+	font-family: Impact, Charcoal, sans-serif;
+	font-size:200%;
+	margin: 10px auto 25px;
+	text-align:center;
+	text-shadow: 2px 1px 8px #9999E2;
+}
+h2 {
+	font-size: 110%;
+	margin-left: 0 !important;
+}
+h4 {
+	margin: 2px auto 2px !important;
+}
+#feed-show {
+	font-size: 85%;
+}
+.feed-post-time {
+	font-size: 80%;
+}
+.feed-grid {
+	margin: 10px auto;
+	padding: 5px 10px;
+}
+.feed-grid:hover {
+	background: rgba(171,91,151,0.3);
+}
+#feed-show td {
+	width: 33%;
+	vertical-align:top;
+	margin:auto;
+}
+#feed-show {
+	max-height: 845px; /*ladder!*/
+	width:100%;
+	overflow:hidden;
+}
+#feed-show td img {
+	max-width:94%;
+	border: 1px solid rgba(171,91,151,0.5);
+	background: rgba(255,255,255,0.8);
+	padding: 4px;
+}
+
+/*--- twitter api ----*/
+#twi-msg {
+  margin: 0;
+  font-size: 85%;
+}
+#twi-msg ul li:first-child .timePosted { /* tweaking css is easier than twitter's own js */
+	display:block;
+	margin:0 auto 0 -10px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+.timePosted {
+	display:none;
+}
+#twi-box {
+	background: rgba(255,255,255,0.3);
+	border: 1px #85295C dashed;
+	width: 90%;
+	padding: auto 30px;
+	margin: auto auto 30px;
+}
+#twi-msg li {
+	list-style:none;
+}
+
+}
