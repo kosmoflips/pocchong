@@ -13,12 +13,8 @@ RewriteRule ^about/?$ /html/page/_indiv/about.php [L,NC]
 RewriteRule ^maxi/?$ /html/page/_indiv/maxi.php [L,NC]
 RewriteRule ^gamelist/?$ /html/page/_indiv/gamelist.php [L,NC]
 
-RewriteRule ^musik/?$ /html/page/musik/index.php [L,NC]
-RewriteRule ^musik/collection/(\d+)/?$ /cgi-bin/main/cdlist.cgi?id=$1 [L,NC]
-RewriteRule ^musik/collection/?$ /cgi-bin/main/cdlist.cgi [L,NC]
-RewriteRule ^musik/(.+)/?$ /html/page/musik/$1.php [L,NC]
-
-RewriteRule ^exec/?$ /html/page/exec/index.php [L,NC]
+RewriteRule ^cdlist/?$ /cgi-bin/main/cdlist.cgi [L,NC]
+RewriteRule ^cdlist/(\d+)/?$ /cgi-bin/main/cdlist.cgi?id=$1 [L,NC]
 RewriteRule ^exec/(.+)/?$ /html/page/exec/$1 [L,NC]
 
 RewriteRule ^archiv/post/(20\d{2})/?$ /cgi-bin/main/archiv.cgi?sel=post&amp;year=$1 [L,NC]

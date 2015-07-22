@@ -20,11 +20,12 @@
 <div id="twi-msg"><noscript>This section requires javascript</noscript></div>
 </div>
 
+<!--
 <div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
 
 <h2>Recent Updates <a href="/feed.rss"><img src="/elem/img/rss_s15.png" alt="rss feed"></a></h2>
 <div id="feed-show">
-<?php
+< ?php
 	$rss = new DOMDocument();
 	$rss->load('http://www.pocchong.de/feed.rss');
 	$feed = array();
@@ -61,5 +62,6 @@
 	echo '</table>';
 ?>
 </div>
+-->
 </div><!-- .static -->
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/php_include_bundle3.php'); ?>
