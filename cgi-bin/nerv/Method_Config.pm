@@ -65,9 +65,9 @@ our $ARCHIV={ #for archiv.cgi and admin's showlist
 our $SECTOR={ #cgi/html locations & sql,default title assignments. make sure htaccess is sync-ed with htaccess
 	5=>{ #post. tag=3,self=null
 		SQL=>'post',
-		URL=>'/musik/collection', #htaccess, map to post.cgi?tag=2
+		URL=>'/cdlist', #htaccess, map to post.cgi?tag=2
 		H3=>'CD Collection',
-		CATEGORY=>'musik',
+		CATEGORY=>'CDs',
 		TAG=>3,
 		LIMIT=>3,
 		EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_post.tmpl',
@@ -96,7 +96,7 @@ our $SECTOR={ #cgi/html locations & sql,default title assignments. make sure hta
 		TMPL=>$PATH->{HTML}.'/post.tmpl',
 		EDIT=>'/a/edit_post.cgi',
 	},
-	2=>{ #photo
+	2=>{ #photo . RETIRED since 150722
 		SQL=>'photo',
 		URL=>'/photo',
 		LIMIT=>15,

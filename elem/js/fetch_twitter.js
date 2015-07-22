@@ -93,7 +93,7 @@ h[b]&&(l=h[b],void 0!==l?(l=l.innerHTML.match(/data-srcset="([A-z0-9%_\.-]+)/i)[
 var frags = {
   "id": '568510310521118721',
   "domId": 'twi-msg',
-  "maxTweets": 5,
+  "maxTweets": 7,
   "enableLinks": true, 
   "showUser": true,
   "showTime": true,
