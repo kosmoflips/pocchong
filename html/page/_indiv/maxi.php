@@ -6,7 +6,6 @@
 
 <div class="archiv">
 <ul>
-	<li><a href="/cdlist">★ Hard copy CD collection rip log</a></li>
 	<li><a href="/p/smiley">(rescued) My Opera Smiley Chart</li>
 	<li><a href="/p/recipe">Quick Recipes</li>
 	<li><a href="/p/pitch_freq">Pitch frequency chart</a></li>

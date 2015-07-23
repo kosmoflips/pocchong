@@ -20,9 +20,10 @@ my $switch=3;
 if ($p->{sel} and !$p->{year}) { # {year} is reserved for post only!
 	if ($p->{sel} eq 'mygirls') {
 		$switch=1;
-	} elsif ($p->{sel} eq 'photo') {
-		$switch=2;
 	}
+	# elsif ($p->{sel} eq 'photo') {
+		# $switch=2;
+	# }
 }
 
 $archiv->{SECT_TITLE}=sprintf '%s::%s',$Method_Config::ARCHIV->{H3},$Method_Config::SECTOR->{$switch}{H3};
@@ -85,12 +86,12 @@ if ($sth->rows>0) {
 		}
 		#have to do like below b/c limited TMPL_LOOP
 		my $url;
-		if ($switch==2) { #photo album, go to gplus
-			my $aid=$k->get1value('select album_id from photo where id=?',$ref->{id});
-			$url=sprintf '<a href="%s">',$k->mk_url_google_album($aid);
-		} else {
+		# if ($switch==2) { #photo album, go to gplus
+			# my $aid=$k->get1value('select album_id from photo where id=?',$ref->{id});
+			# $url=sprintf '<a href="%s">',$k->mk_url_google_album($aid);
+		# } else {
 			$url=sprintf '<a href="%s/%i">',$Method_Config::SECTOR->{$switch}{URL},$ref->{id};
-		}
+		# }
 		my $title2=$ref->{title};
 		$title2.=sprintf ' (%s)',$ref->{notes} if $ref->{notes};
 		push @{$archiv->{archiv}[-1]{list}},{date=>$date,title=>$title2,url=>$url};
@@ -108,8 +109,8 @@ if ($sth->rows>0) {
 	}
 	else {
 		my $ex='';
-		if ($switch==2) { $ex='and self<=2'; }
-		elsif ($switch==3) { $ex='and tag=1'; }
+		# if ($switch==2) { $ex='and self<=2'; }
+		if ($switch==3) { $ex='and tag=1'; }
 		my $s0=sprintf 'select id from %s where date>? %s order by date limit 1', $Method_Config::SECTOR->{$switch}{SQL}, $ex;
 		my $s1=sprintf 'select id from %s where date<? %s order by date desc limit 1',$Method_Config::SECTOR->{$switch}{SQL},$ex;
 
