@@ -19,10 +19,10 @@ if ($p->{ids} and $Method_Config::SECTOR->{$p->{sel}}{SQL}) { #only proceed if t
 				$k->dosql('delete from passcode where id=?',$pin_id);
 			}
 		}
-		if ($p->{sel}==4 or $p->{sel}==5) { # general updates / musik collection
-			$k->dosql('delete from post where id=? and tag=?',$id,$Method_Config::SECTOR->{$p->{sel}}{TAG});
-		}
-		elsif ($p->{sel}==3) { # post , check mygirls.linkage and tag=1
+		# if ($p->{sel}==4 or $p->{sel}==5) { # general updates / musik collection
+			# $k->dosql('delete from post where id=? and tag=?',$id,$Method_Config::SECTOR->{$p->{sel}}{TAG});
+		# }
+		if ($p->{sel}==3) { # post , check mygirls.linkage and tag=1
 			my ($linked,$error,$linktype);
 			#these 2 tables share FK
 			if ($linked=$k->get1value('select id from mygirls where post_id=?',$p->{id})) {

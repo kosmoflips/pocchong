@@ -58,33 +58,33 @@ our $ARCHIV={ #for archiv.cgi and admin's showlist
 	TMPL=>$PATH->{HTML}.'/archiv.tmpl',
 	TMPL_ADMIN=>$PATH->{HTML_ADMIN}.'/showlist.tmpl',
 	EDIT=>'/a/showlist.cgi',
-	SPECIAL_TMPL=>{
-		5=>$PATH->{HTML}.'/archiv_cdlist.tmpl',
-	}
+	# SPECIAL_TMPL=>{
+		# 5=>$PATH->{HTML}.'/archiv_cdlist.tmpl',
+	# }
 };
 our $SECTOR={ #cgi/html locations & sql,default title assignments. make sure htaccess is sync-ed with htaccess
-	5=>{ #post. tag=3,self=null
-		SQL=>'post',
-		URL=>'/cdlist', #htaccess, map to post.cgi?tag=2
-		H3=>'CD Collection',
-		CATEGORY=>'CDs',
-		TAG=>3,
-		LIMIT=>3,
-		EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_post.tmpl',
-		TMPL=>$PATH->{HTML}.'/cdlist.tmpl',
-		EDIT=>'/a/edit_post.cgi', #tag=2
-	},
-	4=>{ #post. tag=2,self=null
-		SQL=>'post',
-		URL=>'/frag', #htaccess, map to post.cgi?tag=2
-		H3=>'General Updates',
-		CATEGORY=>'Update',
-		TAG=>2,
-		LIMIT=>15,
-		EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_post.tmpl',
-		TMPL=>$PATH->{HTML}.'/frag.tmpl',
-		EDIT=>'/a/edit_post.cgi', #tag=2
-	},
+	# 5=>{ #post. tag=3,self=null
+		# SQL=>'post',
+		# URL=>'/cdlist', #htaccess, map to post.cgi?tag=2
+		# H3=>'CD Collection',
+		# CATEGORY=>'CDs',
+		# TAG=>3,
+		# LIMIT=>3,
+		# EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_post.tmpl',
+		# TMPL=>$PATH->{HTML}.'/cdlist.tmpl',
+		# EDIT=>'/a/edit_post.cgi', #tag=2
+	# },
+	# 4=>{ #post. tag=2,self=null
+		# SQL=>'post',
+		# URL=>'/frag', #htaccess, map to post.cgi?tag=2
+		# H3=>'General Updates',
+		# CATEGORY=>'Update',
+		# TAG=>2,
+		# LIMIT=>15,
+		# EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_post.tmpl',
+		# TMPL=>$PATH->{HTML}.'/frag.tmpl',
+		# EDIT=>'/a/edit_post.cgi', #tag=2
+	# },
 	3=>{ #post. tag=1,self=null
 		SQL=>'post',
 		URL=>'/post',
@@ -96,22 +96,22 @@ our $SECTOR={ #cgi/html locations & sql,default title assignments. make sure hta
 		TMPL=>$PATH->{HTML}.'/post.tmpl',
 		EDIT=>'/a/edit_post.cgi',
 	},
-	2=>{ #photo . RETIRED since 150722
-		SQL=>'photo',
-		URL=>'/photo',
-		LIMIT=>15,
-		H3=>'Photos',
-		CATEGORY=>'Photo',
-		TMPL=>$PATH->{HTML}.'/photo.tmpl',
-		EDIT=>'/a/edit_photo.cgi',
-		EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_photo.tmpl',
-		TAG=>{ #in table, column called "self"
-			1=>'public',
-			2=>'limited',
-			3=>'unlisted',
-			4=>'private',
-		},
-	},
+	# 2=>{ #photo . RETIRED since 150722
+		# SQL=>'photo',
+		# URL=>'/photo',
+		# LIMIT=>15,
+		# H3=>'Photos',
+		# CATEGORY=>'Photo',
+		# TMPL=>$PATH->{HTML}.'/photo.tmpl',
+		# EDIT=>'/a/edit_photo.cgi',
+		# EDIT_TMPL=>$PATH->{HTML_ADMIN}.'/edit_photo.tmpl',
+		# TAG=>{ #in table, column called "self"
+			# 1=>'public',
+			# 2=>'limited',
+			# 3=>'unlisted',
+			# 4=>'private',
+		# },
+	# },
 	1=>{ #mygirls. tag=1/2/3 -> the29a/b/2009pre
 		SQL=>'mygirls',
 		URL=>'/mygirls',

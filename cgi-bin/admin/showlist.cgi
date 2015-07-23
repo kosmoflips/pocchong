@@ -22,13 +22,13 @@ my ($stat,$ptag);
 if ($p->{sel}==1) { #mygirls
 	$stat='select id,title,date,tag from mygirls order by id desc limit ?,?';
 }
-elsif ($p->{sel}==2) { #photo
-	$stat='select id,title,date,self,album_id from photo ';
-	if ($p->{self} and $p->{self}=~/^[1234]$/) {
-		$stat.='where self='.$p->{self};
-	}
-	$stat.=' order by id desc limit ?,?';
-}
+# elsif ($p->{sel}==2) { #photo
+	# $stat='select id,title,date,self,album_id from photo ';
+	# if ($p->{self} and $p->{self}=~/^[1234]$/) {
+		# $stat.='where self='.$p->{self};
+	# }
+	# $stat.=' order by id desc limit ?,?';
+# }
 elsif ($p->{sel}>=3 and $p->{sel}<=5) { #post, table=post, tag=1/2/3
 	$stat=sprintf 'select id,title,date,tag from post where tag=%i order by %s desc limit ?,?',
 		$Method_Config::SECTOR->{$p->{sel}}{TAG},
@@ -40,19 +40,8 @@ my $sth=$k->dosql($stat,$p->{offset},$p->{limit});
 my $lastid;
 while (my $r=$sth->fetchrow_hashref) {
 	$lastid=$r->{date};
-	my $tag=0;
-	if ($r->{self}) {
-		$tag=$r->{self};
-	} elsif ($r->{tag}) {
-		$tag=$r->{tag};
-	}
-	my $viewurl;
-	if ($p->{sel}==2) { #go to g+
-		# my $t=$k->get1value('select gp_lh "lh",gp_mid "mid",gid "gid",ext "ext" from photo where id=?',$r->{id});
-		$viewurl=$k->mk_url_google_album($r->{album_id});
-	} else {
-		$viewurl=sprintf '%s/%i',$Method_Config::SECTOR->{$p->{sel}}{URL},$r->{id};
-	}
+	my $tag= $r->{tag} || 0;
+	my $viewurl=sprintf '%s/%i',$Method_Config::SECTOR->{$p->{sel}}{URL},$r->{id};
 	push @{$table->{list}},{
 		id=>$r->{id},
 		title=>($r->{title}?$r->{title}:'-'),
@@ -79,9 +68,6 @@ if ($p->{offset}>0) {
 }
 
 #for tmpl use
-if ($p->{sel}==2) {
-	$table->{fotoswitch}=sprintf '%s?sel=%i',$URL,$p->{sel};
-}
 $table->{mknew}=sprintf '%s?new=1%s',$Method_Config::SECTOR->{$p->{sel}}{EDIT},($ptag?'&amp;tag='.$Method_Config::SECTOR->{$p->{sel}}{TAG}:'');
 
 $k->output_tmpl($Method_Config::ARCHIV->{TMPL_ADMIN},$table);
