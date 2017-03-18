@@ -1,0 +1,121 @@
+/*----------------
+layout for archiv/gallery
+--------------------*/
+.post-inner {
+	padding: 15px 50px 40px 0; /* different from main */
+	font-family: "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
+}
+.archiv {
+	padding:5px 0 20px;
+}
+.archiv ul,.selyear ul {
+	list-style-type: none;
+}
+.selyear {
+	width: 70%;
+	margin: 30px auto -30px;
+}
+.selyear ul {
+	text-align:center;
+	margin-left: -50px;
+}
+.archiv li a,.selyear li a {
+	text-decoration:none;
+}
+.selyear li {
+	display:inline-block;
+}
+.archiv li {
+	margin-right: 35px;
+	display:block;
+	padding-top:20px;
+}
+.archiv li:hover {
+	font-style: italic;
+	font-weight: bold;
+}
+.archivdate {
+	width: 9%;
+	display: inline-block;
+	text-align:right;
+	margin-right: 15px;
+	padding: 3px;
+}
+.archivyear { /*derived from <h3> but use <li> here*/
+	font-size: 110%;
+	font-weight:bold;
+	font-family: 'Cherry Cream Soda', cursive;
+	padding: 8px 17px !important;
+	border-radius: 6px;
+	margin: 40px 44px 0 10px !important;
+	display:block;
+	border: none !important;
+}
+
+/* ----------- neat show --- for individual img page
+fadein img's
+https://github.com/stevepapa/neatshowjs
+-------------*/
+.post-inner {
+	padding: 10px 15px 30px;
+}
+blockquote {
+	width:70%;
+}
+blockquote ul {
+	/*border:blue 1px solid;*/
+	margin:0;
+	padding-left:15px;
+}
+blockquote li {
+    list-style-type: none;
+}
+.fadein img { /* applies to non-stdalone img */
+	display:none;
+}
+.stdalone {
+	text-align:center;
+	margin: 5px 0 30px;
+}
+.stdalone img {
+	transition: width 0.5s;
+	width:60%;
+	padding: 13px; /* for border effect */
+}
+.stdalone img:hover {
+	width:93%;
+}
+
+/*--------- for listing a pile of img's
+	jq collage plus
+	http://ed-lea.github.io/jquery-collagePlus/ 
+	below. selector names are the same
+	some properties are changed
+--------------*/
+.Collage{
+    /*This is where you set the padding you want between the images*/
+    padding:15px 0 0;
+	text-align:center;
+	margin:15px 40px;
+}
+.Collage img {
+    margin:0;
+    padding:0;
+    display:inline-block;
+    vertical-align:bottom;
+    opacity:1;
+}
+.Image_Wrapper{
+	/* to get the fade in effect, set opacity to 0 on the first element within the gallery area */
+	opacity:0;
+}
+/* for img wrapper caption */
+.Caption{
+    font-size:90%;
+	max-height:60px;	/*change height of title bar*/
+}
+.Caption_Content{
+	text-align: center;
+	padding:13px 10px;
+	margin:0;
+}

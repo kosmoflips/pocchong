@@ -1,0 +1,131 @@
+/*------- for colour /opacity / custom image only  -----------
+do NOT include:
+	font-family,font-weight,text-deco,border-radius
+	admin.css
+MAY include border style since they usually go into one line
+*/
+
+body {
+	background: url(https://lh5.googleusercontent.com/-zOHOUFTytEs/UOlUpHBjV-I/AAAAAAAAE5Q/IpkCVu3vWco/s400/pinkbg2.png) top center fixed;
+	color:#7D2652;
+	/*background-size:cover;*/
+}
+#outlayer {
+	background: rgba(255,255,255,0.4);
+	border: 4px solid #e8bec5;
+}
+#header-outer {
+	background: url(https://lh6.googleusercontent.com/-e5rXHryJXLw/UOnlb71FXqI/AAAAAAAAE8g/w9eiIKGJLrM/s902/chou_top.png) top left no-repeat;
+}
+.post-inner-shell {
+	background: rgba(255,255,255,0.6);
+	border: 1px dotted #E66680;
+	box-shadow: 2px 2px 4px #cf9498;
+}
+.post-inner { /* applies bottom layer bg */
+	background:  url(https://lh4.googleusercontent.com/-poC1z9KFnUE/UOnsFrcMDsI/AAAAAAAAE80/cqEcr1vQRxA/s550/post_bottom.png) right bottom no-repeat;
+}
+.post-inner h2 {
+	text-shadow: 2px 2px 3px #cf9498;
+}
+.post-inner h3 a,.post-inner h3 a:visited,.post-inner h3 a:active {
+	/*text-decoration: none;*/
+	color:#4D1E2E;
+}
+.post-inner h3 {
+	color: #4D1E2E;
+	text-shadow: 2px 2px 4px #A3566C;
+	background: #f3d5db url(https://lh5.googleusercontent.com/-K7t71xBQDlg/UOnXzwd460I/AAAAAAAAE8E/JMPYM6Q_vsM/s204/sakura_t.png) top left repeat;
+	box-shadow: 2px 2px 3px #cf9498;
+}
+blockquote {
+	background: rgba(219,148,184,0.3);
+	box-shadow: 3px 3px 5px #e9c3cb;
+}
+a:link, a:hover {
+	color: #D11419;
+}
+a:visited {
+	color: #EB7A99;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	border: 1px solid #E09E9E;
+	background: rgba(219,148,184,0.3);
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: #BD6969;
+}
+/* menu colour change on hover */
+ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
+	color:#A81F52;
+}
+ul#menu li:hover, ul#menu ul.sub-menu li:hover {
+	background:rgba(255,255,255,0.7);
+}
+.datetime {
+	background: rgba(232,190,197,0.3);
+	color:#BA7384;
+	border: 1px #cc6699 dotted;
+	text-shadow: 1px 1px #e8bec5;
+}
+.content img {
+	border: 6px double #e8bcc6;
+	box-shadow: 2px 2px 3px #d6a2ae !important;
+}
+.Collage img:hover,.Collage img:active, .fadein img:active,.content img:active {
+	opacity:0.6;
+}
+.netabare {
+	color:transparent;
+	background: rgba(247,232,240,0.6);
+}
+.netabare:hover {
+	color: #8C4066;
+}
+pre .codespan, .codeblock {
+	background: rgba(219,148,184,0.2);
+}
+pre, .codeblock {
+	border: 1px dotted #e8bcc6;
+}
+tr td {
+	background-color: rgba(255,255,255,0.6);
+	border-color: #f9c;
+}
+tr:nth-child(even) td:nth-child(odd), tr:nth-child(odd) td:nth-child(even) { background-color: rgba(255,224,255,0.6); }
+table {
+	border-color: #f9c;
+}
+.stdalone img {
+	border: 5px double rgba(255,255,255,0.6);
+	background: rgba(201,120,100,0.5);
+}
+.Collage img {
+	border: 4px double #d6a2ae /*rgba(0,0,0,0.3)*/ !important;
+}
+.Caption{
+	background:rgba(150,0,150,0.5);
+}
+.Caption_Content{
+    color:#FFF;
+}
+.archiv li {
+	border-bottom: 1px #cc6699 dashed;
+	color:#7D2652;
+}
+.archiv li:hover {
+	background: rgba(232,190,197,0.4);
+}
+.archivdate {
+	color:#BD477A;
+}
+.archivyear {
+	background: rgba(243,213,219,0.8) url('https://lh5.googleusercontent.com/-K7t71xBQDlg/UOnXzwd460I/AAAAAAAAE8E/JMPYM6Q_vsM/s204/sakura_t.png') top left repeat;
+	box-shadow: 2px 2px 3px #cf9498;
+}
+.archivyear:hover {
+	background: rgba(243,213,219,0.8) url('https://lh5.googleusercontent.com/-K7t71xBQDlg/UOnXzwd460I/AAAAAAAAE8E/JMPYM6Q_vsM/s204/sakura_t.png') top left repeat !important;
+}
+.archivyear a, .archivyear a:visited {
+	color:#4D1E2E;
+}
