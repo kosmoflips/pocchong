@@ -1,6 +1,0 @@
-dynamic cgi files here rely on a mysql database for data
-zipped database dump contains the current full DB
-
-site version: 150722_1737; before SQL purge
-
-branch made to github on 2021-08-25
