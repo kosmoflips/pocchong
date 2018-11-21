@@ -1,10 +1,24 @@
 /*
 I can't do js, modified from blog.eternal-thinker.com/2009/04/smileys-for-your-blog.html
 
+
+.smiley {
+	background: transparent !important;
+	border: 0;
+	margin: 0;
+	padding:0;
+	box-shadow: none !important;
+	width:auto;
+	height:auto;
+}
+
+
+
 usage:
 	insert url of this script in <head>
 	insert <script type="text/javascript"> smileys(); </script> before end of </body>
-	change elem names in smileys() {} to match class names	
+	change elem names in smileys() {} to match class names
+	remember to apply class="smiley", or style=...
 */
 var smileyDir = "http://www.pocchong.de/elem/img/myo_smiley/";
 var smileyMap={
@@ -106,6 +120,6 @@ var smileyMap={
  function myosmiley() {
 	for (var b=[],a=0,d="post-innder,content,static".split(","),a=0;a<d.length;a++) for(var e=document.getElementsByClassName(d[a]),c=0;c<e.length;c++)b.push(e[c]);
 		for(a=0;a<b.length;a++)
-		b[a].innerHTML=b[a].innerHTML.replace(/ :[a-z]\w+?:/ig,function(a) { return' <img src="' + smileyDir + smileyMap[a]+'" style="background: transparent !important; border: 0; margin: 0;padding:0; box-shadow: none !important; width:auto; height:auto" alt=""/>'}
+		b[a].innerHTML=b[a].innerHTML.replace(/ :[a-z]\w+?:/ig,function(a) { return' <span class="smiley"><img src="' + smileyDir + smileyMap[a]+'" alt=""/></span>'}
 		)
 }

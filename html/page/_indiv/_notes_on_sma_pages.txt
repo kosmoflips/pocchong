@@ -1,7 +1,0 @@
-IMPORTANT: save everything in php
-for the sake of .htaccess
-
-- complete free, yet complete, html pages
-- may or may not follow the site template, do as I like!
-
-??? needs a cgi/php to list all as an index?

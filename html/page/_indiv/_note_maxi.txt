@@ -1,1 +1,0 @@
-only list pages that aren't present on the menu bar! as this is not a sitemap anyways.

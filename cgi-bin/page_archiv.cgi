@@ -2,6 +2,8 @@
 
 use strict;
 use warnings;
+use Encode;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 my $k=Method_Kiyoism_Plus->new;
 my $p=$k->param;
@@ -77,10 +79,10 @@ $k->print_html_tail();
 sub print_year_h23 {
 	my ($k, $year,$doh3)=@_;
 	if (!$doh3) {
-		printf "<h2>%s %s %s</h2>\n",$k->rand_utf8,$page_title,$k->rand_utf8;
+		printf "<h2>%s %s %s</h2>\n",$k->rand_deco_symbol,$page_title,$k->rand_deco_symbol;
 	} else {
 		my $url=sprintf '%s/year/%s',$Method_Kiyoism_Plus::POCCHONG->{archiv_url}, $year;
-		printf '<h3><a href="%s">%s %04d %s</a></h3>%s', $url, $k->rand_utf8, $year, $k->rand_utf8, "\n";
+		printf '<h3><a href="%s">%s %04d %s</a></h3>%s', $url, $k->rand_deco_symbol, $year, $k->rand_deco_symbol, "\n";
 	}
 }
 sub print_archiv_block {
@@ -99,7 +101,7 @@ sub print_span_line {
 			$Method_Kiyoism_Plus::POCCHONG->{sql_post_url},
 			$entry->{id},
 			$date,
-			$entry->{title},
+			encode('UTF-8',$entry->{title}),
 			"\n";
 	}
 }

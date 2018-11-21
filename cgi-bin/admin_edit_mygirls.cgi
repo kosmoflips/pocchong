@@ -1,14 +1,16 @@
 #!/usr/bin/perlml
+# !D:\Strawberry\perl\bin\perl.exe
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
+
 my $k=Method_Kiyoism_Plus->new;
 
 $k->chklogin(1);
 
 my $p=$k->param;
-# $k->peek($p);
 
 my $redirectlist='/a/list_table?sel=mygirls';
 if ($p->{opt}) { #submit,preview,delete
@@ -44,19 +46,31 @@ if ($p->{opt}) { #submit,preview,delete
 	}
 	elsif ($p->{opt} eq 'Submit') {
 		my ($stat,$rep_id,$title_id);
-		my $s0='mygirls SET title=?,epoch=?,gmt=?,post_id=?,notes=?';
-		my $pile=[$p->{title},$p->{epoch},$p->{gmt},($p->{post_id}||undef),($p->{notes}||undef)];
+		my $s0='mygirls SET title=?,epoch=?,gmt=?,post_id=?,notes=?,remake=?,remade_from=?';
+		my $pile=[
+			$p->{title},
+			$p->{epoch},
+			$p->{gmt},
+			($p->{post_id}||undef),
+			($p->{notes}||undef),
+			($p->{remake}||undef),
+			($p->{remade_from}||undef),
+			];
 		#MG main
 		if ($p->{id}) { #update MG except rep_id
+			$title_id=$p->{id};
 			$stat=sprintf 'UPDATE %s WHERE id=?',$s0;
 			push @$pile, $p->{id};
 			$rep_id=$p->{rep_id};
+			$k->dosql($stat,$pile);
 		}
 		else { #insert MG
-			$stat=sprintf 'INSERT INTO %s',$s0;
+			$title_id=$k->getOne('SELECT id FROM mygirls ORDER BY id DESC LIMIT 1');
+			$title_id++;
+			$stat=sprintf 'INSERT INTO mygirls ("id","title","epoch","gmt","post_id","notes","remake","remade_from") VALUES(?,?,?,?,?,?,?,?)';
+			unshift @$pile, $title_id;
+			$k->dosql($stat,$pile);
 		}
-		$k->dosql($stat,$pile);
-		$title_id=$p->{id}||$k->getOne('SELECT id FROM mygirls ORDER BY id DESC LIMIT 1');
 		#change MG_pcs, including to delete single pieces
 		$s0='mygirls_pcs SET title_id=?,stdalone=?,da_url=?,img_url=?';
 		for my $i (0..$#ids) {
@@ -95,7 +109,11 @@ if ($p->{opt}) { #submit,preview,delete
 							}
 						}
 						if (scalar keys %$nh>0) {
-							$k->dosql('INSERT INTO mygirls_tagged SET name_id=?,pcs_id=?',[$_,$ids[$i]]) foreach (keys %$nh);
+							my $tid=$k->getOne('SELECT id FROM mygirls_tagged ORDER BY id DESC LIMIT 1');
+							foreach (keys %$nh) {
+								$tid++;
+								$k->dosql('INSERT INTO mygirls_tagged ("id","name_id","pcs_id") VALUES(?,?,?)',[$tid,$_,$ids[$i]]);
+							}
 						}
 						if (scalar keys %$notfound>0) {
 							$k->dosql('DELETE FROM mygirls_tagged WHERE id=?', [$notfound->{$_}]) foreach (keys %$notfound);
@@ -103,13 +121,18 @@ if ($p->{opt}) { #submit,preview,delete
 					}
 				}
 				else {
-					$stat=sprintf 'INSERT INTO %s',$s0;
+					my $ttid=$k->getOne('SELECT id FROM mygirls_pcs ORDER BY id DESC LIMIT 1');
+					$ttid++;
+					$stat=sprintf 'INSERT INTO mygirls_pcs ("id","title_id","stdalone","da_url","img_url") VALUES(?,?,?,?,?)';
+					unshift @$pile2, $ttid;
 					$k->dosql($stat,$pile2);
 					$idold=$ids[$i];
 					$ids[$i]=$k->getOne('SELECT id FROM mygirls_pcs ORDER BY id DESC LIMIT 1');
+					my $tgid=$k->getOne('SELECT id FROM mygirls_tagged ORDER BY id DESC LIMIT 1');
 					if ($nh) {
 						foreach my $ni (keys %$nh) {
-							$k->dosql('INSERT INTO mygirls_tagged SET name_id=?,pcs_id=?',[$ni,$ids[$i]]);
+							$tgid++;
+							$k->dosql('INSERT INTO mygirls_tagged ("id","name_id","pcs_id") VALUES(?,?,?)',[$tgid,$ni,$ids[$i]]);
 						}
 					}
 				}
@@ -207,6 +230,8 @@ elsif ($p->{new} or $p->{id}) { #edit page
 <tr><td><b>rep_id</b></td><td><input type="text" name="rep_id" maxlength="11" value="%s"></td></tr>
 <tr><td><b>post_id</b></td><td><input type="text" name="post_id" maxlength="11" value="%s"></td></tr>
 <tr><td><b>inspiration</b></td><td><input type="text" name="notes" maxlength="255" size="50" value="%s"></td></tr>
+<tr><td><b>remade from id</b></td><td><input type="text" name="remade_from" maxlength="11" value="%s" placeholder="when this is a remake work"></td></tr>
+<tr><td><b>new remake id</b></td><td><input type="text" name="remake" maxlength="11" value="%s" placeholder="when this is an old version"></td></tr>
 </table>
 <hr />
 <table>
@@ -221,7 +246,9 @@ TABLE1
 		$k->htmlentities($info->{title}),
 		$info->{epoch}, $k->format_epoch2date($info->{epoch},$info->{gmt},5), $info->{gmt},
 		$info->{rep_id}, $info->{post_id},
-		$k->htmlentities($info->{notes});
+		$k->htmlentities($info->{notes}),
+		$info->{remade_from}||undef,
+		$info->{remake}||undef,;
 
 	foreach my $pcs (@{$info->{list}}) {
 		my $tbstr2=<<TABLE2A;

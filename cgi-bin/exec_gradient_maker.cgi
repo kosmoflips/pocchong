@@ -17,6 +17,7 @@ use warnings;
 # 16-10-29 2D gradient
 # 17-03-17 hover to see colour code
 
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 my $k=Method_Kiyoism_Plus->new;
 my $p=$k->param;

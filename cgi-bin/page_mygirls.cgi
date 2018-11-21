@@ -1,8 +1,11 @@
 #!/usr/bin/perlml
+#!D:\Strawberry\perl\bin\perl.exe
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
+use Encode;
 my $k=Method_Kiyoism_Plus->new;
 my $p=$k->param;
 
@@ -146,8 +149,7 @@ sub print_art_entry_tag {
 sub print_mygirls_h3 {
 	my ($k,$entry,$idx)=@_;
 	if ($entry) {
-		my $title_h2=sprintf ('%s %s %s', $k->rand_utf8, $k->htmlentities($entry->{title}), $k->rand_utf8);
-		# my $title_h2=sprintf ('%s %s %s', $k->rand_utf8, $entry->{title}, $k->rand_utf8);
+		my $title_h2=sprintf ('%s %s %s', $k->rand_deco_symbol, encode('UTF-8',$entry->{title}), $k->rand_deco_symbol);
 		if ($idx) { #include link on h3
 			$title_h2=sprintf ('<a href="%s/%s">%s</a>',
 				$Method_Kiyoism_Plus::POCCHONG->{sql_mygirls_url},
@@ -181,8 +183,9 @@ sub print_art_entry_single {
 	$k->print_line_seperator;
 	if ($pcs) {
 		printf ('<div class="gallery">%s', "\n");
-		foreach my $pc2 (@$pcs) {
-			print_pcs_vars($k,$pc2,0);
+		my $rpcs=$k->rand_array(scalar @$pcs);
+		foreach my $pc2i (@$rpcs) {
+			print_pcs_vars($k,$pcs->[$pc2i],0);
 		}
 		printf ("</div>\n");
 	}
@@ -199,8 +202,9 @@ sub print_art_entry_index {
 	if ($pcs) {
 		printf ('<div class="gallery-mini">%s',"\n");
 		my $i=0;
-		foreach my $pc2 (@$pcs) {
-			print_pcs_vars($k, $pc2,$entry,1);
+		my $rlist=$k->rand_array(scalar @$pcs);
+		foreach my $j (@$rlist) {
+			print_pcs_vars($k, $pcs->[$j],$entry,1);
 			$i++;
 			if ($i>=$max_in_mini_gallery) {
 				last;
@@ -249,6 +253,18 @@ sub print_info_block {
 	if ($entry->{notes}) {
 		printf "<li>Inspiration: %s</li>\n",$entry->{notes};
 	}
+	if ($entry->{remake}) {
+		printf "<li>New Remake: <a href=\"%s/%s\">%s</a></li>\n",
+			$Method_Kiyoism_Plus::POCCHONG->{sql_mygirls_url},
+			$entry->{remake},
+			$k->getOne('SELECT title FROM mygirls WHERE id=?', [$entry->{remake}]);
+	}
+	if ($entry->{remade_from}) {
+		printf "<li>Remake of: <a href=\"%s/%s\">%s</a></li>\n",
+			$Method_Kiyoism_Plus::POCCHONG->{sql_mygirls_url},
+			$entry->{remade_from},
+			$k->getOne('SELECT title FROM mygirls WHERE id=?', [$entry->{remade_from}]);
+	}
 
 	#name tags
 	if (!$idx) {
@@ -265,12 +281,12 @@ sub print_info_block {
 			my $rlist=$k->rand_array(scalar keys %$name2);
 			foreach my $i (@$rlist) {
 				printf '%s<a href="%s/tag/%s">%s</a>',
-					$k->rand_utf8,
+					$k->rand_deco_symbol,
 					$Method_Kiyoism_Plus::POCCHONG->{sql_mygirls_url},
 					$name3->[$i],
 					$nhash->{$name3->[$i]};
 			}
-			print $k->rand_utf8; #finish the line-deco
+			print $k->rand_deco_symbol; #finish the line-deco
 			printf ("</li>");
 		}
 	}

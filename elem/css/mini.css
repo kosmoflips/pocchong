@@ -1,71 +1,31 @@
 /*----------
-max width = 800px
-for both structure and colour scheme
+max width = 480px
+
+simply copied from main.css and remove extra styling. may be outdated.
+
 ------------*/
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 480px) {
 body {
 	background: #f9e8f5;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	color:#3D3D94;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 #headerlink { display: none; }
-#outlayer {
-	
-}
-a:link, a:visited { text-decoration: none; }
-a:link,.archivdate { color: #dd1d6e; }
-a:visited { color: #ab5f7f; }
-ul { list-style-type: square; }
-.bigger { font-size: 135%; }
-.smaller { font-size:80%; }
-.d-mid {
-	max-width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-.d-right { float: right; }
-.d-left { float: left; }
-.mid { text-align: center; }
-.right { text-align: right; }
-.left { text-align: left; }
-.p { margin: 10px auto; }
 
 .post-inner-shell { margin: 20px auto; }
 
-.su-mode {
-	display: inline-block;
-	background: white;
-	margin:auto auto 10px 20px;
-	width:50px;
-	text-align:center;
-	border: 1px solid #f9c;
-}
-
 #footer-global {
-	text-align: center;
 	display: block;
+	text-align: center;
 	font-size: 70%;
+	margin: auto;
 	padding: 30px auto 20px;
 }
 #footer-global a:link {
 	text-decoration: none;
-	color: #903;
+	color: #ab5f7f;
 	font-weight: bold;
-}
-
-/*--------posts layout--------*/
-.post-outer {
-	/*
-	display: block;
-	margin-bottom: 55px;
-	background: green;*/
-}
-.post-outer:last-child {
-/*
-	margin-bottom: 20px;
-*/
 }
 
 /*------- shared style ---------*/
@@ -89,12 +49,6 @@ blockquote {
 
 
 /*--------footer-------*/
-#footer-outer {
-	/*border:1px red solid;
-	margin: 10px 30px 20px;
-	padding: 0 0 30px;
-	*/
-}
 #footer-outer .navi-prev a, #footer-outer .navi-next a {
 	text-decoration: none;
 }
@@ -148,22 +102,13 @@ ul#menu li a, ul#menu li ul.sub-menu li a {
 	font-size: 80%;
 	margin-bottom: -15px;
 }
-.content img {
-	padding: 3px;
-	margin: 5px;
-	max-width: 85%;
-}
 .codespan { display: inline !important; }
 .archiv {
 /*	padding:5px 0 20px;*/
 }
-.archiv ul,.selyear ul {
+.archiv ul {
 	list-style-type: none;
 	margin-top:-10px;
-}
-.selyear {
-	width: 90%;
-/*	margin: 30px auto -30px;*/
 }
 .selyear ul { text-align:center; }
 .archiv li a,.selyear li a {
@@ -206,41 +151,6 @@ blockquote li {
 	margin: 5px 0 30px;
 }
 
-/*--------- for listing a pile of img's
-	jq collage plus
-	http://ed-lea.github.io/jquery-collagePlus/ 
-	below. selector names are the same
-	some properties are changed
---------------*/
-.Collage{
-    /*This is where you set the padding you want between the images*/
-    padding:15px 0 0;
-	text-align:center;
-	margin:15px 40px;
-}
-.Collage img {
-    margin:0;
-    padding:0;
-    display:inline-block;
-    vertical-align:bottom;
-    opacity:1;
-}
-.Image_Wrapper{
-	/* to get the fade in effect, set opacity to 0 on the first element within the gallery area */
-	opacity:0;
-}
-/* for img wrapper caption */
-.Caption{
-    font-size:90%;
-	max-height:60px;	/*change height of title bar*/
-}
-.Caption_Content{
-	text-align: center;
-	padding:13px 10px;
-	margin:0;
-}
-
-
 /*-----------------post */
 .post-inner-shell {
 	background:#FFFCFF;	
@@ -281,27 +191,25 @@ blockquote li {
 .stdalone img { /* big stdalone img bg color*/
 	background: rgba(255,255,255,0.7);
 	box-shadow: 3px 3px 4px #e5bddb;
-}
-.content img,.stdalone img {
 	border: 6px double #e2afd4;
 }
-.Collage img:hover,.Collage img:active, .fadein img:active,.content img:active {
-	opacity:0.6;
-}
-.Collage img {
-	border: 4px double #e2afd4 /*rgba(0,0,0,0.3)*/;
-}
-.Caption_Content {
-    color:#ffffff;
-}
-
 
 
 /* ---- archiv -*/
-.archiv li:hover, .Caption {
+.archiv li:hover {
 	background: rgba(243,209,235,0.5);
 }
 .archiv li {
 	border-bottom: 1px #ad5e9c dashed;
 }
+
+
+/*--- master img requirement ---*/
+img {
+	width: initial;
+	height: initial;
+	max-height: 350px !important;
+	max-width: 90% !important;
+}
+
 }

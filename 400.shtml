@@ -1,7 +1,9 @@
-<html><head><title>400 Bad Request</title><link rel="stylesheet" type="text/css" href="/elem/css/error.css" /></head>
+<html><head><title>400 Bad Request</title></head>
 <body bgcolor=white>
 <h1>400 Bad Request</h1>
 
-Invalid request.
+<img src="/elem/img/errs/400.jpg" alt="" />
+
+<!--#include file="_fterr.shtml" -->
 
 </body></html>

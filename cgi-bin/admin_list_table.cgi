@@ -2,7 +2,9 @@
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
+use Encode;
 use utf8;
 my $k=Method_Kiyoism_Plus->new;
 $k->chklogin(1);
@@ -48,8 +50,7 @@ TABLE1
 		printf '<td><input type="checkbox" name="id" value="%s" /></td>%s', $entry->{id}, "\n";
 		printf "<td>%s</td>\n", $entry->{id};
 		printf "<td>%s</td>\n", $k->format_epoch2date($entry->{epoch},$entry->{gmt},3);
-		printf '<td><a href="%s" target="_blank">%s</a></td>%s', $viewurl, $k->htmlentities($entry->{title}), "\n";
-		# printf '<td><a href="%s" target="_blank">%s</a></td>%s', $viewurl, $entry->{title}, "\n";
+		printf '<td><a href="%s" target="_blank">%s</a></td>%s', $viewurl, encode('UTF-8', $entry->{title}), "\n"; #may have minor utf8 problem, but doesn't matter
 		printf '<td><a href="%s">edit</a></td>%s', $editurl, "\n";
 		printf "</tr>\n";
 	}

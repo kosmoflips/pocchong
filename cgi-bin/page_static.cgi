@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 my $k=Method_Kiyoism_Plus->new;
 my $p=$k->param;
@@ -44,7 +45,7 @@ if (!-e $file) {
 	$k->print_main_wrap(0);
 	$k->print_post_wrap();
 	printf "<div>\n";
-	printf "<h2>%s %s %s</h2>\n", $k->rand_utf8, $pgtitle, $k->rand_utf8;
+	printf "<h2>%s %s %s</h2>\n", $k->rand_deco_symbol, $pgtitle, $k->rand_deco_symbol;
 	seek ($fh, $pseek, 0);
 	while (<$fh>) {
 		print $_;

@@ -1,2 +1,0 @@
-- this dir contains individual html/php pages, HTML code must be complete
-- should be a part of the site, and thus has to follow the site template
