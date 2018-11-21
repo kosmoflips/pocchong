@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 use utf8;
 my $k=Method_Kiyoism_Plus->new;
@@ -11,7 +12,7 @@ binmode *STDOUT, ":utf-8";
 
 my $max=50;
 my $posts=$k->getAll('SELECT id,title,epoch,substr(content,0,500) as "content" FROM post ORDER BY id DESC LIMIT ?', [$max]);
-my $arts=$k->getAll('SELECT mygirls.id,mygirls.epoch,mygirls.title,mygirls.notes,mygirls_pcs.img_url FROM mygirls JOIN mygirls_pcs ON mygirls.rep_id=mygirls_pcs.id ORDER BY id DESC LIMIT 20');
+my $arts=$k->getAll('SELECT mygirls.id,mygirls.epoch,mygirls.title,mygirls.notes,mygirls_pcs.img_url FROM mygirls JOIN mygirls_pcs ON mygirls.rep_id=mygirls_pcs.id ORDER BY mygirls.id DESC LIMIT 20');
 
 $k->header({'-type'=>'text/xml'});
 # $k->header; #toggle the two for local testing and online use

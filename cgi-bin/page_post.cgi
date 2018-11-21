@@ -1,8 +1,12 @@
 #!/usr/bin/perlml
+#!/usr/bin/perlml
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
+use Encode;
+
 my $k=Method_Kiyoism_Plus->new;
 
 my $p=$k->param;
@@ -17,6 +21,8 @@ my $navi;
 my $curr=1;
 
 my $process_all=1;
+
+my $idxlimit=800; #max chars to show on post-index page
 if ($p->{id}) {
 	if (my $entry1=$k->getRow('SELECT * FROM post WHERE id=?',[$p->{id}])) {
 		$process_all=0;
@@ -33,7 +39,8 @@ if ($process_all) {
 	$curr=$k->calc_curr_page_express($table,($p->{page}||1),$page_max);
 	my $offset=$k->calc_page_offset_express($table,$page_max,$curr);
 	# $posts=$k->getAll('SELECT id,title,epoch,gmt,LEFT (content,800) as "content" FROM post ORDER BY id DESC LIMIT ?,?', [$offset,$page_max]); # MySQL
-	$posts=$k->getAll('SELECT id,title,epoch,gmt, substr(content,0,800) as "content" FROM post ORDER BY id DESC LIMIT ?,?', [$offset,$page_max]); #SQLite
+	# $posts=$k->getAll('SELECT id,title,epoch,gmt, substr(content,0,800) as "content" FROM post ORDER BY id DESC LIMIT ?,?', [$offset,$page_max]); #SQLite
+	$posts=$k->getAll('SELECT id,title,epoch,gmt, content FROM post ORDER BY id DESC LIMIT ?,?', [$offset,$page_max]); #SQLite
 	#prev/next
 	$navi=$k->calc_navi_set_express($table,$curr,$page_max,$page_turn);
 	$baseurl.='/page';
@@ -74,22 +81,32 @@ sub print_post_entry {
 	printf "<%s>\n",$tag;
 	print_post_timestamp($k,$entry);
 	print_post_h3($k,$entry);
-	if ($idx) { # short content for index page
+	if ($idx) { # short content for index page, remove html tags
 		my $imgcatch='';
-		if ($entry->{content}=~/<img src="(.+?)"/) {
+		if ($entry->{content}=~/<img\s+src="(.+?)"/) {
 			$imgcatch=$1;
 		}
-		$entry->{content}=~s/<[^><]+>//g;
-		$entry->{content}=~s/<[^><]+$//g;
+		elsif ($entry->{content}=~m{\s+src="https?://www.youtube.com/embed/(\w+)}i) {
+			$imgcatch=sprintf "https://img.youtube.com/vi/%s/0.jpg", $1;
+		}
+
+		$entry->{content}=~s/<div class="line".+?<\/div>//g;
+		$entry->{content}=~s/<[^>]+>//g;
+		$entry->{content}=~s/<[^>]+$//g;
 		$entry->{content}=~s{[\r\n]+}{<br />}g;
+		$entry->{content}=encode('UTF-8',$entry->{content});
+		$entry->{content}=substr $entry->{content}, 0, $idxlimit;
 		printf ('<div class="idx-txt">%s', "\n");
 		if ($imgcatch) {
 			printf '<div class="idx-preview"><img src="%s" alt=""/ ></div>', $imgcatch;
 		}
-		# printf '%s . . . .</div>%s<div style="text-align:center"><a href="%s/%s">~ full text ~</a></div>%s', $entry->{content},"\n",$Method_Kiyoism_Plus::POCCHONG->{sql_post_url}, $entry->{id},"\n";
-		printf '%s . . . .</div>%s', $entry->{content},"\n";
+		printf '%s . . . <a href="%s/%s" style="color: green; font-weight:bold">&gt;&gt;&gt;</a></div>%s',
+			$entry->{content},
+			$Method_Kiyoism_Plus::POCCHONG->{sql_post_url},
+			$entry->{id},
+			"\n";
 	} else {
-		printf "%s\n", $entry->{content};
+		printf "%s\n", encode('UTF-8',$entry->{content});
 	}
 	$k->print_edit_button(sprintf "%s/?id=%s", $Method_Kiyoism_Plus::POCCHONG->{sql_post_edit}, $entry->{id});
 	printf "</%s>\n",$tag;
@@ -116,9 +133,10 @@ sub print_post_h3 {
 		printf '<h3><a href="%s/%s">%s %s %s</a></h3>%s',
 			$Method_Kiyoism_Plus::POCCHONG->{sql_post_url},
 			$entry->{id},
-			$k->rand_utf8,
-			$entry->{title},
-			$k->rand_utf8,
+			$k->rand_deco_symbol,
+			# $k->htmlentities($entry->{title}),
+			encode('UTF-8',$entry->{title}), #don't escape, since it's supposed to be html safe already
+			$k->rand_deco_symbol,
 			"\n";
 	}
 }

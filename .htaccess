@@ -1,28 +1,99 @@
 Options -Indexes
 RewriteEngine on
+RewriteBase /
+
+Deny from 104.197.197.203
+Deny from 37.187.56.76
+RewriteCond %{HTTP_USER_AGENT} (Baiduspider|Exabot|360Spider|linkfluence) [NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule .* - [R=403,L]
 
 RewriteCond %{HTTP_HOST} ^pocchong\.de$ [NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
 RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
-RewriteRule ^a/([^/]+)\.cgi /cgi-bin/admin/$1.cgi [L,NC]
-RewriteRule ^a/?$ /cgi-bin/admin/admin.cgi [L,NC]
+#### TMP 503 REDIRECTS #############
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^gamelist/? - [R=503,L]
+#####################
 
-RewriteRule ^p/(\w.+?)(\.html)?$ /html/page/_indiv/$1.php [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^feed.rss/? /cgi-bin/feed_rss.cgi [L,NC]
 
-RewriteRule ^about/?$ /html/page/_indiv/about.php [L,NC]
-RewriteRule ^maxi/?$ /html/page/_indiv/maxi.php [L,NC]
-RewriteRule ^gamelist/?$ /html/page/_indiv/gamelist.php [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /cgi-bin/admin_list_table.cgi?sel=$1&page=$2 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^a/(edit_[^/]+)/?$ /cgi-bin/admin_$1.cgi [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^a/([^/]+)/? /cgi-bin/admin_$1.cgi [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^a/?$ /cgi-bin/admin_login.cgi [L,NC]
 
-RewriteRule ^exec/(.+)/?$ /html/page/exec/$1 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^p/([^/]+)/?$ /cgi-bin/page_static.cgi?file=$1 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^exec/(.+)/?$ /cgi-bin/exec_$1.cgi [L,NC]
 
-RewriteRule ^archiv/post/(20\d{2})/?$ /cgi-bin/main/archiv.cgi?sel=post&amp;year=$1 [L,NC]
-RewriteRule ^archiv/([a-z]+)/offset/(\d+)/?$ /cgi-bin/main/archiv.cgi?sel=$1&amp;offset=$2 [L,NC]
-RewriteRule ^archiv/([a-z]+)/?$ /cgi-bin/main/archiv.cgi?sel=$1 [L,NC]
-RewriteRule ^archiv/?$ /cgi-bin/main/archiv.cgi [L,NC]
+#special redirects
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(maxi|kiyoshot|about|gamelist)/?$ /cgi-bin/page_static.cgi?file=$1 [L,NC]
 
-RewriteRule ^(mygirls|post)/(\d+)/?$ /cgi-bin/main/$1.cgi?id=$2 [L,NC]
-RewriteRule ^(mygirls|post)/?$ /cgi-bin/main/$1.cgi [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^archiv/year/(\d+)/?$ /cgi-bin/page_archiv.cgi?year=$1 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^archiv/(\d+/?)?$ /cgi-bin/page_archiv.cgi?page=$1 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(mygirls)/tag/(\d+)/(\d+)/?$ /cgi-bin/page_$1.cgi?tag=$2&offset=$3 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(mygirls)/tag/(\d+)/?$ /cgi-bin/page_$1.cgi?tag=$2 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(mygirls|post)/page/(\d+)/?$ /cgi-bin/page_$1.cgi?page=$2 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(mygirls|post)/(\d+)/?$ /cgi-bin/page_$1.cgi?id=$2 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(archiv|mygirls|post)/?$ /cgi-bin/page_$1.cgi [L,NC]
 
-RewriteRule ^cyouwa/?$ /html/page/cyouwa/index.php [L,NC]
-RewriteRule ^cyouwa/(.+)\.html$ /html/page/cyouwa/$1.php [L,NC]
-RewriteRule ^cyouwa/(.+)/?$ /html/page/cyouwa/$1 [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^cyouwa/?$ /projekt/cyouwa/index.cgi [L,NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^cyouwa/(.+?)(\.cgi|\.html)?/?$ /projekt/cyouwa/$1.cgi [L,NC]

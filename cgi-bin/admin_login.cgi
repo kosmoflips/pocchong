@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 my $k=Method_Kiyoism_Plus->new;
 

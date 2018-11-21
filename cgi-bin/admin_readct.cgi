@@ -2,6 +2,7 @@
 use strict;
 use Storable;
 use Data::Dumper;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 use CGI;
 my $k=CGI->new;

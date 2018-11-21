@@ -36,7 +36,9 @@ while ($chunk=~/<li\s+class=\\"timeline-TweetList-tweet customisable-border.+?Tu
 
 	if ($entry=~m{element:photo.+?img.+?data-srcset=.+(https.+?)%3Asmall}) { $tweet->{img}=$1.':small'; }
 	elsif ($entry=~m{background-image: url\((https:.+?)\)}) { $tweet->{img}=$1; }
-	elsif ($entry=~m{<img class=\\"NaturalImage-image.+?src=\\"(https:.+?)\\".+?element:poster_image}) { $tweet->{img}=$1; }
+	# user uploaded image . updated @ 181115
+	#<img class=\"NaturalImage-image\" data-image=\"https:\/\/pbs.twimg.com\/media\/Dr7th3iU0AAODsZ\" width=\"1171\" height=\"873\" title=\"View image on Twitter\" alt=\"View image on Twitter\">
+	elsif ($entry=~m{<img class=\\"NaturalImage-image\\" data-image=\\"(https:.+?)\\"}) { $tweet->{img}=$1.'.jpg'; }
 	elsif ($entry=~m{<img.+?class=.+?CroppedImage-image js-cspForcedStyle.+?data-srcset.+?(https.+?)%3Alarge}) {
 	$tweet->{img}=$1.':small'; }
 	

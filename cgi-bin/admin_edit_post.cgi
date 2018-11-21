@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 my $k=Method_Kiyoism_Plus->new;
 
@@ -42,13 +43,17 @@ if ($p->{opt}) { #submit, delete, preview
 		if ($p->{update}) {
 			$stat=sprintf 'UPDATE %s WHERE id=?',$s0;
 			push @$pile, $id;
+			$k->dosql($stat,$pile);
 		} elsif ($p->{insert}) {
-			$stat=sprintf 'INSERT INTO %s',$s0;
-		}
-		$k->dosql($stat,$pile);
-		if (!$id) {
 			$id=$k->getOne('SELECT id FROM post ORDER BY id DESC LIMIT 1');
+			$id++;
+			$stat=sprintf 'INSERT INTO post ("id","title","epoch","gmt","content") VALUES(?,?,?,?,?)'; #even in case the id is occupied, error should arise since no duplicate in id is allowed
+			unshift @$pile, $id;
+			$k->dosql($stat, $pile);
 		}
+		# if (!$id) {
+			# $id=$k->getOne('SELECT id FROM post ORDER BY id DESC LIMIT 1');
+		# }
 		my $rurl=sprintf '%s/?id=%i',$Method_Kiyoism_Plus::POCCHONG->{sql_post_edit},$id;
 		$k->redirect($rurl);
 	}
@@ -59,7 +64,8 @@ if ($p->{opt}) { #submit, delete, preview
 elsif ($p->{new} or $p->{id}) { # edit post page
 	my $edit;
 	if ($p->{id} and $edit=$k->getRow('SELECT * FROM post WHERE id=?', [$p->{id}])) {
-		$edit->{content}=$k->htmlentities($edit->{content});
+		$edit->{title}=$k->htmlentities($edit->{title});
+		$edit->{content}=$k->htmlentities($edit->{content}); #encode html to make sure it displays normally in textbox
 		$edit->{update}=1;
 		$edit->{id}=$p->{id};
 	} else {
@@ -95,8 +101,9 @@ elsif ($p->{new} or $p->{id}) { # edit post page
 STR
 	printf $tbstr,
 		$edit->{id},
-		$k->htmlentities($edit->{title}),
-		$edit->{epoch}, $k->format_epoch2date($edit->{epoch},$edit->{gmt},5),
+		$edit->{title},
+		$edit->{epoch},
+		$k->format_epoch2date($edit->{epoch},$edit->{gmt},5),
 		$edit->{gmt},
 		$edit->{content};
 	if ($edit->{update}) {

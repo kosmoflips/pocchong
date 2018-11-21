@@ -1,25 +1,33 @@
 package Method_Kiyoism_Plus;
 use strict;
-use warnings; no warnings 'utf8';
+use warnings;
 
-use CGI; #http://perldoc.perl.org/CGI.html
+use CGI qw(-utf8); #http://perldoc.perl.org/CGI.html
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
 use CGI::Session;
 use Data::Dumper;
 use DBI;
+use Digest::MD5;
 use Encode qw/encode decode/;
 use File::Spec;
-use Digest::MD5;
+use HTML::Entities qw/encode_entities decode_entities/;
 use Storable qw/:DEFAULT nstore dclone/;
-# use utf8;
-# use HTML::Template; #http://search.cpan.org/~samtregar/HTML-Template-2.6/Template.pm
+use utf8;
+
+# about decoding/encoding html
+=pod
+- original text should already be html safe, written in utf8 (decoded)
+- when editing, retrieved text should further be encoded for showing html < > & correctly
+- after submitting, seems no need to decode again, for some reason
+=cut
+
 
 our $POCCHONG={
+	dbfile=>$ENV{DOCUMENT_ROOT}.'/cgi-bin/pocchong.sqlite',
 	tmpdir=>$ENV{DOCUMENT_ROOT}.'/tmp',
 	siteurl=>'www.pocchong.de',
 	timeout=>3600*2, #timeout session in session
 	site_title=>'音時雨 ～Fairy Aria～',
-	logfile=>$ENV{DOCUMENT_ROOT}.'/cgi-bin/ctfile.txt',
 	navi_step=>2, # for page block. show +-2 pages starting at current
 	#admin
 	admin_url=>'/a/',
@@ -62,16 +70,16 @@ sub DESTROY {
 sub db_connect { #switch to sqlite since 170802. note when adding new entry, use 'INSERT INTO TABLE ("COL1","C2",...) VALUES(?,?,...)' instead of "SET XX=?"
 	my $k=shift;
 	return 0 if $k->{DBH};
-	my $dbfile='/home2/ghostelf/public_html/pocchong/cgi-bin/pocchong.sqlite';
+	my $dbf=$POCCHONG->{dbfile};
 	$k->{DBH}=DBI->connect(
-		"dbi:SQLite:dbname=$dbfile","","",
+		"dbi:SQLite:dbname=$dbf","","",
 		{
 			RaiseError     => 1,
 			sqlite_unicode => 1, # MUST!
 		}
 	 ) or die "can't connect";
 }
-#old
+#old mysql ver
 =pod
 sub db_connect {
 	my $k=shift;
@@ -182,24 +190,26 @@ sub redirect { #NOT for header
 		print $k->{CGI}->redirect('-url'=>$path);
 	}
 }
-sub htmlentities { #simple, for &, <, >, ä, ö, ü, ï, ß, °, ", '
-	my ($k, $str)=@_;
-	# use HTML::Entities qw/encode_entities decode_entities/;
+sub htmlentities { #with encoding utf8
+	my ($k, $str,$noescape)=@_;
+	return '' if !$str;
 	if ($str) {
-		$str=~s/&/&amp;/g;
-		$str=~s/>/&gt;/g;
-		$str=~s/</&lt;/g;
+		if (!$noescape) {
+			$str=encode_entities($str);
+		}
+		# $str=~s/&/&amp;/g;
+		# $str=~s/>/&gt;/g;
+		# $str=~s/</&lt;/g;
 		# $str=~s/°/&deg;/g;
-		# $str=~s/ä/&auml;/g;
 		# $str=~s/ö/&ouml;/g;
+		# $str=~s/ä/&auml;/g;
 		# $str=~s/ü/&uuml;/g;
 		# $str=~s/ï/&iuml;/g;
 		# $str=~s/ß/&szlig;/g;
 		# $str=~s/"/&quot;/g;
 		# $str=~s/'/&apos;/g;
-		# return $str;
-		return encode('UTF-8',$str);
-		# return encode_entities($str);
+		# $str=encode('UTF-8',$str); #above chars are showed as direct utf-codes, so have to encode
+		return $str;
 	} else {
 		return '';
 	}
@@ -310,7 +320,7 @@ sub print_navi_bar {
 	if (!$navi or !$turn or !$curr or !$baseurl) { return 0; }
 	printf "<div class=\"navi-bar\">\n";
 	if ($navi->{prev}) {
-		printf "<span><a href=\"%s/%s\">&#9664;&#9664;</a></span>\n", $baseurl, ($curr-1);
+		printf "<span><a href=\"%s/%s\">◀◀</a></span>\n", $baseurl, ($curr-1);
 	}
 	if ($navi->{begin0} and $navi->{begin1}) {
 		for (my $i=$navi->{begin0}; $i<=$navi->{begin1}; $i++) {
@@ -338,7 +348,7 @@ sub print_navi_bar {
 		$k->print_navi_square($baseurl, $navi->{end1},$curr);
 	}
 	if ($navi->{next}) {
-		printf "<span><a href=\"%s/%s\">&#9654;&#9654;</a></span>\n", $baseurl, ($curr+1);
+		printf "<span><a href=\"%s/%s\">▶▶</a></span>\n", $baseurl, ($curr+1);
 	}
 	printf "</div><!-- .navi-bar ends -->\n";
 }
@@ -452,9 +462,9 @@ sub print_footer_navi {
 	if (!$url or !$title) { return 0; }
 	my $titlefmt;
 	if ($prev) {
-		$titlefmt='&#8678; '.$title;
+		$titlefmt='⇦ '.$title;
 	} else {
-		$titlefmt=$title.' &#8680;';
+		$titlefmt=$title.' ⇨';
 	}
 	printf '<div class="navi-%s"><a href="%s">%s</a></div>%s',
 		($prev?'prev':'next'),
@@ -505,7 +515,7 @@ sub mk_url_google_img {
 	}
 	return sprintf 'https://%s/%s/%s', (join '/', @t), $size, $fname;
 }
-sub rand_utf8 {
+sub rand_deco_symbol {
 	shift;
 	my $set=[ # HTML CODEの形式でより安全だと思う
 		# '&#9956;', #⛤
@@ -642,18 +652,6 @@ sub _array_wkday { #A ref. 0~6
 	/];
 	if ($short) { return substr $week->[$day],0,3; }
 	else { return $week->[$day]; }
-}
-sub conjugate_md5_hash {
-	my ($k, $entry, $cols) = @_;
-	if (!$cols) { return undef; }
-	my $hashs='';
-	foreach my $col (@$cols) {
-		$hashs.="\0".($entry->{$col}?Encode::encode_utf8 ($entry->{$col}):'');
-$k->peek($entry->{$col});
-	}
-	my $teststr=Digest::MD5->new;
-	$teststr->add($hashs);
-	return $teststr->hexdigest;
 }
 
 1;

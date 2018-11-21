@@ -1,6 +1,10 @@
 <!-- SHTML Wrapper - 500 Server Error -->
-<html><head><title>500 Internal Server Error</title><link rel="stylesheet" type="text/css" href="/elem/css/error.css" /></head>
+<html><head><title>500 Internal Server Error</title></head>
 <body>
 <h1>500 Server Error</h1>
-Something is wrong and I can't proceed further... .__.
+
+<img src="/elem/img/errs/500.jpg" alt="" />
+
+<!--#include file="_fterr.shtml" -->
+
 </body></html>

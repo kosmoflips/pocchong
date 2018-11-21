@@ -1,2 +1,0 @@
-- this dir is mainly for *.tmpl files used by cgi scripts
-- html/php files here are mostly incomplete fragments, which is supposed to be integrated into *.tmpl

@@ -1,3 +1,0 @@
-only put .cgi files under the "root" dir
-everything else /supporting img/templates/ go to corresponding sub-dirs
-supporting dir should have same name as the script itself w/o extension

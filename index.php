@@ -1,67 +1,75 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/html_begin.tmpl'); ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/head_meta.tmpl'); ?>
-<title>音時雨 ～Fairy Aria～</title>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/head_general_js.tmpl'); ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='Method_Kiyoism/.' name='generator'/>
+<link href='http://www.pocchong.de/' rel='canonical'/>
+<link rel="alternate" type="application/rss+xml" title="音時雨 ～Fairy Aria～ - RSS" href="http://www.pocchong.de/feed.rss" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="/elem/js/smiley.js"></script>
+<script src="/elem/js/toggle_display.js"></script>
+<link rel="stylesheet" type="text/css" href="/elem/css/main.css" />
+<link rel="stylesheet" type="text/css" href="/elem/css/mini.css" />
+<link rel="stylesheet" type="text/css" href="/elem/css/colour.css" />
 <link rel="stylesheet" type="text/css" href="/elem/css/index.css" />
+<title>音時雨 ～Fairy Aria～</title>
 <script src="/elem/js/fetch_twitter.js"></script>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/head_close.tmpl'); ?>
-<div id="index-toparea">
-<h1 style="display:none">音時雨 ～Fairy Aria～</h1>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/menu.tmpl'); ?>
-</div>
+</head>
+<body>
+<div id="outlayer">
+<div id="header-img"></div>
+<div id="header-outer">
+<a href="/"><span id="headerlink"></span></a>
+<h1><a href="/">音時雨 ～Fairy Aria～</a></h1>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/cgi-bin/part_page_menu.html' ?>
+</div><!-- #header-outer -->
 <div id="mainlayer">
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/search_box.tmpl'); ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/page_main_begin.tmpl'); ?>
-<div class="static">
+<?php include $_SERVER['DOCUMENT_ROOT'].'/cgi-bin/part_page_searchbox.html' ?>
+<div class="post-outer">
+<div class="post-inner-shell">
+<div class="post-inner">
 
 <div id="top-tagline">Archiving my life with music, colours and code magic.</div>
 
-<div id="twi-box">
-<div id="twi-msg"><noscript>This section requires javascript</noscript></div>
-</div>
-
-<!--
 <div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
 
-<h2>Recent Updates <a href="/feed.rss"><img src="/elem/img/rss_s15.png" alt="rss feed"></a></h2>
 <div id="feed-show">
-< ?php
-	$rss = new DOMDocument();
-	$rss->load('http://www.pocchong.de/feed.rss');
-	$feed = array();
-	foreach ($rss->getElementsByTagName('item') as $node) {
-		$item = array ( 
-			'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
-			'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
-			'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
-			'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
-			);
-		array_push($feed, $item);
-	}
-	// $limit = 9;
-	echo '<table>';
-	echo '<tr>';
-	$order=array(0,3,6,9,1,4,7,10,2,5,8,11);
-	$col=3;
-	for($x=0;$x<count($order);$x++) {
-		if ($order[$x]<$col)
-			echo '<td>';
-		$title = str_replace(' & ', ' &amp; ', $feed[$order[$x]]['title']);
-		$link = $feed[$order[$x]]['link'];
-		$description = $feed[$order[$x]]['desc'];
-		$date = date('Y-F-d', strtotime($feed[$order[$x]]['date']));
-			echo '<div class="feed-grid">';
-			echo '<div class="feed-post-time">'.$date.'</div>';
-			echo '<h4><a href="'.$link.'">'.$title.'</a></h4>';
-			echo '<div>'.$description.'</div>';
-			echo '</div>';
-		if ($order[$x]>(count($order)-$col))
-			echo '</td>';
-	}
-	echo '</tr>';
-	echo '</table>';
+<div id="feed-show-inner">
+<?php
+$timespan=60*24*60*0.5; # 1/2 day in second
+$tweetfile=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/part_index_tweets.html';
+if (!empty($_GET['force']) || !file_exists($tweetfile) || ((time() - filemtime($tweetfile)) > $timespan)) { #update json once per x days showing above
+	$chunkfile=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/part_index_tweets_raw.txt';
+	$fh=fopen($chunkfile,"w");
+	$chunk = file_get_contents('https://syndication.twitter.com/timeline/profile?callback=twitterFetcher.callback&dnt=false&screen_name=kosmoflips&suppress_response_codes=true&lang=en&rnd=1');
+	fwrite($fh, $chunk);
+	$cmd=sprintf ('perl %s %s %s', $_SERVER['DOCUMENT_ROOT'].'/cgi-bin/process_tweets.pl', $chunkfile, $tweetfile);
+	exec($cmd);
+}
+include ($tweetfile);
 ?>
 </div>
--->
-</div><!-- .static -->
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/html/shared/php_include_bundle3.php'); ?>
+</div>
+
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+</div><!-- .post-outer -->
+</div><!-- #mainlayer -->
+<div id="footer-outer"></div><!-- .footer-outer -->
+<div id="header-img-otherside"></div>
+</div><!-- #outlayer -->
+<div id="footer-global">
+<a href="/about">2006-<script>document.write(new Date().getFullYear())</script> kiyoko@FairyAria</a>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56543803-1', 'auto');
+  ga('send', 'pageview');
+  //since 2014-Apr-27
+</script>
+</body>
+</html>

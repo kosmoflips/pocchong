@@ -5,11 +5,12 @@ use warnings;
 
 use File::Temp;
 use File::Path;
-use File::Copy qw/:DEFAULT move/;
+use File::Copy qw/:DEFAULT move copy/;
 use File::Spec;
 use Data::Dumper;
 use Storable qw/:DEFAULT dclone/;
 
+use lib $ENV{DOCUMENT_ROOT}.'/cgi-bin/';
 use Method_Kiyoism_Plus;
 my $k=Method_Kiyoism_Plus->new;
 
@@ -19,6 +20,20 @@ my $p=$k->param;
 
 my $TMP=$Method_Kiyoism_Plus::POCCHONG->{tmpdir};
 
+if ($p->{dump}) {
+	my $cpfile=sqldump();
+	return undef if !$cpfile;
+	my $zippath=$TMP.'/sqlite_'.time;
+	my $outfile;
+	if ($outfile=zipfiles($zippath,[$cpfile])) {
+		unlink $cpfile;
+	} else {
+		$outfile=$cpfile;
+	}
+	downloadfile2($outfile,$k);
+}
+#old MySql
+=pod
 if ($p->{dump}) {
 	my $outfile;
 	if (my $dump=sqldump()) {
@@ -31,6 +46,7 @@ if ($p->{dump}) {
 		downloadfile($outfile,$k);
 	}
 }
+=cut
 elsif ($p->{backup}) {
 	#sql dump + entire root dir w/o [tmp] [backyard]
 	my $bkup=$ENV{DOCUMENT_ROOT};
@@ -38,18 +54,20 @@ elsif ($p->{backup}) {
 	#i dont know what will happen if iutput file is in a dir to be zipped
 	mkpath $outdir if !-d $outdir;
 	#dump sql
-	my $fh = File::Temp->new(TEMPLATE=>'sqldump_XXXXX',SUFFIX=>'.sql', DIR=>$bkup);
+	my $fh = File::Temp->new(TEMPLATE=>'sqlite_XXXXX',SUFFIX=>'.sqlite', DIR=>$bkup);
 	my $tmpdump = $fh->filename;
 	close ($fh);
 	move (sqldump(),$tmpdump);
 
-	my $outfile=File::Spec->catfile($outdir,'pocchong_'.time);
+	my $fname='pocchong.sqlite.'.time;
+	my $outfile=File::Spec->catfile($outdir,$fname);
 	my $exclude='*pocchong/tmp*';
 	my @exclude=('*pocchong/tmp*');
 	my $zipped=zipfiles($outfile,[$bkup],$outdir,\@exclude);
-
-	if (-e $zipped and !-z $zipped) {
-		downloadfile($zipped,$k);
+	my $zipped2=File::Spec->catfile($TMP,$fname.'.tgz');
+	move ($zipped, $zipped2);
+	if (-e $zipped2 and !-z $zipped2) {
+		downloadfile2($zipped2,$k);
 	}
 }
 elsif ($p->{cleandir}) {
@@ -60,20 +78,40 @@ elsif ($p->{cleandir}) {
 
 $k->redirect('/a/');
 
+sub downloadfile2 {
+	my ($fpath,$k)=@_;
+	$k->header();
+	my @cc=split /\//, $fpath;
+	my $f=0;
+	my $path='';
+	foreach my $d (@cc) {
+	# printf "%s , f=%s<br />", $d,$f;
+		if ($d eq 'pocchong' and !$f) {
+			$f=1;
+		}
+		elsif ($f) {
+			$path.='/'.$d;
+		}
+	# printf "%s<br />", $path;
+	}
+	printf '<a href="%s">%s</a>',$path,$cc[-1];
+	exit;
+}
 sub downloadfile { #specify file(s), gzip them, and send to download popup
-	my ($fpath,$CGI)=@_;
+	my ($fpath,$k)=@_;
 	return undef if (!-e $fpath or !-r $fpath);
 	my @t=File::Spec->splitpath($fpath);
 	my $fname=pop @t;
-	print $CGI->header(
-		'-Type' => "application/x-download",
-		'-Content-Disposition'=>"attachment; filename=\"$fname\""
+	print $k->header(
+		{'-Type' => "application/x-download",
+		'-Content-Disposition'=>"attachment; filename=$fname"}
 	);
 	open my $fh, "<", $fpath or die "can't process to download";
 	binmode $fh;
 	local $/ = \10240; ## 10 k blocks <??????
 	while (<$fh>){ print $_; }
 	close ($fh);
+	return 1;
 }
 sub zipfiles { #requires tar and gzip on system
 #ref: http://ss64.com/bash/tar.html
@@ -103,6 +141,17 @@ sub zipfiles { #requires tar and gzip on system
 	if (!$@ and $stat==0) { return $outfile; }
 	else { return 0; }
 }
+sub sqldump {
+	my $cpfile=File::Spec->catfile($TMP,'sqlite_'.time);
+	copy ($Method_Kiyoism_Plus::POCCHONG->{dbfile}, $cpfile);
+	if (-e $cpfile) {
+		return $cpfile;
+	} else {
+		return undef;
+	}
+}
+# old
+=pod
 sub sqldump { #return full path of dumped file
 	my $prog='/usr/bin/mysqldump';
 	my $info={
@@ -136,4 +185,4 @@ sub sqldump { #return full path of dumped file
 		return 0;
 	}
 }
-
+=cut
