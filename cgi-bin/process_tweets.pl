@@ -2,18 +2,31 @@
 
 use strict;
 use warnings;
+use LWP::Simple;
 use Storable qw/dclone/;
 use Time::Local;  #needed for timegm()
 
 #https://syndication.twitter.com/timeline/profile?callback=twitterFetcher.callback&dnt=false&screen_name=kosmoflips&suppress_response_codes=true&lang=en&rnd=1
 
+# ----------------- json formats as of 18-11-21-------------
+=pod
+codes are escaped in json raw file. each tweet is surrounded by:
+<li class="timeline-TweetList-tweet customisable-border"> xxxxx </li>
+=cut
+
 #be careful on file location
 my ($rawfile,$outfile)=@ARGV;
-if (!$rawfile or !-e $rawfile) {
-	die "no raw file given";
+if (!$rawfile and !$outfile) {
+	die "need in and out put files";
 }
+
+my $url='https://syndication.twitter.com/timeline/profile?callback=twitterFetcher.callback&dnt=false&screen_name=kosmoflips&suppress_response_codes=true&lang=en&rnd=1';
+if(!is_success(getstore($url,$rawfile))) {
+	die "can't save tweets to raw file";
+}
+
 if (!$outfile) {
-	$outfile=$rawfile.'_processed.html';
+	$outfile=$rawfile.'__part_index_tweets.html';
 }
 
 open (my $fh, "<:encoding(utf8)", $rawfile);
@@ -25,7 +38,7 @@ while ($chunk=~/<li\s+class=\\"timeline-TweetList-tweet customisable-border.+?Tu
 	my $entry=$&;
 	my $tweet;
 	if ($entry=~m{TweetAuthor-link Identity.+?\(screen name: (\S+)\)}) { $tweet->{author}=$1; }
-	if ($entry=~m{element:avatar.+?data-src-2x=.+?(https:.+?profile_images.+?_bigger.+?)\\"}) { $tweet->{avatar}=$1; }
+	if ($entry=~m{data-src-1x=.+?(https.+?pbs.twimg.com.+?profile_images.+?)\\">}) { $tweet->{avatar}=$1; }
 	# if ($entry=~/Retweeted\\n/) { $tweet->{retweet}=1; }
 	if ($entry=~m{timeline-Tweet-text.+?>(.+?)\s*<\\\/p>}) { $tweet->{txt}=$1; }
 	while ($tweet->{txt}=~m{<img class.+?Emoji Emoji--forText.+?src.+?alt.+?\\"(.+?)\\".+?>}g) {
@@ -34,11 +47,10 @@ while ($chunk=~/<li\s+class=\\"timeline-TweetList-tweet customisable-border.+?Tu
 	}
 	if ($entry=~m{data-rendered-tweet-id=\\"(\d+)\\"}) { $tweet->{id}=$1; }
 
-	if ($entry=~m{element:photo.+?img.+?data-srcset=.+(https.+?)%3Asmall}) { $tweet->{img}=$1.':small'; }
+	if ($entry=~m{<img class=\\"NaturalImage-image\\" data-image=\\"(https:.+?)\\"}) { $tweet->{img}=$1.'.jpg'; }
+	elsif ($entry=~m{data-expanded-url=\\"http:\\/\\/youtu.be\\/(.+?)\?a\\}) { $tweet->{img}='https://img.youtube.com/vi/'.$1.'/0.jpg'; }
+	elsif ($entry=~m{element:photo.+?img.+?data-srcset=.+(https.+?)%3Asmall}) { $tweet->{img}=$1.':small'; }
 	elsif ($entry=~m{background-image: url\((https:.+?)\)}) { $tweet->{img}=$1; }
-	# user uploaded image . updated @ 181115
-	#<img class=\"NaturalImage-image\" data-image=\"https:\/\/pbs.twimg.com\/media\/Dr7th3iU0AAODsZ\" width=\"1171\" height=\"873\" title=\"View image on Twitter\" alt=\"View image on Twitter\">
-	elsif ($entry=~m{<img class=\\"NaturalImage-image\\" data-image=\\"(https:.+?)\\"}) { $tweet->{img}=$1.'.jpg'; }
 	elsif ($entry=~m{<img.+?class=.+?CroppedImage-image js-cspForcedStyle.+?data-srcset.+?(https.+?)%3Alarge}) {
 	$tweet->{img}=$1.':small'; }
 	
@@ -59,11 +71,11 @@ for my $i0 (0..2) { #3 column
 	for (my $i=$i0;$i<(scalar @$all); $i+=3) {
 		my $tweet=$all->[$i];
 		printf $fh2 '<div class="feed-grid">%s', "\n";
-		printf $fh2 '<div><span class="feed-post-author"><a href="%s/%s" target="_blank"><img src="%s" /></a></span><span class="feed-post-time"><a href="%s/%s/status/%s" target="_blank">%s</a></span></div>',
+		printf $fh2 '<div><span class="feed-post-author"><a href="%s/%s" target="_blank"><img src="%s" alt="" /></a></span><span class="feed-post-time"><a href="%s/%s/status/%s" target="_blank">%s</a></span></div>',
 			$turl,$tweet->{author},$tweet->{avatar},
 			$turl,$tweet->{author},$tweet->{id},UTC2LocalString($tweet->{time});
 		printf $fh2 '<div class="feed-post-content">%s</div>', $tweet->{txt};
-		if ($tweet->{img}) { printf $fh2 '<div class="feed-post-attach"><img src="%s" /></div>', $tweet->{img}; }
+		if ($tweet->{img}) { printf $fh2 '<div class="feed-post-attach"><img src="%s" alt="" /></div>', $tweet->{img}; }
 		if ($tweet->{note}) { printf $fh2 '<div class="feed-post-note"><b>%s</b>', $tweet->{note};
 			if ($tweet->{note2}) { printf $fh2 '<div>%s</div>', $tweet->{note2}; }
 			printf $fh2 "</div>\n";

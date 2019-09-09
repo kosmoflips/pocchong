@@ -1,0 +1,3 @@
+[21-Nov-2018 23:51:37 America/Denver] PHP Warning:  sprintf(): Too few arguments in /home1/ghostelf/public_html/pocchong/cgi-bin/admin/tasks.php on line 79
+[21-Nov-2018 23:51:37 America/Denver] PHP Warning:  exec(): Cannot execute a blank command in /home1/ghostelf/public_html/pocchong/cgi-bin/admin/tasks.php on line 80
+[22-Nov-2018 00:05:28 America/Denver] PHP Warning:  fprintf(): Too few arguments in /home1/ghostelf/public_html/pocchong/cgi-bin/admin/sub_mkfeed.php on line 25

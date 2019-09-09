@@ -1,0 +1,532 @@
+/*----- useful links:
+
+http://www.w3schools.com/cssref/css_websafe_fonts.asp
+
+-------------*/
+/*tone: violet*/
+
+/*---------------  simple CSS shared for all screen-dimension ----------------*/
+a:link, a:visited { text-decoration: none; }
+a:link { color: #cf0080; }
+a:hover { color: #cf0080; text-decoration: underline; }
+a:visited { color: #cf0080; }
+ul { list-style-type: square; }
+
+.bigger { font-size: 130%; }
+.smaller { font-size:80%; }
+.exbig { font-size:180%; }
+.exsmall { font-size:50%; }
+
+.p { /* make a <div> like a <p> . reduce getting errors of nesting p and div inproperly*/
+	margin: 10px auto;
+}
+
+
+/*--------------- BELOW. rich CSS for bigger screen ----------------*/
+@media all and (min-width: 481px) { /*intended for screen display but mobile css-ing is too tricky so i give up and keep things like this*/
+@font-face {
+	font-family: 'Cherry Cream Soda';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Cherry Cream Soda'), local('CherryCreamSoda'), url(http://themes.googleusercontent.com/static/fonts/cherrycreamsoda/v4/OrD-AUnFcZeeKa6F_c0_W7qBN36jQhVLTmQ9NDizP_4.ttf) format('truetype');
+}
+
+/*------- override default html elements -----*/
+ul { /* while changing its position, remember to also adjust "ul#menu li ul.sub-menu" */
+	padding-left:30px;
+}
+
+
+/* --- block/code rendering --- */
+blockquote {
+	margin:20px auto;
+	box-shadow: 3px 3px 4px #bdc4e5;
+	padding:15px 20px;
+	border-radius: 5px;
+	width: 85%;
+}
+code, blockquote, pre, pre .codespan, .codeblock {
+	background: rgba(198,205,243,0.5);
+}
+textarea {
+	background: rgba(198,205,243,0.5);
+	border-radius: 2px;
+	border: 2px solid #d6b0e4;
+	color: #19197e;
+}
+pre, pre .codespan, .codespan, .codeblock { /* both are for codes */
+	font-family: "Courier New", Courier, monospace;
+/*below , wrap text in <pre> */
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+pre, .codeblock { /* when it's NOT in a span */
+	display: block;
+	padding: 15px 20px;
+	margin: 10px;
+}
+.codespan {
+	display: inline !important;
+	border: none;
+	padding: 3px 5px;
+	margin: inherit;
+}
+
+
+/*-- batch formatting: center and while-select  --*/
+#outlayer, .post-outer .datetime, .post-inner-shell, .post-inner h3, .post-inner, .post-inner blockquote {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+/*-------global layout-------*/
+body {
+	color:#19197e;
+	font-size: 17px;
+	font-family: "Yu Gothic UI", Meiryo, Tahoma, Arial,Verdana,sans-serif;
+	background: #89c9f3 url(170730_hoshikagaya_bg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#outlayer {
+	width: 1070px;
+	margin: 25px auto 20px;
+	display: block;
+	background: rgba(255,255,255,0.4);
+	border: 5px solid rgba(80,126,216,0.7);
+}
+#header-img {
+	background: transparent;
+	height:285px;
+	width: 400px;
+	display:inline-block;
+	position: absolute;
+	z-index:15;
+}
+/* NOT IN USE BUT KEEP IT!
+designed to be put between closing tags of  #footer-outer and #out-layer as <div id="header-img-otherside"></div>
+#header-img-otherside {
+	hope in future i can find some better img for it
+	*/
+/*
+	background: url(/elem/img/top_mizuhiki_bot_150406.png) bottom right no-repeat;
+	height:247px;
+	margin-top:-247px;
+	width: 350px;
+	display:inline-block;
+	float:right;
+	position: relative;
+	z-index:20;
+	right:0;
+}
+*/
+#header-outer {
+	height:285px; /*>=height of the top mizuhiki img*/
+	position:relative;
+}
+#header-outer h1 {/*shown on mini ver*/
+	display:none;
+}
+#mainlayer {
+	padding: 0 17px;
+	margin-top:-110px;
+}
+
+
+/*-----------post deco---------------*/
+.line { /*kiyo-styled <hr /> tag~*/
+	color:#8266de; /* used when browser doesn't work with gradient or is of non=webkit */
+	max-width:95%;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+	background: -webkit-repeating-linear-gradient(left top,#8266de,#C996D9 8%,#6A7BD9 16%,#8CCBCF 24%,#74C285 32%,#EBDA7B 40%,#FFA154 48%, #8266de 56%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;	
+	font-weight: bold;
+	line-height: 200%;
+	margin:10px auto;
+	vertical-align:middle;
+	font-family: "Lucida Console", monospace;
+	display:block; /*in case I put it in a <span>*/
+	white-space: nowrap; /* limit this elem to be in one line*/
+	overflow: hidden;
+/*
+	-webkit-touch-callout: none; / * display like an img => not selectable* /
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; */
+}
+.netabare {
+	color:transparent;
+	background: rgba(198,205,243,0.5);
+}
+.netabare:hover {
+	color:#19197e;
+}
+.datetime a {
+	color: #146ab7;
+	text-decoration: none;
+}
+.datetime {
+	color: #b57ac2;
+	font-size: 80%;
+	float:right;
+	margin-right:35px;
+}
+.inline-box { /* for "edit" button when cookie is alive*/
+	display: inline-block;
+	font-size: 90%;
+	background: rgba(255,255,255,0.7);
+	margin:auto auto 10px 20px;
+	width:50px;
+	text-align:center;
+	border: 1px dashed rgba(13,46,82,0.3);
+}
+
+/*--------posts layout--------
+note. "<article>" is for actual post content
+*/
+
+.post-outer {
+	display: block;
+	margin: auto auto 55px;
+	/*background: green;*/
+}
+.post-inner-shell { /* applies trans-white bg , or a second img on top, etc...*/
+	position:relative;
+	margin: 0px 30px 35px;
+	box-shadow: 3px 3px 4px #779dda;
+	background: rgba(255,255,255,0.6);
+	border: 1px solid #a7bfe4;
+	border-radius: 5px;
+	padding: 15px 15px 20px;
+}
+.post-inner-shell:last-child {
+	margin-bottom: -30px;
+}
+.post-inner { /* affects post block's bg */
+	padding: 5px 30px 10px;
+}
+.post-inner h2 {
+	/*
+	margin-left: 25px;
+	*/
+	text-align:center;
+	font-family: 'Cherry Cream Soda', cursive;
+	border: 4px double #96b6ef;
+	padding: 8px 15px;
+	background: rgba(255,255,255,0.4);
+	box-shadow: 2px 2px 3px #9e9fd0;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom:10px;
+	max-width: 90%;
+}
+.post-inner h3 {
+	margin: 20px 5px 15px;
+	padding: 7px 17px;
+	font-family: 'Cherry Cream Soda', cursive;
+	font-weight: bold;
+	font-size: 130%;
+	width:95%;
+	background: rgba(183,205,241,0.6);
+	box-shadow: 3px 3px 4px #9e9fd0;
+	border: 1px solid #96b6ef;
+	border-radius: 3px;
+}
+.post-inner h3 a {
+	display: inline-block;
+	max-width: 100%;
+}
+.post-inner h3:hover {
+	background: rgba(146,189,255,0.3);
+}
+.post-inner h4 { /* for in-post h4's*/
+	border-left: 8px solid #dbb4ea;
+	padding:2px 5px; /* adjust with border-left */
+	margin:25px auto 2px; /* up down spacing */
+}
+.post-inner h2 a, .post-inner h2, .post-inner h3,.post-inner h3 a, .post-inner h3:hover a { /* batch colouring titles */
+	color:#19368c;
+	text-shadow: 2px 2px 3px #6a9ddc;
+}
+.idx-preview img {
+	height:100%;
+}
+.idx-preview {
+	float: right;
+	height: 150px;
+	padding: 5px;
+	/* margin-left: 10px; */
+}
+.idx-txt a:visited, .idx-txt a:hover, .idx-txt a {
+	color:#19197e;
+}
+.idx-txt {
+	width: 100%;
+	font-size: 95%;
+}
+/*--------footer-------*/
+#footer-outer {
+	/*border:1px red solid;*/
+	margin: 10px 30px 20px;
+	padding: 0 0 30px;
+}
+.navi-bar {
+	width: 95%;
+	display: block;
+	font-size: 90%;
+	margin:auto;
+	color:#43547b;
+	text-align: center;
+}
+.navi-bar a {
+	text-decoration: none;
+	color:#43547b;
+}
+.navi-bar-square, .navi-bar-square-self {
+	display: inline-block;
+	border: 1px solid #6e81bb;
+	padding: 2px 8px;
+}
+.navi-bar-square {
+	background: rgba(255,255,255,0.4);
+}
+.navi-bar-square-self {
+	background: rgba(177,193,229,0.8);
+	font-weight: bold;
+}
+.navi-prev a, .navi-next a {
+	text-decoration: none;
+	color:#43547b;
+	text-shadow: 1px 1px #ab8dbd;
+}
+.navi-prev, .navi-next {
+	border: 1px solid #6e81bb;
+	background: rgba(177,193,229,0.6);
+	max-width: 37%;
+	font-size: 80%;
+	display: inline-block;
+	padding: 3px 10px;
+}
+.navi-prev {
+	float: left;
+	text-align:left;
+}
+.navi-next {
+	float: right;
+	text-align:right;
+}
+.navi-bar a:hover, .navi-bar-square:hover, .navi-next:hover, .navi-prev:hover {
+	font-weight: bold;
+	text-decoration: underline;
+}
+#footer-global {
+	display: block;
+	text-align: center;
+	font-size: 70%;
+	margin: auto;
+	padding-bottom: 25px;
+}
+#footer-global a:link, #footer-global a:hover, #footer-global a:visited {
+	text-decoration: none;
+	color: #13315f;
+	font-weight: bold;
+}
+
+#headerlink { /* for linking header to homepage*/
+/* border:1px blue solid; */
+	display:block;
+	position: absolute;
+	z-index:20;
+	top:30px;
+	left:507px;
+	width:380px;
+	height:85px;
+}
+/*------menu bar-----------*/
+#menu-out { /* shell for both menu and img version of h1 */
+	display:inline-block;
+	font-family: "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
+	position:absolute;
+/*old
+	margin-left: 420px;
+	*/
+	right: 135px;
+	height: 200px;
+}
+ul#menu { /* adjust menu position inside of #menu-out */
+	margin-top:130px;
+	margin-left:-60px;
+}
+ul#menu li {
+	position: relative;
+	margin:0 2px;
+	font-size:90%;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	z-index: 30;
+	text-align:center;
+    list-style-type: none;
+    display: inline-block;
+}
+ul#menu li {
+	min-width: 65px;
+}
+ul#menu ul.sub-menu li {
+	width: 110px;
+	padding: 2px;
+}
+ul#menu li ul.sub-menu {
+	padding-top:3px;
+	display:none;
+	position: absolute;
+	margin-left:-34px; /* adjust according to global ul/li's indent */
+}
+ul#menu li:hover ul.sub-menu { /* show sub menu on hover */ 
+	display:block;
+}
+ul#menu ul.sub-menu li {
+	margin:3px;
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: rgba(5,32,62,0.6);
+    text-decoration: none;
+    font-weight:bold;
+    padding: 4px;
+    display:inline-block;
+}
+
+/*-------- img -----------*/
+.smiley {
+	background: transparent !important;
+	border: 0;
+	margin: 0;
+	padding:0;
+	box-shadow: none !important;
+	width:auto;
+	height:auto;
+}
+/* transition, hover to zoom-in img: only apply in <article> or .stdalone */
+article img {
+	border: 6px double #92b5f1;
+	padding: 3px;
+	margin: 5px;
+	max-height:400px;
+	max-width: 55%;
+	transition:max-width,max-height 1s,1s;
+	-o-transition-delay: 1s;
+	-moz-transition-delay: 1s;
+	-webkit-transition-delay: 1s;
+    transition-delay: 1s;
+}
+article img:hover {
+	max-width:100%;
+	max-height:100%;
+}
+.stdalone {
+	text-align:center;
+	margin: 20px 0;
+}
+.stdalone img {
+	border: 6px double #92b5f1;
+	background: rgba(255,255,255,0.7);
+	box-shadow: 3px 3px 4px #bdc4e5;
+	max-width:60%;
+	padding: 13px; /* for border effect */
+}
+.gallery-mini, .gallery {
+	text-align: center;
+	margin-top: 20px;
+}
+.gallery-mini {
+	white-space: nowrap;
+	margin-top: 30px;
+	overflow:hidden;
+}
+.gallery-img-frame, .gallery-img-frame-mid, .gallery-img-frame-mini { /* force the div to properly contain the floated images: */
+	position:relative;
+	clear:none;
+	text-align:center;
+	overflow:hidden;
+	display:inline-block;
+	margin: 0; padding: 0;
+}
+.gallery-img-frame { /* 1 entry mode */
+	height: 230px;
+}
+.gallery-img-frame-mid { /* tag mode*/
+	height: 170px;
+	padding: 3px;
+	margin-right: 4px;
+}
+.gallery-img-frame-mid img { /* tag mode*/
+	/* height: 100%; */
+}
+.gallery-img-frame-mini { /* index page */
+	height: 65px;
+	padding: 2px;
+	margin-right: 2px;
+}
+.gallery-img-frame img, .gallery-img-frame-mid img, .gallery-img-frame-mini img {
+	height: 100%;
+}
+.stdalone:hover, .gallery-img-frame:hover, .gallery-img-frame-mid:hover , .gallery-img-frame-mini:hover {
+	opacity: 0.6;
+}
+/*-------archiv -------*/
+.archiv {
+	padding:5px 0 20px;
+}
+.archiv ul {
+	list-style-type: none;
+	margin-top:-10px;
+}
+.archiv li a {
+	text-decoration:none;
+}
+.archiv li {
+	border-bottom: 1px #5e76ad dashed;
+	margin-right: 35px;
+	padding-top: 7px;
+}
+.archiv li:hover {
+	background: rgba(208,214,243,0.5);
+}
+.archiv li:hover a:link, .archiv li:hover a:visited {
+	font-weight: bold;
+}
+.archivdate {
+	width: 11%;
+	display: inline-block;
+	text-align:right;
+	margin-right: 15px;
+}
+
+
+
+}  /* end of screen size area*/
+
+/*--------- google custom search display. for all screen ---------*/
+/*search box*/
+#g-search-area .post-inner, #g-search-area .post-inner-shell {
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+.gsc-control-cse form.gsc-search-box {
+	width: 80% !important;
+	margin: auto;
+}
+.gsc-control-cse, .gsc-webResult.gsc-result, .gsc-results .gsc-imageResult, .gsc-tabHeader.gsc-tabhInactive {
+	background: transparent !important;
+	border: none !important;
+}
+
