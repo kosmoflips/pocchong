@@ -1,10 +1,2 @@
 <!-- SHTML Wrapper - 500 Server Error -->
-<html><head><title>500 Internal Server Error</title></head>
-<body>
-<h1>500 Server Error</h1>
-
-<img src="/elem/img/errs/500.jpg" alt="" />
-
-<!--#include file="_fterr.shtml" -->
-
-</body></html>
+<!--#exec cgi="/500.php" -->

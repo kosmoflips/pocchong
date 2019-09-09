@@ -1,6 +1,0 @@
-User-Agent: *
-#Disallow: 
-#Disallow: /playground/ink/
-#Disallow: /playground/
-
-Sitemap: http://www.pocchong.de/sitemap.xml

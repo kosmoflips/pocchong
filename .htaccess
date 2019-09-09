@@ -2,98 +2,45 @@ Options -Indexes
 RewriteEngine on
 RewriteBase /
 
-Deny from 104.197.197.203
-Deny from 37.187.56.76
-RewriteCond %{HTTP_USER_AGENT} (Baiduspider|Exabot|360Spider|linkfluence) [NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule .* - [R=403,L]
-
 RewriteCond %{HTTP_HOST} ^pocchong\.de$ [NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
 RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 #### TMP 503 REDIRECTS #############
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^gamelist/? - [R=503,L]
-#####################
 
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^feed.rss/? /cgi-bin/feed_rss.cgi [L,NC]
+##### redirect from clean url to source code #############
+# --------------- main pages ----------------------
+RewriteRule ^archiv/y/(\d+)/?$ /cgi-bin/page_archiv.php?year=$1 [L,NC]
+RewriteRule ^archiv/(\d+)/?$ /cgi-bin/page_archiv.php?page=$1 [L,NC]
+RewriteRule ^archiv/?$ /cgi-bin/page_archiv.php [L,NC]
 
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /cgi-bin/admin_list_table.cgi?sel=$1&page=$2 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^a/(edit_[^/]+)/?$ /cgi-bin/admin_$1.cgi [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^a/([^/]+)/? /cgi-bin/admin_$1.cgi [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^a/?$ /cgi-bin/admin_login.cgi [L,NC]
+# RewriteRule ^mygirls/t/(\d+)/?(\d*) /cgi-bin/page_mygirls.php?tag=$1&offset=$2 [L,NC]
+RewriteRule ^mygirls/p/?(\d*) /cgi-bin/page_mygirls.php?page=$1 [L,NC]
+RewriteRule ^mygirls/(\d*) /cgi-bin/page_mygirls.php?id=$1 [L,NC]
+RewriteRule ^mygirls/?$ /cgi-bin/page_mygirls.php [L,NC]
 
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^p/([^/]+)/?$ /cgi-bin/page_static.cgi?file=$1 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^exec/(.+)/?$ /cgi-bin/exec_$1.cgi [L,NC]
+RewriteRule ^post/?(.*)?$ /days/$1 [R,NC] #old url [post] redirect to new url [days]
+RewriteRule ^days/p/?(\d*) /cgi-bin/page_post.php?page=$1 [L,NC]
+RewriteRule ^days/(\d*) /cgi-bin/page_post.php?id=$1 [L,NC]
+RewriteRule ^days/?$ /cgi-bin/page_post.php [L,NC]
 
-#special redirects
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(maxi|kiyoshot|about|gamelist)/?$ /cgi-bin/page_static.cgi?file=$1 [L,NC]
+# files under this dir need extention
+RewriteRule ^exec/(.*)$ /e/$1 [R,NC]
+RewriteRule ^e/(.*)?$ /cgi-bin/exec/$1 [L,NC]
 
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^archiv/year/(\d+)/?$ /cgi-bin/page_archiv.cgi?year=$1 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^archiv/(\d+/?)?$ /cgi-bin/page_archiv.cgi?page=$1 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(mygirls)/tag/(\d+)/(\d+)/?$ /cgi-bin/page_$1.cgi?tag=$2&offset=$3 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(mygirls)/tag/(\d+)/?$ /cgi-bin/page_$1.cgi?tag=$2 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(mygirls|post)/page/(\d+)/?$ /cgi-bin/page_$1.cgi?page=$2 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(mygirls|post)/(\d+)/?$ /cgi-bin/page_$1.cgi?id=$2 [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(archiv|mygirls|post)/?$ /cgi-bin/page_$1.cgi [L,NC]
+# ------------ static pages and misc ---------
+# direct redirects
+RewriteRule ^about/?$ /static/about.php [L,NC]
+RewriteRule ^shinya/?$ /backyard/shinya/kaidan.php [L,NC]
+# general static pages
+RewriteRule ^s/([^/]+)/?$ /static/$1.php [L,NC]
 
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^cyouwa/?$ /projekt/cyouwa/index.cgi [L,NC]
-RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^cyouwa/(.+?)(\.cgi|\.html)?/?$ /projekt/cyouwa/$1.cgi [L,NC]
+# -------------------- admin pages --------------------------
+RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /cgi-bin/admin/list_table.php?sel=$1&page=$2 [L,NC]
+RewriteRule ^a/(edit_[^/]+)/?$ /cgi-bin/admin/$1.php [L,NC]
+RewriteRule ^a/([^/]+.cgi)/? /cgi-bin/admin/$1 [L,NC]
+RewriteRule ^a/([^/]+)/? /cgi-bin/admin/$1.php [L,NC]
+RewriteRule ^a/?$ /cgi-bin/admin/login.php [L,NC]
+
+# ---------- cyouwa oto dead archive-----------
+RewriteRule ^cyouwa/?$ /backyard/cyouwa/index.php [L,NC]
+RewriteRule ^cyouwa/(.*).html$ /backyard/cyouwa/$1.php [L,NC]
