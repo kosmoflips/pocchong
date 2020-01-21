@@ -29,6 +29,11 @@ $selurl=sprintf ('/a/list_table/%s/page', $table);
 <?php // ----- HTML --------------
 write_html_admin(0);
 ?>
+<?php
+if (isset($_GET['dst']) and $_GET['dst']==3) {
+	print_system_msg('selected entry(s) deleted.');
+}
+?>
 <div><a href="<?php echo $editbase ?>/?new=1">Create New</a></div>
 <?php print_navi_bar($navi, $POCCHONG['GENERAL']['navi_step'], $curr, $selurl); ?>
 <form action="<?php echo $actionurl ?>" method="post" accept-charset="utf-8" >

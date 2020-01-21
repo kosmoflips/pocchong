@@ -22,7 +22,10 @@ print $k->{CGI}->header($http);
 
 my $p=$k->{CGI}->Vars();
 if ($p->{sql}) {
-	my $dbf=$ENV{DOCUMENT_ROOT}.'/cgi-bin/pocchong.sqlite';
+	my $dbf=$ENV{DOCUMENT_ROOT}.'/cgi-bin/pocchong_data.sqlite';
+	if (!-e $dbf or -z $dbf) {
+		die "db file doesn't exist or empty";
+	}
 	$k->{DBH}=DBI->connect( "dbi:SQLite:dbname=".$dbf,"","", {
 			RaiseError     => 1,
 			sqlite_unicode => 1, # MUST!
@@ -32,7 +35,7 @@ if ($p->{sql}) {
 	foreach my $stat (@sqls) {
 		next if $stat!~/\S/;
 		my $sth=dosql($k,$stat);
-		printf "%s\n>>query: %s\n%s\n\n", ('-' x 50), $stat, ('-' x 50);
+		printf "%s\n\n>>query: %s\n%s\n\n", ('=' x 70), $stat, ('=' x 70);
 		eval {
 			my $fields=$sth->{NAME};#,"<br />";
 			if ($fields and @$fields>0) {

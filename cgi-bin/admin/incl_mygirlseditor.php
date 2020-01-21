@@ -29,6 +29,8 @@ write_html_admin(0);
 	<td><input type="number" size="9" name="main[epoch]" maxlength="12" value="<?php echo $info['epoch'] ?>" required /> <?php echo time27($info['epoch'],4,$info['gmt'],null) ?></td></tr>
 <tr><td><b>gmt*</b></td>
 	<td><input type="number" min="-12" max="12" size="4" name="main[gmt]" maxlength="2" value="<?php echo $info['gmt'] ?>" required /></td></tr>
+<tr><td><b>year*</b></td>
+	<td><input type="number" name="main[year]" maxlength="2" value="<?php echo ($info['year']??(date('Y')-2000)) ?>" readonly />(supposed year-2000) if really want to change this, do it through SQL directly</td></tr>
 <tr><td><b>rep_id (current)</b></td>
 	<td><input type="number" size="4" name="curr_rep_id" maxlength="11" value="<?php echo $info['rep_id'] ?>" readonly></td></tr>
 <tr><td><b>post_id</b></td>
@@ -88,7 +90,7 @@ write_html_admin(0);
 ?>
 </table>
 <input type="reset" value="Reset" onclick="return confirm('reset everything?')" />
-<input type="submit" name="opt" value="Submit" onclick="this.form.target='_self'" />
+<input type="submit" name="opt" value="Save" onclick="this.form.target='_self'" />
 <?php
 	if (!isset($info['insert'])) { // this is an existing entry
 ?>

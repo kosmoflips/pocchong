@@ -1,25 +1,18 @@
 <div id="menu-out">
 <ul id="menu">
 <li><a href="<?php echo $POCCHONG['POST']['url'] ?>">Days</a></li>
-<li><a href="<?php echo $POCCHONG['ARCHIV']['url'] ?>">Archiv</a></li>
+<li><a href="<?php echo $POCCHONG['ARCHIV']['url_archiv'] ?>">Archiv</a>
+	<ul class="sub-menu">
+		<li><a href="<?php echo $POCCHONG['ARCHIV']['url_calendar']?>">Calendar</a>
+		</li></ul>
+</li>
 <li><a href="<?php echo $POCCHONG['MYGIRLS']['url'] ?>">MyGirls</a></li>
-<!--<li><a href="https://plus.google.com/u/0/collection/sggkHE" target="_blank">Picasa</a></li> -->
-<li><a href="/">Backyard</a>
+<li><a href="/backyard">Backyard</a>
 	<ul class="sub-menu">
 <?php // links here open in new window
 	foreach ($POCCHONG['STATIC']['set'] as $ff => $tt) {
 		printf ('<li><a href="%s" target="_blank">%s</a></li>%s',
 				$ff, $tt, "\n" );
-	}
-?>
-	</ul>
-</li>
-<li><a href="/">Misc</a>
-	<ul class="sub-menu">
-<?php
-	foreach ($POCCHONG['STATIC']['list'] as $ff => $tt) {
-		printf ('<li><a href="%s/%s">%s</a></li>%s',
-				$POCCHONG['STATIC']['url'],$ff, $tt, "\n" );
 	}
 ?>
 	</ul>

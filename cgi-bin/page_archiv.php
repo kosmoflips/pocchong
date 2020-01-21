@@ -5,11 +5,11 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php'
 $k=new PocDB();
 
 $yearmode=0; #mode for showing a list of one certain year. standard time . ALL using 27H mode
-$year_first=2006;
-$year_last=time27($k->getOne('select epoch from post order by epoch desc limit 1'),2);
+$year_first=$POCCHONG['SITE']['year1'];
+$year_last=yearlast($k,1);
 $page_turn=$POCCHONG['GENERAL']['navi_step'];
-$url=$POCCHONG['ARCHIV']['url'];
-$title=$POCCHONG['ARCHIV']['title'];
+$url=$POCCHONG['ARCHIV']['url_archiv'];
+$title=$POCCHONG['ARCHIV']['title_archiv'];
 
 # setup yearmode if valid
 if (isset($_GET['year']) ) {
@@ -29,19 +29,15 @@ $listall=array();
 $base_stat='SELECT id,title,epoch,gmt FROM post';
 if ($yearmode) {
 	$cpage=$_GET['year']; // no need to verify year anymore
-	$t0=mktime(0,0,0,1,0,$_GET['year']);
-	$t1=mktime(0,0,0,1,0,($_GET['year']+1));
-	$t1+=24*60*60; #adjust epoch for 27H format
-	$t0+=24*60*60;
-	$list1=$k->getAll($base_stat.' WHERE epoch>=? and epoch<? ORDER by epoch', array($t0, $t1)); # year mode, order asc
+	$list1=$k->getAll($base_stat.' WHERE year=? ORDER by epoch', array($_GET['year']-2000)); # year mode, order asc
 	$listall[$_GET['year']]=$list1;
-	$url.=$POCCHONG['ARCHIV']['url_year'];
+	$url.=$POCCHONG['ARCHIV']['url_archiv_year'];
 	$title.=$POCCHONG['GENERAL']['separator'].$_GET['year'];
 	$navi=calc_navi_set($year_first,$year_last,$_GET['year'],$page_turn);
 }
 else { #non year mode
 	$table=$POCCHONG['POST']['table'];
-	$max_per_page=$POCCHONG['ARCHIV']['max'];
+	$max_per_page=$POCCHONG['ARCHIV']['max_archiv'];
 	$totalrows=$k->countRows($table);
 	$totalpgs=calc_total_page($totalrows,$max_per_page);
 	$cpage=verify_current_page($cpage,$totalpgs);
@@ -57,7 +53,7 @@ $naviset=mk_naviset( $navi, $page_turn, $cpage, $url );
 
 ?>
 <?php // output html
-write_html_open($title,null,1);
+write_html_open($title);
 
 print_post_wrap(0);
 printf ("<h2>%s %s %s</h2>\n",rand_deco_symbol(), $title,rand_deco_symbol() ); // h2
@@ -66,7 +62,7 @@ foreach ($listall as $loopyear=>$ylist) {
 	echo '<ul>',"\n";
 	if (!$yearmode) {
 		printf ('<h3><a href="%s%s/%s">%s %04d %s</a></h3>%s',
-			$url, $POCCHONG['ARCHIV']['url_year'],$loopyear,
+			$url, $POCCHONG['ARCHIV']['url_archiv_year'],$loopyear,
 			rand_deco_symbol(), $loopyear, rand_deco_symbol(),
 			"\n");
 	}

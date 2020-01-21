@@ -2,10 +2,11 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
 ?>
 <?php
-$extra='<link rel="stylesheet" type="text/css" href="/deco/css/index.css" />
+write_html_open_head(null);
+echo '<link rel="stylesheet" type="text/css" href="/deco/css/index.css" />
 <script src="/deco/js/fetch_twitter.js"></script>
 ';
-write_html_open(null,$extra,$POCCHONG['FILE']['js'],$POCCHONG['FILE']['css']);
+write_html_open_body();
 
 ?>
 <div class="post-inner-shell">

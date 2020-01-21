@@ -1,39 +1,9 @@
-/* addition css for index */
-/* main tone: violet */
-@media only screen and (min-width: 481px) {
-
-
-
 #index-toparea {
 	background: url('/elem/img/top170731hoshikagaya.png') top center no-repeat;
 	height:300px; / * same as idxtop.png * /
-/*	width: 958px; / * pic width (974) - border width x2 * /  */
 	margin:30px auto auto;
-/*	border: 8px solid #5d86d6;*/
 	border-radius: 5px;
 }
-/*
-#menu-out {
-	margin-top:145px;
-}
-ul#menu {
-	margin-left: -100px;
-	min-width: 600px;
-}
-ul#menu li, ul#menu ul.sub-menu li {
-	background: rgba(71,107,189,0.8);
-	border: 2px solid #fff;
-}
-ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: #fff;
-}
-ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: rgba(160,181,230,0.8);
-}
-#mainlayer {
-	margin-top:0;
-}
-*/
 #top-tagline {
 	font-family: Impact, Charcoal, sans-serif;
 	font-size:200%;
@@ -47,7 +17,6 @@ h2 {
 	margin: 0 auto;
 }
 h5 {
-/*	margin: 2px auto 2px !important;*/
 	margin: 7px 10px -10px;
 }
 
@@ -107,18 +76,6 @@ table.post-grid {
 #twi-msg {
   margin: 0;
 }
-/*
-#twi-msg ul li:first-child .timePosted {
-	/ * tweaking css is easier than twitter's own js * /
-	display:block;
-	margin:0 auto 0 -10px;
-	font-weight: bold;
-	padding-bottom: 10px;
-}
-.timePosted {
-	display:none;
-}
-*/
 #twi-box {
 	background: rgba(255,255,255,0.3);
 	border: 1px #5d2985 dashed;
@@ -132,6 +89,4 @@ table.post-grid {
 #twi-msg p {
 	margin: 0;
 	padding: 0;
-}
-
 }

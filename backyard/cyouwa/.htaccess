@@ -1,0 +1,9 @@
+Options -Indexes
+RewriteEngine on
+RewriteBase /
+
+# mostly fixed redirects as there wont be more updates
+RewriteRule ^infinity09/?$ /cyouwa/showpost.php?id=1 [L,NC]
+RewriteRule ^realworld_stalking/?$ /cyouwa/showpost.php?id=9 [L,NC]
+RewriteRule ^(\d+)/?$ /cyouwa/showpost.php?id=$1 [L,NC]
+
