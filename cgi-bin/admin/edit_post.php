@@ -15,6 +15,14 @@ chklogin(1);
 $k=new PocDB();
 $redirectlist='/a/list_table?sel=post';
 
+#dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
+
+if (isset($_GET['dst'])) {
+	if ($_GET['dst']==1) {
+		print_system_msg('entry updated');
+	}
+}
+
 $usrsubmit=0;
 $showedit=0;
 // make sure blocks for each purpose properly 'exit' or 'jump'
@@ -28,6 +36,7 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 		if (isset($_POST['id'])) {
 			_del_post($k,$_POST['id']);
 		}
+		$redirectlist.='&dst=3';
 		jump($redirectlist);
 	}
 	elseif ($_POST['opt'] == 'View') {
@@ -35,7 +44,7 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 		jump($redirect);
 	}
 	elseif ($_POST['opt'] == 'Preview') { // -------- print_post_entry. copied from page_post.php  . may not be synced. purpose is to preview css/style etc.
-		write_html_open(null,null,$POCCHONG['FILE']['js'],$POCCHONG['FILE']['css']);
+		write_html_open(null);
 		write_preview_sash();
 		 $tag='article';
 		print_post_wrap();
@@ -50,7 +59,7 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 		write_html_close();
 		exit;
 	}
-	elseif ($_POST['opt'] == 'Submit') {
+	elseif ($_POST['opt'] == 'Save') {
 		$usrsubmit=1;
 	}
 	else { // none of above go back to post-list
@@ -74,6 +83,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 		$edit['insert']=1;
 		$edit['id']='';
 		$edit['title']='';
+		$edit['year']=date('Y')-2000;
 	}
 	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_posteditor.php');
 	exit;
@@ -96,7 +106,7 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 		array_unshift ($pile, $id);
 		$k->dosql($stat, $pile);
 	}
-	$rurl=sprintf ('%s/?id=%s',$POCCHONG['POST']['edit'],$id);
+	$rurl=sprintf ('%s/?id=%s&dst=1',$POCCHONG['POST']['edit'],$id);
 	jump($rurl);
 }
 jump($redirectlist);

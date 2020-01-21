@@ -35,6 +35,17 @@ chklogin(1);
 $k=new PocDB();
 $redirectlist='/a/list_table?sel=mygirls';
 
+#dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
+
+if (isset($_GET['dst'])) {
+	if ($_GET['dst']==2) {
+		print_system_msg('selected pieces deleted');
+	}
+	else {
+		print_system_msg('entry updated');
+	}
+}
+
 $usrsubmit=0;
 if (isset($_POST['opt'])) { //submit,preview,delete
 	if ($_POST['opt'] == 'DELETE') {
@@ -46,6 +57,7 @@ if (isset($_POST['opt'])) { //submit,preview,delete
 		if (isset($_POST['main']['id'])) { // submitted from edit interface
 			_del_mygirls($k,$_POST['main']['id']);
 		}
+		$redirectlist.='&dst=3';
 		jump($redirectlist);
 	}
 	elseif ($_POST['opt'] == 'DELselected') {
@@ -61,22 +73,22 @@ if (isset($_POST['opt'])) { //submit,preview,delete
 				$k->dosql('DELETE FROM mygirls_pcs WHERE id=?',array($pid));
 			}
 		}
-		$rurl=sprintf ('%s/?id=%s',$POCCHONG['MYGIRLS']['edit'],$_POST['main']['id'] );
+		$rurl=sprintf ('%s/?id=%s&dst=2',$POCCHONG['MYGIRLS']['edit'],$_POST['main']['id'] );
 		jump($rurl);
 		exit;
 	}
 	elseif ($_POST['opt'] == 'View') {
-		$reurl=sprintf ('%s/%s', $POCCHONG['MYGIRLS']['url'],$_POST['id']);
+		$reurl=sprintf ('%s/%s', $POCCHONG['MYGIRLS']['url'],$_POST['main']['id']);
 		jump($reurl);
 	}
-	elseif ($_POST['opt'] == 'Submit') { // set flag, do later
+	elseif ($_POST['opt'] == 'Save') { // set flag, do later
 		$usrsubmit=1;
 	}
 	else {
 		jump($redirectlist);
 	}
 }
-elseif (isset($_GET['new']) or isset($_GET['id'])) { #edit page
+elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	$info=array();
 	$tagidx=$k->getTags();
 
@@ -115,6 +127,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #edit page
 		$info['id']='';
 		$info['vol']='FACL000';
 		$info['title']='';
+		$info['year']=date('Y')-2000;
 		$info['epoch']=time();
 		$info['gmt']=-7;
 		$info['post_id']='';
@@ -272,7 +285,7 @@ if ($usrsubmit) { // edit/update from $_POST
 	if ( $newrep != $crep ) { // -- update rep_id ---
 		$k->dosql('UPDATE mygirls SET rep_id=? where id=?', array($newrep,$main['id']));
 	}
-	$rurl=sprintf ('%s/?id=%s',$POCCHONG['MYGIRLS']['edit'],$main['id'] );
+	$rurl=sprintf ('%s/?id=%s&dst=1',$POCCHONG['MYGIRLS']['edit'],$main['id'] );
 	jump($rurl);
 }
 

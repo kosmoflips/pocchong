@@ -1,12 +1,13 @@
+<?php  // LAST MODIFIED : 2020-Jan-16 ?>
 <?php 	// ------------ system config, keep on top----------------
 // enable extension=mbstring in php.ini
 // enable extension=mysqli in php.ini
 // enable extension=pdo_sqlite in php.ini
 // many subs are inheritated from .pm, so they may not be the best solution in php
 // constants , UTF8 anchor (´・ω・｀)
-$sysini=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/pocchong.ini';
+$sysini=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/pocchong_config.ini';
 if (!file_exists($sysini)) {
-	die ("the config ini file is not found from specified location, fix your code!");
+	die ("the config file pocchong.ini is not found from specified location, fix your code!");
 } else {
 	$POCCHONG= parse_ini_file($sysini,true); # 'true' , parse [sections]
 	$POCCHONG['FILE']['sqlite']=$_SERVER['DOCUMENT_ROOT'].$POCCHONG['FILE']['sqlite'];	
@@ -99,6 +100,86 @@ public function getTags() { // return $tags->{$tag_id} = $tag_name
 
 } // closing class
 ?>
+<?php // ---- time related-------
+function time27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // use either 24 or 27 H mode. process return hash.
+# 27-H Mode: time <= 3:00 AM, continue from 24 (0:00 AM=> 24:00, 2:59 AM => 26:59, 3:00 AM => no change)
+#as default timezone is -7, when using GMT, e.g. London, need to clearly give "gmt=>0"
+
+	if (isset($epoch)) {
+		if ( !preg_match("/^\d+$/", $epoch) ) {
+			$epoch=null;
+		}
+	}
+	if (isset($gmt)) {
+		preg_match("/^(\s*[+-]?\s*\d+)\s*$/", $gmt, $gmt0);
+		if (!isset($gmt0[1]) or ($gmt0[1] < -12 or $gmt0[1] > 12) ) {
+			$gmt=null;
+		}
+	}
+	$epoch=isset($epoch)?$epoch:time();
+	$gmt=isset($gmt)? $gmt : -7;
+
+// -------------- process time hash ----------------
+	$h_offset=date('O'); #server hour offset
+	$h_offset=preg_replace('/00$/','',$h_offset);
+	$h_offset=preg_replace('/^([+-])0/','$1',$h_offset);
+	if ($gmt!=$h_offset) {
+		$epoch+=3600*($gmt-$h_offset); #now epoch should be the literal local time
+	}
+	if ( date('H',$epoch) <=2 and !$time24) { # shift day for 27H if < 3AM and not showing in 24H format
+		$shiftday=24;
+	} else {
+		$shiftday=0;
+	}
+	$epoch-=$shiftday*60*60;
+//------------ output time in format ---------------------------
+// NOTE: when writing hour, MUST use {  date('H',$epoch) + $shiftday  }
+// test $epoch = 1483607582; actual time = Thu, 05 Jan 2017 02:13:02 -0700 (24H)
+	if ($format==1) { return date('M-d', $epoch); } // Jan-04
+	elseif ($format==2) { return date('Y',$epoch); } // 2017
+	elseif ($format==3) { return date('ymd',$epoch); } // 170104
+	elseif ($format==4) { // post format : 2018-Nov-13 (Tue), 26:51@GMT-7
+		return sprintf ( "%s, %s:%s@GMT%+02d",
+			date("Y-M-d (D)",$epoch),
+			(date('H', $epoch) + $shiftday),
+			date("i",$epoch),
+			$gmt
+		);
+	}
+	elseif ($format==5) { return date('Y/m/d',$epoch); } // YYYY/MM/dd
+	elseif ($format==6) { return $epoch; } // epoch
+	else { // default format. January 4, 2017, 26:13 (27H)
+		return sprintf ( "%s, %s:%s",
+			date('F j, Y', $epoch),
+			(date('H', $epoch) + $shiftday),
+			date('i', $epoch)
+		);
+	}
+}
+function yearlast ($k,$sel=0) { // return year 4 digits. get years of the most recent post from DB, so $k is required
+	// yearfirst is given in ini file
+	$yr1b=0;
+	$yr2b=0;
+	$yr1b=$k->getOne('select year from post order by year desc limit 1') +2000;
+	$yr2b=$k->getOne('select year from mygirls order by year desc limit 1') +2000;
+	if ($sel==1) { # newest POST
+		return $yr1b;
+	} elseif ($sel==2) { // newest MG
+		return $yr2b;
+	} else {
+		return (($yr1b>$yr2b)?$yr1b:$yr2b);
+	}
+}
+/*
+function get_epoch ($y=2006,$m=12,$d=31,$h27=1) { // get epoches between specified dates. t1/t2=[y,m,d], both at 00:00:00
+	$t1=mktime(0,0,0,$m,$d,$y);
+	if ($h27) {
+		$t1+=24*60*60; #adjust epoch for 27H format
+	}
+	return $t1;
+}
+*/
+?>
 <?php // --------------- navi-bar related ---------------
 function mk_navi1 ($k=null,$table='',$cid=1, $url='') {
 	if (!$k or !$table) { return 0; }
@@ -190,18 +271,67 @@ function calc_page_offset($curr_page=1,$max_per_page=0) { #return offset for SQL
 }
 
 ?>
+<?php // ------------ mygirls related ----------
+function mk_url_google_img ($url='',$size='') { // input  has no https://
+	if (!$url) { return ''; }
+	$t=explode ('/', $url);
+	$fname=array_pop($t);
+	array_pop($t); #remove size
+	if (!$size or !preg_match('/^[hws]\d+/i', $size)) { #simple check. should work for most cases
+		$size='s800';
+	}
+	return sprintf ('https://%s/%s/%s', (implode ( '/', $t)), $size, $fname);
+}
+function print_mygirls_h3 ($entry=null,$idx=0) {
+	if ($entry) {
+		global $POCCHONG;
+		$title_h2=sprintf ('%s %s %s', rand_deco_symbol(), $entry['title'], rand_deco_symbol() );
+		if ($idx) { #include link on h3
+			$title_h2=sprintf ('<a href="%s/%s">%s</a>', $POCCHONG['MYGIRLS']['url'], $entry['id'], $title_h2 );
+		}
+		echo '<h2>',$title_h2,'</h2>',"\n";
+	}
+}
+function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
+	if ($url) {
+		return "http://kosmoflips.deviantart.com/art/".$url;
+	} else {
+		return '';
+	}
+}
+
+?>
 <?php // ----------------- write html --------------
-function write_html_open($title='',$extra='',$defaultmeta=0) {
+function write_html_open($title='') { #use this when no extra code in head
+	write_html_open_head($title);
+	write_html_open_body();
+}
+function write_html_open_head($title='') {
 	global $POCCHONG;
 	$jslist=array();
 	$csslist=array();
-	if ($defaultmeta) {
-		$jslist=$POCCHONG['FILE']['js'];
-		$csslist=$POCCHONG['FILE']['css'];
-	}
-	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_open.php');
+	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_open_head.php');
+}
+function write_html_open_body() {
+	echo "</head>\n";
+	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_open_body.php');
 }
 function write_html_close($naviset=null,$navi1=null) { // if both are given, only use navi1 (for single page)
+	echo '</div><!-- .post-outer -->', "\n";
+	// NAVI for all pages or 1 single entry	
+	if (isset($navi1) or isset($naviset)) {
+		echo '<div id="footer-navi">',"\n";
+		if (isset($navi1)) {
+			echo '<div>',"\n";
+			print_footer_navi($navi1['prev']['title'], $navi1['prev']['url'],1);
+			print_footer_navi($navi1['next']['title'], $navi1['next']['url'],0);
+			echo '</div>',"\n";
+		}
+		if (isset($naviset)) {
+			print_navi_bar($naviset['navi'], $naviset['turn'], $naviset['currpage'],$naviset['baseurl']);
+		}
+		echo '</div><!-- .footer-navi -->',"\n";
+	}
 	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_close.php');
 }
 
@@ -210,9 +340,9 @@ function print_static_title($title='') {
 		printf ("<h2>%s %s %s</h2>\n", rand_deco_symbol(), $title, rand_deco_symbol() );
 	}
 }
-function write_html_admin($end=0) {
+function write_html_admin($end=0, $linedjs=0) {
 	if (!$end) {
-		include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_admin_head.html');
+		include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_admin_head.php');
 	} else {
 		include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_admin_tail.html');
 	}
@@ -220,11 +350,17 @@ function write_html_admin($end=0) {
 function write_preview_sash () {
 	echo '<div style="z-index:20;position:fixed;background:rgba(0,0,0,0.7);padding:20px 0;text-align:center;display:block;width:100%;left:-100px;top:50px;font-size:30px;font-weight:bold;color:white;transform: rotate(-20deg)">PREVIEW</div>',"\n";
 }
-function print_post_wrap($do_end=0) { #for .post-inner-shell = ONE individual entry
+function print_post_wrap($do_end=0,$forpost=0) { #for .post-inner-shell = ONE individual entry
 	if (!$do_end) { #<div> opens
 		echo '<div class="post-inner-shell">',"\n";
 		echo '<div class="post-inner">',"\n";
+		if ($forpost) {
+			echo '<article>',"\n";
+		}
 	} else { #<div> closes
+		if ($forpost) {
+			echo '</article>',"\n";
+		}
 		echo '</div><!-- .post-inner -->',"\n";
 		echo '</div><!-- .post-inner-shell -->',"\n";
 	}
@@ -244,14 +380,14 @@ function rand_deco_symbol() {
 		'&#10047;', #✿
 		'&#10048;', #❀
 		'&#10046;', #✾
-		'&#10017;', #✡
+		// '&#10017;', #✡
 		'&#9825;', #♡
 		'&#10059;', #❋
 		'&#10054;', #❆
 		'&#10053;', #❅
 		'&#9733;', #★
 		'&#9734;', #☆
-		'&#9770;', #☪
+		// '&#9770;', #☪
 		'&#9825;', #♠
 		'&#9826;', #♢
 		'&#9828;', #♣
@@ -280,7 +416,6 @@ function print_spacer_dots() {
 }
 function print_navi_bar($navi=null, $turn=1, $curr=1, $baseurl='') {
 	if (!$navi) { return 0; }
-
 	echo '<div class="navi-bar">',"\n";
 	if ($navi['prev']) {
 		printf ('<span><a href="%s/%s">◀◀</a></span>%s', $baseurl, ($curr-1),"\n");
@@ -313,7 +448,7 @@ function print_navi_bar($navi=null, $turn=1, $curr=1, $baseurl='') {
 	}
 	echo '</div><!-- .navi-bar ends -->',"\n";
 }
-function _print_footer_navi ($title='',$url='',$prev=0) { //footer navi <div> for next/prev entry . url should be ABS path to root.
+function print_footer_navi ($title='',$url='',$prev=0) { //footer navi <div> for next/prev entry . url should be ABS path to root.
 	if (!$title or !$url) {
 		return 0;
 	}
@@ -327,6 +462,36 @@ function _print_footer_navi ($title='',$url='',$prev=0) { //footer navi <div> fo
 	echo '<div class="navi-',$prev,'"><a href="',$url,'">', $titlefmt,'</a></div>',"\n";
 }
 
+function print_link_in_head($jslist=array(), $csslist=array(), $jqonly=0) { // in <head>
+	global $POCCHONG;
+	if (isset($jslist) or isset($jqonly)) {
+		printf ('<script src="%s"></script>%s', $POCCHONG['FILE']['jquery'],"\n");
+		if (isset($jslist)) {
+			foreach ($jslist as $jsurl) {
+				printf ('<script src="%s"></script>%s', $jsurl,"\n");
+			}
+		}
+	}
+	if (isset($csslist)) {
+		foreach ($csslist as $cssurl) {
+			printf ('<link rel="stylesheet" type="text/css" href="%s" />%s',$cssurl, "\n");
+		}
+	}
+}
+function print_system_msg ($msg='') { // admin submit-page edit only
+	if (!empty($msg)) {
+		echo '<div class="system-msg">system message: '.$msg.'</div>';
+	}
+}
+function use_lined_textarea() { // supposed to print content in <head>
+// related <textarea> should have class="lined" . other class name need to also change JS file
+	echo '<script src="/deco/js/linedtextarea/linedtextarea.js"></script>',"\n";
+	echo '<link href="/deco/js/linedtextarea/linedtextarea.css" type="text/css" rel="stylesheet" />',"\n";
+	echo '<script>$(function() { $(".lined").linedtextarea(); });</script>',"\n";
+}
+function echo_credit() {
+	echo '<a href="/about">2006-', date('Y'), ' kiyoko@FairyAria</a>',"\n";
+}
 ?>
 <?php // ----------- chk login ----------
 function chklogin($retreat=0) {
@@ -344,7 +509,6 @@ function chklogin($retreat=0) {
 <?php //-------------- misc -------------
 function peek($var=null,$stop=0) {
 	echo '<pre>';
-	var_dump($var);
 	echo '</pre>';
 	if ($stop) {
 		exit;
@@ -375,69 +539,6 @@ function rand_array($total=2) {
 	}
 	return $a;
 */
-}
-function time27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // use either 24 or 27 H mode. process return hash.
-# 27-H Mode: time <= 3:00 AM, continue from 24 (0:00 AM=> 24:00, 2:59 AM => 26:59, 3:00 AM => no change)
-#as default timezone is -7, when using GMT, e.g. London, need to clearly give "gmt=>0"
-
-	if (isset($epoch)) {
-		if ( !preg_match("/^\d+$/", $epoch) ) {
-			$epoch=null;
-		}
-	}
-	if (isset($gmt)) {
-		preg_match("/^(\s*[+-]?\s*\d+)\s*$/", $gmt, $gmt0);
-		if (!isset($gmt0[1]) or ($gmt0[1] < -12 or $gmt0[1] > 12) ) {
-			$gmt=null;
-		}
-	}
-	$epoch=isset($epoch)?$epoch:time();
-	$gmt=isset($gmt)? $gmt : -7;
-
-// -------------- process time hash ----------------
-	$h_offset=date('O'); #server hour offset
-	$h_offset=preg_replace('/00$/','',$h_offset);
-	$h_offset=preg_replace('/^([+-])0/','$1',$h_offset);
-	if ($gmt!=$h_offset) {
-		$epoch+=3600*($gmt-$h_offset); #now epoch should be the literal local time
-	}
-	if ( date('H',$epoch) <=2 and !$time24) { # shift day for 27H if < 3AM and not showing in 24H format
-		$shiftday=24;
-	} else {
-		$shiftday=0;
-	}
-	$epoch-=$shiftday*60*60;
-//------------ output time in format ---------------------------
-// NOTE: when writing hour, MUST use {  date('H',$epoch) + $shiftday  }
-// test $epoch = 1483607582; actual time = Thu, 05 Jan 2017 02:13:02 -0700 (24H)
-	if ($format==1) { return date('M-d', $epoch); } // Jan-04
-	elseif ($format==2) { return date('Y',$epoch); } // 2017
-	elseif ($format==3) { return date('ymd',$epoch); } // 170104
-	elseif ($format==4) { // post format : 2018-Nov-13 (Tue), 26:51@GMT-7
-		return sprintf ( "%s, %s:%s@GMT%+02d",
-			date("Y-M-d (D)",$epoch),
-			(date('H', $epoch) + $shiftday),
-			date("i",$epoch),
-			$gmt
-		);
-	}
-	else { // default format. January 4, 2017, 26:13 (27H)
-		return sprintf ( "%s, %s:%s",
-			date('F j, Y', $epoch),
-			(date('H', $epoch) + $shiftday),
-			date('i', $epoch)
-		);
-	}
-}
-function mk_url_google_img ($url='',$size='') { // input  has no https://
-	if (!$url) { return ''; }
-	$t=explode ('/', $url);
-	$fname=array_pop($t);
-	array_pop($t); #remove size
-	if (!$size or !preg_match('/^[hws]\d+/i', $size)) { #simple check. should work for most cases
-		$size='s800';
-	}
-	return sprintf ('https://%s/%s/%s', (implode ( '/', $t)), $size, $fname);
 }
 function print_line_seperator() {
 	echo '<div style="margin-top: 25px; border-bottom: 3px double #d8afe2; display:block; text-align:center; width: 90%; font-size: 120%; text-shadow: 2px 2px 3px #bd8db4; margin: auto; "><b>..｡o○☆*:ﾟ･: Variations :･ﾟ:*☆○o｡..</b></div>',"\n";

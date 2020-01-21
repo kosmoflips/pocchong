@@ -6,23 +6,19 @@ body {
 	color:#7D2652;
 	font-family: tahoma, arial,verdana,sans-serif;
 }
-
-/*
-.left {
-	display:inline-block;
-	width:40%;
-	vertical-align: top;
+textarea {
+	font-size: 120%;
 }
-.right {
-	display:inline-block;
-	width:58%;
-	vertical-align: top;
+.system-msg {
+	background: rgba(255,255,255,0.8);
+	border: 2px solid #ff5d5d;
+	margin: 10px;
+	padding: 20px;
 }
-*/
 
 .main {
 	border: 1px solid #aaa;
-	width: 800px;
+	width: 1000px;
 	margin:30px auto 20px;
 	padding:20px;
 	background: rgba(255,255,255,0.7);
@@ -31,8 +27,8 @@ body {
 .navi-bar-square-self {
 	font-weight: bold;
 }
-
 table {
+	width:90%;
 	max-width: 100%;
 	border-collapse:collapse;
 }
