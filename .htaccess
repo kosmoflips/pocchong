@@ -9,7 +9,7 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 ########## special redirects ###########
 RewriteRule ^design/?$ /cgi-bin/indiv_cssdesign.php [L,NC] #self-use. not linked publicly
-RewriteRule ^backyard/?$ /cgi-bin/page_backyard.php [L,NC]
+RewriteRule ^backyard/?$ /cgi-bin/page_static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
 RewriteRule ^gradient/?$ /cgi-bin/exec/gradient_maker.cgi [L,NC]
 
@@ -25,21 +25,13 @@ RewriteRule ^archiv/(\d+)/?$ /cgi-bin/page_archiv.php?page=$1 [L,NC]
 RewriteRule ^archiv/?$ /cgi-bin/page_archiv.php [L,NC]
 
 # -------- calendar ---------------
-# RewriteRule ^calendar/y/(\d{4})/(\d{1,2})?$ /cgi-bin/page_calendar.php?year=$1&col=$2 [L,NC]
-# RewriteRule ^calendar/y/(\d{4})/col=(\d+)?$ /cgi-bin/page_calendar.php?year=$1&col=$2 [L,NC]
 RewriteRule ^calendar/y/(\d{4})/?$ /cgi-bin/page_calendar.php?year=$1 [L,NC]
-# RewriteRule ^calendar/(\d{1,2})$ /cgi-bin/page_calendar.php?col=$1 [L,NC]
 RewriteRule ^calendar/?$ /cgi-bin/page_calendar.php [L,NC]
 
 # ------------mygirls -------------
-RewriteRule ^mygirls/p/(\d*)/?$ /cgi-bin/page_mygirls_imglist.php?page=$1 [L,NC]
-RewriteRule ^mygirls/(\d*) /cgi-bin/page_mygirls_single.php?id=$1 [L,NC]
-RewriteRule ^mygirls/?$ /cgi-bin/page_mygirls_imglist.php [L,NC]
-
-#old MG
-# RewriteRule ^mygirls/t/(\d+)/?(\d*) /cgi-bin/page_mygirls.php?tag=$1&offset=$2 [L,NC]
-# RewriteRule ^mygirls/(\d*) /cgi-bin/page_mygirls.php?id=$1 [L,NC]
-# RewriteRule ^mygirls/?$ /cgi-bin/page_mygirls.php [L,NC]
+RewriteRule ^mygirls/p/(\d*)/?$ /cgi-bin/page_mg_index.php?page=$1 [L,NC]
+RewriteRule ^mygirls/(\d*) /cgi-bin/page_mg_single.php?id=$1 [L,NC]
+RewriteRule ^mygirls/?$ /cgi-bin/page_mg_index.php [L,NC]
 
 #------------------ post -----------
 RewriteRule ^post/?(.*)?$ /days/$1 [R,NC] #old url [post] redirect to new url [days]

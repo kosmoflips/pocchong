@@ -2,19 +2,19 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
 ?>
 <?php // ---------- write HTML for post entry editing , relies on $edit generated in edit_post.php. won't work if used independently -----------------
-	write_html_admin(0,1);
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 ?>
 <div><a href="<?php echo $redirectlist ?>">discard and go back</a></div>
 <hr />
 <form action="<?php echo $POCCHONG['POST']['edit'] ?>" method="post" accept-charset="utf-8" target="">
 
 <?php
-	if (isset($edit['update'])) {
-		echo '<input type="hidden" name="update" value="1" />', "\n";
-	}
-	if (isset($edit['insert'])) {
-		echo '<input type="hidden" name="insert" value="1" />', "\n";
-	}
+	if (isset($edit['update'])) { ?>
+<input type="hidden" name="update" value="1" />
+<?php	}
+	if (isset($edit['insert'])) { ?>
+<input type="hidden" name="insert" value="1" />
+<?php	}
 ?>
 <table>
 	<tr><td><b>id*</b></td><td><input type="number" name="id" maxlength="11" value="<?php echo $edit['id'] ?>" readonly /></td></tr>
@@ -35,8 +35,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php'
 <?php
 	}
 ?>
-	</form>
+</form>
 
 <?php
-	write_html_admin(1);
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
 ?>

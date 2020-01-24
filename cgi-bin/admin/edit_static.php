@@ -46,17 +46,18 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 		jump($redirect);
 	}
 	elseif ($_POST['opt'] == 'Preview') { // quick preview. overall style may differ from current site
-		write_html_open_head($_POST['title']);
-		echo $_POST['extra'];
-		write_html_open_body();
+		$PAGE=array();
+		$PAGE['title']=$_POST['title'];
+		$PAGE['head-extra']=array($_POST['extra']);
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site1']);
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry1']);
 		write_preview_sash();
-		print_post_wrap();
 		echo '<div>',"\n";
 		printf ('<h2>* %s *</h2>%s', (isset($_POST['title'])? $_POST['title'] : 'No Title'), "\n");
 		echo (isset($_POST['content'])?$_POST['content']:''),"\n";
 		echo '</div>',"\n";
-		print_post_wrap(1);
-		write_html_close();
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry2']);
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site2']);
 		exit;
 	}
 	elseif ($_POST['opt'] == 'Save') {

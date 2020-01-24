@@ -2,16 +2,14 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
 ?>
 <?php
-write_html_open_head(null);
-echo '<link rel="stylesheet" type="text/css" href="/deco/css/index.css" />
-<script src="/deco/js/fetch_twitter.js"></script>
-';
-write_html_open_body();
-
+$PAGE=array();
+$PAGE['css']=array('/deco/css/index.css');
+$PAGE['js']=array('/deco/js/fetch_twitter.js');
 ?>
-<div class="post-inner-shell">
-<div class="post-inner">
-
+<?php // html
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['page1']);
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry1']);
+?>
 <div id="top-tagline">Archiving my life with music, colours and code magic.</div>
 
 <div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
@@ -20,10 +18,10 @@ write_html_open_body();
 <div id="feed-show-inner">
 <?php
 $timespan=60*24*60*0.5; # 1/2 day in second
-$tweetfile=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_index_tweets.html';
+$tweetfile=$CGIBIN.'/data/incl_index_tweets.html';
 if (!file_exists($tweetfile) or isset($_GET['force']) or ((time() - filemtime($tweetfile)) > $timespan)) { #retrieve twitter data if raw file missing, force update, or since last time is true
-	$chunkfile=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_index_tweets_raw.txt';
-	$cmd=sprintf ('perl %s %s %s', $_SERVER['DOCUMENT_ROOT'].'/cgi-bin/process_tweets.pl', $chunkfile, $tweetfile);
+	$chunkfile=$CGIBIN.'/data/incl_index_tweets_raw.txt';
+	$cmd=sprintf ('perl %s %s %s', $CGIBIN.'/process_tweets.pl', $chunkfile, $tweetfile);
 	exec($cmd);
 }
 if (file_exists($tweetfile)) {
@@ -35,8 +33,7 @@ if (file_exists($tweetfile)) {
 </div><!-- .feed-show-inner -->
 </div><!-- .feed-show -->
 
-</div><!-- .post-inner -->
-</div><!-- .post-inner-shell -->
 <?php
-write_html_close();
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry2']);
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['page2']);
 ?>

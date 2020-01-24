@@ -44,19 +44,21 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 		jump($redirect);
 	}
 	elseif ($_POST['opt'] == 'Preview') { // -------- print_post_entry. copied from page_post.php  . may not be synced. purpose is to preview css/style etc.
-		write_html_open(null);
+		$PAGE=array();
+		$PAGE['title']=$_POST['title'];
+		$PAGE['head-extra']=array($_POST['extra']);
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site1']);
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry1']);
 		write_preview_sash();
-		 $tag='article';
-		print_post_wrap();
-		echo '<',$tag,'>',"\n";
+		echo '<article>',"\n";
 		// timestamp line
 		printf ('<div class="datetime">%s</div>%s', time27( time(),4,-7,0), "\n");
 		// title as <h3>
 		printf ('<h3>* %s *</h3>%s', (isset($_POST['title'])? $_POST['title'] : 'No Title'), "\n");
 		echo (isset($_POST['content'])?$_POST['content']:''),"\n";
-		echo '</',$tag,'>',"\n";
-		print_post_wrap(1);
-		write_html_close();
+		echo '</article>',"\n";
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry2']);
+		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site2']);
 		exit;
 	}
 	elseif ($_POST['opt'] == 'Save') {

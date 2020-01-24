@@ -3,19 +3,19 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php'
 // relies on edit_mygirls.php. won't work if used independently
 ?>
 <?php
-write_html_admin(0);
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 ?>
 <div><a href="<?php echo $redirectlist ?>">discard and go back</a></div>
 <hr />
 
 <form action="<?php echo $POCCHONG['MYGIRLS']['edit'] ?>" method="post" accept-charset="utf-8" target="">
 <?php
-	if (isset($info['update'])) {
-		echo '<input type="hidden" name="update" value="1" />', "\n";
-	}
-	if (isset($info['insert'])) {
-		echo '<input type="hidden" name="insert" value="1" />', "\n";
-	}
+	if (isset($info['update'])) { ?>
+<input type="hidden" name="update" value="1" />
+<?php	}
+	if (isset($info['insert'])) { ?>
+<input type="hidden" name="insert" value="1" />
+<?php	}
 ?>
 <table><tr><td><!--shell table-->
 <table><!--info table-->
@@ -98,7 +98,8 @@ write_html_admin(0);
 <input type="submit" name="opt" value="DELselected" onclick="return confirm('DELETE selected pieces?') " onclick="this.form.target='_self' " />
 <input type="submit" name="opt" value="DELETE" onclick="return confirm('DELETE entire entry?') " onclick="this.form.target='_self' " />
 <?php
-	}
-	echo "</form>\n";
-	write_html_admin(1);
+	} ?>
+</form>
+<?php
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
 ?>

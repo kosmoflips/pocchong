@@ -83,14 +83,14 @@ pre { /* both are for codes */
 }
 
 /*--------- layout -----*/
-#outlayer {
+#master-wrap {
 	background: rgba(255,255,255,0.4);
 	border: 5px solid rgba(244,255,90,0.7);
 	display: block;
 	width: 1070px;
 	margin: 25px auto 20px;
 }
-#outlayer, .post-outer .datetime, .post-inner-shell, .post-inner h3, .post-inner, .post-inner blockquote {
+#master-wrap, #post-list-wrap .datetime, .post-shell, .post-inner h3, .post-inner, .post-inner blockquote {
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
@@ -100,7 +100,7 @@ pre { /* both are for codes */
 }
 
 /*--- search box. as it's generally hidden I put all codes here ---*/
-#g-search-area .post-inner, #g-search-area .post-inner-shell {
+#g-search-area .post-inner, #g-search-area .post-shell {
 	background: none;
 	border: none;
 	box-shadow: none;
@@ -190,7 +190,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	text-align:center;
 	width:50px;
 }
-.post-outer {
+#post-list-wrap {
 	display: block;
 	margin: auto auto 55px;
 	/*background: green;*/
@@ -199,7 +199,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	color: #001c4b;
 	text-shadow: 2px 2px 3px #8f91e0;
 }
-.post-inner-shell { /* applies trans-white bg , or a second img on top, etc...*/
+.post-shell { /* applies trans-white bg , or a second img on top, etc...*/
 	background: rgba(255,255,255,0.9);
 	border: 1px solid #a7bfe4;
 	border-radius: 5px;
@@ -208,7 +208,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	padding: 15px 15px 20px;
 	position:relative;
 }
-.post-inner-shell:last-child {
+.post-shell:last-child {
 	margin-bottom: -30px;
 }
 .post-inner {
@@ -427,7 +427,16 @@ article img:hover {
 .gallery-img-frame img {
 	height: 100%;
 }
-
+.mg-h-line {
+	margin-top: 25px;
+	border-bottom: 3px double #d8afe2;
+	display:block;
+	text-align:center;
+	width: 90%;
+	font-size: 120%;
+	text-shadow: 2px 2px 3px #bd8db4;
+	margin: auto;
+}
 
 /*--------footer-------*/
 #footer-navi {
@@ -486,15 +495,15 @@ article img:hover {
 	font-weight: bold;
 	text-decoration: underline;
 }
-#footer-global a:link, #footer-global a:hover, #footer-global a:visited {
+.credit a:link, .credit a:hover, .credit a:visited {
 	color: #efff4e;
 	text-decoration: none;
 	font-weight: bold;
+	/* background: pink; */
 }
 #footer-global {
-	display: block;
-	text-align: center;
 	font-size: 70%;
+	text-align: center;
 	margin: auto;
 	padding-bottom: 25px;
 }
@@ -508,13 +517,14 @@ article img:hover {
 .calendar-year-shell {
 	display: inline-block;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size: 92%;
+	font-size: 90%;
 	overflow:hidden;
 	vertical-align:top;
-	width: 70%;
+	width: 74%;
 }
 .calendar-month-row-shell table {
 	text-align: center;
+	width:100%;
 	margin:auto;
 }
 .calendar-month-row-shell {
@@ -557,7 +567,7 @@ a.day-link {
 .calendar-right-list {
 	margin-left: 5px;
 	display: inline-block;
-	width: 25%;
+	width: 20%;
 	overflow-y: auto;
 	height: 980px; /*adjust to left calendar size*/
 	padding: 5px;
