@@ -2,7 +2,6 @@
 <li><a href="/a/edit_post/?new=1">new post</a> | <a href="/a/list_table?sel=post">list posts</a></li>
 <li><a href="/a/edit_mygirls/?new=1">new art</a> | <a href="/a/list_table?sel=mygirls">list artworks</a></li>
 <li><a href="/a/edit_static/?new=1">new static page</a> | <a href="/a/list_static">list static pages</a></li>
-<!-- <li><a href="/a/sub_mkfeed" target="_blank">update rss</a></li> -->
 <li>
 	<a href="/cgi-bin/admin/tasks.php?dump=1" target="_blank" />dump database</a> | 
 	<!-- <a href="/cgi-bin/admin/tasks.php?backup=1" target="_blank" />backup entire site</a> |  -->
@@ -12,10 +11,8 @@
 <div>
 <form action="/a/dosql.cgi" method="post" target="">
 <h4>do SQL</h4>
-<script src="/deco/js/cm/mode/sql/sql.js"></script>
 <textarea class="lined" rows="15" cols="70" name="sql">SELECT * FROM sqlite_master where type='table'
 </textarea><br />
 <input type="submit" name="dosql" value="doSQL" onclick="this.form.target='_blank'">
 </form>
 </div>
-

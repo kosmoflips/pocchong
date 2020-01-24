@@ -22,20 +22,24 @@ elseif (isset($_POST['login'])) {
 
 ?>
 <?php // --------- write html ------------
-
-write_html_admin(0);
-if (!$loginflag) { // login failed. show login form
-	echo '<div style="text-align: center">', "\n";
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
+if (!$loginflag) { // login failed. show login form ?>
+<div style="text-align: center">
+<?php
 	print_errors($error);
 	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_loginform.html');
-	echo "</div>\n";
+?>
+</div>
+<?php
 } else { // login okay. set up session values
-	echo 'logged in as: ', $_SESSION['username'],"<br />\n";
-	echo "session timeout: ",time27($_SESSION["time_out"],0,-7,1),"<br />\n";
-	echo "<hr />\n";
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_controlpanel.html');
+?>
+logged in as: <?php echo $_SESSION['username'] ?><br />
+session timeout: <?php echo time27($_SESSION["time_out"],0,-7,1) ?><br />
+<hr />
+<?php
+include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_controlpanel.html');
 }
-write_html_admin(1);
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
 ?>
 <?php // --------------- sub -------------------
 function print_errors($error=null) {

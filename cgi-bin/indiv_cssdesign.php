@@ -1,9 +1,10 @@
-<?php # UTF8 anchor (´・ω・｀)
+<?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
 
-$title="All elements for CSS DESIGN";
-write_html_open_head($title);
-?>
+$PAGE=array();
+$PAGE['title']='All elements for CSS DESIGN';
+$PAGE['head-extra']=array(
+<<<CSS
 <style>
 textarea {
 	width:100%;
@@ -31,15 +32,18 @@ textarea {
 	background: rgba(183,205,123,0.3);
 }
 </style>
-<?php // open html, site structure
-write_html_open_body();
-print_post_wrap(0);
+CSS
+);
+?>
+<?php //html
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['page1']);
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry1']);
 ?>
 <h2>Page structure</h2>
 &lt;body&gt;<br />
 <div class="stru" style="width:100%">
-<div class="s1">#outlayer
-	<div class="s2">#header-outer
+<div class="s1">#master-wrap
+	<div class="s2">#header-outer tag=&lt;header&gt;
 					<div style="border:none;padding:0;margin:0;display:flex;width:100%">
 		<div class="s3" style="display:inline-block; width: 15%">#header-img</div>
 		<div class="s3" style="display:inline-block; width: 15%">#headerlink</div>
@@ -56,14 +60,14 @@ print_post_wrap(0);
 		<div class="s3" style="display:inline-block; width: 15%">#sidelayer-left<br />(may be hidden)</div>
 		<div class="s3" style="display:inline-block; width: 60%;">#mainlayer
 			<div class="s4">#search-box</div>
-			<div class="s4">.post-outer
-				<div class="s5">.post-inner-shell
+			<div class="s4">.post-list-wrap
+				<div class="s5">.post-shell
 					<div class="s1">.post-inner</div>
 				</div>
-				<div class="s5">.post-inner-shell
+				<div class="s5">.post-shell
 					<div class="s1">.post-inner</div>
 				</div>
-				<div class="s5">.post-inner-shell
+				<div class="s5">.post-shell
 					<div class="s1">.post-inner</div>
 				</div>
 			</div>
@@ -72,16 +76,16 @@ print_post_wrap(0);
 		<div class="s3" style="display:inline-block; width: 15%">#sidelayer-right<br />(may be hidden)</div>
 					</div>
 	</div>
-	<div class="s2">#footer-global
-		<div class="s3">credit info</div>
-	</div>
+</div>
+<div class="s1">#footer-global tag=&lt;footer&gt;
+	<div class="s2">credit info</div>
 </div>
 </div>
 &lt;/body&gt;<br />
-<?php // basic data
-print_post_wrap(1);
-print_post_wrap(0);
-?>
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+<div class="post-shell">
+<div class="post-inner">
 <b>from &lt;body&gt; begin to opening &lt;.post-outer&gt;</b><br />
 <textarea rows="25">
 &lt;body&gt;
@@ -130,10 +134,11 @@ print_post_wrap(0);
 	&lt;/div&gt;&lt;!-- .post-inner --&gt;
 &lt;/div&gt;&lt;!-- .post-inner-shell --&gt;
 </textarea>
-<?php // post-block & custom tags
-print_post_wrap(1);
-print_post_wrap(0,1);
-?>
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+<div class="post-shell">
+<div class="post-inner">
+<article>
 <textarea>
 &lt;article&gt;
 	&lt;div class=&quot;datetime&quot;&gt;&lt;a href=&quot;...&quot;&gt;2020-Jan-14 (Tue), 17:45@GMT-7&lt;/a&gt;&lt;/div&gt;
@@ -209,10 +214,11 @@ second line</div>
 &lt;div class=&quot;inline-box&quot;&gt;&lt;a href=&quot;...&quot;&gt;Edit&lt;/a&gt;&lt;/div&gt;<br />
 <div class="inline-box"><a href="...">Edit</a></div>
 <div>&lt;/article&gt;</div>
-<?php // archive preview block
-print_post_wrap(1,1);
-print_post_wrap(0);
-?>
+</article>
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+<div class="post-shell">
+<div class="post-inner">
 <textarea>
 &lt;h2&gt;&lt;h2&gt;* Archiv *&lt;/h2&gt;&lt;/h2&gt;
 &lt;div class=&quot;archiv&quot;&gt;
@@ -253,10 +259,10 @@ print_post_wrap(0);
 &lt;/ul&gt;<br />
 </div><!-- archiv -->
 &lt;/div&gt;&lt;!-- archiv --&gt;<br />
-<?php // MG gallery
-print_post_wrap(1);
-print_post_wrap();
-?>
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+<div class="post-shell">
+<div class="post-inner">
 <hr />
 <textarea>
 &lt;h2&gt;&lt;h2&gt;MyGirls main page&lt;/h2&gt;&lt;/h2&gt;
@@ -294,10 +300,10 @@ print_post_wrap();
 	<div class="mgarchive-overlay">[ id02 ]<br />title 02<br />2017/10/13</div>
 </div>
 </div><!-- gallery -->
-<?php  // MG single
-print_post_wrap(1);
-print_post_wrap();
-?>
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+<div class="post-shell">
+<div class="post-inner">
 <textarea rows="15">
 &lt;div&gt;&lt;!-- artwork block begins --&gt;
 	&lt;h2&gt;img title&lt;/h2&gt;
@@ -341,10 +347,10 @@ print_post_wrap();
 <div class="gallery">
 <span class="gallery-img-frame"><a href="#"><img src="https://i.stack.imgur.com/jB2pV.png" alt="" /></a></span><span class="gallery-img-frame"><a href="#"><img src="https://i.stack.imgur.com/jB2pV.png" alt="" /></a></span><span class="gallery-img-frame"><a href="#"><img src="https://i.stack.imgur.com/jB2pV.png" alt="" /></a></span><span class="gallery-img-frame"><a href="#"><img src="https://i.stack.imgur.com/jB2pV.png" alt="" /></a></span><span class="gallery-img-frame"><a href="#"><img src="https://i.stack.imgur.com/jB2pV.png" alt="" /></a></span></div>
 </div><!-- closing artwork block -->
-<?php  // footer, navi
-print_post_wrap(1);
-print_post_wrap(0);
-?>
+</div><!-- .post-inner -->
+</div><!-- .post-inner-shell -->
+<div class="post-shell">
+<div class="post-inner">
 <b>closing &lt;.post-outer&gt;</b><br />
 <textarea rows="15">
 &lt;/div&gt;&lt;!-- .post-navi --&gt;
@@ -390,33 +396,8 @@ print_post_wrap(0);
 	&lt;span&gt;&lt;a href=&quot;#&quot;&gt;&#9654;&#9654;&lt;/a&gt;&lt;/span&gt;
 &lt;/div&gt;&lt;!-- .navi-bar ends --&gt;
 </textarea>
-<?php
-print_post_wrap(1);
-// dummy navi data
-$navi1=array(
-	"next"=> array(
-		"url"=> "#",
-		"title"=> "Next Post"
-	),
-	"prev"=> array(
-		"url"=> "#",
-		"title"=> "Prev Post"
-	),
-);
 
-$naviset=array(
-	"navi"=> array(
-		"begin0"=> 1,
-		"begin1"=> 5,
-		"end0"=> 0,
-		"end1"=> 82,
-		"mid"=> 0,
-		"prev"=> 0,
-		"next"=> 2
-	),
-	"turn"=> 2,
-	"currpage"=> 1,
-	"baseurl"=> "",
-);
-write_html_close($naviset,$navi1);
+<?php // write html
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry2']);
+include ($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['page2']);
 ?>

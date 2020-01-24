@@ -47,7 +47,7 @@ if (isset($_GET['dst'])) {
 }
 
 $usrsubmit=0;
-if (isset($_POST['opt'])) { //submit,preview,delete
+if (isset($_POST['opt'])) { //submit,delete
 	if ($_POST['opt'] == 'DELETE') {
 		if (isset($_POST['del_id'])) {
 			foreach ($_POST['del_id'] as $id) {

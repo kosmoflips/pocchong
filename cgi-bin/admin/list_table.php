@@ -18,28 +18,29 @@ if (isset($_GET['sel']) and $_GET['sel']=="mygirls") {
 }
 $maxperpage=$POCCHONG['ADMIN']['max'];
 $totalpg=calc_total_page($k->countRows($table), $maxperpage);
-$curr=verify_current_page( (isset($_GET['page'])?$_GET['page']:1) , $totalpg);
+$curr=$_GET['page']??1;
 $offset=calc_page_offset($curr,$maxperpage);
 $query=sprintf ('SELECT id,title,epoch,gmt FROM %s ORDER BY id DESC LIMIT ?,?', $table);
 $lists=$k->getAll($query, array($offset, $maxperpage));
-$navi=calc_navi_set(1,$totalpg,$curr,$POCCHONG['GENERAL']['navi_step']);
 $actionurl=sprintf ('/a/edit_%s', $table);
 $selurl=sprintf ('/a/list_table/%s/page', $table);
+$PAGE=array();
+$PAGE['navi']['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,$POCCHONG['navi_step'],$selurl);
 ?>
 <?php // ----- HTML --------------
-write_html_admin(0);
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 ?>
 <?php
 if (isset($_GET['dst']) and $_GET['dst']==3) {
 	print_system_msg('selected entry(s) deleted.');
 }
 ?>
-<div><a href="<?php echo $editbase ?>/?new=1">Create New</a></div>
-<?php print_navi_bar($navi, $POCCHONG['GENERAL']['navi_step'], $curr, $selurl); ?>
+<div><a href="<?php echo $editbase ?>/?new=1">Create New</a>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/layout_navi.php'); ?>
+</div>
 <form action="<?php echo $actionurl ?>" method="post" accept-charset="utf-8" >
 <input type="hidden" name="list_view_chk" value="1" />
 <table>
-
 <?php
 foreach (array('del', 'id', 'date', 'title', 'edit') as $tt) {
 	echo "<th>", $tt,"</th>\n";
@@ -55,7 +56,6 @@ foreach ($lists as $entry) {
 <td><a href="<?php echo $viewurl ?>"><?php echo $entry['title'] ?></a></td>
 <td><a href="<?php echo $editurl ?>">edit</a></td>
 </tr>
-
 <?php
 }
 ?>
@@ -63,5 +63,5 @@ foreach ($lists as $entry) {
 <input type="submit" name="opt" value="DELETE" onclick="return confirm('delete selected?')">
 </form>
 <?php
-write_html_admin(1);
+include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
 ?>

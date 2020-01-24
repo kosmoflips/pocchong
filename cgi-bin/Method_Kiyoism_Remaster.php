@@ -1,16 +1,17 @@
-<?php  // LAST MODIFIED : 2020-Jan-16 ?>
+<?php  // LAST MODIFIED : 2020-Jan-23 ?>
 <?php 	// ------------ system config, keep on top----------------
 // enable extension=mbstring in php.ini
 // enable extension=mysqli in php.ini
 // enable extension=pdo_sqlite in php.ini
 // many subs are inheritated from .pm, so they may not be the best solution in php
 // constants , UTF8 anchor (´・ω・｀)
-$sysini=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin/pocchong_config.ini';
-if (!file_exists($sysini)) {
-	die ("the config file pocchong.ini is not found from specified location, fix your code!");
-} else {
+$CGIBIN=$_SERVER['DOCUMENT_ROOT'].'/cgi-bin';
+$sysini=$CGIBIN.'/data/pocchong_config.ini';
+if (file_exists($sysini)) {
 	$POCCHONG= parse_ini_file($sysini,true); # 'true' , parse [sections]
-	$POCCHONG['FILE']['sqlite']=$_SERVER['DOCUMENT_ROOT'].$POCCHONG['FILE']['sqlite'];	
+	$POCCHONG['DB']=$_SERVER['DOCUMENT_ROOT'].$POCCHONG['DB'];	
+} else {
+	die ("the config file pocchong.ini is not found from specified location, fix your code!");
 }
 session_start();
 if (isset($_SESSION) and isset($_SESSION["time_out"]) and ($_SESSION["time_out"]<time())) {
@@ -22,8 +23,8 @@ chklogin();
 class PocDB {
 public function connect() {
 	global $POCCHONG;
-	if (file_exists($POCCHONG['FILE']['sqlite'])) {
-		$dbh = new PDO('sqlite:'.$POCCHONG['FILE']['sqlite']);
+	if (file_exists($POCCHONG['DB'])) {
+		$dbh = new PDO('sqlite:'.$POCCHONG['DB']);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbh;
 	} else {
@@ -75,12 +76,12 @@ public function getOne($stat, $vars=null) { #get only one single [string] value
 }
 public function _getNext($table='',$curr=1,$getprev=0) { # for table [post/mygirls] or any other tables that have both id,title as field, and id/epoch/time should be ordered the same
 	if (!$table) { return null; }
+	$query=sprintf ('SELECT id,title FROM %s WHERE id %s %s ORDER BY id %s LIMIT 1',
+		$table,
+		($getprev?'<':'>'),
+		$curr,
+		($getprev?'desc':'') );
 	try {
-		$query=sprintf ('SELECT id,title FROM %s WHERE id %s %s ORDER BY id %s LIMIT 1',
-			$table,
-			($getprev?'<':'>'),
-			$curr,
-			($getprev?'desc':'') );
 		return $this->getRow($query);
 	} catch(PDOException $e) { echo $e->getMessage(); }
 }
@@ -95,6 +96,20 @@ public function getTags() { // return $tags->{$tag_id} = $tag_name
 		$tags[$tag1['id']] = $tag1['name'];
 	}
 	return $tags;
+}
+public function yearlast ($sel=0) { // return year 4 digits. get years of the most recent post from DB, so $k is required
+	// yearfirst is given in ini file
+	$yr1b=0;
+	$yr2b=0;
+	$yr1b=$this->getOne('select year from post order by year desc limit 1') +2000;
+	$yr2b=$this->getOne('select year from mygirls order by year desc limit 1') +2000;
+	if ($sel==1) { # newest POST
+		return $yr1b;
+	} elseif ($sel==2) { // newest MG
+		return $yr2b;
+	} else {
+		return (($yr1b>$yr2b)?$yr1b:$yr2b);
+	}
 }
 
 
@@ -156,20 +171,6 @@ function time27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // use either 24 
 		);
 	}
 }
-function yearlast ($k,$sel=0) { // return year 4 digits. get years of the most recent post from DB, so $k is required
-	// yearfirst is given in ini file
-	$yr1b=0;
-	$yr2b=0;
-	$yr1b=$k->getOne('select year from post order by year desc limit 1') +2000;
-	$yr2b=$k->getOne('select year from mygirls order by year desc limit 1') +2000;
-	if ($sel==1) { # newest POST
-		return $yr1b;
-	} elseif ($sel==2) { // newest MG
-		return $yr2b;
-	} else {
-		return (($yr1b>$yr2b)?$yr1b:$yr2b);
-	}
-}
 /*
 function get_epoch ($y=2006,$m=12,$d=31,$h27=1) { // get epoches between specified dates. t1/t2=[y,m,d], both at 00:00:00
 	$t1=mktime(0,0,0,$m,$d,$y);
@@ -180,9 +181,10 @@ function get_epoch ($y=2006,$m=12,$d=31,$h27=1) { // get epoches between specifi
 }
 */
 ?>
-<?php // --------------- navi-bar related ---------------
-function mk_navi1 ($k=null,$table='',$cid=1, $url='') {
-	if (!$k or !$table) { return 0; }
+<?php // -------- navi-bar related ---------------
+function mk_navi_pair ($k=null,$table='',$cid=1, $url='') {
+	// var_dump ($k);
+	if (!$k or !$table) { return array(); }
 	$n0=$k->_getNext($table,$cid,0);
 	$p0=$k->_getNext($table,$cid,1);
 	$navi1=array();
@@ -192,74 +194,53 @@ function mk_navi1 ($k=null,$table='',$cid=1, $url='') {
 	$navi1['prev']['title']=$p0['title'];
 	return $navi1;
 }
-function mk_naviset($navi=null,$page_turn=1,$curr=1,$baseurl='') { // for write_html_close
-	if (!isset($navi)) { return null; }
-	$naviset=array();
-	$naviset['navi']=$navi;
-	$naviset['turn']=$page_turn;
-	$naviset['currpage']=$curr;
-	$naviset['baseurl']=$baseurl;
-	return $naviset;
-}
-function calc_navi_set($first=1,$last=1,$curr=1,$turn=0) { #process set for input of &print_navi_bar
-# b0: fixed, first page
-# b1: optional. page 1,2,3,4,5 ... 10, b1=5
-# e0: optional. page 1 ... 6,7,8,9,10 , e0 = 6
-# e1: last page, fixed. depending on the last record of the db
-# mid: optional. 1 ... 5, 6,7,8, 9 ... 15 , mid=6, currpage =6
-	$totalcont=$last-$first+1;
-	#initial values
-	$navi=array (
-		'begin0'=>$first,
-		'begin1'=>0,
-		'end0'=>0,
-		'end1'=>$last,
-		'mid'=>0,
-		'prev'=>0,
-		'next'=>0
-	);
-	if (($turn*2+1)>=$totalcont) { #no need to break // 1,2,3 end
-		$navi['begin1']=$navi['end1'];
-		$navi['end1']=0;
+function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/') { // new version! urlbase has leading but no trailing slash / offset, useful for year as page e.g. 2006..2009
+	if ($perpage>($last-$first+1)) {
+		$perpage=5; // randomly given
 	}
-	elseif ($curr<=(1+$turn+$navi['begin0'])) { # 1,2,3,4,5 // 10
-		$navi['begin1']=$navi['begin0']+2*$turn;
-		if ($curr==($turn+1+$navi['begin0'])) {
-			$navi['begin1']+=1;
-		}
-	}
-	elseif ($curr>=($navi['end1']-$turn-1)) { # 1 // 6,7,8,9,10
-		$navi['end0']=$curr-$turn;
-		if ($curr>=($navi['end1']-$turn)) {
-			$navi['end0']=$navi['end1']-$turn*2;
-		}
-	}
-	else {
-		$navi['mid']=$curr; #+-2 each side
-	}
-
-	$navi['prev']=$curr-1;
-	$navi['next']=$curr+1;
-	if ($navi['prev']<$navi['begin0']) {
-		$navi['prev']=0; #don't show "prev" if reaching first page
-	}
-	if (($navi['next']>$navi['end1'] and $navi['end1']>0) or
-		($navi['next']>$navi['begin1'] and $navi['end1']==0)) {
-		$navi['next']=0; # don't show "next" if reaching last page
-	}
-	return $navi;
-}
-function verify_current_page($curr=1,$pgtotal=1) {
-	if ($curr>$pgtotal) {
-		$curr=$pgtotal;
-	}
-	elseif ($curr<1) {
+	if ($curr>$last) {
 		$curr=1;
 	}
-	return $curr;
+	$block=array();
+	$begin=0;
+	$end=0;
+	if (($curr-$step-1)<=$first) {
+		$begin=$first;
+	}
+	if ($curr+$step>=($last-1)) {
+		$end=$last;
+	}
+	if ($begin==$first and $end==$last) { //whole bar
+		$block[]=array($first,$last);
+	} else {
+		if ($begin==$first) { // first half
+			$block[]=array($first,($curr+$step));
+			$block[]=array(0,0);
+			$block[]=array($last,$last);
+		}
+		elseif ($end==$last) { //last half
+			$block[]=array($first,$first);
+			$block[]=array(0,0);
+			$block[]=array(($curr-$step),$last);
+		}
+		else {//middle
+			$block[]=array($first,$first);
+			$block[]=array(0,0);
+			$block[]=array(($curr-$step),($curr+$step));
+			$block[]=array(0,0);
+			$block[]=array($last,$last);
+		}
+	}
+	return array(
+		'block'=>$block,
+		'prev'=>($curr==$first)?0:($curr-1),
+		'next'=>($curr==$last)?0:($curr+1),
+		'curr'=>$curr,
+		'url'=>$urlbase, // ready to be connected with id e.g. "url/id"
+	);
 }
 function calc_total_page($totalrows=1,$max_per_page=1) {
-	$pgtotal=sprintf ("%d", ($totalrows/$max_per_page) );
+	$pgtotal=intdiv ($totalrows,$max_per_page);
 	if ($totalrows%$max_per_page) { $pgtotal++; }
 	return $pgtotal;
 }
@@ -282,16 +263,6 @@ function mk_url_google_img ($url='',$size='') { // input  has no https://
 	}
 	return sprintf ('https://%s/%s/%s', (implode ( '/', $t)), $size, $fname);
 }
-function print_mygirls_h3 ($entry=null,$idx=0) {
-	if ($entry) {
-		global $POCCHONG;
-		$title_h2=sprintf ('%s %s %s', rand_deco_symbol(), $entry['title'], rand_deco_symbol() );
-		if ($idx) { #include link on h3
-			$title_h2=sprintf ('<a href="%s/%s">%s</a>', $POCCHONG['MYGIRLS']['url'], $entry['id'], $title_h2 );
-		}
-		echo '<h2>',$title_h2,'</h2>',"\n";
-	}
-}
 function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
 	if ($url) {
 		return "http://kosmoflips.deviantart.com/art/".$url;
@@ -302,69 +273,8 @@ function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
 
 ?>
 <?php // ----------------- write html --------------
-function write_html_open($title='') { #use this when no extra code in head
-	write_html_open_head($title);
-	write_html_open_body();
-}
-function write_html_open_head($title='') {
-	global $POCCHONG;
-	$jslist=array();
-	$csslist=array();
-	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_open_head.php');
-}
-function write_html_open_body() {
-	echo "</head>\n";
-	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_open_body.php');
-}
-function write_html_close($naviset=null,$navi1=null) { // if both are given, only use navi1 (for single page)
-	echo '</div><!-- .post-outer -->', "\n";
-	// NAVI for all pages or 1 single entry	
-	if (isset($navi1) or isset($naviset)) {
-		echo '<div id="footer-navi">',"\n";
-		if (isset($navi1)) {
-			echo '<div>',"\n";
-			print_footer_navi($navi1['prev']['title'], $navi1['prev']['url'],1);
-			print_footer_navi($navi1['next']['title'], $navi1['next']['url'],0);
-			echo '</div>',"\n";
-		}
-		if (isset($naviset)) {
-			print_navi_bar($naviset['navi'], $naviset['turn'], $naviset['currpage'],$naviset['baseurl']);
-		}
-		echo '</div><!-- .footer-navi -->',"\n";
-	}
-	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/incl_html_close.php');
-}
-
-function print_static_title($title='') {
-	if ($title) {
-		printf ("<h2>%s %s %s</h2>\n", rand_deco_symbol(), $title, rand_deco_symbol() );
-	}
-}
-function write_html_admin($end=0, $linedjs=0) {
-	if (!$end) {
-		include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_admin_head.php');
-	} else {
-		include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_admin_tail.html');
-	}
-}
 function write_preview_sash () {
 	echo '<div style="z-index:20;position:fixed;background:rgba(0,0,0,0.7);padding:20px 0;text-align:center;display:block;width:100%;left:-100px;top:50px;font-size:30px;font-weight:bold;color:white;transform: rotate(-20deg)">PREVIEW</div>',"\n";
-}
-function print_post_wrap($do_end=0,$forpost=0) { #for .post-inner-shell = ONE individual entry
-	if (!$do_end) { #<div> opens
-		echo '<div class="post-inner-shell">',"\n";
-		echo '<div class="post-inner">',"\n";
-		if ($forpost) {
-			echo '<article>',"\n";
-		}
-	} else { #<div> closes
-		if ($forpost) {
-			echo '</article>',"\n";
-		}
-		echo '</div><!-- .post-inner -->',"\n";
-		echo '</div><!-- .post-inner-shell -->',"\n";
-	}
-	
 }
 function print_edit_button ($edit_url='') {
 	if (chklogin() and $edit_url) {
@@ -399,99 +309,12 @@ function rand_deco_symbol() {
 	$randnum=rand(0, (count($set) -1));
 	return $set[$randnum];
 }
-function _print_navi_square($baseurl='', $page=1,$cpage=1) {
-	$class='navi-bar-square';
-	if ($cpage == $page) {
-		$class.='-self';
-	}
-	printf ('<span class="%s"><a href="%s/%s">%s</a></span>%s',
-		$class,
-		$baseurl,
-		$page,
-		$page,
-		"\n");
-}
-function print_spacer_dots() {
-	echo '<span>..</span>',"\n";
-}
-function print_navi_bar($navi=null, $turn=1, $curr=1, $baseurl='') {
-	if (!$navi) { return 0; }
-	echo '<div class="navi-bar">',"\n";
-	if ($navi['prev']) {
-		printf ('<span><a href="%s/%s">◀◀</a></span>%s', $baseurl, ($curr-1),"\n");
-	}
-	if ($navi['begin0'] and $navi['begin1']) {
-		for ($i=$navi['begin0']; $i<=$navi['begin1']; $i++) {
-			_print_navi_square($baseurl, $i,$curr);
-		}
-	} elseif ($navi['begin0']) {
-		_print_navi_square($baseurl, $navi['begin0'],$curr);
-	}
-	if ($navi['mid']) {
-		print_spacer_dots();
-		for ($i=($navi['mid']-$turn); $i<=($navi['mid']+$turn); $i++) {
-			_print_navi_square($baseurl, $i,$curr);
-		}
-	}
-	if ($navi['end0'] and $navi['end1']) {
-		print_spacer_dots();
-		for ($i=$navi['end0']; $i<=$navi['end1']; $i++) {
-			_print_navi_square($baseurl, $i,$curr);
-		}
-	}
-	elseif ($navi['end1']) {
-		print_spacer_dots();
-		_print_navi_square($baseurl, $navi['end1'],$curr);
-	}
-	if ($navi['next']) {
-		printf ('<span><a href="%s/%s">▶▶</a></span>%s', $baseurl, ($curr+1), "\n");
-	}
-	echo '</div><!-- .navi-bar ends -->',"\n";
-}
-function print_footer_navi ($title='',$url='',$prev=0) { //footer navi <div> for next/prev entry . url should be ABS path to root.
-	if (!$title or !$url) {
-		return 0;
-	}
-	if ($prev) {
-		$titlefmt='⇦ '.$title;
-		$prev='prev';
-	} else {
-		$titlefmt=$title.' ⇨';
-		$prev='next';
-	}
-	echo '<div class="navi-',$prev,'"><a href="',$url,'">', $titlefmt,'</a></div>',"\n";
-}
-
-function print_link_in_head($jslist=array(), $csslist=array(), $jqonly=0) { // in <head>
-	global $POCCHONG;
-	if (isset($jslist) or isset($jqonly)) {
-		printf ('<script src="%s"></script>%s', $POCCHONG['FILE']['jquery'],"\n");
-		if (isset($jslist)) {
-			foreach ($jslist as $jsurl) {
-				printf ('<script src="%s"></script>%s', $jsurl,"\n");
-			}
-		}
-	}
-	if (isset($csslist)) {
-		foreach ($csslist as $cssurl) {
-			printf ('<link rel="stylesheet" type="text/css" href="%s" />%s',$cssurl, "\n");
-		}
-	}
-}
 function print_system_msg ($msg='') { // admin submit-page edit only
 	if (!empty($msg)) {
 		echo '<div class="system-msg">system message: '.$msg.'</div>';
 	}
 }
-function use_lined_textarea() { // supposed to print content in <head>
-// related <textarea> should have class="lined" . other class name need to also change JS file
-	echo '<script src="/deco/js/linedtextarea/linedtextarea.js"></script>',"\n";
-	echo '<link href="/deco/js/linedtextarea/linedtextarea.css" type="text/css" rel="stylesheet" />',"\n";
-	echo '<script>$(function() { $(".lined").linedtextarea(); });</script>',"\n";
-}
-function echo_credit() {
-	echo '<a href="/about">2006-', date('Y'), ' kiyoko@FairyAria</a>',"\n";
-}
+
 ?>
 <?php // ----------- chk login ----------
 function chklogin($retreat=0) {
@@ -539,8 +362,5 @@ function rand_array($total=2) {
 	}
 	return $a;
 */
-}
-function print_line_seperator() {
-	echo '<div style="margin-top: 25px; border-bottom: 3px double #d8afe2; display:block; text-align:center; width: 90%; font-size: 120%; text-shadow: 2px 2px 3px #bd8db4; margin: auto; "><b>..｡o○☆*:ﾟ･: Variations :･ﾟ:*☆○o｡..</b></div>',"\n";
 }
 ?>
