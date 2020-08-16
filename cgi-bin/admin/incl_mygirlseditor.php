@@ -1,14 +1,11 @@
-<?php #UTF8 anchor (´・ω・｀)
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-// relies on edit_mygirls.php. won't work if used independently
-?>
 <?php
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
+// relies on edit_mygirls.php. won't work if used independently
+PocPage::html_admin();
 ?>
 <div><a href="<?php echo $redirectlist ?>">discard and go back</a></div>
 <hr />
 
-<form action="<?php echo $POCCHONG['MYGIRLS']['edit'] ?>" method="post" accept-charset="utf-8" target="">
+<form action="<?php echo $_SERVER['REDIRECT_URL'] ?>" method="post" accept-charset="utf-8" target="">
 <?php
 	if (isset($info['update'])) { ?>
 <input type="hidden" name="update" value="1" />
@@ -17,12 +14,11 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 <input type="hidden" name="insert" value="1" />
 <?php	}
 ?>
-<table><tr><td><!--shell table-->
 <table><!--info table-->
 <tr><td><b>id*</b></td>
 	<td><input type="text" name="main[id]" maxlength="11" value="<?php echo $info['id'] ?>" readonly></td></tr>
 <tr><td><b>work ID*</b></td>
-	<td><input type="text" name="main[vol]" maxlength="20" size="9" value="<?php echo $info['vol'] ?>" required /></td></tr>
+	<td><input type="text" name="main[vol]" maxlength="20" size="9" value="<?php echo $info['vol'] ?>" required placeholder="FACL000"/></td></tr>
 <tr><td><b>title*</b></td>
 	<td><input type="text" name="main[title]" maxlength="255" size="50" value="<?php echo $info['title'] ?>" required /></td></tr>
 <tr><td><b>epoch*</b></td>
@@ -30,7 +26,7 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 <tr><td><b>gmt*</b></td>
 	<td><input type="number" min="-12" max="12" size="4" name="main[gmt]" maxlength="2" value="<?php echo $info['gmt'] ?>" required /></td></tr>
 <tr><td><b>year*</b></td>
-	<td><input type="number" name="main[year]" maxlength="2" value="<?php echo ($info['year']??(date('Y')-2000)) ?>" readonly />(supposed year-2000) if really want to change this, do it through SQL directly</td></tr>
+	<td><input type="number" name="main[year]" maxlength="2" value="<?php echo ($info['year']??(date('Y')-2000)) ?>" readonly /> (shown as year-2000) if really want to change, use SQL</td></tr>
 <tr><td><b>rep_id (current)</b></td>
 	<td><input type="number" size="4" name="curr_rep_id" maxlength="11" value="<?php echo $info['rep_id'] ?>" readonly></td></tr>
 <tr><td><b>post_id</b></td>
@@ -42,9 +38,9 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 <tr><td><b>new remake</b></td>
 	<td><input type="number" size="4" name="main[remake]" maxlength="11" value="<?php echo $info['remake'] ?>"> this is an old work</td></tr>
 </table><!--info table ends-->
-</td>
-<td>
-<!--tag list-->
+<hr />
+<table><tr>
+<td><!--tag list-->
 <?php
 		$x=0;
 		foreach ($tagidx as $idx=>$tagid) {
@@ -57,7 +53,7 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 				$idx,
 				($chked?'checked':''),
 				$tagid,
-				($x%2==0?"<br />\n":' || ')  );
+				($x%8==0?"<br />\n":' || ')  );
 		}
 ?>
 </td></tr></table><!--shell table ends-->
@@ -81,7 +77,7 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 		<b>rep:</b><input type="radio" name="set_rep_id" value="<?php echo $pcs['id'] ?>" <?php echo !empty($pcs['is_rep'])?'checked':'' ?> /> || 
 		<b>DELETE this?</b> <input type="checkbox" name="DEL_pcs[]" value="<?php echo $pcs['id'] ?>" /><br />
 		<b>da_url: </b>
-			http://kosmoflips.deviantart.com/art/<input type="text" size="45" name="<?php echo $namepre ?>[da_url]" maxlength="255" size="50" value="<?php echo $pcs['da_url'] ?>" /><br />
+			https://www.deviantart.com/kosmoflips/art/<input type="text" size="45" name="<?php echo $namepre ?>[da_url]" maxlength="255" size="50" value="<?php echo $pcs['da_url'] ?>" /><br />
 		<b>img_url: </b>https://<input type="text" size="75" name="<?php echo $namepre ?>[img_url]" maxlength="255" size="120" value="<?php echo $pcs['img_url'] ?>" placeholder="x.blogspot.com/xxx/yyy/2800/imagesample.jpg" />
 	</td>
 	</tr>
@@ -89,17 +85,17 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 	}
 ?>
 </table>
-<input type="reset" value="Reset" onclick="return confirm('reset everything?')" />
 <input type="submit" name="opt" value="Save" onclick="this.form.target='_self'" />
 <?php
 	if (!isset($info['insert'])) { // this is an existing entry
 ?>
 <input type="submit" name="opt" value="View" onclick="this.form.target='_blank' " />
-<input type="submit" name="opt" value="DELselected" onclick="return confirm('DELETE selected pieces?') " onclick="this.form.target='_self' " />
+<input type="reset" value="Reset" onclick="return confirm('reset everything?')" />
+<input type="submit" name="opt" value="DELETE selected" onclick="return confirm('DELETE selected pieces?') " onclick="this.form.target='_self' " />
 <input type="submit" name="opt" value="DELETE" onclick="return confirm('DELETE entire entry?') " onclick="this.form.target='_self' " />
 <?php
 	} ?>
 </form>
 <?php
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
+PocPage::html_admin(1);
 ?>

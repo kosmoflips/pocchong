@@ -1,14 +1,13 @@
-@font-face {
-	font-family: 'Cherry Cream Soda';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Cherry Cream Soda'), local('CherryCreamSoda'), url(http://themes.googleusercontent.com/static/fonts/cherrycreamsoda/v4/OrD-AUnFcZeeKa6F_c0_W7qBN36jQhVLTmQ9NDizP_4.ttf) format('truetype');
-}
+/*
+past google fonts:
+Cherry Cream Soda
+Milonga
+*/
 body {
 	color:#373737;
-	font-size: 115%;
-	font-family: "Yu Gothic UI", Candara, Roboto, Verdana, Arial, sans-serif;
-	background: #7294ba url("/deco/img/lastshow_bg.jpg") no-repeat bottom center fixed;
+	font-size: 105%;
+	font-family: Exo,"Yu Gothic UI", sans-serif;
+	background: #7294ba url("/deco/img/oceanreflect3.jpg") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -23,7 +22,7 @@ body {
 
 a:hover { text-decoration: underline; }
 a:link, a:visited { text-decoration: none; }
-a:link, a:hover, a:visited { color: #cf0080; }
+a:link, a:hover, a:visited { color: #de0c8a; }
 
 
 ul { /* while changing its position, remember to also adjust "ul#menu li ul.sub-menu" */
@@ -31,23 +30,21 @@ ul { /* while changing its position, remember to also adjust "ul#menu li ul.sub-
 	padding-left:30px;
 }
 blockquote {
-	background: rgba(164,175,221,0.4);
-	border-radius: 5px;
+	background: rgba(22,53,140,0.1);
+	border-radius: 2px;
 	box-shadow: 3px 3px 4px #bdc4e5;
 	margin:20px auto;
 	padding:15px 20px;
 	width: 85%;
 }
 textarea {
-	background: rgba(164,175,221,0.4);
-	border: 2px solid #d6b0e4;
+	background: rgba(22,53,140,0.1);
 	border-radius: 2px;
 }
 pre { /* both are for codes */
-	background: rgba(164,175,221,0.4);
+	background: rgba(22,53,140,0.1);
 	padding: 15px 20px;
-	margin: 10px;
-    white-space: pre-wrap;       /* CSS 3 */
+	white-space: pre-wrap;       /* CSS 3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
@@ -57,16 +54,18 @@ pre { /* both are for codes */
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/img/top_mizuhiki_purpleblue.png") top left no-repeat;
+	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
 	display:inline-block;
 	position: absolute;
-	height:285px;
-	width: 400px;
+	width: 480px;
+	height:303px;
 	z-index:15;
 }
 #header-outer {
-	height:285px; /*>=height of the top mizuhiki img*/
-	position:relative;
+	/* height:285px; */
+	/*>=height of the top mizuhiki img*/
+	/* position:relative; */
+	/* border: 1px solid red; */
 }
 #header-outer h1 {
 	display:none;
@@ -76,106 +75,53 @@ pre { /* both are for codes */
 	display:block;
 	position: absolute;
 	z-index:20;
-	top:30px;
-	left:507px;
+	top:60px;
+	left:715px;
 	width:380px;
 	height:85px;
 }
 
 /*--------- layout -----*/
-#master-wrap {
-	background: rgba(255,255,255,0.4);
-	border: 5px solid rgba(244,255,90,0.7);
-	display: block;
-	width: 1070px;
-	margin: 25px auto 20px;
-}
 #master-wrap, #post-list-wrap .datetime, .post-shell, .post-inner h3, .post-inner, .post-inner blockquote {
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
+#master-wrap {
+	background: rgba(255,255,255,0.4);
+	/* background: lightblue; */
+	border: 2px solid rgba(9,68,125,0.6);
+	display: block;
+	margin: 25px auto 20px;
+	width: 1100px;
+}
+#content-wrap {
+/* background: yellow; */
+	/* padding-left: 35px; */
+	margin-top:15px;
+	/* text-align: center; */
+}
 #mainlayer { /* style relies on the positioning of image */
-	padding: 0 17px;
-	margin-top:-110px;
-}
-
-/*--- search box. as it's generally hidden I put all codes here ---*/
-#g-search-area .post-inner, #g-search-area .post-shell {
-	background: none;
-	border: none;
-	box-shadow: none;
-}
-.gsc-control-cse form.gsc-search-box {
-	width: 80% !important;
+	/* background: pink; */
+	/* display: inline-block; */
+	width: 1000px;
+	/* margin-left: 50px; */
 	margin: auto;
 }
-.gsc-control-cse, .gsc-webResult.gsc-result, .gsc-results .gsc-imageResult, .gsc-tabHeader.gsc-tabhInactive {
-	background: transparent !important;
-	border: none !important;
+#post-list-wrap {
+	display: block;
+	margin: auto auto 55px;
+	/* background: green; */
 }
 
-
-/*------menu bar-----------*/
-#menu-out { /* shell for both menu and img version of h1 */
-	background:url("/deco/img/top_text_170731.png") top left no-repeat;
-	background-position:30px 20px;
-	display:inline-block;
-	font-family: "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
-	position:absolute;
-	height: 200px;
-	right: 150px;
-}
-ul#menu { /* adjust menu position inside of #menu-out */
-	margin-top:130px;
-	margin-left:-5px;
-}
-ul#menu li {
-	position: relative;
-	margin:0 2px;
-	font-size:90%;
-	min-width: 65px;
-}
-ul#menu li ul.sub-menu {
-	padding-top:3px;
-	display:none;
-	position: absolute;
-	margin-left:-34px; /* adjust according to global ul/li's indent */
-}
-ul#menu ul.sub-menu li {
-	width: 110px;
-	padding: 2px;
-	margin:3px;
-}
-ul#menu li:hover ul.sub-menu { /* show sub menu on hover */ 
-	display:block;
-}
-ul#menu li, ul#menu ul.sub-menu li {
-	background: rgba(255,255,255,0.6);
-	border: 1px solid rgb(104,113,189,0.4);
-    display: inline-block;
-    list-style-type: none;
-	text-align:center;
-	z-index: 30;
-}
-ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: rgba(29,17,82,1);
-    display:inline-block;
-	font-weight:bold;
-    padding: 4px;
-	text-decoration: none;
-}
-ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: rgba(255,255,255,0.8);
-	border: 1px solid rgba(13,46,82,0.6);
-}
-
-
-/*-----------post deco---------------*/
+/*-----------post---------------*/
 .datetime {
+	/* background: pink; */
 	color: #000f67;
 	font-size: 80%;
-	float:right;
-	margin-right:35px;
+	font-weight: bold;
+	margin-bottom: -17px;
+	text-align: right;
+	/* margin-right:35px; */
 }
 .datetime a {
 	color: #000f67;
@@ -188,72 +134,64 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	font-size: 90%;
 	margin:auto auto 10px 20px;
 	text-align:center;
-	width:50px;
-}
-#post-list-wrap {
-	display: block;
-	margin: auto auto 55px;
-	/*background: green;*/
-}
-.post-inner h2 a, .post-inner h2, .post-inner h3,.post-inner h3 a, .post-inner h3:hover a { /* post title colours */
-	color: #001c4b;
-	text-shadow: 2px 2px 3px #8f91e0;
+	padding: 5px;
+	/* width:50px; */
 }
 .post-shell { /* applies trans-white bg , or a second img on top, etc...*/
-	background: rgba(255,255,255,0.9);
-	border: 1px solid #a7bfe4;
-	border-radius: 5px;
-	box-shadow: 3px 3px 4px #dc7bb8;
-	margin: 0px 30px 35px;
-	padding: 15px 15px 20px;
-	position:relative;
+	background: rgba(255,255,255,0.85);
+	border: 1px solid rgba(11,85,156,0.8);
+	border-radius: 3px;
+	/* box-shadow: 3px 3px 4px #dc7bb8; */
+	margin-bottom: 35px;
+	padding: 10px 0 15px;
 }
 .post-shell:last-child {
-	margin-bottom: -30px;
+	margin-bottom: -15px;
 }
 .post-inner {
-	background: url("/deco/img/clip_hane_blue.png") right bottom no-repeat; /* affects post block's bg */
-	padding: 5px 30px 10px;
+	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+	padding: 15px 30px 10px;
+}
+.post-inner h2, .post-inner h3 {
+	background: rgba(22,53,140,0.8);
+	border-radius: 3px;
+	font-family: 'Milonga', cursive;
+	box-shadow: 0 5px 6px rgba(22,53,140,0.6);
 }
 .post-inner h2 {
-	background: rgba(255,255,255,0.4);
-	border: 4px double #c6bbef;
-	border-radius: 10px;
-	box-shadow: 2px 2px 3px #8f91e0;
+	color: #fff;
 	text-align:center;
-	font-family: 'Cherry Cream Soda', cursive;
-	padding: 8px 15px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom:10px;
-	max-width: 90%;
+	padding: 10px 15px;
+	margin: 2px 0 20px;
 }
 .post-inner h3 {
-	background: rgba(193,191,250,0.5);
-	border: 1px solid #c6bbef;
-	border-radius: 3px;
-	box-shadow: 3px 3px 4px #8f91e0;
-	font-family: 'Cherry Cream Soda', cursive;
-	font-weight: bold;
-	font-size: 130%;
-	margin: 20px 5px 15px;
-	padding: 7px 17px;
-	width:95%;
-}
-.post-inner h3:hover {
-	background: rgba(193,191,250,0.3);
+	/* background: yellow; */
+	margin: 22px -35px 18px;
+	padding: 10px 33px;
 }
 .post-inner h3 a {
 	display: inline-block;
-	max-width: 100%;
+	width: 100%;
+	/* background: pink; */
+}
+.post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
+	color: #fff;
+}
+.post-inner h3:hover {
+	background: rgba(22, 53, 140, 0.5);
 }
 .post-inner h4 { /* for in-post h4's*/
-	border-left: 13px solid rgba(193,191,250,0.9);
-	border-bottom: 7px dotted rgba(193,191,250,0.9);
+	border-left: 11px solid rgba(22,53,140,0.8);
+	border-bottom: 2px dotted rgba(22,53,140,0.8);
 	color: #001c4b;
-	font-size: 110%;
-	margin: 25px auto -5px;
+	margin-bottom: -2px;
 	padding: 1px 0 3px 8px;
+}
+.post-inner article {
+	/* background: yellow; */
+	/* background-image: repeating-linear-gradient(transparent 0px, transparent 29px, #ce4444 30px); */
+	margin: 30px 10px 25px;
+	line-height: 28px;
 }
 
 /*------- custom content tags------------*/
@@ -275,7 +213,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 }
 .netabare {
 	color:transparent;
-	background: rgba(164,175,221,0.4);
+	background: rgba(22,53,140,0.1);
 }
 .netabare:hover {
 	color:#373737;
@@ -300,22 +238,36 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 
 
 /*-------archiv -------*/
+.archiv-year {
+/* background: lime; */
+	padding: 6px;
+	margin-bottom: 5px;
+	border-left: 12px solid rgba(22,53,140,0.8);
+	font-weight: bold;
+	font-size: 105%;
+	padding-left: 10px;
+}
+.archiv-year a, .archiv-year a:hover {
+	color: #16358c;
+	font-family: 'Milonga';
+}
 .archiv {
 	padding:5px 0 20px;
 }
 .archiv ul {
 	list-style-type: none;
-	margin-top:-10px;
+	margin-top:-5px;
+	padding-inline-start: 0;
 }
 .archiv li {
 	border-bottom: 1px #5e76ad dashed;
-	margin-right: 35px;
 	padding-top: 7px;
 }
 .archiv li:hover {
-	background: rgba(201,142,255,0.4);
+	background: rgba(22,53,140,0.1);
 }
 .archiv li a {
+	color: #373737;
 	text-decoration:none;
 }
 .archiv li:hover a:link, .archiv li:hover a:visited {
@@ -327,36 +279,25 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	text-align:right;
 	margin-right: 15px;
 }
-.archivname { /*for static page list, title*/
+/*for static page list, title*/
+.archivname {
 	font-weight: bold;
-	font-size: 110%;
 	line-height: 220%;
 	margin-left: 30px;
 }
-.archivdesc { /*for static page list, description*/
+.archivdesc {
 	font-style:italic;
 }
 
 
-/*-------- img for both post and mygirls -----------*/
-/* transition, hover to zoom-in img: only apply in <article> or .stdalone */
+/*-------- img for both post and mg -----------*/
 article img {
 	padding: 3px;
-	border: 6px double #9bb284;
+	border: 6px double #6A93C5;
 	margin: 5px;
 	max-height:400px;
 	max-width: 55%;
-	transition:max-width,max-height 1s,1s;
-	-o-transition-delay: 1s;
-	-moz-transition-delay: 1s;
-	-webkit-transition-delay: 1s;
-    transition-delay: 1s;
 }
-article img:hover {
-	max-width:100%;
-	max-height:100%;
-}
-
 
 /*------- mygirls image frame -------*/
 .gallery { /* wrapper layer, for both index page and sub-section in individual page for variation pics below stdalone */
@@ -369,57 +310,79 @@ article img:hover {
 }
 .stdalone img {
 	background: rgba(255,255,255,0.6);
-	border: 6px double #9bb284;
-	box-shadow: 3px 3px 4px #8ca86f;
-	max-width:60%;
-	padding: 13px; /* for border effect */
+	border: 6px double #6A93C5;
+	box-shadow: 3px 3px 4px #A5BFDD;
+	max-width:80%;
+	max-height: 470px;
+	padding: 12px; /* for border effect */
 }
-.stdalone:hover, .gallery-img-frame:hover {
-	opacity: 0.6;
+
+article img:hover , .stdalone img:hover {
+	max-width:100%;
+	max-height:100%;
 }
+
+/*
+.stdalone img:hover, .gallery-img-frame img:hover {
+	/* opacity: 0.6; * /
+	background: rgba(0,0,0,0.4);
+}
+*/
+
+/* transition, separate def as it's shared for <article img> and .stdalone */
+article img, .stdalone img {
+	/* doesn't work for stdalone for some reason right now*/
+	transition:max-width,max-height 1s,1s;
+	-o-transition-delay: 1s;
+	-moz-transition-delay: 1s;
+	-webkit-transition-delay: 1s;
+    transition-delay: 1s;
+}
+
 
 /*--- MG archive page, hover-to-show-title effect ---*/
 .mgarchive-container {
-	border: 4px double #9bb284;
+	border: 4px double #6A93C5;
 	box-shadow: 1px 1px 3px #8ca86f;
 	box-sizing: border-box;
 	display:inline-block;
 	margin: 5px 3px;
 	padding: 2px;
 	position: relative;
+	height: 270px;
 }
 .mgarchive-image { /* Make the image to responsive */
 	display: block;
 	/* width: 100%; */
 	/* height: auto; */
-	width: auto;
-	height: 300px;
+	/* width: auto; */
+	height:100%;
 	box-sizing: border-box;
 }
 .mgarchive-overlay {
-	position: absolute;
-	bottom: 0;
 	background: rgba(0, 0, 0, 0.7); /* Black see-through */
-	color: #f1f1f1;
-	width: 100%;
-	transition: .5s ease;
-	opacity:0;
-	color: #fff;
-	font-size: 18px;
-	padding: 15px;
-	font-weight:bold;
-	text-align: center;
+	bottom: 0;
 	box-sizing: border-box;
+	color: #f1f1f1;
+	font-weight:bold;
+	padding: 5px;
+	margin-left: -3px;
+	opacity: 0;
+	position: absolute;
+	text-align: center;
+	transition: .5s ease;
+	width: 101%;
 }
 .mgarchive-container:hover .mgarchive-overlay {
   opacity: 1;
 }
 .gallery-img-frame { /* force the div to properly contain the floated images: */
-	border: 4px double #9bb284;
+	border: 4px double #6A93C5;
 	clear:none;
 	display:inline-block;
-	height: 230px;
-	margin: 0; padding: 0;
+	height: 200px;
+	margin: 0;
+	padding: 0;
 	overflow:hidden;
 	position:relative;
 	text-align:center;
@@ -428,63 +391,129 @@ article img:hover {
 	height: 100%;
 }
 .mg-h-line {
-	margin-top: 25px;
-	border-bottom: 3px double #d8afe2;
+	border-bottom: 3px double rgba(22,53,140,0.8);
 	display:block;
+	font-size: 130%;
+	margin-top: 25px;
 	text-align:center;
+	text-shadow: 2px 2px 2px rgba(22,53,140,0.8);
 	width: 90%;
-	font-size: 120%;
-	text-shadow: 2px 2px 3px #bd8db4;
 	margin: auto;
 }
 
-/*--------footer-------*/
-#footer-navi {
-	margin: 10px 30px 20px;
-	padding: 0 0 30px;
+/*------menu bar-----------*/
+#menu-out { /* shell for both menu and img version of h1 */
+/* border: 1px solid red; */
+	background:url("/deco/img/top_text_170731.png") top left no-repeat;
+	background-position: 475px 20px;
+	display:inline-block;
+	font-family: 'Milonga', "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
+	width: 100%;
 }
-.navi-bar, .navi-bar a {
-	color:#294809;
+ul#menu { /* adjust menu position inside of #menu-out */
+/* border: green 1px solid; */
+	margin-top: 130px;
+	padding-left: 390px;
 }
-.navi-bar {
-	width: 95%;
-	display: block;
-	font-size: 90%;
-	margin:auto;
-	text-align: center;
+ul#menu li {
+	position: relative;
+	margin-left: -6px;
+	width: 100px;
 }
-.navi-bar a {
+ul#menu li ul.sub-menu {
+	display:none;
+	position: absolute;
+	margin-left:-25px;
+}
+ul#menu ul.sub-menu li {
+	width: 100px;
+}
+ul#menu li:hover ul.sub-menu { /* show sub menu on hover */ 
+	display:block;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	background: rgba(255,255,255,0.7);
+	border: 1px solid rgb(104,113,189,0.5);
+    display: inline-block;
+    list-style-type: none;
+	text-align:center;
+	z-index: 30;
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: rgba(29,17,82,1);
+    display:inline-block;
+	font-weight:bold;
+    padding: 4px;
 	text-decoration: none;
 }
+ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
+	color: #fff;
+}
+ul#menu li:hover, ul#menu ul.sub-menu li:hover {
+	background: rgba(22,53,140,0.8);
+	border: 1px solid rgba(13,46,82,0.6);
+}
+
+#___gcse_0 {
+	margin: -10px !important;
+}
+.gsc-control-cse {
+	background-color: transparent !important;
+	border: none !important;
+}
+
+
+/*--------footer-------*/
+#footer-navi {
+	margin: -30px auto 30px;
+	/* background: yellow; */
+}
+.navi-bar a, .navi-bar-square a {
+	color:#16358c;
+}
+.navi-bar-square-self a {
+	color: #fff;
+}
+.navi-bar {
+	/* border: 1px blue solid; */
+	display: block;
+	font-size: 90%;
+	text-align: center;
+}
 .navi-bar-square, .navi-bar-square-self {
-	border: 1px solid #829073;
+	border: 1px solid #16358c;
 	display: inline-block;
 	padding: 2px 8px;
 }
 .navi-bar-square {
-	background: rgba(220,196,135,0.5);
+	/* background: rgba(22,53,140,0.1); */
+	background: rgba(255,255,255,0.3);
 }
 .navi-bar-square-self {
-	background: rgba(214,228,177,0.7);
+	background: rgba(22,53,140,0.7);
 	font-weight: bold;
 }
+.navi-single {
+	/* background : pink; */
+	/* display: flex; */
+	margin-bottom: 15px;
+}
 .navi-prev, .navi-next {
-	max-width: 37%;
-	font-size: 80%;
+	/* background: rgba(22,53,140,0.1); */
+	background: rgba(255,255,255,0.4);
+	border: 1px solid rgba(22,53,140,0.3);
 	display: inline-block;
+	font-size: 92%;
 	padding: 3px 10px;
+	max-width: 45%;
 }
 .navi-prev a, .navi-next a {
-	color:#294809;
+	color:#16358c;
 	text-decoration: none;
-	text-shadow: 1px 1px #7c9d41;
-}
-.navi-prev, .navi-next {
-	border: 1px solid #829073;
-	background: rgba(220,196,135,0.6);
+	/* text-shadow: 1px 1px #7c9d41; */
 }
 .navi-prev {
-	float: left;
+	/* float: left; */
 	text-align:left;
 }
 .navi-next {
@@ -496,60 +525,50 @@ article img:hover {
 	text-decoration: underline;
 }
 .credit a:link, .credit a:hover, .credit a:visited {
-	color: #efff4e;
+	color: #D0D6E8;
 	text-decoration: none;
 	font-weight: bold;
 	/* background: pink; */
 }
 #footer-global {
-	font-size: 70%;
+	font-size: 85%;
 	text-align: center;
-	margin: auto;
 	padding-bottom: 25px;
 }
 
 
 
+
 /* ---------- calendar-------*/
-.calendar-wrapper {
-	margin-top: 25px;
+.calendar-side {
+	text-align:center;
 }
-.calendar-year-shell {
+.calendar-side .day-link {
+	background: rgba(22,53,140,0.8);
+}
+.calendar-side span {
+	border: 1px transparent solid;
 	display: inline-block;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size: 90%;
-	overflow:hidden;
-	vertical-align:top;
-	width: 74%;
+	text-align:center;
+	width: 10%;
 }
-.calendar-month-row-shell table {
-	text-align: center;
-	width:100%;
-	margin:auto;
+.calendar-side .day-today {
+	border: 1px dotted rgba(22,53,140,0.8);;
 }
-.calendar-month-row-shell {
-	display:flex;
-	margin-bottom: 10px;
+.calendar-month-wrap span {
+	border: 1px transparent solid;
 }
-div[class^='calendar-month-shell'] {
-	border-width: 4px;
-	border-style: double;
-	display:inline-block;
-	padding: 2px;
-	margin:0 auto;
-	width: 31%;
+.weekday-name span, .calendar-month-wrap span {
+	display: inline-block;
+	text-align:center;
+	width: 10%;
 }
-
-div[class^='calendar-month-shell'] th.month-name {
-	border: 5px double rgba(255,255,255,0.6);
-	color: #fff;
+.weekday-name span {
+	border: 1px dotted;
 }
-
-
-/*----- calendar cell details -----*/
 .weekday-name {
-	border-width: 1px;
-	border-style: dotted;
+	font-weight: bold;
+	margin-top: 2px;
 }
 a.day-link {
 	display: inline-block;
@@ -562,15 +581,52 @@ a.day-link {
 	color: #fff !important;
 	padding: 1px 2px;
 }
+.calendar-wrapper {
+	margin-top: 25px;
+	/* background : pink; */
+}
+.calendar-year-shell {
+	display: inline-block;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 85%;
+	overflow:hidden;
+	vertical-align:top;
+	width: 75%;
+}
+.calendar-month-row-shell {
+	/* background : pink; */
+	display: flex;
+	margin-bottom: 10px;
+	width:100%;
+}
+div[class^='calendar-month-shell'] {
+	border-width: 4px;
+	border-style: double;
+	padding: 2px;
+	margin:0 auto;
+	width: 31%;
+}
+.month-name {
+	border: 5px double rgba(255,255,255,0.6);
+	color: #fff;
+	font-weight: bold;
+	width: 94%;
+}
+.calendar-month-wrap {
+	/* background : green; */
+	text-align: center;
+	margin: auto;
+}
 
 /*----- calendar right list block -----*/
 .calendar-right-list {
-	margin-left: 5px;
 	display: inline-block;
-	width: 20%;
-	overflow-y: auto;
-	height: 980px; /*adjust to left calendar size*/
+	font-size: 80%;
+	height: 750px; /*adjust to left calendar size*/
+	margin-left: 5px;
 	padding: 5px;
+	overflow-y: auto;
+	width: 20%;
 }
 .calendar-right-list ul {
 	padding-left: 0px;
@@ -582,7 +638,7 @@ a.day-link {
 	margin-bottom: 10px;
 }
 .calendar-right-list li:hover {
-	background: rgba(201,142,255,0.4) !important; /* same as in calendar-php jquery */
+	background: rgba(22,53,140,0.2) !important; /* same as in calendar-php jquery */
 }
 .calendar-right-list a:hover {
 	text-decoration: none;
@@ -592,6 +648,17 @@ a.day-link {
 }
 
 /*--- by month colours ----*/
+.calendar-month-shell .month-name {
+	background: rgba(22,53,140,0.8);
+}
+.calendar-month-shell .day-link {
+	background: rgba(22,53,140,0.6);
+}
+.calendar-month-shell, .calendar-month-shell .weekday-name {
+	border-color: rgba(22,53,140,0.8);
+}
+
+/*
 .calendar-month-shell-m12 .month-name, .calendar-month-shell-m12 .day-link { background: #9c2542; }
 .calendar-month-shell-m11 .month-name, .calendar-month-shell-m11 .day-link { background: #e27831; }
 .calendar-month-shell-m10 .month-name, .calendar-month-shell-m10 .day-link { background: #39a0bb; }
@@ -605,16 +672,16 @@ a.day-link {
 .calendar-month-shell-m2 .month-name, .calendar-month-shell-m2 .day-link { background: #aa80ca; }
 .calendar-month-shell-m1 .month-name, .calendar-month-shell-m1 .day-link { background: #b5515d; }
 
-.calendar-month-shell-m12, .calendar-month-shell-m12 th.weekday-name { border-color: #9c2542; }
-.calendar-month-shell-m11, .calendar-month-shell-m11 th.weekday-name { border-color: #e27831; }
-.calendar-month-shell-m10, .calendar-month-shell-m10 th.weekday-name { border-color: #39a0bb; }
-.calendar-month-shell-m9, .calendar-month-shell-m9 th.weekday-name { border-color: #66a942; }
-.calendar-month-shell-m8, .calendar-month-shell-m8 th.weekday-name { border-color: #ac4a63; }
-.calendar-month-shell-m7, .calendar-month-shell-m7 th.weekday-name { border-color: #353839; }
-.calendar-month-shell-m6, .calendar-month-shell-m6 th.weekday-name { border-color: #73a9c2; }
-.calendar-month-shell-m5, .calendar-month-shell-m5 th.weekday-name { border-color: #50c878; }
-.calendar-month-shell-m4, .calendar-month-shell-m4 th.weekday-name { border-color: #0f52ba; }
-.calendar-month-shell-m3, .calendar-month-shell-m3 th.weekday-name { border-color: #de8f4e; }
-.calendar-month-shell-m2, .calendar-month-shell-m2 th.weekday-name { border-color: #aa80ca; }
-.calendar-month-shell-m1, .calendar-month-shell-m1 th.weekday-name { border-color: #b5515d; }
-
+.calendar-month-shell-m12, .calendar-month-shell-m12 .weekday-name { border-color: #9c2542; }
+.calendar-month-shell-m11, .calendar-month-shell-m11 .weekday-name { border-color: #e27831; }
+.calendar-month-shell-m10, .calendar-month-shell-m10 .weekday-name { border-color: #39a0bb; }
+.calendar-month-shell-m9, .calendar-month-shell-m9 .weekday-name { border-color: #66a942; }
+.calendar-month-shell-m8, .calendar-month-shell-m8 .weekday-name { border-color: #ac4a63; }
+.calendar-month-shell-m7, .calendar-month-shell-m7 .weekday-name { border-color: #353839; }
+.calendar-month-shell-m6, .calendar-month-shell-m6 .weekday-name { border-color: #73a9c2; }
+.calendar-month-shell-m5, .calendar-month-shell-m5 .weekday-name { border-color: #50c878; }
+.calendar-month-shell-m4, .calendar-month-shell-m4 .weekday-name { border-color: #0f52ba; }
+.calendar-month-shell-m3, .calendar-month-shell-m3 .weekday-name { border-color: #de8f4e; }
+.calendar-month-shell-m2, .calendar-month-shell-m2 .weekday-name { border-color: #aa80ca; }
+.calendar-month-shell-m1, .calendar-month-shell-m1 .weekday-name { border-color: #b5515d; }
+*/

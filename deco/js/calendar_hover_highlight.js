@@ -5,7 +5,7 @@ $(document).ready(function() {
 			'background': 'none'
 		});
 		$(id).css({
-			'background': 'rgba(201,142,255,0.4)'
+			'background': 'rgba(0,0,0,0.1)'
 		});
 	});
 });

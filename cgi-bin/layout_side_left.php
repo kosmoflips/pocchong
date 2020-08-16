@@ -1,2 +1,0 @@
-<?php // left sidebar content
-?>

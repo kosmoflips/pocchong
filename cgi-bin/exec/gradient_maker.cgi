@@ -89,11 +89,15 @@ print '<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js">
 <div style="text-align:left;width:800px;border: 1px solid #aaa;margin:10px auto">
 <ul>
 ';
+my $userdef=0;
+if ($p->{tbx} or $p->{tby}) {
+	$userdef=1;
+}
 printf '	<li>starting colour <input type="text" maxlength="15" size="6" value="%s" name="zero"></li>%s', ($zero?print_colour_code($zero):'#FFFFFF'),"\n";
-printf '	<li>x division: <input type="text" size="80" value="%s" name="tbx" /></li>%s', ($p->{tbx}||'C98EFF 467BDF'),"\n";
-printf '	<li>y division: <input type="text" size="80" value="%s" name="tby" /></li>%s', ($p->{tby}||'E6FF3A faa'),"\n";
+printf '	<li>x division: <input type="text" size="80" value="%s" name="tbx" /></li>%s', ($p->{tbx}||($userdef?'':'C98EFF 467BDF')),"\n";
+printf '	<li>y division: <input type="text" size="80" value="%s" name="tby" /></li>%s', ($p->{tby}||($userdef?'':'E6FF3A faa')),"\n";
 printf '	<li>mix step: <input type="number" min="0" max="255" size="2" value="%s" name="lv"> theoretically 0~255, depending on your RAM</li>%s', (($opt->{lv} and $opt->{lv}>2)?($opt->{lv}-1):5),"\n";
-printf '	<li>alpha (0~1): <input type="number" step="0.05" min="0" max="1" size="3" value="%s" name="alfa"> | background: <input type="text" maxlength="15" size="6" value="%s" name="bg"></li>%s', ($opt->{alfa}||1), ($opt->{bg}?print_colour_code($opt->{bg}):'#FFFFFF'),"\n";
+printf '	<li>alpha (0~1): <input type="number" step="0.01" min="0" max="1" size="3" value="%s" name="alfa"> | background: <input type="text" maxlength="15" size="6" value="%s" name="bg"></li>%s', ($opt->{alfa}||1), ($opt->{bg}?print_colour_code($opt->{bg}):'#FFFFFF'),"\n";
 printf '	<li>Find a colour <input id="full" /> <span id="basic-log" style="color: red"></span></li>
 </ul>
 </div>

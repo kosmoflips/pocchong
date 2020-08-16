@@ -1,39 +1,12 @@
-<?php #UTF8 anchor (´・ω・｀)
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
-<?php // ----- subs ------------
-function _del_mygirls($k=null,$id=0) { // delete entire entry
-	$stat=array();
-	$stat[]='DELETE FROM mygirls_link WHERE title_id=?';
-	$stat[]='DELETE FROM mygirls_pcs WHERE title_id=?';
-	$stat[]='DELETE FROM mygirls WHERE id=?';
-	$k->dosql('UPDATE mygirls SET rep_id=? where id=?',array(null,$id)); // avoid interal relationship
-	foreach ($stat as $s) {
-		$k->dosql($s,array($id));
-	}
-}
-function cleanimgurl ($url='') { #better to separate since it's easier to choose your output img dimension
-#old type url: http://lh4.googleusercontent.com/-a-tSvDZLVhU/VndOs2XjNuI/AAAAAAAAi70/8xr7M0mbG8I/s500/ ===> "s500/" can be omitted
-	$pattern1='/^https?:?/';
-	$pattern2='/^[\/:]/';
-	while (preg_match($pattern1, $url) or preg_match($pattern2, $url)) {
-		$url=preg_replace($pattern1,'',$url);  #remove https
-		$url=preg_replace($pattern2,'',$url);  # remove leading slash '/'
-	}
-	return $url;
-}
-function add_tag($k=null,$titleid=0,$tagid=0) {
-	if ($k and $titleid and $tagid) {
-		$lastid=$k->getOne('SELECT id FROM mygirls_link ORDER BY id DESC LIMIT 1');
-		$lastid++;
-		$k->dosql('INSERT INTO mygirls_link ("id","title_id","tag_id") VALUES(?,?,?)', array($lastid,$titleid, $tagid));
-	}
-}
-?>
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+$ENTRY_VAR=POCCHONG['MYGIRLS'];
+$TVAR=$ENTRY_VAR['table'];
+$DATA_IN=$_POST;
+
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_table?sel=mygirls';
+$redirectlist='/a/list_table?sel='.$TVAR;
 
 #dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
 
@@ -47,41 +20,41 @@ if (isset($_GET['dst'])) {
 }
 
 $usrsubmit=0;
-if (isset($_POST['opt'])) { //submit,delete
-	if ($_POST['opt'] == 'DELETE') {
-		if (isset($_POST['del_id'])) {
-			foreach ($_POST['del_id'] as $id) {
+if (isset($DATA_IN['opt'])) { //submit,delete
+	if ($DATA_IN['opt'] == 'DELETE') {
+		if (isset($DATA_IN['del_id'])) {
+			foreach ($DATA_IN['del_id'] as $id) {
 				_del_mygirls($k,$id);
 			}
 		}
-		if (isset($_POST['main']['id'])) { // submitted from edit interface
-			_del_mygirls($k,$_POST['main']['id']);
+		if (isset($DATA_IN['main']['id'])) { // submitted from edit interface
+			_del_mygirls($k,$DATA_IN['main']['id']);
 		}
 		$redirectlist.='&dst=3';
 		jump($redirectlist);
 	}
-	elseif ($_POST['opt'] == 'DELselected') {
-		if (isset ($_POST['DEL_pcs']) and !empty($_POST['main']['id'])) {
-			$rep=$k->getRow('SELECT id as "rep_id",title_id FROM mygirls_pcs WHERE id=?', array($_POST['main']['id']));
-			foreach ($_POST['DEL_pcs'] as $pid) {
+	elseif ($DATA_IN['opt'] == 'DELETE selected') {
+		if (isset ($DATA_IN['DEL_pcs']) and !empty($DATA_IN['main']['id'])) {
+			$rep=$k->getRow('SELECT id as "rep_id",title_id FROM '.$ENTRY_VAR['table_pcs'].' WHERE id=?', array($DATA_IN['main']['id']));
+			foreach ($DATA_IN['DEL_pcs'] as $pid) {
 				if (preg_match('/^new/i', $pid)) { // no need to delete "new" entries
 					continue;
 				}
 				if ($rep['rep_id'] == $pid) {
-					$k->dosql('UPDATE mygirls SET rep_id=? where id=?',array(null,$rep['title_id']));
+					$k->dosql('UPDATE '.$TVAR.' SET rep_id=? where id=?',array(null,$rep['title_id']));
 				}
-				$k->dosql('DELETE FROM mygirls_pcs WHERE id=?',array($pid));
+				$k->dosql('DELETE FROM '.$ENTRY_VAR['table_pcs'].' WHERE id=?',array($pid));
 			}
 		}
-		$rurl=sprintf ('%s/?id=%s&dst=2',$POCCHONG['MYGIRLS']['edit'],$_POST['main']['id'] );
+		$rurl=sprintf ('%s/?id=%s&dst=2',$ENTRY_VAR['edit'],$DATA_IN['main']['id'] );
 		jump($rurl);
 		exit;
 	}
-	elseif ($_POST['opt'] == 'View') {
-		$reurl=sprintf ('%s/%s', $POCCHONG['MYGIRLS']['url'],$_POST['main']['id']);
+	elseif ($DATA_IN['opt'] == 'View') {
+		$reurl=sprintf ('%s/%s', $ENTRY_VAR['url'],$DATA_IN['main']['id']);
 		jump($reurl);
 	}
-	elseif ($_POST['opt'] == 'Save') { // set flag, do later
+	elseif ($DATA_IN['opt'] == 'Save') { // set flag, do later
 		$usrsubmit=1;
 	}
 	else {
@@ -93,17 +66,17 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	$tagidx=$k->getTags();
 
 	if (isset($_GET['id'])) { // edit existing entry
-		$info=$k->getRow('SELECT * FROM mygirls WHERE id=?',array($_GET['id']));
+		$info=$k->getRow('SELECT * FROM '.$TVAR.' WHERE id=?',array($_GET['id']));
 		if (empty($info)) { // given id is false , redirect to list
 			jump($redirectlist);
 		}
 		// ---- below, given id is true. get all pcs , link tags-----------
 		$info['update']=1;
-		$tags=$k->getAll('SELECT tag_id FROM mygirls_link WHERE title_id=?',array($info['id']));
+		$tags=$k->getAll('SELECT tag_id FROM '.$ENTRY_VAR['table_link'].' WHERE title_id=?',array($info['id']));
 		foreach ($tags as $tagid) {
 			$info['tags'][]=$tagid['tag_id'];
 		}
-		$stat='SELECT * FROM mygirls_pcs WHERE title_id=?';
+		$stat='SELECT * FROM '.$ENTRY_VAR['table_pcs'].' WHERE title_id=?';
 		$sth=$k->getAll($stat,[$_GET['id']]);
 		foreach ($sth as $r) { // loop through each [pcs]. set up pic preview url and label representative pcs
 			$url='';
@@ -125,7 +98,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	elseif (isset($_GET['new'])) { // make a new entry
 		$info['insert']=1;
 		$info['id']='';
-		$info['vol']='FACL000';
+		$info['vol']='';
 		$info['title']='';
 		$info['year']=date('Y')-2000;
 		$info['epoch']=time();
@@ -149,19 +122,19 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 		);
 	}
 	// ---- write editor HTML -----------
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_mygirlseditor.php');
+	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
 	exit;
 }
 
-if ($usrsubmit) { // edit/update from $_POST
-	$main=isset($_POST['main'])?$_POST['main']:null;
-	$tags=isset($_POST['tags'])?$_POST['tags']:null;
-	$pcs=isset($_POST['pcs'])?$_POST['pcs']:null;
+if ($usrsubmit) { // edit/update from $DATA_IN
+	$main=isset($DATA_IN['main'])?$DATA_IN['main']:null;
+	$tags=isset($DATA_IN['tags'])?$DATA_IN['tags']:null;
+	$pcs=isset($DATA_IN['pcs'])?$DATA_IN['pcs']:null;
 	if (empty($main)) {
 		jump($redirectlist);
 	}
 
-	if (!empty($_POST['update']) ) {
+	if (!empty($DATA_IN['update']) ) {
 		$update=1;
 	} else {
 		$update=0;
@@ -169,7 +142,7 @@ if ($usrsubmit) { // edit/update from $_POST
 	// ---------update/insert main block, and tags-----------
 	if ($update) {
 		// --- main block , except rep_id ---
-		$mainblock=$k->getRow('SELECT * FROM mygirls where id=?',array($main['id']));
+		$mainblock=$k->getRow('SELECT * FROM '.$TVAR.' where id=?',array($main['id']));
 		$s0=array();
 		$pile=array();
 		foreach ($main as $mkey=>$mval ) {
@@ -179,14 +152,14 @@ if ($usrsubmit) { // edit/update from $_POST
 			}
 		}
 		if (!empty($s0)) { // one or more columns need update
-			$stat='UPDATE mygirls SET '.(implode ( ', ' , $s0)).' WHERE id=?';
+			$stat='UPDATE '.$TVAR.' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
 			$pile[]=$main['id'];
 			$k->dosql($stat,$pile);
 		}
 		// --- tags ---
 		$rmlist=array();
 		$addlist=array();
-		$ctags0=$k->getAll('SELECT id,tag_id from mygirls_link where title_id=?',array($main['id'])); // all current tags
+		$ctags0=$k->getAll('SELECT id,tag_id from '.$ENTRY_VAR['table_link'].' where title_id=?',array($main['id'])); // all current tags
 		$ctags=array();
 		foreach ($ctags0 as $cc) {
 			$ctags[]=$cc['tag_id'];
@@ -207,15 +180,14 @@ if ($usrsubmit) { // edit/update from $_POST
 			$addlist=$tags;
 		}
 		foreach ($rmlist as $rm) {
-			$k->dosql('DELETE FROM mygirls_link WHERE (title_id=? and tag_id=?)', array($main['id'], $rm));
+			$k->dosql('DELETE FROM '.$ENTRY_VAR['table_link'].' WHERE (title_id=? and tag_id=?)', array($main['id'], $rm));
 		}
 		foreach ($addlist as $add) {
 			add_tag($k, $main['id'],$add);
 		}
 	}
 	else { //insert
-		$lastid=$k->getOne('SELECT id FROM mygirls ORDER BY id DESC LIMIT 1');
-		$lastid++;
+		$lastid=$k->nextID($TVAR);
 		$s0=array();
 		$pile=array();
 		$s0[]='"id"';
@@ -229,7 +201,7 @@ if ($usrsubmit) { // edit/update from $_POST
 			$pile[]=$aval;
 			$vals.=',?';
 		}
-		$stat='INSERT INTO mygirls ('; // INSERT INTO mygirls ("id","title","epoch") VALUES(?,?,?)';
+		$stat='INSERT INTO '.$TVAR.' ('; // INSERT INTO mygirls ("id","title","epoch") VALUES(?,?,?)';
 		$stat.=implode(',',$s0);
 		$stat.=') VALUES(';
 		$stat.=$vals;
@@ -243,8 +215,8 @@ if ($usrsubmit) { // edit/update from $_POST
 	}
 
 	// ----------- update/insert pcs block ---------
-	$crep=$k->getOne('SELECT rep_id FROM mygirls WHERE id=?', array($main['id']));
-	$newrep=!empty($_POST['set_rep_id'])?$_POST['set_rep_id']:0;
+	$crep=$k->getOne('SELECT rep_id FROM '.$TVAR.' WHERE id=?', array($main['id']));
+	$newrep=!empty($DATA_IN['set_rep_id'])?$DATA_IN['set_rep_id']:0;
 	foreach ($pcs as $pc1) {
 		$pid=$pc1['id'];
 		$new=0;
@@ -262,14 +234,13 @@ if ($usrsubmit) { // edit/update from $_POST
 		$stat='';
 		$pile=array();
 		if (!$new) {
-			$stat='UPDATE mygirls_pcs SET title_id=?, stdalone=?, img_url=?, da_url=? WHERE id=?';
+			$stat='UPDATE '.$ENTRY_VAR['table_pcs'].' SET title_id=?, stdalone=?, img_url=?, da_url=? WHERE id=?';
 			$p2=$pid;
 		}
 		else { // insert new pcs
-			$lastpid=$k->getOne('SELECT id FROM mygirls_pcs ORDER BY id DESC LIMIT 1');
-			$lastpid++;
+			$lastpid=$k->nextID($ENTRY_VAR['table_pcs']);
 			$p2=$lastpid;
-			$stat='INSERT INTO mygirls_pcs ("title_id","stdalone","img_url","da_url","id") VALUES(?,?,?,?,?)';
+			$stat='INSERT INTO '.$ENTRY_VAR['table_pcs'].' ("title_id","stdalone","img_url","da_url","id") VALUES(?,?,?,?,?)';
 			if ($newrep == $pc1['id']) { // this newly inserted pc will be used as rep
 				$newrep=$lastpid;
 			}
@@ -283,12 +254,44 @@ if ($usrsubmit) { // edit/update from $_POST
 		$k->dosql($stat,$pile);
 	}
 	if ( $newrep != $crep ) { // -- update rep_id ---
-		$k->dosql('UPDATE mygirls SET rep_id=? where id=?', array($newrep,$main['id']));
+		$k->dosql('UPDATE '.$TVAR.' SET rep_id=? where id=?', array($newrep,$main['id']));
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',$POCCHONG['MYGIRLS']['edit'],$main['id'] );
+	$rurl=sprintf ('%s/?id=%s&dst=1',$ENTRY_VAR['edit'],$main['id'] );
 	jump($rurl);
 }
 
 jump($redirectlist);
+
+
+function _del_mygirls($k=null,$id=0) { // delete entire entry
+	global $ENTRY_VAR;
+	global $TVAR;
+	$stat=array();
+	$stat[]='DELETE FROM '.$ENTRY_VAR['table_link'].' WHERE title_id=?';
+	$stat[]='DELETE FROM '.$ENTRY_VAR['table_pcs'].' WHERE title_id=?';
+	$stat[]='DELETE FROM '.$TVAR.' WHERE id=?';
+	$k->dosql('UPDATE '.$TVAR.' SET rep_id=? where id=?',array(null,$id)); // avoid interal relationship
+	foreach ($stat as $s) {
+		$k->dosql($s,array($id));
+	}
+}
+function cleanimgurl ($url='') { #better to separate since it's easier to choose your output img dimension
+#old type url: http://lh4.googleusercontent.com/-a-tSvDZLVhU/VndOs2XjNuI/AAAAAAAAi70/8xr7M0mbG8I/s500/ ===> "s500/" can be omitted
+	$pattern1='/^https?:?/';
+	$pattern2='/^[\/:]/';
+	while (preg_match($pattern1, $url) or preg_match($pattern2, $url)) {
+		$url=preg_replace($pattern1,'',$url);  #remove https
+		$url=preg_replace($pattern2,'',$url);  # remove leading slash '/'
+	}
+	return $url;
+}
+function add_tag($k=null,$titleid=0,$tagid=0) {
+	global $ENTRY_VAR;
+	global $TVAR;
+	if ($k and $titleid and $tagid) {
+		$lastid=$k->nextID($ENTRY_VAR['table_link']);
+		$k->dosql('INSERT INTO '.$ENTRY_VAR['table_link'].' ("id","title_id","tag_id") VALUES(?,?,?)', array($lastid,$titleid, $tagid));
+	}
+}
 
 ?>

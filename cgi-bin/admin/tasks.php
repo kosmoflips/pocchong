@@ -1,11 +1,10 @@
-<?php #UTF8 anchor (´・ω・｀)
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
 <?php
-chklogin(1);
-$k=new PocDB();
+require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
 
-$TMP=$POCCHONG['ADMIN']['tmpdir'];
+chklogin(1);
+$k=new PocDB;
+
+$TMP=POCCHONG['ADMIN']['tmpdir'];
 if (!file_exists($TMP)) {
     mkdir($TMP, 0777, true); // Note that 0777 is already the default mode for directories and may still be modified by the current umask.
 }
@@ -13,7 +12,7 @@ if (!file_exists($TMP)) {
 if (isset($_GET['dump'])) { // dump sql data to file. as sqlite, copy is enough
 	$fname='pocchong__backup'.time().'.sqlite';
 	$newfile=$_SERVER['DOCUMENT_ROOT'].$TMP.'/'.$fname;
-	if (copy($POCCHONG['FILE']['sqlite'], $newfile)) {
+	if (copy(POCCHONG['PATH']['DB'], $newfile)) {
 		$zipfile=$newfile.'.tgz';
 		$zipfilename=$fname.'.tgz';
 		zipfile($newfile,$zipfile);
@@ -76,7 +75,7 @@ function zipfile($infile=null,$outfile=null) { #requires tar and gzip on system
 }
 function doperl($perl='',$args='') { // give args as a plain string "-t xxx yyy ..."
 	if (!$perl or !file_exists($perl)) { return 0; }
-	$cmd=sprintf ('perl %s %s');
+	$cmd=sprintf ('perl %s %s', $perl, $args);
 	exec($cmd);
 	1;
 }

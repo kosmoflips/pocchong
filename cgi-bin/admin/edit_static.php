@@ -1,16 +1,13 @@
-<?php #UTF8 anchor (´・ω・｀)
+<?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
-<?php //------------- subs ----------------
-function _del_page($k=null,$id=0) {
-	$k->dosql('DELETE FROM static WHERE id=?', array($id));
-}
-?>
-<?php // ------------ data process --------------
+
+$ENTRY_VAR=POCCHONG['STATIC'];
+$TVAR=$ENTRY_VAR['table'];
+$DATA_IN=$_POST;
+
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_static';
-$table=$POCCHONG['STATIC']['table'];
+$redirectlist='/a/list_'.$TVAR;
 
 $usrsubmit=0;
 $showedit=0;
@@ -20,47 +17,45 @@ if (isset($_GET['dst']) and $_GET['dst']==1) {
 }
 
 // make sure blocks for each purpose properly 'exit' or 'jump'
-if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/insert new
-	if ($_POST['opt'] == 'DELETE') {
-		if (isset($_POST['del_id'])) {
-			foreach ($_POST['del_id'] as $id) {
+if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/insert new
+	if ($DATA_IN['opt'] == 'DELETE') {
+		if (isset($DATA_IN['del_id'])) {
+			foreach ($DATA_IN['del_id'] as $id) {
 				_del_page($k,$id);
 			}
 		}
-		if (isset($_POST['id'])) {
-			_del_page($k,$_POST['id']);
+		if (isset($DATA_IN['id'])) {
+			_del_page($k,$DATA_IN['id']);
 		}
 		$redirectlist.='?dst=3';
 		jump($redirectlist);
 	}
-	elseif ($_POST['opt'] == 'Reorder') {
-		foreach ($_POST['num'] as $id=>$neworder) {
-			$stat=sprintf ('update %s set num=? where id=?',$table);
+	elseif ($DATA_IN['opt'] == 'Reorder') {
+		foreach ($DATA_IN['num'] as $id=>$neworder) {
+			$stat=sprintf ('update %s set num=? where id=?',$TVAR);
 			$k->dosql($stat,array($neworder,$id));
 		}
 		$redirectlist.='?dst=4';
 		jump($redirectlist);
 	}
-	elseif ($_POST['opt'] == 'View') {
-		$redirect=$POCCHONG['STATIC']['url'].'/'.(isset($_POST['perma'])?$_POST['perma']:$_POST['id']);
+	elseif ($DATA_IN['opt'] == 'View') {
+		$redirect=$ENTRY_VAR['url'].'/'.(isset($DATA_IN['perma'])?$DATA_IN['perma']:$DATA_IN['id']);
 		jump($redirect);
 	}
-	elseif ($_POST['opt'] == 'Preview') { // quick preview. overall style may differ from current site
-		$PAGE=array();
-		$PAGE['title']=$_POST['title'];
-		$PAGE['head-extra']=array($_POST['extra']);
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site1']);
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry1']);
+	elseif ($DATA_IN['opt'] == 'Preview') { // quick preview. overall style may differ from current site
+		$PAGE=new PocPage;
+		$PAGE->title=$DATA_IN['title'];
+		$PAGE->head['extra']=array($DATA_IN['extra']);
+		$PAGE->html_open();
 		write_preview_sash();
 		echo '<div>',"\n";
-		printf ('<h2>* %s *</h2>%s', (isset($_POST['title'])? $_POST['title'] : 'No Title'), "\n");
-		echo (isset($_POST['content'])?$_POST['content']:''),"\n";
+		printf ('<h2>* %s *</h2>%s', (isset($DATA_IN['title'])? $DATA_IN['title'] : 'No Title'), "\n");
+		echo (isset($DATA_IN['content'])?$DATA_IN['content']:''),"\n";
 		echo '</div>',"\n";
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry2']);
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site2']);
+		$PAGE->html_close();
 		exit;
 	}
-	elseif ($_POST['opt'] == 'Save') {
+	elseif ($DATA_IN['opt'] == 'Save') {
 		$usrsubmit=1;
 	}
 	else { // none of above go back to list
@@ -70,10 +65,11 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit page
 	$edit=array();
 	if (isset($_GET['id'])) {
-		$edit=$k->getRow('SELECT * FROM '.$table.' WHERE id=?', array($_GET['id']));
+		$edit=$k->getRow('SELECT * FROM '.$TVAR.' WHERE id=?', array($_GET['id']));
 		if (isset($edit)) {
 			$edit['update']=1;
 			$edit['id']=$_GET['id'];
+			$edit['content']=htmlentities($edit['content']);
 		} else { // specified id doesn't exist. go back to list
 			jump($redirectlist);
 		}
@@ -86,7 +82,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit page
 		$edit['extra']='';
 		$edit['content']='';
 	}
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_staticeditor.php');
+	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
 	exit;
 }
 
@@ -94,47 +90,50 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 	$keys=array('title','desc','perma','extra','content');
 	$pile=array();
 	$stat='';
-	$id=isset($_POST['id'])?$_POST['id']:0;
-	if (isset($_POST['perma'])) { #permalink value must be unique
-		$tryid=$k->getOne('select id from static where perma=?', array($_POST['perma']));
+	$id=isset($DATA_IN['id'])?$DATA_IN['id']:0;
+	if (isset($DATA_IN['perma'])) { #permalink value must be unique
+		$tryid=$k->getOne('select id from '.$TVAR.' where perma=?', array($DATA_IN['perma']));
 		if (isset($tryid) and $tryid!=$id) {
-			$edit=$_POST;
+			$edit=$DATA_IN;
 			print_system_msg('permalink duplicate as of id='.$tryid);
-			include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_staticeditor.php');
+			include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
 			exit;
 		}
 	}
-	if ($_POST['update']) {
+	if (isset($DATA_IN['update'])) {
 		$s0=array(); #for update
 		foreach ($keys as $kk) {
 			$s0[]=$kk.'=? '; // need trailing space
-			$pile[]=isset($_POST[$kk])?$_POST[$kk]:null;
+			$pile[]=isset($DATA_IN[$kk])?$DATA_IN[$kk]:null;
 		}
-		$stat='UPDATE '.$table.' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
+		$stat='UPDATE '.$TVAR.' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
 		$pile[] = $id;
 		$k->dosql($stat,$pile);
 	}
-	elseif ($_POST['insert']) {
+	elseif (isset($DATA_IN['insert'])) {
 		$s1=array(); #for insert
 		$s1b=array();
 		foreach ($keys as $kk) {
 			$s1[]=sprintf ('"%s"', $kk);
 			$s1b[]='?';
-			$pile[]=isset($_POST[$kk])?$_POST[$kk]:null;
+			$pile[]=isset($DATA_IN[$kk])?$DATA_IN[$kk]:null;
 		}
-		$id=$k->getOne('SELECT id FROM '.$table.' ORDER BY id DESC LIMIT 1');
-		if (!isset($id)) {
-			$id=0;
-		}
-		$id++; // safer
+		$id=$k->nextID($TVAR);
 		$s1[] = '"id"';
 		$s1b[]='?';
 		$pile[] = $id;
-		$stat='INSERT INTO '.$table.' ('.(implode (',', $s1)).') VALUES('.(implode(',',$s1b)).')'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
+		$stat='INSERT INTO '.$TVAR.' ('.(implode (',', $s1)).') VALUES('.(implode(',',$s1b)).')'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
 		$k->dosql($stat, $pile);
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',$POCCHONG['STATIC']['edit'],$id);
+	$rurl=sprintf ('%s/?id=%s&dst=1',$ENTRY_VAR['edit'],$id);
 	jump($rurl);
 }
 jump($redirectlist);
+
+
+function _del_page($k=null,$id=0) {
+	global $TVAR;
+	$k->dosql('DELETE FROM '.$TVAR.' WHERE id=?', array($id));
+}
+
 ?>
