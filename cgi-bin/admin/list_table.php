@@ -1,22 +1,22 @@
-<?php #UTF8 anchor (´・ω・｀)
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+
 chklogin(1);
+
 $k=new PocDB();
 $table='';
 $viewbase='';
 $editbase='';
 if (isset($_GET['sel']) and $_GET['sel']=="mygirls") {
 	$table='mygirls';
-	$viewbase=$POCCHONG['MYGIRLS']['url'];
-	$editbase=$POCCHONG['MYGIRLS']['edit'];
+	$viewbase=POCCHONG['MYGIRLS']['url'];
+	$editbase=POCCHONG['MYGIRLS']['edit'];
 } else {
 	$table='post';
-	$viewbase=$POCCHONG['POST']['url'];
-	$editbase=$POCCHONG['POST']['edit'];
+	$viewbase=POCCHONG['POST']['url'];
+	$editbase=POCCHONG['POST']['edit'];
 }
-$maxperpage=$POCCHONG['ADMIN']['max'];
+$maxperpage=POCCHONG['ADMIN']['max'];
 $totalpg=calc_total_page($k->countRows($table), $maxperpage);
 $curr=$_GET['page']??1;
 $offset=calc_page_offset($curr,$maxperpage);
@@ -24,19 +24,23 @@ $query=sprintf ('SELECT id,title,epoch,gmt FROM %s ORDER BY id DESC LIMIT ?,?', 
 $lists=$k->getAll($query, array($offset, $maxperpage));
 $actionurl=sprintf ('/a/edit_%s', $table);
 $selurl=sprintf ('/a/list_table/%s/page', $table);
-$PAGE=array();
-$PAGE['navi']['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,$POCCHONG['navi_step'],$selurl);
-?>
-<?php // ----- HTML --------------
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
-?>
-<?php
+
+$PAGE=new PocPage;
+$PAGE->navi['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,POCCHONG['navi_step'],$selurl);
+
+
+
+// ----- HTML --------------
+$PAGE->html_admin();
+
 if (isset($_GET['dst']) and $_GET['dst']==3) {
 	print_system_msg('selected entry(s) deleted.');
 }
 ?>
 <div><a href="<?php echo $editbase ?>/?new=1">Create New</a>
-<?php include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/layout_navi.php'); ?>
+<?php
+$PAGE->html_admin_navi();
+?>
 </div>
 <form action="<?php echo $actionurl ?>" method="post" accept-charset="utf-8" >
 <input type="hidden" name="list_view_chk" value="1" />
@@ -63,5 +67,5 @@ foreach ($lists as $entry) {
 <input type="submit" name="opt" value="DELETE" onclick="return confirm('delete selected?')">
 </form>
 <?php
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
+PocPage::html_admin(1);
 ?>

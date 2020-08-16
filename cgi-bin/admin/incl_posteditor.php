@@ -1,12 +1,9 @@
-<?php #UTF8 anchor (´・ω・｀)
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
 <?php // ---------- write HTML for post entry editing , relies on $edit generated in edit_post.php. won't work if used independently -----------------
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
+PocPage::html_admin();
 ?>
 <div><a href="<?php echo $redirectlist ?>">discard and go back</a></div>
 <hr />
-<form action="<?php echo $POCCHONG['POST']['edit'] ?>" method="post" accept-charset="utf-8" target="">
+<form action="<?php echo $_SERVER['REDIRECT_URL'] ?>" method="post" accept-charset="utf-8" target="">
 
 <?php
 	if (isset($edit['update'])) { ?>
@@ -25,8 +22,8 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 	<tr><td><b>content*</b><br /></td><td><textarea class="lined" cols="100" rows="40" name="content" required><?php echo $edit['content'] ?></textarea><br /></td></tr>
 </table>
 	<input type="submit" name="opt" value="Preview" onclick="this.form.target='_blank'" />
-	<input type="reset" value="Reset" onclick="return confirm('reset everything?')" />
 	<input type="submit" name="opt" value="Save" onclick="this.form.target='_self'" />
+	<input type="reset" value="Reset" onclick="return confirm('reset everything?')" />
 <?php
 	if (isset($edit['update'])) {
 ?>
@@ -38,5 +35,5 @@ include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
 </form>
 
 <?php
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
+PocPage::html_admin(1);
 ?>

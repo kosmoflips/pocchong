@@ -8,8 +8,8 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 #### TMP 503 REDIRECTS #############
 
 ########## special redirects ###########
-RewriteRule ^design/?$ /cgi-bin/indiv_cssdesign.php [L,NC] #self-use. not linked publicly
-RewriteRule ^backyard/?$ /cgi-bin/page_static_index.php [L,NC]
+RewriteRule ^design/?$ /cgi-bin/page/indiv_cssdesign.php [L,NC] #self-use. not linked publicly
+RewriteRule ^backyard/?$ /cgi-bin/page/static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
 RewriteRule ^gradient/?$ /cgi-bin/exec/gradient_maker.cgi [L,NC]
 
@@ -20,27 +20,27 @@ RewriteRule ^file/(.+)/?$ /backyard/files/$1 [L,NC]
 
 
 # --------------- archiv ----------------------
-RewriteRule ^archiv/y/(\d+)/?$ /cgi-bin/page_archiv.php?year=$1 [L,NC]
-RewriteRule ^archiv/(\d+)/?$ /cgi-bin/page_archiv.php?page=$1 [L,NC]
-RewriteRule ^archiv/?$ /cgi-bin/page_archiv.php [L,NC]
+RewriteRule ^archiv/y/(\d+)/?$ /cgi-bin/page/archiv.php?year=$1 [L,NC]
+RewriteRule ^archiv/(\d+)/?$ /cgi-bin/page/archiv.php?page=$1 [L,NC]
+RewriteRule ^archiv/?$ /cgi-bin/page/archiv.php [L,NC]
 
 # -------- calendar ---------------
-RewriteRule ^calendar/y/(\d{4})/?$ /cgi-bin/page_calendar.php?year=$1 [L,NC]
-RewriteRule ^calendar/?$ /cgi-bin/page_calendar.php [L,NC]
+RewriteRule ^calendar/y/(\d{4})/?$ /cgi-bin/page/calendar.php?year=$1 [L,NC]
+RewriteRule ^calendar/?$ /cgi-bin/page/calendar.php [L,NC]
 
 # ------------mygirls -------------
-RewriteRule ^mygirls/p/(\d*)/?$ /cgi-bin/page_mg_index.php?page=$1 [L,NC]
-RewriteRule ^mygirls/(\d*) /cgi-bin/page_mg_single.php?id=$1 [L,NC]
-RewriteRule ^mygirls/?$ /cgi-bin/page_mg_index.php [L,NC]
+RewriteRule ^mygirls/p/(\d*)/?$ /cgi-bin/page/mg_index.php?page=$1 [L,NC]
+RewriteRule ^mygirls/(\d*) /cgi-bin/page/mg_single.php?id=$1 [L,NC]
+RewriteRule ^mygirls/?$ /cgi-bin/page/mg_index.php [L,NC]
 
 #------------------ post -----------
 RewriteRule ^post/?(.*)?$ /days/$1 [R,NC] #old url [post] redirect to new url [days]
-RewriteRule ^days/p/?(\d*) /cgi-bin/page_post.php?page=$1 [L,NC]
-RewriteRule ^days/(\d*) /cgi-bin/page_post.php?id=$1 [L,NC]
-RewriteRule ^days/?$ /cgi-bin/page_post.php [L,NC]
+RewriteRule ^days/p/?(\d*) /cgi-bin/page/post.php?page=$1 [L,NC]
+RewriteRule ^days/(\d*) /cgi-bin/page/post.php?id=$1 [L,NC]
+RewriteRule ^days/?$ /cgi-bin/page/post.php [L,NC]
 
-# general static pages
-RewriteRule ^s/([^/]+)/?$ /cgi-bin/page_static.php?tag=$1 [L,NC]
+#--------------- general static pages----------------
+RewriteRule ^s/([^/]+)/?$ /cgi-bin/page/static.php?tag=$1 [L,NC]
 
 # -------------------- admin pages --------------------------
 RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /cgi-bin/admin/list_table.php?sel=$1&page=$2 [L,NC]
@@ -51,6 +51,6 @@ RewriteRule ^a/([^/]+)/? /cgi-bin/admin/$1.php [L,NC]
 RewriteRule ^a/?$ /cgi-bin/admin/login.php [L,NC]
 
 # ---------- no more change, archive pages-----------
-RewriteRule ^shinya/?$ /s/kaidan [L,NC]
+# RewriteRule ^shinya/?$ /s/kaidan [L,NC]
 RewriteRule ^cyouwa/?$ /backyard/cyouwa/index.php [L,NC]
 RewriteRule ^cyouwa/(.+)$ /backyard/cyouwa/$1 [L,NC]

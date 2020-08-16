@@ -1,29 +1,19 @@
-<?php #UTF8 anchor (´・ω・｀)
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+
 chklogin(1);
 $k=new PocDB();
-$table=$POCCHONG['STATIC']['table'];
-$viewbase=$POCCHONG['STATIC']['url'];
-$editbase=$POCCHONG['STATIC']['edit'];
+$table=POCCHONG['STATIC']['table'];
+$viewbase=POCCHONG['STATIC']['url'];
+$editbase=POCCHONG['STATIC']['edit'];
 
-// $maxperpage=$POCCHONG['ADMIN']['max'];
-// $totalpg=calc_total_page($k->countRows($table), $maxperpage);
-// $curr=$_GET['page']??1;
-// $offset=calc_page_offset($curr,$maxperpage);
-// $query=sprintf ('SELECT id,title,num,perma FROM %s ORDER BY num, title LIMIT ?,?', $table);
-// $lists=$k->getAll($query, array($offset, $maxperpage));
 $query=sprintf ('SELECT id,title,num,perma FROM %s ORDER BY num, title', $table);
 // currently there's no need to set up navibar
 $lists=$k->getAll($query);
 $selurl=sprintf ('/a/list_static/%s', $table);
 
-// $PAGE=array();
-// $PAGE['navi']['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,$POCCHONG['navi_step'], $selurl);
-?>
-<?php // ----- HTML --------------
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin1']);
+// ----- HTML --------------
+PocPage::html_admin();
 
 if (isset($_GET['dst'])) {
 	if ($_GET['dst']==3) {
@@ -68,5 +58,5 @@ foreach ($lists as $entry) {
 <input type="submit" name="opt" value="Reorder" onclick="this.form.target='_self'">
 </form>
 <?php
-include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['admin2']);
+PocPage::html_admin(1);
 ?>

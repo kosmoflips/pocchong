@@ -1,19 +1,13 @@
-<?php #UTF8 anchor (´・ω・｀)
+<?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-?>
-<?php //------------- subs ----------------
-function _del_post($k=null,$id=0) {
-	$linked=$k->getOne('SELECT id FROM mygirls WHERE post_id=?',array($id));
-	if (!empty($linked)) {
-		$k->dosql('UPDATE mygirls SET post_id=? where id=?',array(null,$linked));
-	}
-	$k->dosql('DELETE FROM post WHERE id=?', array($id));
-}
-?>
-<?php // ------------ data process --------------
+$ENTRY_VAR=POCCHONG['POST'];
+$TVAR=$ENTRY_VAR['table'];
+$DATA_IN=$_POST;
+
+// ------------ data process --------------
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_table?sel=post';
+$redirectlist='/a/list_table?sel='.$TVAR;
 
 #dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
 
@@ -26,42 +20,40 @@ if (isset($_GET['dst'])) {
 $usrsubmit=0;
 $showedit=0;
 // make sure blocks for each purpose properly 'exit' or 'jump'
-if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/insert new
-	if ($_POST['opt'] == 'DELETE') {
-		if (isset($_POST['del_id'])) {
-			foreach ($_POST['del_id'] as $id) {
+if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/insert new
+	if ($DATA_IN['opt'] == 'DELETE') {
+		if (isset($DATA_IN['del_id'])) {
+			foreach ($DATA_IN['del_id'] as $id) {
 				_del_post($k,$id);
 			}
 		}
-		if (isset($_POST['id'])) {
-			_del_post($k,$_POST['id']);
+		if (isset($DATA_IN['id'])) {
+			_del_post($k,$DATA_IN['id']);
 		}
 		$redirectlist.='&dst=3';
 		jump($redirectlist);
 	}
-	elseif ($_POST['opt'] == 'View') {
-		$redirect=$POCCHONG['POST']['url'].'/'.$_POST['id'];
+	elseif ($DATA_IN['opt'] == 'View') {
+		$redirect=$ENTRY_VAR['url'].'/'.$DATA_IN['id'];
 		jump($redirect);
 	}
-	elseif ($_POST['opt'] == 'Preview') { // -------- print_post_entry. copied from page_post.php  . may not be synced. purpose is to preview css/style etc.
-		$PAGE=array();
-		$PAGE['title']=$_POST['title'];
-		$PAGE['head-extra']=array($_POST['extra']);
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site1']);
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry1']);
+	elseif ($DATA_IN['opt'] == 'Preview') { // -------- print_post_entry. copied from page_post.php  . may not be synced. purpose is to preview css/style etc.
+		$PAGE=new PocPage;
+		$PAGE->title=$DATA_IN['title'];
+		// $PAGE['head-extra']=array($DATA_IN['extra']);
+		$PAGE->html_open();
 		write_preview_sash();
 		echo '<article>',"\n";
 		// timestamp line
 		printf ('<div class="datetime">%s</div>%s', time27( time(),4,-7,0), "\n");
 		// title as <h3>
-		printf ('<h3>* %s *</h3>%s', (isset($_POST['title'])? $_POST['title'] : 'No Title'), "\n");
-		echo (isset($_POST['content'])?$_POST['content']:''),"\n";
+		printf ('<h3>* %s *</h3>%s', (isset($DATA_IN['title'])? $DATA_IN['title'] : 'No Title'), "\n");
+		echo (isset($DATA_IN['content'])?$DATA_IN['content']:''),"\n";
 		echo '</article>',"\n";
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['entry2']);
-		include($_SERVER['DOCUMENT_ROOT'].$POCCHONG['TMPL']['site2']);
+		$PAGE->html_close();
 		exit;
 	}
-	elseif ($_POST['opt'] == 'Save') {
+	elseif ($DATA_IN['opt'] == 'Save') {
 		$usrsubmit=1;
 	}
 	else { // none of above go back to post-list
@@ -71,10 +63,11 @@ if (isset($_POST['opt'])) { // delete, jump to public link, preview , edit/inser
 elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 	$edit=array();
 	if (isset($_GET['id'])) {
-		$edit=$k->getRow('SELECT * FROM post WHERE id=?', array($_GET['id']));
+		$edit=$k->getRow('SELECT * FROM '.$TVAR.' WHERE id=?', array($_GET['id']));
 		if (isset($edit)) {
 			$edit['update']=1;
 			$edit['id']=$_GET['id'];
+			$edit['content']=htmlentities($edit['content']);
 		} else { // specified id doesn't exist. go back to list
 			jump($redirectlist);
 		}
@@ -87,29 +80,41 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 		$edit['title']='';
 		$edit['year']=date('Y')-2000;
 	}
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_posteditor.php');
+	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
 	exit;
 }
 
 if ($usrsubmit) { // work on submitted data. from edit current or add new entry
-	$pile=array($_POST['title'],$_POST['epoch'],$_POST['gmt'],$_POST['content']);
-	$s0='post SET title=?,epoch=?,gmt=?,content=?';
+	$pile=array($DATA_IN['title'],$DATA_IN['epoch'],$DATA_IN['gmt'],$DATA_IN['content']);
+	$s0=$TVAR.' SET title=?,epoch=?,gmt=?,content=?';
 	$stat='';
-	$id=isset($_POST['id'])?$_POST['id']:0;
-	if ($_POST['update']) {
+	$id=isset($DATA_IN['id'])?$DATA_IN['id']:0;
+	if (isset($DATA_IN['update'])) {
 		$stat=sprintf ('UPDATE %s WHERE id=?',$s0);
 		$pile[] = $id;
 		$k->dosql($stat,$pile);
 	}
-	elseif ($_POST['insert']) {
-		$id=$k->getOne('SELECT id FROM post ORDER BY id DESC LIMIT 1');
-		$id++; // safer. even with auto-increase id for 'post', sometimes it complains id can't be null
-		$stat='INSERT INTO post ("id","title","epoch","gmt","content") VALUES(?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
+	elseif (isset($DATA_IN['insert'])) {
+		$id=$k->nextID($TVAR);
+		$stat='INSERT INTO '.$TVAR.' ("id","title","epoch","gmt","content","year") VALUES(?,?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
 		array_unshift ($pile, $id);
+		$pile[]=$DATA_IN['year']; // year only need for INSERT
 		$k->dosql($stat, $pile);
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',$POCCHONG['POST']['edit'],$id);
+	$rurl=sprintf ('%s/?id=%s&dst=1',$ENTRY_VAR['edit'],$id);
 	jump($rurl);
 }
 jump($redirectlist);
+
+
+function _del_post($k=null,$id=0) {
+	global $TVAR;
+	$linked=$k->getOne('SELECT id FROM '.POCCHONG['MYGIRLS']['table'].' WHERE post_id=?',array($id));
+	if (!empty($linked)) {
+		$k->dosql('UPDATE '.POCCHONG['MYGIRLS']['table'].' SET post_id=? where id=?',array(null,$linked));
+	}
+	$k->dosql('DELETE FROM '.$TVAR.' WHERE id=?', array($id));
+}
+
+
 ?>
