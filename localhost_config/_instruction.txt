@@ -1,12 +1,29 @@
-as of 2019-Sep-02
+as of 2022-01-29
+using apache 2.4.52 and php 8.1.2
+From Apache lounge and PHP x64 TS as directed on php site.
+have a few changes in config files, both apache and php 
 
 NOTE: php files placed in OneDrive won't be read. symbolic link by mklink can't solve this either. so move server-folder outside of onedrive and keep in mind to sync often.
 
 - unzip "apache" and "php", e.g. d:\apache and d:\php
-- place "php.ini" into php folder
+- for "php.ini" in php folder
+	- enable the following:
+		- extension=mbstring
+		- extension=pdo_sqlite
+		- extension=sqlite3
+		- extension_dir = "ext" << for specifying where modules reside
+		- sqlite3.extension_dir = << the dll should be in root. just uncomment
+
 - replace "httpd.conf" using my backup
+	- server root
+	- server name
+	- enable CGI
+	- lines with "POCCHONG" (or whatever dir path)
+	- end of ref file, for php and perl shebang
+	- other lines tagged with "KIYO"
 - replace "httpd-vhosts.conf" using my backup
-- make sure pathes are right in httpd.conf (no need to change any text in php.ini)
+	- server name
+	- 2nd server info
 - add into Windows' system variable %PATH% : "D:\Apache24" and "D:\php", reboot may be required (at least php, not sure about apache)
 - update "C:\Windows\System32\Drivers\etc\hosts", add at end of file "127.0.0.1       my-custom-server-name.com"
 
@@ -21,7 +38,7 @@ NOTE: php files placed in OneDrive won't be read. symbolic link by mklink can't 
 
 ------------------------------------
 
-other info
+some old info
 
 >Apache + CGI config for localhost
 	http://www.pocchong.de/post/412
