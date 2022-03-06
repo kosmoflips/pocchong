@@ -1,0 +1,4 @@
+[ noftp ] dir.
+this dir for personal backup/raw design/debug on <localhost> only,
+do not copy to FTP site.
+but can make a copy to github just in case.
