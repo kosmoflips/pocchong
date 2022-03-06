@@ -6,7 +6,9 @@ on github since 2021-08-25
 ------------
 
 ### stable versions
-- 2020-08-15: mare-stable
+
+- 2020-08-15: mare
+  - 2022-03-06: mare.1
 
 ------------
 
