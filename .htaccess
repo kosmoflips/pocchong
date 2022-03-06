@@ -7,8 +7,12 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 #### TMP 503 REDIRECTS #############
 
+
+
+
+
 ########## special redirects ###########
-RewriteRule ^design/?$ /cgi-bin/page/indiv_cssdesign.php [L,NC] #self-use. not linked publicly
+# RewriteRule ^design/?$ /cgi-bin/page/indiv_cssdesign.php [L,NC] # site structure, for css preview.
 RewriteRule ^backyard/?$ /cgi-bin/page/static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
 RewriteRule ^gradient/?$ /cgi-bin/exec/gradient_maker.cgi [L,NC]
@@ -16,7 +20,7 @@ RewriteRule ^gradient/?$ /cgi-bin/exec/gradient_maker.cgi [L,NC]
 
 ##### redirect from clean url to source code #############
 # --------------- locations ----------------------
-RewriteRule ^file/(.+)/?$ /backyard/files/$1 [L,NC]
+RewriteRule ^file/(.+)/?$ /stuff/files/$1 [L,NC]
 
 
 # --------------- archiv ----------------------
@@ -52,5 +56,5 @@ RewriteRule ^a/?$ /cgi-bin/admin/login.php [L,NC]
 
 # ---------- no more change, archive pages-----------
 # RewriteRule ^shinya/?$ /s/kaidan [L,NC]
-RewriteRule ^cyouwa/?$ /backyard/cyouwa/index.php [L,NC]
-RewriteRule ^cyouwa/(.+)$ /backyard/cyouwa/$1 [L,NC]
+RewriteRule ^cyouwa/?$ /stuff/cyouwa/index.php [L,NC]
+RewriteRule ^cyouwa/(.+)$ /stuff/cyouwa/$1 [L,NC]
