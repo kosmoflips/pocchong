@@ -8,6 +8,7 @@ chklogin(1);
 $k=new PocDB();
 $redirectlist='/a/list_table?sel='.$TVAR;
 
+// exit;
 #dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
 
 if (isset($_GET['dst'])) {
@@ -79,6 +80,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 		$stat='SELECT * FROM '.$ENTRY_VAR['table_pcs'].' WHERE title_id=?';
 		$sth=$k->getAll($stat,[$_GET['id']]);
 		foreach ($sth as $r) { // loop through each [pcs]. set up pic preview url and label representative pcs
+			// peek($r);
 			$url='';
 			$url_preview='';
 			if (!empty($r['img_url'])) {
@@ -277,6 +279,7 @@ function _del_mygirls($k=null,$id=0) { // delete entire entry
 }
 function cleanimgurl ($url='') { #better to separate since it's easier to choose your output img dimension
 #old type url: http://lh4.googleusercontent.com/-a-tSvDZLVhU/VndOs2XjNuI/AAAAAAAAi70/8xr7M0mbG8I/s500/ ===> "s500/" can be omitted
+# this doesn't affect new url style https://blogger.googleusercontent.com/img/a/string=s320
 	$pattern1='/^https?:?/';
 	$pattern2='/^[\/:]/';
 	while (preg_match($pattern1, $url) or preg_match($pattern2, $url)) {
