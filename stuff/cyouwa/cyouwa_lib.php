@@ -1,7 +1,7 @@
 <?php
 $CYOUWA=array(
 	'title'=>'Sea of Harmony ～Cyouwa Oto～',
-	'db'=>$_SERVER['DOCUMENT_ROOT'].'/backyard/cyouwa/cyouwa_archive.sqlite',
+	'db'=>$_SERVER['DOCUMENT_ROOT'].'/stuff/cyouwa/cyouwa_archive.sqlite',
 );
 function write_html_open($title='') {
 	include ('incl_html_open.php');
