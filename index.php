@@ -1,3 +1,3 @@
 <?php
-include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/index_content.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/idx/index_content.php');
 ?>

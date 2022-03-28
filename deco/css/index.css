@@ -1,10 +1,11 @@
 #top-tagline {
 	font-family: 'Black Ops One', Impact, Charcoal, sans-serif;
 /*font need <link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet"> in <head>*/
-	font-size:220%;
+	font-size:180%;
 	margin: 10px auto 25px;
 	text-align:center;
 	text-shadow: 2px 1px 8px #7765c7;
+	opacity:0.8;
 }
 h2 {
 	font-size: 110%;
@@ -52,29 +53,3 @@ h2 {
 .recentpost div {
 	margin-bottom: 5px;
 }
-
-.tweet-all-wrap {
-	max-height: 650px;
-	overflow-y: auto;
-}
-.tweet-entry-wrap {
-	/* background: green; */
-	border-bottom: solid 1px #5d7a8b;
-	margin-bottom: 15px;
-	padding: 0 0 10px;
-	width: 97%;
-}
-.tweet-entry-wrap:last-child {
-	border-bottom: none;
-}
-.tweet-time {
-	font-size: 80%;
-	font-weight: bold;
-}
-.tweet-attach-img img {
-	/* height: 300px; */
-	/* width: 100%; */
-	max-height: 100px;
-}
-
-/* calendar settings in site.css*/
