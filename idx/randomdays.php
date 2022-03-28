@@ -1,24 +1,19 @@
 <?php
-print_rand_days(3,15);
-
-//----------------------------------
-function print_rand_days ($recentyr=3,$total=15) {
-	$list=get_rand_days($recentyr,$total);
-	?>
+$recent_year=3;
+$total=15;
+$list=get_rand_days($recent_year,$total);
+?>
 <h4><?php echo rand_deco_symbol(); ?> <a href="/days">Random days</a></h4>
-<?php
-	print_plist($list,1,$recentyr);
-	?>
+<?php print_plist($list,1,$recent_year); ?>
 <div class="line">・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・</div>
+<?php print_plist($list,(1+$recent_year)); ?>
 <?php
-	print_plist($list,(1+$recentyr));
-}
 function get_rand_days ($recent=3,$total=15) {
 	$max=$total-$recent; // non-most recent
 	$k=new PocDB;
 	// newest ones
 	$list=array();
-	$TABLE=POCCHONG['POST']['table'];
+	$TABLE=POC_DB['POST']['table'];
 	$stat0='SELECT id,title,gmt,epoch FROM '.$TABLE;
 	$es=$k->getAll($stat0.' ORDER BY id DESC LIMIT '.$recent);
 	foreach ($es as $e1) {
@@ -71,7 +66,7 @@ function print_plist ($list=null, $idx=0, $total=0) {
 			break;
 		}
 	?>
-<div><a href="<?php echo POCCHONG['POST']['url']; ?>/<?php echo $entry['id']; ?>">[<?php echo time27($entry['epoch'], 5, $entry['gmt']); ?>] <?php echo $entry['title']; ?></a></div>
+<div><a href="<?php echo POC_DB['POST']['url']; ?>/<?php echo $entry['id']; ?>">[<?php echo clock27($entry['epoch'], 5, $entry['gmt']); ?>] <?php echo $entry['title']; ?></a></div>
 <?php
 	}
 }

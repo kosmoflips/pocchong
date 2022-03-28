@@ -1,8 +1,15 @@
 <?php // ----------- db access. in a class obj ---------------
+
+/* --------- enable following in php.ini ------------
+enable extension=mbstring
+enable extension=mysqli
+enable extension=pdo_sqlite
+-----------------*/
+
 class PocDB {
 public function connect() {
-	if (file_exists(POCCHONG['PATH']['DB'])) {
-		$dbh = new PDO('sqlite:'.POCCHONG['PATH']['DB']);
+	if (file_exists(POC_DB_FILE) ) {
+		$dbh = new PDO('sqlite:'.POC_DB_FILE);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbh;
 	} else {

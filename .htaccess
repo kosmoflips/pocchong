@@ -12,7 +12,6 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 
 ########## special redirects ###########
-# RewriteRule ^design/?$ /cgi-bin/page/indiv_cssdesign.php [L,NC] # site structure, for css preview.
 RewriteRule ^backyard/?$ /cgi-bin/page/static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
 RewriteRule ^gradient/?$ /cgi-bin/exec/gradient_maker.cgi [L,NC]

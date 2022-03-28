@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php'); ?>
+require_once('/synapse.php'); ?>
 <html>
 <head>
 <meta charset="utf-8" />

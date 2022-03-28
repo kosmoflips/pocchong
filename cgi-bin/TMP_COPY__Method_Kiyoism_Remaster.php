@@ -1,5 +1,4 @@
-<!--
-< ?php 	// ------------ system config, keep on top----------------
+<?php 	// ------------ system config, keep on top----------------
 /* --------- basic info ------------ UTF8 anchor (´・ω・｀)
 
 2022-Mar-06
@@ -44,8 +43,7 @@ require_once (POCCHONG['PATH']['mod'].'/poc_db.php');
 require_once (POCCHONG['PATH']['mod'].'/poc_pagelayout.php');
 require_once (POCCHONG['PATH']['mod'].'/poc_calendar.php');
 
-? >
--->
+?>
 <?php // -------- navi-bar related ---------------
 function mk_navi_pair ($k=null,$table='',$cid=1, $url='') {
 	// var_dump ($k);
@@ -140,7 +138,6 @@ function print_edit_button ($edit_url='') {
 		echo '<div class="inline-box"><a href="',$edit_url,'">Edit</a></div>',"\n";
 	}
 }
-/*
 function rand_deco_symbol($id=0) {
 	$set=array( # HTML CODEの形式でより安全だと思う
 		'&#10031;', #✯
@@ -173,7 +170,6 @@ function rand_deco_symbol($id=0) {
 	$randnum=rand(0, (count($set) -1));
 	return $set[$randnum];
 }
-*/
 function print_system_msg ($msg='') { // admin submit-page edit only
 	if (!empty($msg)) {
 		echo '<div class="system-msg">system message: '.$msg.'</div>';
@@ -181,8 +177,7 @@ function print_system_msg ($msg='') { // admin submit-page edit only
 }
 
 ?>
-<!--
-< ?php // ----------- chk login / password related----------
+<?php // ----------- chk login / password related----------
 function chklogin($retreat=0) {
 	if (isset($_SESSION['POCCHONG_LOGIN_TOKEN'])) {
 		return 1;
@@ -234,9 +229,7 @@ function pass_conv ($str='', $pass='', $passhash='', $encipher=0) {
 	return $str2;
 }
 ?>
--->
 <?php //-------------- misc -------------
-/*
 function time27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // use either 24 or 27 H mode. process return hash.
 # 27-H Mode: time <= 3:00 AM, continue from 24 (0:00 AM=> 24:00, 2:59 AM => 26:59, 3:00 AM => no change)
 #as default timezone is -7, when using GMT, e.g. London, need to clearly give "gmt=>0"
@@ -295,7 +288,6 @@ function time27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // use either 24 
 		);
 	}
 }
-
 function peek($var=null,$stop=0) {
 	echo '<pre>';
 	var_dump($var);
@@ -308,14 +300,12 @@ function jump($url='/') { // redirect. saves some writing
 	header("Location: ".$url);
 	exit;
 }
-*/
 function rand_array($total=2) {
 	if ($total<2) { return array(0); } // 1 elem
 	$numbers = range(0, ($total-1));
 	shuffle($numbers);
 	return $numbers;
 }
-/*
 function mk_url_google_img ($url='',$size='') { // input  has no https://
 # as of 2022-Mar-5 , new url format on blogger: https://blogger.googleusercontent.com/img/a/a_super_long_string=s320
 # for old googleusercontent link [https://lh4.googleusercontent.com/string-for-this-img/may-contain-multiple-slashes/s500/], keep as is unless they stop working.
@@ -347,5 +337,4 @@ function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
 		return '';
 	}
 }
-*/
 ?>

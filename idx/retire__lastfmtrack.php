@@ -30,10 +30,10 @@ $key="e4da37dc839a5d5c061defda41a52588";
 
 */
 
-	$rawfile=POCCHONG['PATH']['widget'].'/lastfmraw.txt';
+	$rawfile='lastfmraw.txt';
 	$timespan= 60 * 60; # x min * 60 sec
 	if (!file_exists($rawfile) or ((time() - filemtime($rawfile)) > $timespan)) { #retrieve twitter data if raw file missing, force update, or since last time is true
-		$cmd=sprintf ('perl %s %s %s', POCCHONG['PATH']['widget'].'/lastfmparse.pl', $rawfile, 2); // type 1: recent tracks, 2: artist chart
+		$cmd=sprintf ('perl %s %s %s', $_SERVER['DOCUMENT_ROOT'].'/idx/lastfmparse.pl', $rawfile, 2); // type 1: recent tracks, 2: artist chart
 		exec($cmd);
 	}
 	$jsonchunk=file_get_contents($rawfile);
