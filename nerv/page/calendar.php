@@ -1,5 +1,7 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/poc_calendar.php');
 
 print_page_calendar();
 
@@ -12,7 +14,7 @@ function print_calendar_month_row ($pdata,$y=0, $mstart=0) {
 	?>
 <div class="calendar-month-row-shell">
 <?php
-	for ($i=0; $i<POCCHONG['CALENDAR']['col']; $i++) { //print one row of XX month blocks
+	for ($i=0; $i<POC_DB['CALENDAR']['col']; $i++) { //print one row of XX month blocks
 		$m2=$mstart+$i;
 		if ($m2>=1 and $m2<=12) {
 			$calen->set_month($m2);
@@ -46,7 +48,7 @@ function print_calendar_rightbox ($pdata=null) {
 		foreach ($ma as $d=>$da) {
 			foreach ($da as $item) {
 			?>
-<li id="p<?php echo $item['epoch']; ?>" class="day-link-target"><a href="<?php echo $item['url']; ?>">[<?php echo time27($item['epoch'],1,$item['gmt']); ?>] <?php echo $item['title']; ?></a></li>
+<li id="p<?php echo $item['epoch']; ?>" class="day-link-target"><a href="<?php echo $item['url']; ?>">[<?php echo clock27($item['epoch'],1,$item['gmt']); ?>] <?php echo $item['title']; ?></a></li>
 	<?php
 			}
 		}
@@ -57,7 +59,7 @@ function print_calendar_rightbox ($pdata=null) {
 }
 
 function print_calendar_yearshell ($pdata,$y=0) {
-	$col=POCCHONG['CALENDAR']['col'];
+	$col=POC_DB['CALENDAR']['col'];
 	?>
 <div class="calendar-year-shell">
 <?php // left- calendar block
@@ -92,8 +94,8 @@ function process_data_calendar ($pobj=null,$year=0) {
 		return null;
 	}
 	$k=new PocDB();
-	$pack=POCCHONG['CALENDAR'];
-	$year_first=POCCHONG['year-start'];
+	$pack=POC_DB['CALENDAR'];
+	$year_first=POC_DB['year-start'];
 	$year_last=$k->yearlast(0);
 	if (is_int(intval($year))) { // intval used here or php thinks it's a string
 		if ($year<$year_first or $year>$year_last) {
@@ -103,7 +105,7 @@ function process_data_calendar ($pobj=null,$year=0) {
 			$year = $year_last;
 	}
 
-	$navibar=mk_navi_bar($year_first,$year_last,1,$year,POCCHONG['navi_step'],$pack['url'].$pack['url_year']);
+	$navibar=mk_navi_bar($year_first,$year_last,1,$year,POC_DB['navi_step'],$pack['url'].$pack['url_year']);
 	// $ydata=calendar_mk_ydata($year);
 	// $pdata=calendar_mk_pdata($year);
 

@@ -64,9 +64,9 @@ public function month_data ($adjust=0) { // month posting data. must ensure invo
 		$max+=3*60*60;
 	}
 	$k=new PocDB();
-	$list1=$k->getAll('select id,title,epoch,gmt from '.POCCHONG['POST']['table'].' where epoch>=? and epoch<?', array($min, $max));
+	$list1=$k->getAll('select id,title,epoch,gmt from '.POC_DB['POST']['table'].' where epoch>=? and epoch<?', array($min, $max));
 	$list1['type']=1;
-	$list2=$k->getAll('select id,title,epoch,gmt from '.POCCHONG['MYGIRLS']['table'].' where epoch>=? and epoch<?', array($min,$max));
+	$list2=$k->getAll('select id,title,epoch,gmt from '.POC_DB['MYGIRLS']['table'].' where epoch>=? and epoch<?', array($min,$max));
 	$list2['type']=2;
 // var_dump($list2);exit;
 	$pdata=array();
@@ -76,8 +76,8 @@ public function month_data ($adjust=0) { // month posting data. must ensure invo
 				continue;
 			}
 			$e0=$item['epoch'];
-			$d=date('j',($adjust?time27($item['epoch'],6,$item['gmt']):$item['epoch']));
-			$url=($l['type']==1?POCCHONG['POST']['url']:POCCHONG['MYGIRLS']['url']);
+			$d=date('j',($adjust?clock27($item['epoch'],6,$item['gmt']):$item['epoch']));
+			$url=($l['type']==1?POC_DB['POST']['url']:POC_DB['MYGIRLS']['url']);
 			$pdata[$d]=array();
 			$pdata[$d][]=array(
 				// 'id'=>$item['id'],

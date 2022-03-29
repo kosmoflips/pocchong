@@ -10,9 +10,9 @@ define('POC_LAYOUT', NERV.'/layout' );
 
 
 // ----- load stuff -----
-require_once (NERV.'/oven.php'); // login,cookie,session
-require_once (NERV.'/db.php'); // db(sqlite) connection
-require_once (NERV.'/layout.php'); // page layout
+require_once (NERV.'/lib_oven.php'); // login,cookie,session
+require_once (NERV.'/poc_db.php'); // db(sqlite) connection
+require_once (NERV.'/poc_layout.php'); // page layout
 
 
 // ----- add session , if logged on, can see 'edit' button -----
@@ -142,5 +142,9 @@ function jump($url='/') { // redirect. saves some writing
 	header("Location: ".$url);
 	exit;
 }
-
+function print_edit_button ($edit_url='') {
+	if (chklogin() and $edit_url) {
+		echo '<div class="inline-box"><a href="',$edit_url,'">Edit</a></div>',"\n";
+	}
+}
 ?>
