@@ -1,5 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
 
 // write html
 print_page_post();
@@ -18,9 +19,9 @@ function process_data_post ($pobj=null,$id=null,$page=0) {
 	if (!$pobj) {
 		return null;
 	}
-	$pack=POCCHONG['POST'];
+	$pack=POC_DB['POST'];
 	$k=new PocDB();
-	$step=POCCHONG['navi_step'];
+	$step=POC_DB['navi_step'];
 	$curr=$page??1; #current page index
 	$posts=array();
 	if ($id) {
@@ -47,15 +48,15 @@ function process_data_post ($pobj=null,$id=null,$page=0) {
 	$pobj->data=$posts; // is array()
 }
 function print_post_single($p,$entry) {
-	$posturl=POCCHONG['POST']['url'].'/'.$entry['id'];
+	$posturl=POC_DB['POST']['url'].'/'.$entry['id'];
 	$p->html_open(2);
 	?>
-<div class="datetime"><a href="<?php echo $posturl ?>"><?php echo time27( $entry['epoch'],4,$entry['gmt']) ?></a></div>
+<div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],4,$entry['gmt']) ?></a></div>
 <h3><a href="<?php echo $posturl ?>"><?php echo rand_deco_symbol(), ' ',$entry['title']; ?></a></h3>
 <article>
 <?php
 echo $entry['content'],"\n";
-print_edit_button(POCCHONG['POST']['edit'].'/?id='.$entry['id']);
+print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
 ?>
 </article>
 <?php

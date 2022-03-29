@@ -15,7 +15,7 @@ use Data::Dumper;
 use CGI qw(-utf8); #http://perldoc.perl.org/CGI.html
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
 
-require $ENV{DOCUMENT_ROOT}.'/cgi-bin/exec/gradient_maker_core.pl';
+require $ENV{DOCUMENT_ROOT}.'/cgi-bin/gradient/gradient_maker_core.pl';
 my $k=new CGI;
 my $p=$k->Vars();
 

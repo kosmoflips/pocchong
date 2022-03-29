@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 // for listing all static pages, and individual side-projects
 //only use  target="_blank"  when not using the site style
 
@@ -12,7 +12,7 @@ function print_page_static_list () {
 	print_page_static_sideprojs();
 	print_page_static_indivs();
 	print_page_static_deads();
-	print_edit_button(POCCHONG['STATIC']['edit']);
+	print_edit_button(POC_DB['STATIC']['edit']);
 	$p->html_close();
 }
 
@@ -20,7 +20,7 @@ function process_data_static($pobj=null) {
 	if (!$pobj) {
 		return null;
 	}
-	$pack=POCCHONG['STATIC'];
+	$pack=POC_DB['STATIC'];
 	$k=new PocDB();
 	$allpages=$k->getAll('SELECT id,title,desc,perma FROM '.$pack['table'].' WHERE num>0 ORDER BY num,title');
 	$cssex='<style>
@@ -50,7 +50,7 @@ function print_page_static_sideprojs () {
 
 function print_page_static_indivs () {
 	$symbol2=rand_deco_symbol();
-	$pack=POCCHONG['STATIC'];
+	$pack=POC_DB['STATIC'];
 	$p=new PocPage;
 	process_data_static($p);
 	?>

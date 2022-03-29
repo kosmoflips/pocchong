@@ -1,5 +1,7 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_mg.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
 // display 1 work only, fetch by id.
 
 print_page_mg_1work();
@@ -19,7 +21,7 @@ function print_page_mg_1work () {
 	print_mg_blockinfo($p->data['main']);
 	print_mg_stdalone($p->data['stds']);
 	print_mg_pcs($p->data['pcs']);
-	print_edit_button(sprintf ("%s/?id=%s", POCCHONG['MYGIRLS']['edit'], $p->data['main']['id']));
+	print_edit_button(sprintf ("%s/?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
 ?>
 </div><!-- closing artwork block -->
 <?php
@@ -27,15 +29,14 @@ function print_page_mg_1work () {
 }
 
 function print_mg_blockinfo ($main=null) {
-	$pack=POCCHONG['MYGIRLS'];
 	?>
 <blockquote>
 <ul>
-<li><?php echo time27($main['epoch'],0,$main['gmt']); ?></li>
+<li><?php echo clock27($main['epoch'],0,$main['gmt']); ?></li>
 <?php
 	if ($main['post_id'] and $main['rep_title']) {
 	?>
-<li>Liner notes: <a href="<?php echo POCCHONG['POST']['url'],'/',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
+<li>Liner notes: <a href="<?php echo POC_DB['POST']['url'],'/',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
 <?php
 	}
 	if ($main['notes']) {
@@ -45,12 +46,12 @@ function print_mg_blockinfo ($main=null) {
 	}
 	if ($main['remake'] and $main['remake_title']) {
 	?>
-<li>New Remake: <a href="<?php echo $pack['url'], '/', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
+<li>New Remake: <a href="<?php echo POC_DB['MYGIRLS']['url'], '/', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
 <?php
 	}
 	if ($main['remade_from'] and $main['remade_from_title']) {
 	?>
-<li>Remake of: <a href="<?php echo $pack['url'], '/', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
+<li>Remake of: <a href="<?php echo POC_DB['MYGIRLS']['url'], '/', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
 <?php
 	}
 	?>
@@ -108,47 +109,46 @@ function process_data_mg_single($pobj,$id=0) {
 		return null;
 	}
 
-	$pack=POCCHONG['MYGIRLS'];
-	$page_title=$pack['title2'];
+	$page_title=POC_DB['MYGIRLS']['title2'];
 
 	$k=new PocDB();
 
 	if ($id) {
-		$entry=$k->getRow('SELECT * FROM '.$pack['table'].' WHERE id=?',array($id));
+		$entry=$k->getRow('SELECT * FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?',array($id));
 		if (!empty($entry)) {
 			$page_title=$entry['title'];
-			$navi1=mk_navi_pair($k, $pack['table'], $id,$pack['url']);
+			$navi1=mk_navi_pair($k, POC_DB['MYGIRLS']['table'], $id,POC_DB['MYGIRLS']['url']);
 		}
 	}
 
 	if (!$entry) {
-		jump($pack['url']);
+		jump(POC_DB['MYGIRLS']['url']);
 		exit;
 	}
 
 	if ($entry['post_id']) {
-		$rep_title=$k->getOne('SELECT title FROM '.POCCHONG['POST']['table'].' WHERE id=?', array($entry['post_id']));
+		$rep_title=$k->getOne('SELECT title FROM '.POC_DB['POST']['table'].' WHERE id=?', array($entry['post_id']));
 		if ($rep_title) {
 			$entry['rep_title']=$rep_title;
 		}
 	}
 
 	if ($entry['remake']) {
-		$remake=$k->getOne('SELECT title FROM '.$pack['table'].' WHERE id=?', array($entry['remake']));
+		$remake=$k->getOne('SELECT title FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?', array($entry['remake']));
 		if ($remake) {
 			$entry['remake_title']=$remake;
 		}
 	}
 
 	if ($entry['remade_from']) {
-		$remade=$k->getOne('SELECT title FROM '.$pack['table'].' WHERE id=?', array($entry['remade_from']));
+		$remade=$k->getOne('SELECT title FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?', array($entry['remade_from']));
 		if ($remade) {
 			$entry['remade_from_title']=$remade;
 		}
 	}
 
 	// get all pcs from associated main title id
-	$pcs0=$k->getAll('SELECT * FROM '.$pack['table_pcs'].' WHERE title_id=?', array($id));
+	$pcs0=$k->getAll('SELECT * FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE title_id=?', array($id));
 	$stds=array();
 	$pcs=array();
 	foreach ($pcs0 as $row) {

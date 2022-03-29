@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 print_page_static();
 
@@ -9,7 +9,7 @@ function process_data_static_tag ($pobj=null, $tag='') {
 	if (!$pobj) {
 		return null;
 	}
-	$pack=POCCHONG['STATIC'];
+	$pack=POC_DB['STATIC'];
 	$k=new PocDB();
 	if (isset($tag)) {
 		$entry=$k->getRow('SELECT * FROM '.$pack['table'].' WHERE perma=?',array($tag));
@@ -29,7 +29,7 @@ function process_data_static_tag ($pobj=null, $tag='') {
 
 function print_page_static() {
 	$p=new PocPage;
-	$pack=POCCHONG['STATIC'];
+	$pack=POC_DB['STATIC'];
 	$symbol=rand_deco_symbol();
 	process_data_static_tag($p,$_GET['tag']??null);
 	$p->html_open();

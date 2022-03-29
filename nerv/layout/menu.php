@@ -2,9 +2,13 @@
 <ul id="menu">
 <li><a href="/days">Days</a></li>
 <li><a href="/archiv">Archiv</a>
+<?php
+/*
 	<ul class="sub-menu">
 		<li><a href="/calendar">Calendar</a></li>
 	</ul>
+	*/
+?>
 </li>
 <li><a href="/mygirls">MyGirls</a></li>
 <li><a href="/gradient" target="_blank">Gradient</a></li>
