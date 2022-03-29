@@ -1,16 +1,13 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 chklogin(1);
 $k=new PocDB();
-$table=POCCHONG['STATIC']['table'];
-$viewbase=POCCHONG['STATIC']['url'];
-$editbase=POCCHONG['STATIC']['edit'];
 
-$query=sprintf ('SELECT id,title,num,perma FROM %s ORDER BY num, title', $table);
+$query=sprintf ('SELECT id,title,num,perma FROM %s ORDER BY num, title', POC_DB['STATIC']['table']);
 // currently there's no need to set up navibar
 $lists=$k->getAll($query);
-$selurl=sprintf ('/a/list_static/%s', $table);
+$selurl=sprintf ('/a/list_static/%s', POC_DB['STATIC']['table']);
 
 // ----- HTML --------------
 PocPage::html_admin();
@@ -24,9 +21,9 @@ if (isset($_GET['dst'])) {
 	}
 }
 ?>
-<div><a href="<?php echo $editbase ?>/?new=1">Create New</a></div>
+<div><a href="<?php echo POC_DB['STATIC']['edit'] ?>/?new=1">Create New</a></div>
 
-<form action="<?php echo $editbase ?>" method="post" accept-charset="utf-8" >
+<form action="<?php echo POC_DB['STATIC']['edit'] ?>" method="post" accept-charset="utf-8" >
 <input type="hidden" name="list_view_chk" value="1" />
 <div>note: for convenience, use Order&lt;=0 to avoid being processed in "misc" summary page.<br />
 [0] general purpose<br />
@@ -38,8 +35,8 @@ foreach (array('del', 'id','order','title','permalink','edit') as $tt) {
 	echo "<th>", $tt,"</th>\n";
 }
 foreach ($lists as $entry) {
-	$viewurl=sprintf ('%s/%s', $viewbase, (empty($entry['perma'])?$entry['id']:$entry['perma']) );
-	$editurl=sprintf ('%s/?id=%s', $editbase, $entry['id']);
+	$viewurl=sprintf ('%s/%s', POC_DB['STATIC']['url'], (empty($entry['perma'])?$entry['id']:$entry['perma']) );
+	$editurl=sprintf ('%s/?id=%s', POC_DB['STATIC']['edit'], $entry['id']);
 ?>
 <tr>
 <td><input type="checkbox" name="del_id[]" value="<?php echo $entry['id'] ?>" /></td>

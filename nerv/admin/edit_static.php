@@ -1,13 +1,12 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_edit.php');
 
-$ENTRY_VAR=POCCHONG['STATIC'];
-$TVAR=$ENTRY_VAR['table'];
 $DATA_IN=$_POST;
 
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_'.$TVAR;
+$redirectlist='/a/list_'.POC_DB['STATIC']['table'];
 
 $usrsubmit=0;
 $showedit=0;
@@ -32,14 +31,14 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 	}
 	elseif ($DATA_IN['opt'] == 'Reorder') {
 		foreach ($DATA_IN['num'] as $id=>$neworder) {
-			$stat=sprintf ('update %s set num=? where id=?',$TVAR);
+			$stat=sprintf ('update %s set num=? where id=?',POC_DB['STATIC']['table']);
 			$k->dosql($stat,array($neworder,$id));
 		}
 		$redirectlist.='?dst=4';
 		jump($redirectlist);
 	}
 	elseif ($DATA_IN['opt'] == 'View') {
-		$redirect=$ENTRY_VAR['url'].'/'.(isset($DATA_IN['perma'])?$DATA_IN['perma']:$DATA_IN['id']);
+		$redirect=POC_DB['STATIC']['url'].'/'.(isset($DATA_IN['perma'])?$DATA_IN['perma']:$DATA_IN['id']);
 		jump($redirect);
 	}
 	elseif ($DATA_IN['opt'] == 'Preview') { // quick preview. overall style may differ from current site
@@ -65,7 +64,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit page
 	$edit=array();
 	if (isset($_GET['id'])) {
-		$edit=$k->getRow('SELECT * FROM '.$TVAR.' WHERE id=?', array($_GET['id']));
+		$edit=$k->getRow('SELECT * FROM '.POC_DB['STATIC']['table'].' WHERE id=?', array($_GET['id']));
 		if (isset($edit)) {
 			$edit['update']=1;
 			$edit['id']=$_GET['id'];
@@ -82,7 +81,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit page
 		$edit['extra']='';
 		$edit['content']='';
 	}
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
+	include(NERV.'/admin/incl_'.POC_DB['STATIC']['table'].'editor.php');
 	exit;
 }
 
@@ -92,11 +91,11 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 	$stat='';
 	$id=isset($DATA_IN['id'])?$DATA_IN['id']:0;
 	if (isset($DATA_IN['perma'])) { #permalink value must be unique
-		$tryid=$k->getOne('select id from '.$TVAR.' where perma=?', array($DATA_IN['perma']));
+		$tryid=$k->getOne('select id from '.POC_DB['STATIC']['table'].' where perma=?', array($DATA_IN['perma']));
 		if (isset($tryid) and $tryid!=$id) {
 			$edit=$DATA_IN;
 			print_system_msg('permalink duplicate as of id='.$tryid);
-			include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
+			include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.POC_DB['STATIC']['table'].'editor.php');
 			exit;
 		}
 	}
@@ -106,7 +105,7 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 			$s0[]=$kk.'=? '; // need trailing space
 			$pile[]=isset($DATA_IN[$kk])?$DATA_IN[$kk]:null;
 		}
-		$stat='UPDATE '.$TVAR.' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
+		$stat='UPDATE '.POC_DB['STATIC']['table'].' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
 		$pile[] = $id;
 		$k->dosql($stat,$pile);
 	}
@@ -118,22 +117,21 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 			$s1b[]='?';
 			$pile[]=isset($DATA_IN[$kk])?$DATA_IN[$kk]:null;
 		}
-		$id=$k->nextID($TVAR);
+		$id=$k->nextID(POC_DB['STATIC']['table']);
 		$s1[] = '"id"';
 		$s1b[]='?';
 		$pile[] = $id;
-		$stat='INSERT INTO '.$TVAR.' ('.(implode (',', $s1)).') VALUES('.(implode(',',$s1b)).')'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
+		$stat='INSERT INTO '.POC_DB['STATIC']['table'].' ('.(implode (',', $s1)).') VALUES('.(implode(',',$s1b)).')'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
 		$k->dosql($stat, $pile);
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',$ENTRY_VAR['edit'],$id);
+	$rurl=sprintf ('%s/?id=%s&dst=1',POC_DB['STATIC']['edit'],$id);
 	jump($rurl);
 }
 jump($redirectlist);
 
 
 function _del_page($k=null,$id=0) {
-	global $TVAR;
-	$k->dosql('DELETE FROM '.$TVAR.' WHERE id=?', array($id));
+	$k->dosql('DELETE FROM '.POC_DB['STATIC']['table'].' WHERE id=?', array($id));
 }
 
 ?>

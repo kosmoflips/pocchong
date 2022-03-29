@@ -16,8 +16,8 @@ PocPage::html_admin();
 <table>
 	<tr><td><b>id*</b></td><td><input type="number" name="id" maxlength="11" value="<?php echo $edit['id'] ?>" readonly /></td></tr>
 	<tr><td><b>title*</b></td><td><input type="text" name="title" maxlength="255" size="50" value="<?php echo $edit['title'] ?>" required /></td></tr>
-	<tr><td><b>epoch*</b></td><td><input type="number" name="epoch" maxlength="12" value="<?php echo $edit['epoch'] ?>" required /> <?php echo time27($edit['epoch'],4,$edit['gmt'],0) ?></td></tr>
-	<tr><td><b>year*</b></td><td><input type="number" name="year" maxlength="2" value="<?php echo ($edit['year']??(date('Y')-2000)) ?>" readonly />(supposed year-2000) if really want to change this, do it through SQL directly</td></tr>
+	<tr><td><b>epoch*</b></td><td><input type="number" name="epoch" maxlength="12" value="<?php echo $edit['epoch'] ?>" required /> <?php echo clock27($edit['epoch'],4,$edit['gmt'],0) ?></td></tr>
+	<tr><td><b>year*</b></td><td><input type="number" name="year" maxlength="2" value="<?php echo ($edit['year']??(date('Y')-2000)) ?>" readonly />("year" - 2000), use SQL if need to change</td></tr>
 	<tr><td><b>gmt*</b></td><td><input type="number" min="-12" max="12" name="gmt" maxlength="2" value="<?php echo $edit['gmt'] ?>" required /></td></tr>
 	<tr><td><b>content*</b><br /></td><td><textarea class="lined" cols="100" rows="40" name="content" required><?php echo $edit['content'] ?></textarea><br /></td></tr>
 </table>

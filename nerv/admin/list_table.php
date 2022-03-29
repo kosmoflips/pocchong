@@ -1,5 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
 
 chklogin(1);
 
@@ -8,15 +9,15 @@ $table='';
 $viewbase='';
 $editbase='';
 if (isset($_GET['sel']) and $_GET['sel']=="mygirls") {
-	$table='mygirls';
-	$viewbase=POCCHONG['MYGIRLS']['url'];
-	$editbase=POCCHONG['MYGIRLS']['edit'];
+	$table=POC_DB['MYGIRLS']['table'];
+	$viewbase=POC_DB['MYGIRLS']['url'];
+	$editbase=POC_DB['MYGIRLS']['edit'];
 } else {
-	$table='post';
-	$viewbase=POCCHONG['POST']['url'];
-	$editbase=POCCHONG['POST']['edit'];
+	$table=POC_DB['POST']['table'];
+	$viewbase=POC_DB['POST']['url'];
+	$editbase=POC_DB['POST']['edit'];
 }
-$maxperpage=POCCHONG['ADMIN']['max'];
+$maxperpage=POC_DB['ADMIN']['max'];
 $totalpg=calc_total_page($k->countRows($table), $maxperpage);
 $curr=$_GET['page']??1;
 $offset=calc_page_offset($curr,$maxperpage);
@@ -26,7 +27,7 @@ $actionurl=sprintf ('/a/edit_%s', $table);
 $selurl=sprintf ('/a/list_table/%s/page', $table);
 
 $PAGE=new PocPage;
-$PAGE->navi['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,POCCHONG['navi_step'],$selurl);
+$PAGE->navi['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,POC_DB['navi_step'],$selurl);
 
 
 
@@ -56,7 +57,7 @@ foreach ($lists as $entry) {
 <tr>
 <td><input type="checkbox" name="del_id[]" value="<?php echo $entry['id'] ?>" /></td>
 <td><?php echo $entry['id'] ?></td>
-<td><?php echo time27($entry['epoch'],3,$entry['gmt']) ?></td>
+<td><?php echo clock27($entry['epoch'],3,$entry['gmt']) ?></td>
 <td><a href="<?php echo $viewurl ?>"><?php echo $entry['title'] ?></a></td>
 <td><a href="<?php echo $editurl ?>">edit</a></td>
 </tr>

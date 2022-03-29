@@ -1,5 +1,5 @@
 <?php
-require_once(NERV.'/mg.php');
+require_once(NERV.'/lib_mg.php');
 $pic=get_random_mg();
 ?>
 <h4><?php echo rand_deco_symbol(); ?> <a href="<?php echo $pic['url']?>">[<?php echo clock27($pic['epoch'], 5, $pic['gmt']); ?>] <?php echo $pic['title']; ?></a></h4>
