@@ -1,12 +1,12 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-$ENTRY_VAR=POCCHONG['MYGIRLS'];
-$TVAR=$ENTRY_VAR['table'];
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_edit.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_mg.php');
 $DATA_IN=$_POST;
 
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_table?sel='.$TVAR;
+$redirectlist='/a/list_table?sel='.POC_DB['MYGIRLS']['table'];
 
 // exit;
 #dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
@@ -36,23 +36,23 @@ if (isset($DATA_IN['opt'])) { //submit,delete
 	}
 	elseif ($DATA_IN['opt'] == 'DELETE selected') {
 		if (isset ($DATA_IN['DEL_pcs']) and !empty($DATA_IN['main']['id'])) {
-			$rep=$k->getRow('SELECT id as "rep_id",title_id FROM '.$ENTRY_VAR['table_pcs'].' WHERE id=?', array($DATA_IN['main']['id']));
+			$rep=$k->getRow('SELECT id as "rep_id",title_id FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE id=?', array($DATA_IN['main']['id']));
 			foreach ($DATA_IN['DEL_pcs'] as $pid) {
 				if (preg_match('/^new/i', $pid)) { // no need to delete "new" entries
 					continue;
 				}
 				if ($rep['rep_id'] == $pid) {
-					$k->dosql('UPDATE '.$TVAR.' SET rep_id=? where id=?',array(null,$rep['title_id']));
+					$k->dosql('UPDATE '.POC_DB['MYGIRLS']['table'].' SET rep_id=? where id=?',array(null,$rep['title_id']));
 				}
-				$k->dosql('DELETE FROM '.$ENTRY_VAR['table_pcs'].' WHERE id=?',array($pid));
+				$k->dosql('DELETE FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE id=?',array($pid));
 			}
 		}
-		$rurl=sprintf ('%s/?id=%s&dst=2',$ENTRY_VAR['edit'],$DATA_IN['main']['id'] );
+		$rurl=sprintf ('%s/?id=%s&dst=2',POC_DB['MYGIRLS']['edit'],$DATA_IN['main']['id'] );
 		jump($rurl);
 		exit;
 	}
 	elseif ($DATA_IN['opt'] == 'View') {
-		$reurl=sprintf ('%s/%s', $ENTRY_VAR['url'],$DATA_IN['main']['id']);
+		$reurl=sprintf ('%s/%s', POC_DB['MYGIRLS']['url'],$DATA_IN['main']['id']);
 		jump($reurl);
 	}
 	elseif ($DATA_IN['opt'] == 'Save') { // set flag, do later
@@ -67,17 +67,17 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	$tagidx=$k->getTags();
 
 	if (isset($_GET['id'])) { // edit existing entry
-		$info=$k->getRow('SELECT * FROM '.$TVAR.' WHERE id=?',array($_GET['id']));
+		$info=$k->getRow('SELECT * FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?',array($_GET['id']));
 		if (empty($info)) { // given id is false , redirect to list
 			jump($redirectlist);
 		}
 		// ---- below, given id is true. get all pcs , link tags-----------
 		$info['update']=1;
-		$tags=$k->getAll('SELECT tag_id FROM '.$ENTRY_VAR['table_link'].' WHERE title_id=?',array($info['id']));
+		$tags=$k->getAll('SELECT tag_id FROM '.POC_DB['MYGIRLS']['table_link'].' WHERE title_id=?',array($info['id']));
 		foreach ($tags as $tagid) {
 			$info['tags'][]=$tagid['tag_id'];
 		}
-		$stat='SELECT * FROM '.$ENTRY_VAR['table_pcs'].' WHERE title_id=?';
+		$stat='SELECT * FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE title_id=?';
 		$sth=$k->getAll($stat,[$_GET['id']]);
 		foreach ($sth as $r) { // loop through each [pcs]. set up pic preview url and label representative pcs
 			// peek($r);
@@ -124,7 +124,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 		);
 	}
 	// ---- write editor HTML -----------
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
+	include(NERV.'/admin/incl_'.POC_DB['MYGIRLS']['table'].'editor.php');
 	exit;
 }
 
@@ -144,7 +144,7 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 	// ---------update/insert main block, and tags-----------
 	if ($update) {
 		// --- main block , except rep_id ---
-		$mainblock=$k->getRow('SELECT * FROM '.$TVAR.' where id=?',array($main['id']));
+		$mainblock=$k->getRow('SELECT * FROM '.POC_DB['MYGIRLS']['table'].' where id=?',array($main['id']));
 		$s0=array();
 		$pile=array();
 		foreach ($main as $mkey=>$mval ) {
@@ -154,14 +154,14 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 			}
 		}
 		if (!empty($s0)) { // one or more columns need update
-			$stat='UPDATE '.$TVAR.' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
+			$stat='UPDATE '.POC_DB['MYGIRLS']['table'].' SET '.(implode ( ', ' , $s0)).' WHERE id=?';
 			$pile[]=$main['id'];
 			$k->dosql($stat,$pile);
 		}
 		// --- tags ---
 		$rmlist=array();
 		$addlist=array();
-		$ctags0=$k->getAll('SELECT id,tag_id from '.$ENTRY_VAR['table_link'].' where title_id=?',array($main['id'])); // all current tags
+		$ctags0=$k->getAll('SELECT id,tag_id from '.POC_DB['MYGIRLS']['table_link'].' where title_id=?',array($main['id'])); // all current tags
 		$ctags=array();
 		foreach ($ctags0 as $cc) {
 			$ctags[]=$cc['tag_id'];
@@ -182,14 +182,14 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 			$addlist=$tags;
 		}
 		foreach ($rmlist as $rm) {
-			$k->dosql('DELETE FROM '.$ENTRY_VAR['table_link'].' WHERE (title_id=? and tag_id=?)', array($main['id'], $rm));
+			$k->dosql('DELETE FROM '.POC_DB['MYGIRLS']['table_link'].' WHERE (title_id=? and tag_id=?)', array($main['id'], $rm));
 		}
 		foreach ($addlist as $add) {
 			add_tag($k, $main['id'],$add);
 		}
 	}
 	else { //insert
-		$lastid=$k->nextID($TVAR);
+		$lastid=$k->nextID(POC_DB['MYGIRLS']['table']);
 		$s0=array();
 		$pile=array();
 		$s0[]='"id"';
@@ -203,7 +203,7 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 			$pile[]=$aval;
 			$vals.=',?';
 		}
-		$stat='INSERT INTO '.$TVAR.' ('; // INSERT INTO mygirls ("id","title","epoch") VALUES(?,?,?)';
+		$stat='INSERT INTO '.POC_DB['MYGIRLS']['table'].' ('; // INSERT INTO mygirls ("id","title","epoch") VALUES(?,?,?)';
 		$stat.=implode(',',$s0);
 		$stat.=') VALUES(';
 		$stat.=$vals;
@@ -217,7 +217,7 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 	}
 
 	// ----------- update/insert pcs block ---------
-	$crep=$k->getOne('SELECT rep_id FROM '.$TVAR.' WHERE id=?', array($main['id']));
+	$crep=$k->getOne('SELECT rep_id FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?', array($main['id']));
 	$newrep=!empty($DATA_IN['set_rep_id'])?$DATA_IN['set_rep_id']:0;
 	foreach ($pcs as $pc1) {
 		$pid=$pc1['id'];
@@ -236,13 +236,13 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 		$stat='';
 		$pile=array();
 		if (!$new) {
-			$stat='UPDATE '.$ENTRY_VAR['table_pcs'].' SET title_id=?, stdalone=?, img_url=?, da_url=? WHERE id=?';
+			$stat='UPDATE '.POC_DB['MYGIRLS']['table_pcs'].' SET title_id=?, stdalone=?, img_url=?, da_url=? WHERE id=?';
 			$p2=$pid;
 		}
 		else { // insert new pcs
-			$lastpid=$k->nextID($ENTRY_VAR['table_pcs']);
+			$lastpid=$k->nextID(POC_DB['MYGIRLS']['table_pcs']);
 			$p2=$lastpid;
-			$stat='INSERT INTO '.$ENTRY_VAR['table_pcs'].' ("title_id","stdalone","img_url","da_url","id") VALUES(?,?,?,?,?)';
+			$stat='INSERT INTO '.POC_DB['MYGIRLS']['table_pcs'].' ("title_id","stdalone","img_url","da_url","id") VALUES(?,?,?,?,?)';
 			if ($newrep == $pc1['id']) { // this newly inserted pc will be used as rep
 				$newrep=$lastpid;
 			}
@@ -256,9 +256,9 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 		$k->dosql($stat,$pile);
 	}
 	if ( $newrep != $crep ) { // -- update rep_id ---
-		$k->dosql('UPDATE '.$TVAR.' SET rep_id=? where id=?', array($newrep,$main['id']));
+		$k->dosql('UPDATE '.POC_DB['MYGIRLS']['table'].' SET rep_id=? where id=?', array($newrep,$main['id']));
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',$ENTRY_VAR['edit'],$main['id'] );
+	$rurl=sprintf ('%s/?id=%s&dst=1',POC_DB['MYGIRLS']['edit'],$main['id'] );
 	jump($rurl);
 }
 
@@ -266,13 +266,11 @@ jump($redirectlist);
 
 
 function _del_mygirls($k=null,$id=0) { // delete entire entry
-	global $ENTRY_VAR;
-	global $TVAR;
 	$stat=array();
-	$stat[]='DELETE FROM '.$ENTRY_VAR['table_link'].' WHERE title_id=?';
-	$stat[]='DELETE FROM '.$ENTRY_VAR['table_pcs'].' WHERE title_id=?';
-	$stat[]='DELETE FROM '.$TVAR.' WHERE id=?';
-	$k->dosql('UPDATE '.$TVAR.' SET rep_id=? where id=?',array(null,$id)); // avoid interal relationship
+	$stat[]='DELETE FROM '.POC_DB['MYGIRLS']['table_link'].' WHERE title_id=?';
+	$stat[]='DELETE FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE title_id=?';
+	$stat[]='DELETE FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?';
+	$k->dosql('UPDATE '.POC_DB['MYGIRLS']['table'].' SET rep_id=? where id=?',array(null,$id)); // avoid interal relationship
 	foreach ($stat as $s) {
 		$k->dosql($s,array($id));
 	}
@@ -289,11 +287,9 @@ function cleanimgurl ($url='') { #better to separate since it's easier to choose
 	return $url;
 }
 function add_tag($k=null,$titleid=0,$tagid=0) {
-	global $ENTRY_VAR;
-	global $TVAR;
 	if ($k and $titleid and $tagid) {
-		$lastid=$k->nextID($ENTRY_VAR['table_link']);
-		$k->dosql('INSERT INTO '.$ENTRY_VAR['table_link'].' ("id","title_id","tag_id") VALUES(?,?,?)', array($lastid,$titleid, $tagid));
+		$lastid=$k->nextID(POC_DB['MYGIRLS']['table_link']);
+		$k->dosql('INSERT INTO '.POC_DB['MYGIRLS']['table_link'].' ("id","title_id","tag_id") VALUES(?,?,?)', array($lastid,$titleid, $tagid));
 	}
 }
 

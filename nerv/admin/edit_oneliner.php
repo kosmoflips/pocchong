@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-$TVAR=POCCHONG['ONELINER']['table'];
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+$TVAR=POC_DB['ONELINER']['table'];
 $DATA_IN=$_POST;
 
 chklogin(1);
@@ -8,7 +8,7 @@ $k=new PocDB();
 $all=$k->getAll('SELECT * FROM '.$TVAR.' ORDER BY id DESC');
 if (isset($DATA_IN['line'])) {
 	$id=$k->nextID($TVAR);
-	$k->dosql('INSERT INTO '.$TVAR.' ("id","line") VALUES(?,?)', array($id,$DATA_IN['line']));	jump(POCCHONG['ONELINER']['edit']);
+	$k->dosql('INSERT INTO '.$TVAR.' ("id","line") VALUES(?,?)', array($id,$DATA_IN['line']));	jump(POC_DB['ONELINER']['edit']);
 	exit;
 }
 
@@ -24,8 +24,7 @@ PocPage::html_admin();
 </div>
 <hr />
 Notes<br />
-- this table is too simple. use SQL for delete.<br />
-- do NOT put time-sensitive thing (go to twitter instead) unless it's necessarily the case<br />
+- this table is too simple. didn't bother to add more buttons here, just use SQL for non-adding tasks.<br />
 <br />
 <table>
 <?php

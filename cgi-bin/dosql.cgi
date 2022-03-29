@@ -22,7 +22,7 @@ print $k->{CGI}->header($http);
 
 my $p=$k->{CGI}->Vars();
 if ($p->{sql}) {
-	my $dbf=$ENV{DOCUMENT_ROOT}.'/cgi-bin/pocchong_data.sqlite';
+	my $dbf=$ENV{DOCUMENT_ROOT}.'/nerv/pocchong_data.sqlite';
 	if (!-e $dbf or -z $dbf) {
 		die "db file doesn't exist or empty";
 	}

@@ -22,7 +22,7 @@ PocPage::html_admin();
 <tr><td><b>title*</b></td>
 	<td><input type="text" name="main[title]" maxlength="255" size="50" value="<?php echo $info['title'] ?>" required /></td></tr>
 <tr><td><b>epoch*</b></td>
-	<td><input type="number" size="9" name="main[epoch]" maxlength="12" value="<?php echo $info['epoch'] ?>" required /> <?php echo time27($info['epoch'],4,$info['gmt'],null) ?></td></tr>
+	<td><input type="number" size="9" name="main[epoch]" maxlength="12" value="<?php echo $info['epoch'] ?>" required /> <?php echo clock27($info['epoch'],4,$info['gmt'],null) ?></td></tr>
 <tr><td><b>gmt*</b></td>
 	<td><input type="number" min="-12" max="12" size="4" name="main[gmt]" maxlength="2" value="<?php echo $info['gmt'] ?>" required /></td></tr>
 <tr><td><b>year*</b></td>

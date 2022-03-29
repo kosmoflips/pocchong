@@ -10,7 +10,6 @@ define('POC_LAYOUT', NERV.'/layout' );
 
 
 // ----- load stuff -----
-require_once (NERV.'/lib_oven.php'); // login,cookie,session
 require_once (NERV.'/poc_db.php'); // db(sqlite) connection
 require_once (NERV.'/poc_layout.php'); // page layout
 
@@ -141,6 +140,16 @@ function peek($var=null,$stop=0) {
 function jump($url='/') { // redirect. saves some writing
 	header("Location: ".$url);
 	exit;
+}
+function chklogin($retreat=0) {
+	if (isset($_SESSION['POCCHONG_LOGIN_TOKEN'])) {
+		return 1;
+	} else {
+		if ($retreat) { // if given, redirect to login page when login fails
+			header("Location: /a/");
+		}
+		return 0;
+	}
 }
 function print_edit_button ($edit_url='') {
 	if (chklogin() and $edit_url) {

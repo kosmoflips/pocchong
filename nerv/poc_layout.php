@@ -66,13 +66,13 @@ public function html_head_stuff () { // custom head stuff
 }
 
 public function html_admin_navi () {
-	include (LAYOUT.'/navi.php');
+	include (POC_LAYOUT.'/navi.php');
 }
 static function html_admin ($close=0) {
 	if (!$close) {
-		include (LAYOUT.'/layout_admin1.php');
+		include (POC_LAYOUT.'/layout_admin1.php');
 	} else {
-		include (LAYOUT.'/layout_admin2.php');
+		include (POC_LAYOUT.'/layout_admin2.php');
 	}
 }
 

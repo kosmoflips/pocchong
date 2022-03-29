@@ -1,13 +1,12 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
-$ENTRY_VAR=POCCHONG['POST'];
-$TVAR=$ENTRY_VAR['table'];
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_edit.php');
 $DATA_IN=$_POST;
 
 // ------------ data process --------------
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_table?sel='.$TVAR;
+$redirectlist='/a/list_table?sel='.POC_DB['POST']['table'];
 
 #dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
 
@@ -34,7 +33,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 		jump($redirectlist);
 	}
 	elseif ($DATA_IN['opt'] == 'View') {
-		$redirect=$ENTRY_VAR['url'].'/'.$DATA_IN['id'];
+		$redirect=POC_DB['POST']['url'].'/'.$DATA_IN['id'];
 		jump($redirect);
 	}
 	elseif ($DATA_IN['opt'] == 'Preview') { // -------- print_post_entry. copied from page_post.php  . may not be synced. purpose is to preview css/style etc.
@@ -45,7 +44,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 		write_preview_sash();
 		echo '<article>',"\n";
 		// timestamp line
-		printf ('<div class="datetime">%s</div>%s', time27( time(),4,-7,0), "\n");
+		printf ('<div class="datetime">%s</div>%s', clock27( time(),4,-7,0), "\n");
 		// title as <h3>
 		printf ('<h3>* %s *</h3>%s', (isset($DATA_IN['title'])? $DATA_IN['title'] : 'No Title'), "\n");
 		echo (isset($DATA_IN['content'])?$DATA_IN['content']:''),"\n";
@@ -63,7 +62,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 	$edit=array();
 	if (isset($_GET['id'])) {
-		$edit=$k->getRow('SELECT * FROM '.$TVAR.' WHERE id=?', array($_GET['id']));
+		$edit=$k->getRow('SELECT * FROM '.POC_DB['POST']['table'].' WHERE id=?', array($_GET['id']));
 		if (isset($edit)) {
 			$edit['update']=1;
 			$edit['id']=$_GET['id'];
@@ -80,13 +79,13 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 		$edit['title']='';
 		$edit['year']=date('Y')-2000;
 	}
-	include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_'.$TVAR.'editor.php');
+	include(NERV.'/admin/incl_'.POC_DB['POST']['table'].'editor.php');
 	exit;
 }
 
 if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 	$pile=array($DATA_IN['title'],$DATA_IN['epoch'],$DATA_IN['gmt'],$DATA_IN['content']);
-	$s0=$TVAR.' SET title=?,epoch=?,gmt=?,content=?';
+	$s0=POC_DB['POST']['table'].' SET title=?,epoch=?,gmt=?,content=?';
 	$stat='';
 	$id=isset($DATA_IN['id'])?$DATA_IN['id']:0;
 	if (isset($DATA_IN['update'])) {
@@ -95,25 +94,24 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 		$k->dosql($stat,$pile);
 	}
 	elseif (isset($DATA_IN['insert'])) {
-		$id=$k->nextID($TVAR);
-		$stat='INSERT INTO '.$TVAR.' ("id","title","epoch","gmt","content","year") VALUES(?,?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
+		$id=$k->nextID(POC_DB['POST']['table']);
+		$stat='INSERT INTO '.POC_DB['POST']['table'].' ("id","title","epoch","gmt","content","year") VALUES(?,?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
 		array_unshift ($pile, $id);
 		$pile[]=$DATA_IN['year']; // year only need for INSERT
 		$k->dosql($stat, $pile);
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',$ENTRY_VAR['edit'],$id);
+	$rurl=sprintf ('%s/?id=%s&dst=1',POC_DB['POST']['edit'],$id);
 	jump($rurl);
 }
 jump($redirectlist);
 
 
 function _del_post($k=null,$id=0) {
-	global $TVAR;
-	$linked=$k->getOne('SELECT id FROM '.POCCHONG['MYGIRLS']['table'].' WHERE post_id=?',array($id));
+	$linked=$k->getOne('SELECT id FROM '.POC_DB['MYGIRLS']['table'].' WHERE post_id=?',array($id));
 	if (!empty($linked)) {
-		$k->dosql('UPDATE '.POCCHONG['MYGIRLS']['table'].' SET post_id=? where id=?',array(null,$linked));
+		$k->dosql('UPDATE '.POC_DB['MYGIRLS']['table'].' SET post_id=? where id=?',array(null,$linked));
 	}
-	$k->dosql('DELETE FROM '.$TVAR.' WHERE id=?', array($id));
+	$k->dosql('DELETE FROM '.POC_DB['POST']['table'].' WHERE id=?', array($id));
 }
 
 

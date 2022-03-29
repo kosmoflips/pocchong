@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/'.'Method_Kiyoism_Remaster.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $error=array();
 $loginflag=0;
@@ -25,17 +25,17 @@ if (!$loginflag) { // login failed. show login form ?>
 <div style="text-align: center">
 <?php
 	print_errors($error);
-	include ($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_loginform.html');
+	include (NERV.'/admin/incl_loginform.html');
 ?>
 </div>
 <?php
 } else { // login okay. set up session values
 ?>
 logged in as: <?php echo $_SESSION['username'] ?><br />
-session timeout: <?php echo time27($_SESSION["time_out"],0,-7,1) ?><br />
+session timeout: <?php echo clock27($_SESSION["time_out"],0,-7,1) ?><br />
 <hr />
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/cgi-bin/admin/incl_controlpanel.html');
+include(NERV.'/admin/incl_controlpanel.html');
 }
 PocPage::html_admin(1);
 
@@ -65,7 +65,7 @@ function login($usr='', $pw='') {
 			if (password_verify ($pw, $admin_info[$usr])) {
 				$_SESSION["POCCHONG_LOGIN_TOKEN"] = true;
 				$_SESSION["username"] = $usr;
-				$_SESSION["time_out"] = time() + 3600* POCCHONG['ADMIN']['timeout'];
+				$_SESSION["time_out"] = time() + 3600* POC_DB['ADMIN']['timeout'];
 				return 1;
 			}
 		}
