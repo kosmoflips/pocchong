@@ -1,6 +1,0 @@
-[ noftp ] dir.
-this dir for site data backup/raw design/etc on <localhost> only,
-- do NOT FTP this folder to remote.
-- do NOT test codes in this folder, use /sandbox/ instead
-- can make a copy to github just in case.
-- db dump can be done manually using sqlite db browser
