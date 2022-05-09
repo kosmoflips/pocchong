@@ -4,29 +4,25 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_mg.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
 // display 1 work only, fetch by id.
 
-print_page_mg_1work();
-
-
-// --------------------------------
-
-function print_page_mg_1work () {
-	$symbol=rand_deco_symbol();
-	$p=new PocPage;
-	process_data_mg_single($p,$_GET['id']??null);
-	$p->html_open();
-	?>
+$symbol=rand_deco_symbol();
+$p=new PocPage;
+process_data_mg_single($p,$_GET['id']??null);
+$p->html_open();
+?>
 <div><!-- artwork block begins -->
-<h2><?php echo $symbol,' ', '[',$p->data['main']['vol'],'] ',$p->data['main']['title'], ' ', $symbol; ?></h2>
+<h2><?php echo $symbol,' ', $p->data['main']['title'], ' ', $symbol; ?></h2>
 <?php
-	print_mg_blockinfo($p->data['main']);
-	print_mg_stdalone($p->data['stds']);
-	print_mg_pcs($p->data['pcs']);
-	print_edit_button(sprintf ("%s/?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
+print_mg_blockinfo($p->data['main']);
+print_mg_stdalone($p->data['stds']);
+print_mg_pcs($p->data['pcs']);
+print_edit_button(sprintf ("%s/?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
 ?>
 </div><!-- closing artwork block -->
 <?php
-	$p->html_close();
-}
+$p->html_close();
+
+
+// --------------------------------
 
 function print_mg_blockinfo ($main=null) {
 	?>
@@ -66,24 +62,16 @@ function print_mg_stdalone ($stds=null) {
 		$daurl=isset($pc1['da_url'])?mk_url_da($pc1['da_url']):'';
 		?>
 <div class="stdalone">
-<?php
-	print_stdalone_img($imgsrc, $daurl);
-?>
+<?php if ($daurl) { ?>
+<a href="<?php echo $daurl ?>" target="_blank">
+<?php } ?>
+<img src="<?php echo $imgsrc; ?>" alt="" />
+<?php if ($daurl) { ?>
+</a>
+<?php } ?>
 <br />
 </div><!-- .stdalone -->
 <?php
-	}
-}
-
-function print_stdalone_img ($imgsrc='', $daurl=null) {
-	if ($daurl) {
-		echo '<a href="', $daurl, '" target="_blank">';
-	}
-	?>
-<img src="<?php echo $imgsrc; ?>" alt="" />
-<?php
-	if ($daurl) {
-		echo '</a>';
 	}
 }
 

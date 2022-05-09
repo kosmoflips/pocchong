@@ -100,7 +100,6 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	elseif (isset($_GET['new'])) { // make a new entry
 		$info['insert']=1;
 		$info['id']='';
-		$info['vol']='';
 		$info['title']='';
 		$info['year']=date('Y')-2000;
 		$info['epoch']=time();

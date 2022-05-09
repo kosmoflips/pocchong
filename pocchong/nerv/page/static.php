@@ -1,7 +1,21 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
-print_page_static();
+$p=new PocPage;
+$pack=POC_DB['STATIC'];
+$symbol=rand_deco_symbol();
+process_data_static_tag($p,$_GET['tag']??null);
+$p->html_open();
+?>
+<h2><?php echo $symbol,' ', $p->title,' ',$symbol ?></h2>
+<article>
+<?php
+echo $p->data['content'],"\n";
+print_edit_button($pack['edit'].'/?id='.$p->data['id']);
+?>
+</article>
+<?php
+$p->html_close();
 
 
 //---------------------------
@@ -25,24 +39,6 @@ function process_data_static_tag ($pobj=null, $tag='') {
 		jump($pack['url']);
 		exit;
 	}
-}
-
-function print_page_static() {
-	$p=new PocPage;
-	$pack=POC_DB['STATIC'];
-	$symbol=rand_deco_symbol();
-	process_data_static_tag($p,$_GET['tag']??null);
-	$p->html_open();
-	?>
-<h2><?php echo $symbol,' ', $p->title,' ',$symbol ?></h2>
-<article>
-<?php
-echo $p->data['content'],"\n";
-print_edit_button($pack['edit'].'/?id='.$p->data['id']);
-?>
-</article>
-<?php
-	$p->html_close();
 }
 
 ?>

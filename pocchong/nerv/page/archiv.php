@@ -2,7 +2,17 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
 
-print_page_archiv();
+$symbol=rand_deco_symbol();
+$p=new PocPage;
+process_data_archiv($p,$_GET['year']??null,$_GET['page']??null);
+$p->html_open();
+?>
+<h2><?php echo $symbol,' ', $p->title,' ',$symbol ?></h2>
+<?php
+foreach ($p->data['list'] as $loopyear=>$ylist) {
+	print_archiv_block($p->data['yearmode'],$loopyear,$ylist);
+}
+$p->html_close();
 
 //--------------------------------
 function process_data_archiv ($pobj=null, $year=0, $page=0) {
@@ -57,26 +67,6 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 	);
 }
 
-function print_page_archiv() {
-	$symbol=rand_deco_symbol();
-	$p=new PocPage;
-	process_data_archiv($p,$_GET['year']??null,$_GET['page']??null);
-	$p->html_open();
-?>
-<h2><?php echo $symbol,' ', $p->title,' ',$symbol ?></h2>
-<?php
-	foreach ($p->data['list'] as $loopyear=>$ylist) {
-		print_archiv_block($p->data['yearmode'],$loopyear,$ylist);
-	}
-	$p->html_close();
-}
-
-function print_archiv_list_item ($entry=null) {
-	?>
-<li><a href="<?php echo POC_DB['POST']['url'],'/',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
-<?php
-}
-
 function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
 	?>
 <div class="archiv">
@@ -95,6 +85,12 @@ function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
 	?>
 </ul>
 </div><!-- archiv -->
+<?php
+}
+
+function print_archiv_list_item ($entry=null) {
+	?>
+<li><a href="<?php echo POC_DB['POST']['url'],'/',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
 <?php
 }
 

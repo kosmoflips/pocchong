@@ -2,19 +2,15 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
 
-// write html
-print_page_post();
+$p=new PocPage;
+process_data_post($p,$_GET['id']??null, $_GET['page']??null);
+$p->html_open(1);
+foreach ($p->data as $entry) {
+	print_post_single($p,$entry);
+}
+$p->html_close(1);
 
 //-------------------------
-function print_page_post () {
-	$p=new PocPage;
-	process_data_post($p,$_GET['id']??null, $_GET['page']??null);
-	$p->html_open(1);
-	foreach ($p->data as $entry) {
-		print_post_single($p,$entry);
-	}
-	$p->html_close(1);
-}
 function process_data_post ($pobj=null,$id=null,$page=0) {
 	if (!$pobj) {
 		return null;
