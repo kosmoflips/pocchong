@@ -3,19 +3,16 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 // for listing all static pages, and individual side-projects
 //only use  target="_blank"  when not using the site style
 
-print_page_static_list();
+$p=new PocPage;
+$p->html_open();
+print_page_static_sideprojs();
+print_page_static_indivs();
+print_page_static_deads();
+print_edit_button(POC_DB['STATIC']['edit']);
+$p->html_close();
+
 
 // -------- subs ------------
-function print_page_static_list () {
-	$p=new PocPage;
-	$p->html_open();
-	print_page_static_sideprojs();
-	print_page_static_indivs();
-	print_page_static_deads();
-	print_edit_button(POC_DB['STATIC']['edit']);
-	$p->html_close();
-}
-
 function process_data_static($pobj=null) {
 	if (!$pobj) {
 		return null;

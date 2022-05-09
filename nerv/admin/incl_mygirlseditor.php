@@ -17,8 +17,6 @@ PocPage::html_admin();
 <table><!--info table-->
 <tr><td><b>id*</b></td>
 	<td><input type="text" name="main[id]" maxlength="11" value="<?php echo $info['id'] ?>" readonly></td></tr>
-<tr><td><b>work ID*</b></td>
-	<td><input type="text" name="main[vol]" maxlength="20" size="9" value="<?php echo $info['vol'] ?>" required placeholder="FACL000"/></td></tr>
 <tr><td><b>title*</b></td>
 	<td><input type="text" name="main[title]" maxlength="255" size="50" value="<?php echo $info['title'] ?>" required /></td></tr>
 <tr><td><b>epoch*</b></td>

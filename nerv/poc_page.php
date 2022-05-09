@@ -25,7 +25,7 @@ public function head ($data=array()) { // add css/js/other tags into <head>
 }
 
 // write html subs
-public function html_open ($sel=0) {
+public function html_open ($sel=0) { #  sel=2, entry open; sel=1; master open; entry=0, entry + master open
 	if ($sel!=2) {
 		include (POC_LAYOUT.'/site_master1.php');
 	}
@@ -33,7 +33,7 @@ public function html_open ($sel=0) {
 		include (POC_LAYOUT.'/entry_open.html');
 	}
 }
-public function html_close ($sel=0) {
+public function html_close ($sel=0) { # sel =2, entry close; sel=1 , master close, sel=0, entry+master close
 	if ($sel!=1) {
 		include (POC_LAYOUT.'/entry_close.html');
 	}

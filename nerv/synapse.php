@@ -11,7 +11,7 @@ define('POC_LAYOUT', NERV.'/layout' );
 
 // ----- load stuff -----
 require_once (NERV.'/poc_db.php'); // db(sqlite) connection
-require_once (NERV.'/poc_layout.php'); // page layout
+require_once (NERV.'/poc_page.php'); // page layout
 
 
 // ----- add session , if logged on, can see 'edit' button -----
