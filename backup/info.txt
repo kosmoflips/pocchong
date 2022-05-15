@@ -1,0 +1,4 @@
+this dir for site data backup/raw design/etc on <localhost> only,
+- SYNC to onedrive
+- NO SYNC to server
+- SYNC to github
