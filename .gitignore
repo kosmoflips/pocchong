@@ -1,5 +1,4 @@
 _pass.ini
-stock/*
 *.sqlite
 desktop.ini
 error.log

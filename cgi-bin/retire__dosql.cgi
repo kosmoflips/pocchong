@@ -31,9 +31,10 @@ if ($p->{sql}) {
 			sqlite_unicode => 1, # MUST!
 		} ) or die "can't connect to db file ".$dbf;
 
-	my @sqls=split ';', $p->{sql};
+	my @sqls=split /;/, $p->{sql};
 	foreach my $stat (@sqls) {
 		next if $stat!~/\S/;
+		next if $stat=~/^#/;
 		my $sth=dosql($k,$stat);
 		printf "%s\n\n>>query: %s\n%s\n\n", ('=' x 70), $stat, ('=' x 70);
 		eval {
