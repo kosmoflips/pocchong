@@ -1,0 +1,3 @@
+[submodule "cgi-bin/gradient"]
+	path = cgi-bin/gradient
+	url = git@github.com:kosmoflips/gradient.git
