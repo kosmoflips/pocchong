@@ -53,9 +53,7 @@ function print_errors($error=null) {
 function login($usr='', $pw='') {
 	if ($usr and $pw) {
 		$usr=strtolower($usr);
-		$admin_info=array(
-			'kiyoko' => '$2y$10$IL8ehPXYwZAIIOHMO7TT0OaoxEnzVVA5qNi/IUEvutEGi7GjYLQ9S' // canari , new
-		);
+		$admin_info=readini(NERV.POC_DB['ADMIN']['users']);
 		if (isset($admin_info[$usr])) {
 			if (password_verify ($pw, $admin_info[$usr])) {
 				$_SESSION["POCCHONG_LOGIN_TOKEN"] = true;
