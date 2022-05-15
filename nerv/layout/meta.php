@@ -6,5 +6,4 @@
 <!-- other required -->
 <link rel="stylesheet" type="text/css" href="/deco/css/site.css" />
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-<script src="/deco/js/togglediv.js"></script>
 <?php $this->html_head_stuff(); ?>
