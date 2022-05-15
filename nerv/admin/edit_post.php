@@ -61,7 +61,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 }
 elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 	$edit=array();
-	if (isset($_GET['id'])) {
+	if (isset($_GET['id'])) { // edit existing post
 		$edit=$k->getRow('SELECT * FROM '.POC_DB['POST']['table'].' WHERE id=?', array($_GET['id']));
 		if (isset($edit)) {
 			$edit['update']=1;
@@ -70,7 +70,8 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 		} else { // specified id doesn't exist. go back to list
 			jump($redirectlist);
 		}
-	} else { // new content
+	}
+	else { // new content
 		$edit['content']='';
 		$edit['gmt']=-7; #default TZ
 		$edit['epoch']=time();
@@ -88,12 +89,12 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 	$s0=POC_DB['POST']['table'].' SET title=?,epoch=?,gmt=?,content=?';
 	$stat='';
 	$id=isset($DATA_IN['id'])?$DATA_IN['id']:0;
-	if (isset($DATA_IN['update'])) {
+	if (isset($DATA_IN['update'])) { // update existing record
 		$stat=sprintf ('UPDATE %s WHERE id=?',$s0);
 		$pile[] = $id;
 		$k->dosql($stat,$pile);
 	}
-	elseif (isset($DATA_IN['insert'])) {
+	elseif (isset($DATA_IN['insert'])) { // insert new record
 		$id=$k->nextID(POC_DB['POST']['table']);
 		$stat='INSERT INTO '.POC_DB['POST']['table'].' ("id","title","epoch","gmt","content","year") VALUES(?,?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
 		array_unshift ($pile, $id);

@@ -22,26 +22,26 @@ if (isset($_GET['dst'])) {
 
 $usrsubmit=0;
 if (isset($DATA_IN['opt'])) { //submit,delete
-	if ($DATA_IN['opt'] == 'DELETE') {
-		if (isset($DATA_IN['del_id'])) {
+	if ($DATA_IN['opt'] == 'DELETE') { // delete whore record
+		if (isset($DATA_IN['del_id'])) { // submitted from list_table.php
 			foreach ($DATA_IN['del_id'] as $id) {
 				_del_mygirls($k,$id);
 			}
 		}
-		if (isset($DATA_IN['main']['id'])) { // submitted from edit interface
+		if (isset($DATA_IN['main']['id'])) { // submitted from edit_mg.php
 			_del_mygirls($k,$DATA_IN['main']['id']);
 		}
 		$redirectlist.='&dst=3';
 		jump($redirectlist);
 	}
-	elseif ($DATA_IN['opt'] == 'DELETE selected') {
+	elseif ($DATA_IN['opt'] == 'DELETE selected') { // delete some pieces
 		if (isset ($DATA_IN['DEL_pcs']) and !empty($DATA_IN['main']['id'])) {
 			$rep=$k->getRow('SELECT id as "rep_id",title_id FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE id=?', array($DATA_IN['main']['id']));
 			foreach ($DATA_IN['DEL_pcs'] as $pid) {
 				if (preg_match('/^new/i', $pid)) { // no need to delete "new" entries
 					continue;
 				}
-				if ($rep['rep_id'] == $pid) {
+				if ($rep['rep_id'] == $pid) { // safe remove rep id before deleting
 					$k->dosql('UPDATE '.POC_DB['MYGIRLS']['table'].' SET rep_id=? where id=?',array(null,$rep['title_id']));
 				}
 				$k->dosql('DELETE FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE id=?',array($pid));
@@ -55,7 +55,7 @@ if (isset($DATA_IN['opt'])) { //submit,delete
 		$reurl=sprintf ('%s/%s', POC_DB['MYGIRLS']['url'],$DATA_IN['main']['id']);
 		jump($reurl);
 	}
-	elseif ($DATA_IN['opt'] == 'Save') { // set flag, do later
+	elseif ($DATA_IN['opt'] == 'Save') { // save currently editing content. set flag, do later
 		$usrsubmit=1;
 	}
 	else {
@@ -141,7 +141,7 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 		$update=0;
 	}
 	// ---------update/insert main block, and tags-----------
-	if ($update) {
+	if ($update) { // update current record
 		// --- main block , except rep_id ---
 		$mainblock=$k->getRow('SELECT * FROM '.POC_DB['MYGIRLS']['table'].' where id=?',array($main['id']));
 		$s0=array();
