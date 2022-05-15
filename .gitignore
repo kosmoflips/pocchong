@@ -1,5 +1,5 @@
 _pass.ini
 stock/*
-pocchong_data.sqlite
+*.sqlite
 desktop.ini
 error.log
