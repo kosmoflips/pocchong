@@ -524,8 +524,9 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	font-weight: bold;
 	text-decoration: underline;
 }
-.credit a:link, .credit a:hover, .credit a:visited {
+.credit, .credit a:link, .credit a:hover, .credit a:visited {
 	color: #D0D6E8;
+	font-size: 90%;
 	text-decoration: none;
 	font-weight: bold;
 	/* background: pink; */
