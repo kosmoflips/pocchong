@@ -37,7 +37,7 @@ public function getAll($stat,$vars=null) { # get an array of all rows, each row 
 		return $sth->fetchAll();
 	} catch(PDOException $e) { echo $e->getMessage(); }
 }
-public function getRow($stat,$vars=null) { # return H ref from 1 row. stat must match
+public function getRow($stat,$vars=null) { # return H ref from 1 row. stat must match this purpose. e.g. stat can NOT ask for multiple rows
 	try {
 		$sth=$this->dosql($stat,$vars);
 		$rows=$sth->fetchAll();

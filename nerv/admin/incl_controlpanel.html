@@ -9,7 +9,16 @@
 <div>
 <form action="/a/dosql" method="post" target="">
 <h4>do SQL</h4>
-<textarea class="lined" rows="15" cols="70" name="sql">SELECT * FROM sqlite_master where type='table'
+<ul>
+	<li>split each SQL statement with semicolon ";",</li>
+	<li><b>if semicolon is required in statement, will cause problem!</b></li>
+	<li>in that case just use DB browser and do edits there.</li>
+	<li>use leading "#" for comment</li>
+</ul>
+<textarea class="lined" rows="15" cols="70" name="sql">
+SELECT * FROM sqlite_master WHERE type='table';
+# SELECT id, title FROM post ORDER BY id DESC LIMIT 4;
+SELECT id , title FROM mygirls ORDER BY id DESC LIMIT 1;
 </textarea><br />
 <input type="submit" name="dosql" value="doSQL" onclick="this.form.target='_blank'">
 </form>

@@ -15,6 +15,8 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 RewriteRule ^backyard/?$ /nerv/page/static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
 RewriteRule ^gradient/?$ /cgi-bin/gradient/gradient_maker.cgi [L,NC]
+# RewriteRule ^a/dosql/? /cgi-bin/dosql.cgi [L,NC]
+RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
 
 
 ##### redirect from clean url to source code #############
@@ -45,8 +47,6 @@ RewriteRule ^days/?$ /nerv/page/post.php [L,NC]
 RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
 
 # -------------------- admin pages --------------------------
-# special for dosql.cgi only
-RewriteRule ^a/dosql/? /cgi-bin/dosql.cgi [L,NC]
 # general redirects
 RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /nerv/admin/list_table.php?sel=$1&page=$2 [L,NC]
 RewriteRule ^a/list_page/(\d+)/?$ /nerv/admin/list_page.php?page=$1 [L,NC]
