@@ -28,8 +28,8 @@ RewriteRule ^archiv/(\d+)/?$ /nerv/page/archiv.php?page=$1 [L,NC]
 RewriteRule ^archiv/?$ /nerv/page/archiv.php [L,NC]
 
 # -------- calendar ---------------
-RewriteRule ^calendar/y/(\d{4})/?$ /nerv/page/calendar.php?year=$1 [L,NC]
-RewriteRule ^calendar/?$ /nerv/page/calendar.php [L,NC]
+# RewriteRule ^calendar/y/(\d{4})/?$ /nerv/page/calendar.php?year=$1 [L,NC]
+# RewriteRule ^calendar/?$ /nerv/page/calendar.php [L,NC]
 
 # ------------mygirls -------------
 RewriteRule ^mygirls/p/(\d*)/?$ /nerv/page/mg_index.php?page=$1 [L,NC]
@@ -37,13 +37,12 @@ RewriteRule ^mygirls/(\d*) /nerv/page/mg_single.php?id=$1 [L,NC]
 RewriteRule ^mygirls/?$ /nerv/page/mg_index.php [L,NC]
 
 #------------------ post -----------
-# RewriteRule ^post/?(.*)?$ /days/$1 [R,NC] #old url [post] redirect to new url [days] # <<< rm this line eventually
 RewriteRule ^days/p/?(\d*) /nerv/page/post.php?page=$1 [L,NC]
 RewriteRule ^days/(\d*) /nerv/page/post.php?id=$1 [L,NC]
 RewriteRule ^days/?$ /nerv/page/post.php [L,NC]
 
 #--------------- general static pages----------------
-RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?tag=$1 [L,NC]
+RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
 
 # -------------------- admin pages --------------------------
 # special for dosql.cgi only

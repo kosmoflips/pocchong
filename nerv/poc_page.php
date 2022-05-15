@@ -12,14 +12,23 @@ public $navi=array(
 	);
 public $data=null;
 
-public function head ($data=array()) { // add css/js/other tags into <head>
+# assign css/js/extra (e.g. style) to $this->head
+public function add_css ($list=array()) {
+	$x='css';
+	$this->_head(array($x=>$list));
+}
+public function add_js ($list=array()) {
+	$x='js';
+	$this->_head(array($x=>$list));
+}
+public function add_extra ($list=array()) {
+	$x='extra';
+	$this->_head(array($x=>$list));
+}
+protected function _head ($data=array()) { // add css/js/other tags into <head>
 	foreach ($data as $k=>$v) {
-		if (array_key_exists($k,$this->head)) {
-			if (!empty($v)) {
-				foreach ($v as $c) {
-					$this->head[$k][]=$c;
-				}
-			}
+		foreach ($v as $c) {
+			$this->head[$k][]=$c;
 		}
 	}
 }
@@ -47,7 +56,7 @@ public function html_head_title () {
 	}
 	echo POC_META['alias'];
 }
-public function html_head_stuff () { // custom head stuff
+public function html_head_stuff () { // custom head stuff, used in layout/meta.php
 	if (!empty($this->head['js'])) {//extra js in array
 		foreach ($this->head['js'] as $js) {
 			echo '<script src="', $js, '"></script>',"\n";

@@ -2,11 +2,8 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $p=new PocPage;
-$p->head( array( // index specific <head> stuff
-		'css'=>array('/deco/css/index.css'),
-		'extra'=>array('<link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet">')
-	)
-);
+$p->add_css(['/deco/css/index.css']);
+$p->add_extra(['<link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet">']);
 $p->html_open();
 ?>
 
