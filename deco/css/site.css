@@ -404,7 +404,7 @@ article img, .stdalone img {
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/img/top_text_170731.png") top left no-repeat;
+	background:url("/deco/img/top_text_bluered.png") top left no-repeat;
 	background-position: 475px 20px;
 	display:inline-block;
 	font-family: 'Milonga', "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
