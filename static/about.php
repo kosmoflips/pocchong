@@ -68,21 +68,21 @@ static_page_open($title);
 <span class="sc2"># <a href="http://kosmoflips.deviantart.com/">http://kosmoflips.deviantart.com/</a></span>
 <span class="sc2"># <a href="http://www.last.fm/user/kosmoflips">http://www.last.fm/user/kosmoflips</a></span>
 <span class="sc2"># PSN: sinfinmelodia</span>
-<span class="sc2"># FB: ask</span>
+<span class="sc2"># most other places: kosmoflips</span>
 
-<span class="sc2"># updated on 2020-Jan-16</span><span class="sc0"></span>
+<span class="sc2"># updated on 2022-May-15</span><span class="sc0"></span>
 
 <span class="sc5">print</span><span class="sc0"> </span><span class="sc6">"I like platonic girls' love, Silent Hill and Mozart.\n"</span><span class="sc10">;</span><span class="sc0">
 
 </span><span class="sc5">my</span><span class="sc0"> </span><span class="sc12">$SELF</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
     </span><span class="sc11">personality</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc5">int</span><span class="sc0"> </span><span class="sc12">$j</span><span class="sc10">,</span><span class="sc0">
-    </span><span class="sc11">sign</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc5">ref</span><span class="sc0"> </span><span class="sc12">$Mozart</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">zodiac sign</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc5">ref</span><span class="sc0"> </span><span class="sc12">$Mozart</span><span class="sc10">,</span><span class="sc0">
     </span><span class="sc11">attribute</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc7">'dark'</span><span class="sc10">,</span><span class="sc0"> </span><span class="sc2">#self-claimed</span><span class="sc0">
-    </span><span class="sc11">occupation</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc7">'mad scientist dealing with genetic sequences'</span><span class="sc10">,</span><span class="sc0">
-    </span><span class="sc11">title</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc7">'Possessed heretic Daydreamer'</span><span class="sc10">,</span><span class="sc0">
+    </span><span class="sc11">occupation</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc7">'nerd bioinformatician'</span><span class="sc10">,</span><span class="sc0">
+    </span><s># <span class="sc11">title</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc7">'Possessed heretic Daydreamer'</span><span class="sc10">,</span></s><span class="sc0">
     </span><span class="sc11">languages</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
-        </span><span class="sc11">major</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc10">[</span><span class="sc30">qw / English Japanese Mandarin Perl HTML CSS /</span><span class="sc10">],</span><span class="sc0">
-        </span><span class="sc11">minor</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc10">[</span><span class="sc30">qw/ German Javascript PHP CMD bash /</span><span class="sc0"> </span><span class="sc10">],</span><span class="sc0">
+        </span><span class="sc11">major</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc10">[</span><span class="sc30">qw / English Japanese Mandarin Perl HTML CSS R /</span><span class="sc10">],</span><span class="sc0">
+        </span><span class="sc11">minor</span><span class="sc0"> </span><span class="sc10">=></span><span class="sc0"> </span><span class="sc10">[</span><span class="sc30">qw/ German PHP Python CMD bash /</span><span class="sc0"> </span><span class="sc10">],</span><span class="sc0">
     </span><span class="sc10">},</span><span class="sc0">
 </span><span class="sc10">};</span><span class="sc0">
 </span><span class="sc5">my</span><span class="sc0"> </span><span class="sc12">$FAVOURITE</span><span class="sc0"> </span><span class="sc10">=</span><span class="sc0"> </span><span class="sc10">{</span><span class="sc0">
@@ -154,5 +154,7 @@ static_page_open($title);
 <li>2020/01/24-01/25: Theme redesign -- added sidebar again with new "il mare dei suoni" in blue motif</li>
 <li>2020/03/22: "One column is the best" minor design update</li>
 <li>2020/03/27-28: code update with a Class for easier page layouts</li>
+<li>2021/08/25: on github</li>
+<li>2022/03/06-05/15: simplify/reorganise -- since new Apache doesn't support php being inside /cgi-bin</li>
 </ul>
 </div>
