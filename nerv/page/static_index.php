@@ -64,7 +64,6 @@ foreach ($list as $row) {
 <h3><?php echo $symbol3 ?> Dead Archives <?php echo $symbol3 ?></h3>
 <div class="archiv"><ul>
 <li><span class="archivname"><a href="/cyouwa" target="_blank">Sea of Harmony</a>: </span><span class="archivdesc">self-translated KOKIA reviews around 2009~10 (no more updates)</span></li>
-<li><span class="archivname"><a href="/s/kaidan">深夜の怪談ラジオ irresponsible scripts</a>: </span><span class="archivdesc">of a Chata+Annabel CD</span></li>
 </ul>
 </div>
 
