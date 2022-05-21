@@ -1,4 +1,4 @@
-REM @echo off
+@echo off
 
 REM run this script to make an immediate file copy to drive -- good for unfinalised develop that's not good for git-update
 
@@ -8,3 +8,5 @@ REM drive dir is for back up, may not be stable, files only, NOT version control
 SET drivedir=D:\Users\kosmo\OneDrive\gitrepo\pocchong
 
 robocopy %localdir% %drivedir% /e /v /mir /xd .git /xf .git .gitmodules .gitignore *.bat error.log readme.md desktop.ini *.lnk
+
+echo dir cloned on: %date%-%time% > %drivedir%\copy_date.txt
