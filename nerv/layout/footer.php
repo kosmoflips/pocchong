@@ -1,1 +1,1 @@
-<div class='credit'><a href="/about"><?php echo POC_META['year0'] ?>-<?php echo date('Y') ?> <?php echo POC_META['credit']?></a> | <a href="https://github.com/kosmoflips/pocchong/releases/tag/nightfest.alpha">Nightfest.alpha</a></div>
+<div class='credit'><a href="/about"><?php echo POC_META['year0'] ?>-<?php echo date('Y') ?> <?php echo POC_META['credit']?></a> | <a href="https://github.com/kosmoflips/pocchong/releases/tag/nightfest.alpha">Nightfest.alpha.1</a></div>
