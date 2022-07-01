@@ -3,23 +3,51 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $p=new PocPage;
 $p->add_css(['/deco/css/index.css']);
+$p->add_css(['/deco/css/index_tweeter.css']);
+$p->add_js(['/deco/js/fetch_tweet.js']);
 $p->add_extra(['<link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet">']);
 $p->html_open();
 ?>
 
 <div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
 
-<div style="text-align:center; font-size: 105%">old twitter parser is retired, don't want to use others but also lazy to rewrite.<br />
+<div style="text-align:center; font-size: 105%"><s>old twitter parser is retired, don't want to use others but also lazy to rewrite.<br />
 so the only option left is to go with the dull-looking and lack-of-feature official API <br />
-still better than keeping the HP empty, maybe. &#128580;</div>
+still better than keeping the HP empty, maybe. &#128580;</s><br />
+<br />
+I'm never happy with twitter's own embedding widget,<br />so as of 2022-July-1, the old widget was brought back and reborn!</div>
+
+<div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
+
+<?php
+$langs = array('en','de','ja','fr');
+$rand_lang=rand(0, (sizeof($langs)-1));
+?>
+<script>
+var configProfile = {
+  "profile": {"screenName": 'kosmoflips'},
+  "domId": 'poc-tweets',
+  "maxTweets": 7,
+  "enableLinks": true, 
+  "showUser": false,
+  "showTime": true,
+  "showImages": true,
+  "lang": '<?php echo $langs[$rand_lang]; ?>'
+};
+twitterFetcher.fetch(configProfile);
+</script>
+<div id="poc-tweets"></div>
 
 <div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
 
 
+<?php
+/*
 <div style="text-align:center">
 <a class="twitter-timeline" data-width="800" data-height="600" href="https://twitter.com/kosmoflips?ref_src=twsrc%5Etfw">Tweets by kosmoflips</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-
+*/
+?>
 <?php
 $p->html_close();
 ?>

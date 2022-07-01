@@ -1,5 +1,3 @@
-_pass.ini
-*.sqlite
 desktop.ini
 error.log
-*.lnk
+sitedata/
