@@ -5,7 +5,7 @@ define ('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
 // ------ get site config through ini ------
 define('POC_META', readini(NERV.'/meta.ini') );
 define('POC_DB', readini(NERV.'/db_config.ini') );
-define('POC_DB_FILE', NERV.POC_DB['dbfile'] );
+define('POC_DB_FILE', $_SERVER['DOCUMENT_ROOT'].POC_DB['dbfile'] );
 define('POC_LAYOUT', NERV.'/layout' );
 
 
