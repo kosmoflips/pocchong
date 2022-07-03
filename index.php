@@ -40,14 +40,6 @@ twitterFetcher.fetch(configProfile);
 
 <div class="line" style="text-align:center">*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*――*☆*</div>
 
-
-<?php
-/*
-<div style="text-align:center">
-<a class="twitter-timeline" data-width="800" data-height="600" href="https://twitter.com/kosmoflips?ref_src=twsrc%5Etfw">Tweets by kosmoflips</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
-*/
-?>
 <?php
 $p->html_close();
 ?>

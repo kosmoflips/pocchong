@@ -1,18 +1,15 @@
 <?php 	// ------------ system config, keep on top----------------
 
-define ('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
+define ('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define ('NERV', ROOT.'/nerv');
 
 // ------ get site config through ini ------
-define('POC_META', readini(NERV.'/meta.ini') );
 define('POC_DB', readini(NERV.'/db_config.ini') );
-define('POC_DB_FILE', $_SERVER['DOCUMENT_ROOT'].POC_DB['dbfile'] );
+define('POC_META', POC_DB['META'] );
 define('POC_LAYOUT', NERV.'/layout' );
 
-
-// ----- load stuff -----
 require_once (NERV.'/poc_db.php'); // db(sqlite) connection
 require_once (NERV.'/poc_page.php'); // page layout
-
 
 // ----- add session , if logged on, can see 'edit' button -----
 session_start();

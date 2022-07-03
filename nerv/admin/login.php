@@ -53,9 +53,10 @@ function print_errors($error=null) {
 function login($usr='', $pw='') {
 	if ($usr and $pw) {
 		$usr=strtolower($usr);
-		$admin_info=readini(NERV.POC_DB['ADMIN']['users']);
+		$admin_info=readini(ROOT.POC_DB['ADMIN']['userdata']);
 		if (isset($admin_info[$usr])) {
-			if (password_verify ($pw, $admin_info[$usr])) {
+			if (password_verify ( ($usr.$pw), $admin_info[$usr]) ) {
+				# generate pass by running password_hash( (lowercase_user+pass ), PASSWORD_BCRYPT )
 				$_SESSION["POCCHONG_LOGIN_TOKEN"] = true;
 				$_SESSION["username"] = $usr;
 				$_SESSION["time_out"] = time() + 3600* POC_DB['ADMIN']['timeout'];

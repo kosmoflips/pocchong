@@ -8,8 +8,9 @@ enable extension=pdo_sqlite
 
 class PocDB {
 public function connect() {
-	if (file_exists(POC_DB_FILE) ) {
-		$dbh = new PDO('sqlite:'.POC_DB_FILE);
+	$dbfile=ROOT.POC_DB['dbfile'];
+	if (file_exists($dbfile) ) {
+		$dbh = new PDO('sqlite:'.$dbfile);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbh;
 	} else {

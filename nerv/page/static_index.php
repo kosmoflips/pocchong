@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_static.php');
+require_once(NERV.'/lib_static.php');
 // for listing all static pages, and individual side-projects
 //only use  target="_blank"  when not using the site style
 
@@ -24,9 +24,9 @@ $exclude=[
 	];
 
 # page.php => description
-$desrc=readini($_SERVER['DOCUMENT_ROOT'].POC_DB['STATIC']['dir'].'/'.POC_DB['STATIC']['info']);
+$desrc=readini(ROOT.POC_DB['STATIC']['dir'].'/'.POC_DB['STATIC']['info']);
 // ----- parse static dir -----
-$files=scandir($_SERVER['DOCUMENT_ROOT'].POC_DB['STATIC']['dir']);
+$files=scandir(ROOT.POC_DB['STATIC']['dir']);
 $list=array();
 foreach ($files as $file) {
 	if (preg_match('/^_/', $file)) {
