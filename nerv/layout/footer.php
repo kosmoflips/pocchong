@@ -7,4 +7,4 @@ if (file_exists($gvfile)) {
 	$gver=null;
 }
 ?>
-<div class='credit'><a href="/about"><?php echo POC_DB['year-start'] ?>-<?php echo date('Y') ?> <?php echo POC_META['credit']?></a> | <a href="https://github.com/kosmoflips/pocchong/<?php echo $gver?$gver:''; ?>">version: <?php echo $gver?$gver1:'unknown'; ?></a></div>
+<div class='credit'><a href="/about"><?php echo POC_DB['year-start'] ?>-<?php echo date('Y') ?> <?php echo POC_META['credit']?></a> | <a href="https://github.com/kosmoflips/pocchong/<?php echo $gver?'commit/'.$gver:''; ?>">version: <?php echo $gver?$gver1:'unknown'; ?></a></div>
