@@ -1,7 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_mg.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
+require_once(NERV.'/lib_mg.php');
+require_once(NERV.'/lib_navicalc.php');
 // list index mode.
 
 $symbol=rand_deco_symbol();

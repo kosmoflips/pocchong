@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/lib_navicalc.php');
+require_once(NERV.'/lib_navicalc.php');
 
 $p=new PocPage;
 process_data_post($p,$_GET['id']??null, $_GET['page']??null);
