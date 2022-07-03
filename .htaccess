@@ -15,7 +15,6 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 RewriteRule ^backyard/?$ /nerv/page/static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
 RewriteRule ^gradient/?$ /nerv/gradient2D/gmixer_wrapper.php [L,NC]
-# RewriteRule ^a/dosql/? /cgi-bin/dosql.cgi [L,NC]
 RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
 
 
@@ -23,15 +22,10 @@ RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
 # --------------- locations ----------------------
 RewriteRule ^file/(.+)/?$ /stuff/files/$1 [L,NC]
 
-
 # --------------- archiv ----------------------
 RewriteRule ^archiv/y/(\d+)/?$ /nerv/page/archiv.php?year=$1 [L,NC]
 RewriteRule ^archiv/(\d+)/?$ /nerv/page/archiv.php?page=$1 [L,NC]
 RewriteRule ^archiv/?$ /nerv/page/archiv.php [L,NC]
-
-# -------- calendar ---------------
-# RewriteRule ^calendar/y/(\d{4})/?$ /nerv/page/calendar.php?year=$1 [L,NC]
-# RewriteRule ^calendar/?$ /nerv/page/calendar.php [L,NC]
 
 # ------------mygirls -------------
 RewriteRule ^mygirls/p/(\d*)/?$ /nerv/page/mg_index.php?page=$1 [L,NC]
@@ -55,9 +49,6 @@ RewriteRule ^a/([^/]+)/? /nerv/admin/$1.php [L,NC]
 RewriteRule ^a/?$ /nerv/admin/login.php [L,NC]
 
 
-
-
-# ---------- no more change, archive pages-----------
-# RewriteRule ^shinya/?$ /s/kaidan [L,NC]
+# ####### no more change, archive pages #######
 RewriteRule ^cyouwa/?$ /stuff/cyouwa/index.php [L,NC]
 RewriteRule ^cyouwa/(.+)$ /stuff/cyouwa/$1 [L,NC]
