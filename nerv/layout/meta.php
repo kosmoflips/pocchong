@@ -1,4 +1,3 @@
-<meta name="viewport" content="width=device-width, initial-scale=1" /><!-- required by search-->
 <title><?php $this->html_head_title() ?></title>
 <!-- google fonts -->
 <link href="https://fonts.googleapis.com/css?family=Milonga&display=swap&subset=latin-ext" rel="stylesheet" /><!-- font-family: 'Milonga', cursive; -->
