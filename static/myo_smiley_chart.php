@@ -53,7 +53,7 @@ static_page_open($title);
 <hr />
 
 <div><b>js code to use for this -- unsure if it still works or not!</b><br />
-<textarea readonly style="width: 90%; height: 150px"><pre><code>
+<pre><textarea readonly style="width: 90%; height: 150px">
 /*
 I can't do js, modified from blog.eternal-thinker.com/2009/04/smileys-for-your-blog.html
 
@@ -179,7 +179,7 @@ var smileyMap={
 		b[a].innerHTML=b[a].innerHTML.replace(/ :[a-z]\w+?:/ig,function(a) { return' &lt;span class=&quot;smiley&quot;&gt;&lt;img src=&quot;' + smileyDir + smileyMap[a]+'&quot; alt=&quot;&quot;/&gt;&lt;/span&gt;'}
 		)
 }
-</code></pre></textarea>
+</textarea></pre>
 </div>
 
 <hr />
