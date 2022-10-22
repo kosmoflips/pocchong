@@ -76,7 +76,7 @@ pre { /* both are for codes */
 	position: absolute;
 	z-index:20;
 	top:60px;
-	left:715px;
+	left:595px;
 	width:380px;
 	height:85px;
 }
@@ -103,7 +103,7 @@ pre { /* both are for codes */
 #mainlayer { /* style relies on the positioning of image */
 	/* background: pink; */
 	/* display: inline-block; */
-	width: 1000px;
+	width: 960px;
 	/* margin-left: 50px; */
 	margin: auto;
 }
