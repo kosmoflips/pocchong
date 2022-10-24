@@ -317,10 +317,12 @@ article img {
 	padding: 12px; /* for border effect */
 }
 
+/*
 article img:hover , .stdalone img:hover {
 	max-width:100%;
 	max-height:100%;
 }
+*/
 
 /*
 .stdalone img:hover, .gallery-img-frame img:hover {
@@ -330,15 +332,16 @@ article img:hover , .stdalone img:hover {
 */
 
 /* transition, separate def as it's shared for <article img> and .stdalone */
+/*
 article img, .stdalone img {
-	/* doesn't work for stdalone for some reason right now*/
+	/ * doesn't work for stdalone for some reason right now* /
 	transition:max-width,max-height 1s,1s;
 	-o-transition-delay: 1s;
 	-moz-transition-delay: 1s;
 	-webkit-transition-delay: 1s;
     transition-delay: 1s;
 }
-
+*/
 
 /*--- MG archive page, hover-to-show-title effect ---*/
 .mgarchive-container {

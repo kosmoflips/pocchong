@@ -51,11 +51,26 @@ function print_post_single($p,$entry) {
 <h3><a href="<?php echo $posturl ?>"><?php echo rand_deco_symbol(), ' ',$entry['title']; ?></a></h3>
 <article>
 <?php
-echo $entry['content'],"\n";
+# convert for lightbox. need custom flag if not want to use it?
+$entry2=add_lightbox_tag($entry['content'], $entry['id']);
+echo $entry2,"\n";
 print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
 ?>
 </article>
 <?php
 	$p->html_close(2);
+} // close print_post_single()
+function add_lightbox_tag ($content='', $tag="uniq_string") { # convert <img ...> not wrapped by <a> with lightbox tag. treat all images in one post as a set
+	# find pattern as: <a href=...><img src...></a>; <a> pair is optional
+	$content = preg_replace_callback ('/(<a href=.+?>)?<img\s+src="(.+?)"(.*?)>(<\/a\s*>)?/', function ($matches) use ($tag) {
+		if (!preg_match('/<a/', $matches[1], $yy)) { # only add lightbox if no <a href...> defined outside
+			$x=sprintf ('<a href="%s" data-lightbox="pid%s"><img src="%s"%s></a>', $matches[2], $tag, $matches[2], $matches[3]);
+			return ($x);
+		} else {
+			return $matches[0];
+		}
+	}, $content);
+	return ($content);
 }
+
 ?>
