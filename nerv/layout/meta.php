@@ -5,4 +5,6 @@
 <!-- other required -->
 <link rel="stylesheet" type="text/css" href="/deco/css/site.css" />
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="/deco/js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
 <?php $this->html_head_stuff(); ?>
