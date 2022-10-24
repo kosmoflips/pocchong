@@ -50,5 +50,5 @@ RewriteRule ^a/?$ /nerv/admin/login.php [L,NC]
 
 
 # ####### no more change, archive pages #######
-RewriteRule ^cyouwa/?$ /stuff/cyouwa/index.php [L,NC]
-RewriteRule ^cyouwa/(.+)$ /stuff/cyouwa/$1 [L,NC]
+RewriteRule ^cyouwa/?$ /sitedata/cyouwa/index.php [L,NC]
+RewriteRule ^cyouwa/(.+)$ /sitedata/cyouwa/$1 [L,NC]

@@ -14,7 +14,7 @@ $extra=['
 	height:auto;
 }
 .myogrid {
-	width:90%;
+	/*width:80%;*/
 	margin:auto;
 	border-width: 0 0 1px 1px;
 	border-spacing: 0;
@@ -195,7 +195,6 @@ var smileyMap={
 	<td>:cool:<br /><span class="smiley"><img src="/deco/img/myo_smiley/cool.png" alt="" /></span></td>
 	<td>:eek:<br /><span class="smiley"><img src="/deco/img/myo_smiley/eek.png" alt="" /></span></td>
 	<td>:whistle:<br /><span class="smiley"><img src="/deco/img/myo_smiley/whistle.png" alt="" /></span></td>
-	<td>:sing:<br /><span class="smiley"><img src="/deco/img/myo_smiley/sing.png" alt="" /></span></td>
 </tr>
 <tr>
 	<td>:love:<br /><span class="smiley"><img src="/deco/img/myo_smiley/lovep.png" alt="" /></span></td>
@@ -207,7 +206,6 @@ var smileyMap={
 	<td>:yes:<br /><span class="smiley"><img src="/deco/img/myo_smiley/yes.png" alt="" /></span></td>
 	<td>:noo:<br /><span class="smiley"><img src="/deco/img/myo_smiley/no.png" alt="" /></span></td>
 	<td>:shy:<br /><span class="smiley"><img src="/deco/img/myo_smiley/o.png" alt="" /></span></td>
-	<td>:confused:<br /><span class="smiley"><img src="/deco/img/myo_smiley/confused.png" alt="" /></span></td>
 </tr>
 <tr>
 	<td>:right:<br /><span class="smiley"><img src="/deco/img/myo_smiley/right.png" alt="" /></span></td>
@@ -219,7 +217,6 @@ var smileyMap={
 	<td>:mad:<br /><span class="smiley"><img src="/deco/img/myo_smiley/mad.png" alt="" /></span></td>
 	<td>:furious:<br /><span class="smiley"><img src="/deco/img/myo_smiley/furious.png" alt="" /></span></td>
 	<td>:bomb:<br /><span class="smiley"><img src="/deco/img/myo_smiley/bomb.png" alt="" /></span></td>
-	<td>:scared:<br /><span class="smiley"><img src="/deco/img/myo_smiley/scared.png" alt="" /></span></td>
 </tr>
 <tr>
 	<td>:nervous:<br /><span class="smiley"><img src="/deco/img/myo_smiley/nervous.png" alt="" /></span></td>
@@ -231,7 +228,6 @@ var smileyMap={
 	<td>:cry:<br /><span class="smiley"><img src="/deco/img/myo_smiley/cry.png" alt="" /></span></td>
 	<td>:yuck:<br /><span class="smiley"><img src="/deco/img/myo_smiley/yuck.png" alt="" /></span></td>
 	<td>:knockout:<br /><span class="smiley"><img src="/deco/img/myo_smiley/knockout.png" alt="" /></span></td>
-	<td>:faint:<br /><span class="smiley"><img src="/deco/img/myo_smiley/faint.png" alt="" /></span></td>
 </tr>
 <tr>
 	<td>:load:<br /><span class="smiley"><img src="/deco/img/myo_smiley/load.gif" alt="" /></span></td>
@@ -243,7 +239,6 @@ var smileyMap={
 	<td>:drunk:<br /><span class="smiley"><img src="/deco/img/myo_smiley/drunk.png" alt="" /></span></td>
 	<td>:psst:<br /><span class="smiley"><img src="/deco/img/myo_smiley/pssst.png" alt="" /></span></td>
 	<td>:headbang:<br /><span class="smiley"><img src="/deco/img/myo_smiley/headbang.png" alt="" /></span></td>
-	<td>:spock:<br /><span class="smiley"><img src="/deco/img/myo_smiley/spock.png" alt="" /></span></td>
 </tr>
 <tr>
 	<td>:moustache:<br /><span class="smiley"><img src="/deco/img/myo_smiley/moustache.png" alt="" /></span></td>
@@ -255,7 +250,6 @@ var smileyMap={
 	<td>:ninja:<br /><span class="smiley"><img src="/deco/img/myo_smiley/ninja.png" alt="" /></span></td>
 	<td>:devil:<br /><span class="smiley"><img src="/deco/img/myo_smiley/devil.png" alt="" /></span></td>
 	<td>:angel:<br /><span class="smiley"><img src="/deco/img/myo_smiley/angel.png" alt="" /></span></td>
-	<td>:alien:<br /><span class="smiley"><img src="/deco/img/myo_smiley/alien.png" alt="" /></span></td>
 </tr>
 <tr>
 	<td>:king:<br /><span class="smiley"><img src="/deco/img/myo_smiley/kingp.png" alt="" /></span></td>
@@ -267,7 +261,17 @@ var smileyMap={
 	<td>:knight:<br /><span class="smiley"><img src="/deco/img/myo_smiley/knight.png" alt="" /></span></td>
 	<td>:sherlock:<br /><span class="smiley"><img src="/deco/img/myo_smiley/sherlock.png" alt="" /></span></td>
 	<td>:jester:<br /><span class="smiley"><img src="/deco/img/myo_smiley/jester.png" alt="" /></span></td>
+</tr>
+<tr>
+	<td>:sing:<br /><span class="smiley"><img src="/deco/img/myo_smiley/sing.png" alt="" /></span></td>
+	<td>:confused:<br /><span class="smiley"><img src="/deco/img/myo_smiley/confused.png" alt="" /></span></td>
+	<td>:scared:<br /><span class="smiley"><img src="/deco/img/myo_smiley/scared.png" alt="" /></span></td>
+	<td>:faint:<br /><span class="smiley"><img src="/deco/img/myo_smiley/faint.png" alt="" /></span></td>
+	<td>:spock:<br /><span class="smiley"><img src="/deco/img/myo_smiley/spock.png" alt="" /></span></td>
+	<td>:alien:<br /><span class="smiley"><img src="/deco/img/myo_smiley/alien.png" alt="" /></span></td>
 	<td>:sadclown:<br /><span class="smiley"><img src="/deco/img/myo_smiley/sadclown.png" alt="" /></span></td>
+	<td>:doh:<br /><span class="smiley"><img src="/deco/img/myo_smiley/doh.png" alt="" /></span></td>
+	<td>:cat:<br /><span class="smiley"><img src="/deco/img/myo_smiley/cat.png" alt="" /></span></td>
 </tr>	
 <tr>	
 	<td>:smurf:<br /><span class="smiley"><img src="/deco/img/myo_smiley/smurf.png" alt="" /></span></td>
@@ -278,29 +282,26 @@ var smileyMap={
 	<td>:oplove2:<br /><span class="smiley"><img src="/deco/img/myo_smiley/oplove2.gif" alt="" /></span></td>
 	<td>:hi:<br /><span class="smiley"><img src="/deco/img/myo_smiley/hi.png" alt="" /></span></td>
 	<td>:bye:<br /><span class="smiley"><img src="/deco/img/myo_smiley/bye.png" alt="" /></span></td>
-	<td>:doh:<br /><span class="smiley"><img src="/deco/img/myo_smiley/doh.png" alt="" /></span></td>
-	<td></td>
+	<td>:monkey:<br /><span class="smiley"><img src="/deco/img/myo_smiley/monkey.png" alt="" /></span></td>
 </tr>
 <tr>
-	<td>:cat:<br /><span class="smiley"><img src="/deco/img/myo_smiley/cat.png" alt="" /></span></td>
-	<td>:monkey:<br /><span class="smiley"><img src="/deco/img/myo_smiley/monkey.png" alt="" /></span></td>
 	<td>:cow:<br /><span class="smiley"><img src="/deco/img/myo_smiley/cow.png" alt="" /></span></td>
 	<td>:pengu:<br /><span class="smiley"><img src="/deco/img/myo_smiley/penguin.png" alt="" /></span></td>
 	<td>:dragonfly:<br /><span class="smiley"><img src="/deco/img/myo_smiley/dragonfly.png" alt="" /></span></td>
 	<td>:bug:<br /><span class="smiley"><img src="/deco/img/myo_smiley/bug.png" alt="" /></span></td>
 	<td>:troll:<br /><span class="smiley"><img src="/deco/img/myo_smiley/troll.png" alt="" /></span></td>
 	<td>:troll2:<br /><span class="smiley"><img src="/deco/img/myo_smiley/troll.gif" alt="" /></span></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>:banana:<br /><span class="smiley"><img src="/deco/img/myo_smiley/banana.png" alt="" /></span></td>
 	<td>:wine:<br /><span class="smiley"><img src="/deco/img/myo_smiley/wine.png" alt="" /></span></td>
 	<td>:beeer:<br /><span class="smiley"><img src="/deco/img/myo_smiley/beer.png" alt="" /></span></td>
+</tr>
+<tr>
 	<td>:heart:<br /><span class="smiley"><img src="/deco/img/myo_smiley/heart.png" alt="" /></span></td>
 	<td>:star:<br /><span class="smiley"><img src="/deco/img/myo_smiley/star.png" alt="" /></span></td>
 	<td>:star2:<br /><span class="smiley"><img src="/deco/img/myo_smiley/starb.png" alt="" /></span></td>
 	<td>:rip:<br /><span class="smiley"><img src="/deco/img/myo_smiley/rip.png" alt="" /></span></td>
+	<td></td>
+	<td></td>
 	<td></td>
 	<td></td>
 	<td></td>
