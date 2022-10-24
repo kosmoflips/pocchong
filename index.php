@@ -1,4 +1,8 @@
 <?php
+//as of 2022-10-23, I redirect homepage to /days, as I really don't see a point to have a "homepage"
+header("Location: /days");
+exit();
+
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $p=new PocPage;

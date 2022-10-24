@@ -34,7 +34,7 @@ function process_data_mg_index ($pobj=null,$page=0) {
 	$offset=calc_page_offset($curr, POC_DB['MYGIRLS']['max_gallery']);
 	$stat=sprintf ('SELECT %s.id "id",title,epoch,img_url FROM %s join %s on %s.rep_id = %s.id ORDER BY id DESC LIMIT ?,?', POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table_pcs'], POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table_pcs']);
 	$list=$k->getAll($stat, array($offset,POC_DB['MYGIRLS']['max_gallery']));
-	$page_title=sprintf ('%s { %d }',POC_DB['MYGIRLS']['title2'],$curr);
+	$page_title=sprintf ('%s::%d::',POC_DB['MYGIRLS']['title2'],$curr);
 	$baseurl=POC_DB['MYGIRLS']['url'].POC_DB['MYGIRLS']['url_index_page'];
 	$navibar=mk_navi_bar(1,$totalpg,POC_DB['MYGIRLS']['max_gallery'],$curr,POC_DB['navi_step'],$baseurl);
 
