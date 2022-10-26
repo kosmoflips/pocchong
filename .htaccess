@@ -19,8 +19,11 @@ RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
 
 
 ##### redirect from clean url to source code #############
-# --------------- locations ----------------------
-RewriteRule ^file/(.+)/?$ /stuff/files/$1 [L,NC]
+# --------------- image storage location ----------------------
+RewriteRule ^img/(.+)$ /sitedata/samune/$1 [L,NC]
+
+#--------------- general static pages----------------
+RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
 
 # --------------- archiv ----------------------
 RewriteRule ^archiv/y/(\d+)/?$ /nerv/page/archiv.php?year=$1 [L,NC]
@@ -37,8 +40,6 @@ RewriteRule ^days/p/?(\d*) /nerv/page/post.php?page=$1 [L,NC]
 RewriteRule ^days/(\d*) /nerv/page/post.php?id=$1 [L,NC]
 RewriteRule ^days/?$ /nerv/page/post.php [L,NC]
 
-#--------------- general static pages----------------
-RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
 
 # -------------------- admin pages --------------------------
 # general redirects
