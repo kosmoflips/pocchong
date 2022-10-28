@@ -85,7 +85,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 			$url_preview='';
 			if (!empty($r['img_url'])) {
 				$r['img_url']=cleanimgurl($r['img_url']);
-				$r['url_preview']=mk_url_google_img($r['img_url'],'s120');
+				$r['url_preview']=mk_mg_img_url($r['img_url']);
 				// $r['img_url']='https://'.$r['img_url']; // data stored in db has no leading 'http://'
 			} else {
 				$r['url_preview']='';

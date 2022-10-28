@@ -1,4 +1,8 @@
 <?php
+function mk_mg_img_url ($path='') { # convert stored in db img path to site-defined img path
+# made on 2022-oct-28, since i switch to host image on localhost instead of google
+	return ('/img/'.$path);
+}
 function mk_url_google_img ($url='',$size='') { // input  has no https://
 # as of 2022-Mar-5 , new url format on blogger: https://blogger.googleusercontent.com/img/a/a_super_long_string=s320
 # for old googleusercontent link [https://lh4.googleusercontent.com/string-for-this-img/may-contain-multiple-slashes/s500/], keep as is unless they stop working.

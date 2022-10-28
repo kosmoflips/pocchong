@@ -47,7 +47,7 @@ function print_page_mg_index_item ($entry=null) {
 	if (empty($entry['img_url'])) { #incase stdalone isn't set up, choose a random one
 		$entry['img_url']=get_random_img($k,$entry['id']);
 	}
-	$furl=mk_url_google_img($entry['img_url'],'h300');
+	$furl=mk_mg_img_url($entry['img_url']);
 ?>
 <div class="mgarchive-container">
 <a href="<?php echo POC_DB['MYGIRLS']['url'].'/'.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>

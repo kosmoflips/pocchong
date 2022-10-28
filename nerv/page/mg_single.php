@@ -58,7 +58,7 @@ function print_mg_blockinfo ($main=null) {
 
 function print_mg_stdalone ($stds=null) {
 	foreach ($stds as $pc1) {
-		$imgsrc=mk_url_google_img($pc1['img_url'], 's900');
+		$imgsrc=mk_mg_img_url($pc1['img_url']);
 		$daurl=isset($pc1['da_url'])?mk_url_da($pc1['da_url']):'';
 		?>
 <div class="stdalone">
@@ -83,7 +83,7 @@ function print_mg_pcs ($pcs) {
 <?php
 	foreach ($pcs as $pc2) {
 	?>
-<span class="gallery-img-frame"><a href="<?php echo mk_url_da($pc2['da_url']); ?>"><img src="<?php echo mk_url_google_img($pc2['img_url'],'s640'); ?>" alt="" /></a></span>
+<span class="gallery-img-frame"><a href="<?php echo mk_url_da($pc2['da_url']); ?>"><img src="<?php echo mk_mg_img_url($pc2['img_url']); ?>" alt="" /></a></span>
 <?php
 	}
 	?>

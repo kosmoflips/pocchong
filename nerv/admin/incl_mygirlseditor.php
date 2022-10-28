@@ -67,7 +67,7 @@ PocPage::html_admin();
 ?>
 	<tr>
 	<td style="padding:0 !important;">
-		<img src="<?php echo $pcs['url_preview'] ?>">
+		<img src="<?php echo $pcs['url_preview'] ?>" width="120">
 	</td>
 	<td>
 		<b>id:</b><input type="text" name="<?php echo $namepre ?>[id]" maxlength="11" size="3" value="<?php echo $pcs['id'] ?>" readonly /> || 
@@ -76,7 +76,7 @@ PocPage::html_admin();
 		<b>DELETE this?</b> <input type="checkbox" name="DEL_pcs[]" value="<?php echo $pcs['id'] ?>" /><br />
 		<b>da_url: </b>
 			https://www.deviantart.com/kosmoflips/art/<input type="text" size="45" name="<?php echo $namepre ?>[da_url]" maxlength="255" size="50" value="<?php echo $pcs['da_url'] ?>" /><br />
-		<b>img_url: </b>https://<input type="text" size="75" name="<?php echo $namepre ?>[img_url]" maxlength="255" size="120" value="<?php echo $pcs['img_url'] ?>" placeholder="x.blogspot.com/xxx/yyy/2800/imagesample.jpg" />
+		<b>img_url: </b>/img/<input type="text" size="75" name="<?php echo $namepre ?>[img_url]" maxlength="255" size="120" value="<?php echo $pcs['img_url'] ?>" placeholder="g00/000000_image.jpg.webp" />
 	</td>
 	</tr>
 <?php
