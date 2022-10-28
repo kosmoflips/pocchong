@@ -52,7 +52,7 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 		$totalrows=$k->countRows(POC_DB['ARCHIV']['table']);
 		$totalpgs=calc_total_page($totalrows,POC_DB['ARCHIV']['max']);
 		$offset=calc_page_offset($cpage,POC_DB['ARCHIV']['max']);
-		$list=$k->getAll($base_stat.' ORDER BY id DESC LIMIT ?,?', array($offset,POC_DB['ARCHIV']['max']));
+		$list=$k->getAll($base_stat.' ORDER BY epoch DESC LIMIT ?,?', array($offset,POC_DB['ARCHIV']['max']));
 		foreach ($list as $entry) {
 			$thisyear=clock27($entry['epoch'],2,$entry['gmt']);
 			$listall[$thisyear][]=$entry;

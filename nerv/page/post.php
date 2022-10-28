@@ -33,7 +33,7 @@ function process_data_post ($pobj=null,$id=null,$page=0) {
 		$totalrows=$k->countRows($pack['table']);
 		$totalpgs=calc_total_page($totalrows,$pack['max']);
 		$offset=calc_page_offset($curr,$pack['max']);
-		$posts=$k->getAll('SELECT id,title,epoch,gmt,content FROM '.$pack['table'].' ORDER BY id DESC LIMIT ?,?', array($offset,$pack['max']));
+		$posts=$k->getAll('SELECT id,title,epoch,gmt,content FROM '.$pack['table'].' ORDER BY epoch DESC LIMIT ?,?', array($offset,$pack['max']));
 		$baseurl_p=$pack['url'].$pack['url_page'];
 		$navibar=mk_navi_bar(1,$totalpgs,$pack['max'],$curr,$step,$baseurl_p);
 	}
