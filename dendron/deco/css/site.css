@@ -7,7 +7,7 @@ body {
 	color:#373737;
 	font-size: 110%;
 	font-family: Exo,"Yu Gothic UI", sans-serif;
-	background: #7294ba url("/deco/img/oceanreflect3.jpg") no-repeat top right fixed;
+	background: #7294ba url("/dendron/deco/img/oceanreflect3.jpg") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -54,7 +54,7 @@ pre { /* both are for codes */
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
+	background: url("/dendron/deco/img/top_mizuhiki_blue.png") top left no-repeat;
 	display:inline-block;
 	position: absolute;
 	width: 480px;
@@ -149,7 +149,7 @@ pre { /* both are for codes */
 	margin-bottom: -15px;
 }
 .post-inner {
-	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+	background: url("/dendron/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
 	padding: 15px 30px 10px;
 }
 .post-inner h2, .post-inner h3 {
@@ -407,7 +407,7 @@ article img, .stdalone img {
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/img/top_text_bluered.png") top left no-repeat;
+	background:url("/dendron/deco/img/top_text_bluered.png") top left no-repeat;
 	background-position: 475px 20px;
 	display:inline-block;
 	font-family: 'Milonga', "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;

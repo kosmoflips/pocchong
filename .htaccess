@@ -20,7 +20,7 @@ RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
 
 ##### redirect from clean url to source code #############
 # --------------- image storage location ----------------------
-RewriteRule ^img/(.+)$ /sitedata/samune/$1 [L,NC]
+RewriteRule ^img/(.+)$ /axon/samune/$1 [L,NC]
 
 #--------------- general static pages----------------
 RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
@@ -51,5 +51,5 @@ RewriteRule ^a/?$ /nerv/admin/login.php [L,NC]
 
 
 # ####### no more change, archive pages #######
-RewriteRule ^cyouwa/?$ /sitedata/cyouwa/index.php [L,NC]
-RewriteRule ^cyouwa/(.+)$ /sitedata/cyouwa/$1 [L,NC]
+RewriteRule ^cyouwa/?$ /dendron/cyouwa/index.php [L,NC]
+RewriteRule ^cyouwa/(.+)$ /dendron/cyouwa/$1 [L,NC]
