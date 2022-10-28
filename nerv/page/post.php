@@ -63,8 +63,15 @@ print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
 function add_lightbox_tag ($content='', $tag="uniq_string") { # convert <img ...> not wrapped by <a> with lightbox tag. treat all images in one post as a set
 	# find pattern as: <a href=...><img src...></a>; <a> pair is optional
 	$content = preg_replace_callback ('/(<a href=.+?>)?<img\s+src="(.+?)"(.*?)>(<\/a\s*>)?/', function ($matches) use ($tag) {
-		if (!preg_match('/<a/', $matches[1], $yy)) { # only add lightbox if no <a href...> defined outside
-			$x=sprintf ('<a href="%s" data-lightbox="pid%s"><img src="%s"%s></a>', $matches[2], $tag, $matches[2], $matches[3]);
+		if (!preg_match('/<a/', $matches[1])) { # only add lightbox if no <a href...> defined outside, and target URL should be inside alt=""
+			$url=$matches[2];
+			$rest=$matches[3];
+			if (preg_match('/alt=["\'](.S+)["\']/', $rest, $zz)) { # alt="" is defined non-empty, use that as original img link <<< UNTESTED as of 2022-oct-27
+				$url2=$zz[1];
+			} else {
+				$url2=$url;
+			}
+			$x=sprintf ('<a href="%s" data-lightbox="pid%s"><img src="%s"%s></a>', $url2, $tag, $url, $rest);
 			return ($x);
 		} else {
 			return $matches[0];
