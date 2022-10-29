@@ -70,7 +70,7 @@ static_page_open($title);
 <span class="sc2"># PSN: sinfinmelodia</span>
 <span class="sc2"># most other places: kosmoflips</span>
 
-<span class="sc2"># updated on 2022-May-15</span><span class="sc0"></span>
+<span class="sc2"># updated on 2022-Oct-28</span><span class="sc0"></span>
 
 <span class="sc5">print</span><span class="sc0"> </span><span class="sc6">"I like platonic girls' love, Silent Hill and Mozart.\n"</span><span class="sc10">;</span><span class="sc0">
 
@@ -123,11 +123,12 @@ static_page_open($title);
 <h4>Site Spec</h4>
 <div class="p">→ No harassment from wordpress or that sort. Everything is from scratch, with the power of:
 <ul>
-	<li>Apache + Perl/CGI + <s>MySQL</s> SQLite + PHP with HTML5 + CSS3</li>
-	<li><a href="https://github.com/jasonmayes/Twitter-Post-Fetcher">TwitterPostFetcher</a></li>
+	<li>Apache + <s>Perl/CGI +</s> PHP + SQLite + HTML5 &amp; CSS3</li>
+	<li><s><a href="https://github.com/jasonmayes/Twitter-Post-Fetcher">TwitterPostFetcher</a></s></li>
 	<li><a href="https://github.com/bgrins/spectrum">Spectrum</a></li>
-	<li><a href="https://github.com/cotenoni/jquery-linedtextarea">linedtextarea</a></li>
-	<li><a href="https://photos.google.com">Google Photos</a> as a general image host.</li>
+	<li><s><a href="https://github.com/cotenoni/jquery-linedtextarea">linedtextarea</a></s></li>
+	<li><s><a href="https://blogger.com">Google blogger</a> as a general image host.</s></li>
+	<li><a href="https://lokeshdhakar.com/projects/lightbox2/">Light box</a></li>
 </ul>
 </div>
 
@@ -154,7 +155,7 @@ static_page_open($title);
 <li>2020/01/24-01/25: Theme redesign -- added sidebar again with new "il mare dei suoni" in blue motif</li>
 <li>2020/03/22: "One column is the best" minor design update</li>
 <li>2020/03/27-28: code update with a Class for easier page layouts</li>
-<li>2021/08/25: on github</li>
-<li>2022/03/06-05/15: simplify/reorganise -- since new Apache doesn't support php being inside /cgi-bin</li>
+<li><a href="https://github.com/kosmoflips/pocchong/tree/f1563a37e3eb09267cde6083e3f665be66f1ece1">2022/03/06-05/15</a>: simplify/reorganise -- since new Apache doesn't support php being inside /cgi-bin</li>
+<li><a href="https://github.com/kosmoflips/pocchong/tree/c0f8b8b4cba5388ac7fb691aa9fd2a125aead819">2022/10/28</a>: batch jpg to webp and self-host all images, since noticing google blogger changed its image url and hotlinking kept failing</li>
 </ul>
 </div>
