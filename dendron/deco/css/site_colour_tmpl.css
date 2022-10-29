@@ -1,6 +1,6 @@
 /* ----- colour/img info ----- */
 body {
-	background: #7294ba url("/dendron/deco/img/oceanreflect3.jpg") no-repeat top right fixed;
+	background: #7294ba url("/deco/img/oceanreflect3.jpg") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -23,7 +23,7 @@ pre { /* both are for codes */
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/dendron/deco/img/top_mizuhiki_blue.png") top left no-repeat;
+	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
 }
 #header-outer {
 	/* border: 1px solid red; */
@@ -52,7 +52,7 @@ pre { /* both are for codes */
 	border: 1px solid rgba(11,85,156,0.8);
 }
 .post-inner {
-	background: url("/dendron/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
 }
 .post-inner h2, .post-inner h3 {
 	background: rgba(22,53,140,0.8);
@@ -125,7 +125,7 @@ article img {
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/dendron/deco/img/top_text_bluered.png") top left no-repeat;
+	background:url("/deco/img/top_text_bluered.png") top left no-repeat;
 	background-position: 475px 20px;
 }
 ul#menu li, ul#menu ul.sub-menu li {
