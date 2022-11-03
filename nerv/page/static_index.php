@@ -21,6 +21,7 @@ $p->html_open();
 $exclude=[
 	'about.php',
 	'kaidan.php',
+	'theme_preview.php'
 	];
 
 # page.php => description
