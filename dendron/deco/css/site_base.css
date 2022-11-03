@@ -1,0 +1,376 @@
+/* base layout */
+body {
+	font-size: 110%;
+	font-family: Exo,"Yu Gothic UI", sans-serif;
+}
+
+/* class=p as <p>*/
+.p { margin: 10px auto; }
+.bigger { font-size:130%; }
+.smaller { font-size:80%; }
+.exbig { font-size:180%; }
+.exsmall { font-size:50%; }
+
+a:hover { text-decoration: underline; }
+a:link, a:visited { text-decoration: none; }
+
+
+/* while changing its position, remember to also adjust "ul#menu li ul.sub-menu" */
+ul {
+	list-style-type: square;
+	padding-left:30px;
+}
+blockquote {
+	border-radius: 2px;
+	margin:20px auto;
+	padding:15px 20px;
+	width: 85%;
+}
+/* for code */
+textarea {
+}
+pre {
+	padding: 15px 20px;
+	white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+
+/*-------- header ---------*/
+#header-img {
+	display:inline-block;
+	position: absolute;
+	width: 480px;
+	height:303px;
+	z-index:15;
+}
+#header-outer h1 {
+	display:none;
+}
+#headerlink { /* for linking header to homepage*/
+	display:block;
+	position: absolute;
+	z-index:20;
+	top:60px;
+	left:595px;
+	width:380px;
+	height:85px;
+}
+
+/*--------- layout -----*/
+#master-wrap, #post-list-wrap .datetime, .post-shell, .post-inner h3, .post-inner, .post-inner blockquote {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+#master-wrap {
+	display: block;
+	margin: 25px auto 20px;
+	width: 1100px;
+}
+#content-wrap {
+/* background: yellow; */
+	margin-top:15px;
+}
+#mainlayer { /* style relies on the positioning of image */
+	/* background: pink; */
+	width: 960px;
+	margin: auto;
+}
+#post-list-wrap {
+	display: block;
+	margin: auto auto 55px;
+	/* background: green; */
+}
+
+/*-----------post---------------*/
+.datetime {
+	/* background: pink; */
+	font-size: 80%;
+	font-weight: bold;
+	margin-bottom: -17px;
+	text-align: right;
+}
+.datetime a {
+	text-decoration: none;
+}
+.inline-box { /* for "edit" button when cookie is alive*/
+	display: inline-block;
+	font-size: 90%;
+	margin:auto auto 10px 20px;
+	text-align:center;
+	padding: 5px;
+}
+.post-shell { /* applies trans-white bg , or a second img on top, etc...*/
+	border-radius: 3px;
+	margin-bottom: 35px;
+	padding: 10px 0 15px;
+}
+.post-shell:last-child {
+	margin-bottom: -15px;
+}
+.post-inner {
+	padding: 15px 30px 10px;
+}
+.post-inner h2, .post-inner h3 {
+	border-radius: 3px;
+	font-family: 'Milonga', cursive;
+}
+.post-inner h2 {
+	text-align:center;
+	padding: 10px 15px;
+	margin: 2px 0 20px;
+}
+.post-inner h3 {
+	margin: 22px -35px 18px;
+	padding: 10px 33px;
+}
+.post-inner h3 a {
+	display: inline-block;
+	width: 100%;
+}
+.post-inner h4 {
+	margin-bottom: -2px;
+	padding: 1px 0 3px 8px;
+}
+.post-inner article {
+	margin: 30px 10px 25px;
+	line-height: 28px;
+}
+
+/*------- custom content tags------------*/
+/*---- hard coded custom horizontal line deco ----*/
+.line {
+	color:#8266de; /* used when browser doesn't work with gradient or is of non=webkit */
+	max-width:95%;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+	background: -webkit-repeating-linear-gradient(left top,#8266de,#C996D9 8%,#6A7BD9 16%,#8CCBCF 24%,#74C285 32%,#EBDA7B 40%,#FFA154 48%, #8266de 56%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;	
+	font-weight: bold;
+	line-height: 200%;
+	margin:10px auto;
+	vertical-align:middle;
+	font-family: "Lucida Console", monospace;
+	display:block; /*in case I put it in a <span>*/
+	white-space: nowrap; /* limit this elem to be in one line*/
+	overflow: hidden;
+}
+
+
+/*-------archiv -------*/
+.archiv-year {
+	padding: 6px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 105%;
+	padding-left: 10px;
+}
+.archiv-year a, .archiv-year a:hover {
+	font-family: 'Milonga';
+}
+.archiv {
+	padding:5px 0 20px;
+}
+.archiv ul {
+	list-style-type: none;
+	margin-top:-5px;
+	padding-inline-start: 0;
+}
+.archiv li {
+	padding-top: 7px;
+}
+.archiv li a {
+	text-decoration:none;
+}
+.archiv li:hover a:link, .archiv li:hover a:visited {
+	font-weight: bold;
+}
+.archivdate {
+	width: 11%;
+	display: inline-block;
+	text-align:right;
+	margin-right: 15px;
+}
+/*for static page list, title*/
+.archivname {
+	font-weight: bold;
+	line-height: 220%;
+	margin-left: 30px;
+}
+.archivdesc {
+	font-style:italic;
+}
+
+
+/*-------- img for both post and mg -----------*/
+article img {
+	padding: 3px;
+	margin: 5px;
+	max-height:400px;
+	max-width: 55%;
+}
+
+/*------- mygirls image frame -------*/
+.gallery { /* wrapper layer, for both index page and sub-section in individual page for variation pics below stdalone */
+	text-align: center;
+	margin-top: 20px;
+}
+.stdalone {
+	text-align:center;
+	margin: 20px 0;
+}
+.stdalone img {
+	max-width:80%;
+	max-height: 470px;
+	padding: 12px; /* for border effect */
+}
+
+
+/*--- MG archive page, hover-to-show-title effect ---*/
+.mgarchive-container {
+	box-sizing: border-box;
+	display:inline-block;
+	margin: 5px 3px;
+	padding: 2px;
+	position: relative;
+	height: 270px;
+}
+.mgarchive-image { /* Make the image to responsive */
+	display: block;
+	height:100%;
+	box-sizing: border-box;
+}
+.mgarchive-overlay {
+	bottom: 0;
+	box-sizing: border-box;
+	font-weight:bold;
+	padding: 5px;
+	margin-left: -3px;
+	opacity: 0;
+	position: absolute;
+	text-align: center;
+	transition: .5s ease;
+	width: 101%;
+}
+.mgarchive-container:hover .mgarchive-overlay {
+  opacity: 1;
+}
+.gallery-img-frame { /* force the div to properly contain the floated images: */
+	clear:none;
+	display:inline-block;
+	height: 200px;
+	margin: 0;
+	padding: 0;
+	overflow:hidden;
+	position:relative;
+	text-align:center;
+}
+.gallery-img-frame img {
+	height: 100%;
+}
+.mg-h-line {
+	display:block;
+	font-size: 130%;
+	margin-top: 25px;
+	text-align:center;
+	width: 90%;
+	margin: auto;
+}
+
+/*------menu bar-----------*/
+#menu-out { /* shell for both menu and img version of h1 */
+	display:inline-block;
+	font-family: 'Milonga', "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
+	width: 100%;
+}
+ul#menu { /* adjust menu position inside of #menu-out */
+/* border: green 1px solid; */
+	margin-top: 130px;
+	padding-left: 390px;
+}
+ul#menu li {
+	position: relative;
+	margin-left: -6px;
+	width: 100px;
+}
+ul#menu li ul.sub-menu {
+	display:none;
+	position: absolute;
+	margin-left:-25px;
+}
+ul#menu ul.sub-menu li {
+	width: 100px;
+}
+ul#menu li:hover ul.sub-menu { /* show sub menu on hover */ 
+	display:block;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+	/* background: rgba(255,255,255,0.7); */
+    display: inline-block;
+    list-style-type: none;
+	text-align:center;
+	z-index: 30;
+}
+ul#menu li a, ul#menu li ul.sub-menu li a {
+    display:inline-block;
+	font-weight:bold;
+    padding: 4px;
+	text-decoration: none;
+}
+
+
+
+/*--------footer-------*/
+#footer-navi {
+	margin: -30px auto 30px;
+}
+.navi-bar {
+	display: block;
+	font-size: 90%;
+	text-align: center;
+}
+.navi-bar-square, .navi-bar-square-self {
+	display: inline-block;
+	padding: 2px 8px;
+}
+.navi-bar-square-self {
+	font-weight: bold;
+}
+.navi-single {
+	/* background : pink; */
+	margin-bottom: 15px;
+}
+.navi-prev, .navi-next {
+	display: inline-block;
+	font-size: 92%;
+	padding: 3px 10px;
+	max-width: 45%;
+}
+.navi-prev a, .navi-next a {
+	text-decoration: none;
+}
+.navi-prev {
+	text-align:left;
+}
+.navi-next {
+	float: right;
+	text-align:right;
+}
+.navi-bar a:hover, .navi-bar-square:hover, .navi-next:hover, .navi-prev:hover {
+	font-weight: bold;
+	text-decoration: underline;
+}
+.credit, .credit a:link, .credit a:hover, .credit a:visited {
+	font-size: 90%;
+	text-decoration: none;
+	font-weight: bold;
+	/* background: pink; */
+}
+#footer-global {
+	font-size: 85%;
+	text-align: center;
+	padding-bottom: 25px;
+}

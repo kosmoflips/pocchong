@@ -7,5 +7,6 @@
 <script src="/deco/js/lightbox/lightbox.js"></script>
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
-<link rel="stylesheet" type="text/css" href="/deco/css/site.css" />
+<link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
+<link rel="stylesheet" type="text/css" href="/deco/css/site_theme.css" />
 <?php $this->html_head_stuff(); ?>
