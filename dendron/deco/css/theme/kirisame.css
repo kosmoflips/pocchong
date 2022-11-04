@@ -11,14 +11,14 @@ body, .netabare:hover, .archiv li a {
 }
 a:link, a:hover, a:visited { color: #b532fe; }
 
+blockquote, textarea, pre, .netabare {
+	background: rgb(171 167 172 / 20%);
+}
 blockquote {
 	box-shadow: 3px 3px 4px #9b919e78;
 }
 .netabare {
 	color:transparent;
-}
-blockquote, textarea, pre, .netabare {
-	background: rgb(171 167 172 / 20%);
 }
 
 
