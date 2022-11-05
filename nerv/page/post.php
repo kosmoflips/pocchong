@@ -66,8 +66,12 @@ function add_lightbox_tag ($content='', $tag="uniq_string") { # convert <img ...
 		if (!preg_match('/<a/', $matches[1])) { # only add lightbox if no <a href...> defined outside, and target URL should be inside alt=""
 			$url=$matches[2];
 			$rest=$matches[3];
-			if (preg_match('/alt=["\'](.S+)["\']/', $rest, $zz)) { # alt="" is defined non-empty, use that as original img link <<< UNTESTED as of 2022-oct-27
-				$url2=$zz[1];
+			if (preg_match('/alt=["\'](\S+)["\']/', $rest, $zz)) { # alt="SOMETHING"
+				if ($zz[1] == 'lightbox') { # if using alt="lightbox", it means will apply lightbox, but using source URL. no better resolution. << purpose: to save some typing
+					$url2=$url;
+				} else { # will assume alt="original_resolution_img_link" and lightbox to this
+					$url2=$zz[1];
+				}
 			} else {
 				$url2=$url;
 			}
