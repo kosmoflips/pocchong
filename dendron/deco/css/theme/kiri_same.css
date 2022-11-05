@@ -1,4 +1,4 @@
-/* colour scheme */
+/* colour scheme -- iroshizuku: kiri-same*/
 body {
 	background: #a7a4a9 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
 	-webkit-background-size: cover;
@@ -6,42 +6,18 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
-body, .netabare:hover, .archiv li a {
+/* general text color */
+body, .netabare:hover, .archiv li a, textarea {
 	color:#373737;
-}
-a:link, a:hover, a:visited { color: #b532fe; }
-
-blockquote, textarea, pre, .netabare {
-	background: rgb(171 167 172 / 20%);
-}
-blockquote {
-	box-shadow: 3px 3px 4px #9b919e78;
-}
-.netabare {
-	color:transparent;
-}
-
-
-/*-------- header ---------*/
-#header-img {
-	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
-}
-
-/*--------- layout -----*/
-#master-wrap {
-	background: rgb(255 255 255 / 0.4);
-	border: 2px solid rgb(116 145 116 / 60%);
 }
 
 /*-----------post---------------*/
 .datetime, .datetime a {
 	color: #8d7e95;
 }
-.inline-box { /* for "edit" button when cookie is alive*/
-	background: rgba(255,255,255,0.7);
-	border: 1px solid #3b3b3b;
-}
-.post-shell { /* applies trans-white bg , or a second img on top, etc...*/
+/* inline-box: for "edit" button when cookie is alive*/
+/* post-shell: applies trans-white bg , or a second img on top, etc...*/
+.post-shell, .inline-box {
 	background: rgba(255,255,255,0.85);
 	border: 1px solid rgb(101 92 106 / 80%);
 }
@@ -65,6 +41,8 @@ blockquote {
 .post-inner h4, .archiv-year a, .archiv-year a:hover {
 	color: #5f646f;
 }
+
+
 /*-------archiv -------*/
 .archiv-year { /* same as post h4 */
 	border-left: 12px solid rgb(128 116 141 / 80%);
@@ -76,35 +54,25 @@ blockquote {
 	background: rgb(135 132 138 / 10%);
 }
 
-/*-------- img for both post and mg -----------*/
-article img, .stdalone img {
-	border: 6px double #918f92;
+
+a:link, a:hover, a:visited {
+	color: #b532fe;
 }
-.gallery-img-frame { /* force the div to properly contain the floated images: */
-	border: 4px double #918f92;
+blockquote, textarea, pre, .netabare {
+	background: rgb(171 167 172 / 20%);
 }
-/*--- MG archive page, hover-to-show-title effect ---*/
-.mgarchive-container {
-	border: 4px double #918f92;
-	box-shadow: 1px 1px 3px #b1b1b1;
+blockquote {
+	box-shadow: 3px 3px 4px #9b919e78;
 }
-/*------- mygirls image frame -------*/
-.stdalone img {
-	background: rgba(255,255,255,0.6);
-	box-shadow: 3px 3px 4px #b1b1b1;
-}
-.mgarchive-overlay {
-	background: rgba(0, 0, 0, 0.7); /* Black see-through */
-	color: #f1f1f1;
-}
-.mgarchive-container:hover .mgarchive-overlay {
-  opacity: 1;
-}
-.mg-h-line {
-	border-bottom: 3px double rgb(167 167 168);
-	text-shadow: 2px 2px 2px rgb(163 149 169);
+.netabare {
+	color:transparent;
 }
 
+
+/*-------- header ---------*/
+#header-img {
+	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
+}
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
@@ -126,6 +94,35 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	border: 1px solid rgb(74 73 75 / 60%);
 }
 
+/*--------- layout -----*/
+#master-wrap {
+	background: rgb(255 255 255 / 0.4);
+	border: 2px solid rgb(116 145 116 / 60%);
+}
+
+
+/*-------- img for both post and mg -----------*/
+/* .gallery-img-frame: force the div to properly contain the floated images: */
+/* .mgarchive-container: MG archive page, hover-to-show-title effect */
+article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
+	border-color: #918f92;
+}
+.mgarchive-container {
+	box-shadow: 1px 1px 3px #b1b1b1;
+}
+/*------- mygirls image frame -------*/
+.stdalone img {
+	background: rgba(255,255,255,0.6);
+	box-shadow: 3px 3px 4px #b1b1b1;
+}
+.mgarchive-overlay {
+	background: rgba(0, 0, 0, 0.7); /* Black see-through */
+	color: #f1f1f1;
+}
+.mg-h-line {
+	border-bottom: 3px double rgb(167 167 168);
+	text-shadow: 2px 2px 2px rgb(163 149 169);
+}
 
 
 /*--------footer-------*/

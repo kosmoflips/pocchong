@@ -211,6 +211,7 @@ article img {
 	margin: 5px;
 	max-height:400px;
 	max-width: 55%;
+	border: 6px double;
 }
 
 /*------- mygirls image frame -------*/
@@ -231,6 +232,7 @@ article img {
 
 /*--- MG archive page, hover-to-show-title effect ---*/
 .mgarchive-container {
+	border: 4px double;
 	box-sizing: border-box;
 	display:inline-block;
 	margin: 5px 3px;
@@ -260,6 +262,7 @@ article img {
 }
 .gallery-img-frame { /* force the div to properly contain the floated images: */
 	clear:none;
+	border: 4px double;
 	display:inline-block;
 	height: 200px;
 	margin: 0;
