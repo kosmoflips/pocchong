@@ -44,7 +44,7 @@ foreach ($files as $file) {
 $symbol2=rand_deco_symbol();
 $symbol3=rand_deco_symbol();
 ?>
-<h3><?php echo $symbol2 ?> Individial Pages <?php echo $symbol2 ?></h3>
+<h2><?php echo $symbol2 ?> Individial Pages <?php echo $symbol2 ?></h2>
 <div class="archiv">
 <ul>
 <?php
@@ -62,7 +62,7 @@ foreach ($list as $row) {
 </div>
 
 
-<h3><?php echo $symbol3 ?> Dead Archives <?php echo $symbol3 ?></h3>
+<h2><?php echo $symbol3 ?> Dead Archives <?php echo $symbol3 ?></h2>
 <div class="archiv"><ul>
 <li><span class="archivname"><a href="/cyouwa" target="_blank">Sea of Harmony</a>: </span><span class="archivdesc">self-translated KOKIA reviews around 2009~10 (no more updates)</span></li>
 </ul>
