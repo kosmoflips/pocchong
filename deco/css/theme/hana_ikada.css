@@ -105,7 +105,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 /* .gallery-img-frame: force the div to properly contain the floated images: */
 /* .mgarchive-container: MG archive page, hover-to-show-title effect */
 article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
-	border-color: #d28f9b;
+	border-color: #d28f9b !important; /* need important or the stdalone border will be overwritten, reason unknown */
 }
 .mgarchive-container {
 	box-shadow: 1px 1px 3px #d28f9b;
