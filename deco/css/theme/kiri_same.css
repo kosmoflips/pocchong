@@ -1,6 +1,6 @@
-/* colour scheme -- iroshizuku: hana-ikada */
+/* colour scheme -- iroshizuku: kiri-same*/
 body {
-	background: #ffe8f4 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	background: #c9c8c5 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -8,61 +8,62 @@ body {
 }
 /* general text color */
 body, .netabare:hover, .archiv li a, textarea {
-	color:#694d56;
+	color:#28240c;
+}
+/* must put on top or will overwrite later "a" */
+a:link, a:hover, a:visited {
+	color: #21a100;
 }
 
 /*-----------post---------------*/
 .datetime, .datetime a {
-	color: #e28eaa;
+	color: #679c64;
 }
 /* inline-box: for "edit" button when cookie is alive*/
 /* post-shell: applies trans-white bg , or a second img on top, etc...*/
-.post-shell, .inline-box { /* applies trans-white bg , or a second img on top, etc...*/
+.post-shell, .inline-box {
 	background: rgba(255,255,255,0.85);
-	border: 1px solid #ed3e78;
+	border: 1px solid rgb(113 110 95);
 }
 .post-inner {
 	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
 }
 .post-inner h2, .post-inner h3 {
-	background: #ffd2e1;
-	box-shadow: 0 5px 6px rgb(231 199 209);
+	background: #d3d3d2;
+	box-shadow: 0 5px 6px #babab3;
 }
 .post-inner h2, .post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
-	color: #de4a7a;
+	color: #595852;
 }
 .post-inner h3:hover {
-	background: rgb(255 236 242);
+	background: #b7b4a4;
 }
 .post-inner h4 {
-	border-left: 11px solid #ff8ea2;
-	border-bottom: 2px dotted #ff8ea2;
+	border-left: 11px solid #b7b6af;
+	border-bottom: 2px dotted #b7b6af;
 }
 .post-inner h4, .archiv-year a, .archiv-year a:hover {
-	color: #9f516a;
+	color: #636262;
 }
 
 
 /*-------archiv -------*/
 .archiv-year { /* same as post h4 */
-	border-left: 12px solid #ff8ea2;
+	border-left: 12px solid #b7b6af;
 }
 .archiv li {
-	border-bottom: 1px #66616b dashed;
+	border-bottom: 1px #8b876c dashed;
 }
 .archiv li:hover {
-	background: rgb(135 132 138 / 10%);
+	background: rgb(222 221 211 / 40%);
 }
 
 
-a:link, a:hover, a:visited {
-	color: #2fb800;
-}
 blockquote, textarea, pre, .netabare {
-	background: rgb(255 55 90 / 0.1);
+	background: rgb(214 211 198 / 40%);
 }
 blockquote {
-	box-shadow: 3px 3px 4px #e2ccd0;
+	box-shadow: 3px 3px 4px #9b919e78;
 }
 .netabare {
 	color:transparent;
@@ -81,23 +82,23 @@ blockquote {
 }
 ul#menu li, ul#menu ul.sub-menu li {
 	background: rgba(255,255,255,0.7);
-	border: 1px solid #ff80ac;
+	border: 1px solid #aba78e;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: rgb(206 80 124);
+	color: #68665e;
 }
 ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	color: #fff;
 }
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: #ec8bad;
-	border: 1px solid #b9446d;
+	background: rgb(144 143 140 / 80%);
+	border: 1px solid rgb(80 80 77 / 60%);
 }
 
 /*--------- layout -----*/
 #master-wrap {
 	background: rgb(255 255 255 / 0.4);
-	border: 2px solid #f9acc6;
+	border: 2px solid rgb(135 134 126 / 60%);
 }
 
 
@@ -105,45 +106,45 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 /* .gallery-img-frame: force the div to properly contain the floated images: */
 /* .mgarchive-container: MG archive page, hover-to-show-title effect */
 article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
-	border-color: #d28f9b;
+	border-color: #a7a083;
 }
 .mgarchive-container {
-	box-shadow: 1px 1px 3px #d28f9b;
+	box-shadow: 1px 1px 3px #b1b1b1;
 }
 /*------- mygirls image frame -------*/
 .stdalone img {
 	background: rgba(255,255,255,0.6);
-	box-shadow: 3px 3px 4px #d28f9b;
+	box-shadow: 3px 3px 4px #b1b1b1;
 }
 .mgarchive-overlay {
-	background: rgb(96 0 24 / 0.75); /* Black see-through */
+	background: rgb(39 38 32 / 70%); /* Black see-through */
 	color: #f1f1f1;
 }
 .mg-h-line {
-	border-bottom: 3px double rgb(217 150 162);
-	text-shadow: 2px 2px 2px rgb(221 141 155);
+	border-bottom: 3px double #a8a8a7;
+	text-shadow: 2px 2px 2px #8a8a80;
 }
 
 
 /*--------footer-------*/
 .navi-bar a, .navi-bar-square a, .navi-prev a, .navi-next a {
-	color:#8c5861;
+	color:#46443e;
 }
 .navi-bar-square-self a {
 	color: #fff;
 }
 .navi-bar-square, .navi-bar-square-self, .navi-prev, .navi-next {
-	border: 1px solid #c94058;
+	border: 1px solid #5c5a4d;
 }
 .navi-bar-square {
 	background: rgba(255,255,255,0.3);
 }
 .navi-bar-square-self {
-	background: rgb(230 144 160);
+	background: rgb(167 164 147);
 }
 .navi-prev, .navi-next {
 	background: rgba(255,255,255,0.4);
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #a55563;
+	color: #6b6a64;
 }

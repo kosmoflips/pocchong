@@ -8,5 +8,6 @@
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
 <link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
-<link rel="stylesheet" type="text/css" href="/deco/css/site_theme.css" />
+<!-- for working css only, remove following css when final theme file is done -->
+<link rel="stylesheet" type="text/css" href="/deco/css/site_theme_sandbox.css" />
 <?php $this->html_head_stuff(); ?>

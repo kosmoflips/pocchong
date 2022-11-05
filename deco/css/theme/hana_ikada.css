@@ -1,6 +1,6 @@
-/* colour scheme -- iroshizuku: kiri-same*/
+/* colour scheme -- iroshizuku: hana-ikada */
 body {
-	background: #a7a4a9 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	background: #ffe8f4 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -8,44 +8,48 @@ body {
 }
 /* general text color */
 body, .netabare:hover, .archiv li a, textarea {
-	color:#373737;
+	color:#694d56;
+}
+/* must put on top or will overwrite later "a" */
+a:link, a:hover, a:visited {
+	color: #2fb800;
 }
 
 /*-----------post---------------*/
 .datetime, .datetime a {
-	color: #8d7e95;
+	color: #e28eaa;
 }
 /* inline-box: for "edit" button when cookie is alive*/
 /* post-shell: applies trans-white bg , or a second img on top, etc...*/
-.post-shell, .inline-box {
+.post-shell, .inline-box { /* applies trans-white bg , or a second img on top, etc...*/
 	background: rgba(255,255,255,0.85);
-	border: 1px solid rgb(101 92 106 / 80%);
+	border: 1px solid #ed3e78;
 }
 .post-inner {
 	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
 }
 .post-inner h2, .post-inner h3 {
-	background: rgb(119 117 121);
-	box-shadow: 0 5px 6px rgb(145 145 145);
+	background: #ffd2e1;
+	box-shadow: 0 5px 6px rgb(231 199 209);
 }
 .post-inner h2, .post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
-	color: #fff;
+	color: #de4a7a;
 }
 .post-inner h3:hover {
-	background: rgb(128 116 141 / 80%);
+	background: rgb(255 236 242);
 }
 .post-inner h4 {
-	border-left: 11px solid rgb(128 116 141 / 80%);
-	border-bottom: 2px dotted rgb(128 116 141 / 80%);
+	border-left: 11px solid #ff8ea2;
+	border-bottom: 2px dotted #ff8ea2;
 }
 .post-inner h4, .archiv-year a, .archiv-year a:hover {
-	color: #5f646f;
+	color: #9f516a;
 }
 
 
 /*-------archiv -------*/
 .archiv-year { /* same as post h4 */
-	border-left: 12px solid rgb(128 116 141 / 80%);
+	border-left: 12px solid #ff8ea2;
 }
 .archiv li {
 	border-bottom: 1px #66616b dashed;
@@ -54,15 +58,11 @@ body, .netabare:hover, .archiv li a, textarea {
 	background: rgb(135 132 138 / 10%);
 }
 
-
-a:link, a:hover, a:visited {
-	color: #b532fe;
-}
 blockquote, textarea, pre, .netabare {
-	background: rgb(171 167 172 / 20%);
+	background: rgb(255 55 90 / 0.1);
 }
 blockquote {
-	box-shadow: 3px 3px 4px #9b919e78;
+	box-shadow: 3px 3px 4px #e2ccd0;
 }
 .netabare {
 	color:transparent;
@@ -81,23 +81,23 @@ blockquote {
 }
 ul#menu li, ul#menu ul.sub-menu li {
 	background: rgba(255,255,255,0.7);
-	border: 1px solid rgb(91 90 91 / 50%);
+	border: 1px solid #ff80ac;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: rgb(89 84 93);
+	color: rgb(206 80 124);
 }
 ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	color: #fff;
 }
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: rgb(107 103 110 / 80%);
-	border: 1px solid rgb(74 73 75 / 60%);
+	background: #ec8bad;
+	border: 1px solid #b9446d;
 }
 
 /*--------- layout -----*/
 #master-wrap {
 	background: rgb(255 255 255 / 0.4);
-	border: 2px solid rgb(116 145 116 / 60%);
+	border: 2px solid #f9acc6;
 }
 
 
@@ -105,45 +105,45 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 /* .gallery-img-frame: force the div to properly contain the floated images: */
 /* .mgarchive-container: MG archive page, hover-to-show-title effect */
 article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
-	border-color: #918f92;
+	border-color: #d28f9b;
 }
 .mgarchive-container {
-	box-shadow: 1px 1px 3px #b1b1b1;
+	box-shadow: 1px 1px 3px #d28f9b;
 }
 /*------- mygirls image frame -------*/
 .stdalone img {
 	background: rgba(255,255,255,0.6);
-	box-shadow: 3px 3px 4px #b1b1b1;
+	box-shadow: 3px 3px 4px #d28f9b;
 }
 .mgarchive-overlay {
-	background: rgba(0, 0, 0, 0.7); /* Black see-through */
+	background: rgb(96 0 24 / 0.75); /* Black see-through */
 	color: #f1f1f1;
 }
 .mg-h-line {
-	border-bottom: 3px double rgb(167 167 168);
-	text-shadow: 2px 2px 2px rgb(163 149 169);
+	border-bottom: 3px double rgb(217 150 162);
+	text-shadow: 2px 2px 2px rgb(221 141 155);
 }
 
 
 /*--------footer-------*/
 .navi-bar a, .navi-bar-square a, .navi-prev a, .navi-next a {
-	color:#453f47;
+	color:#8c5861;
 }
 .navi-bar-square-self a {
 	color: #fff;
 }
 .navi-bar-square, .navi-bar-square-self, .navi-prev, .navi-next {
-	border: 1px solid #322d34;
+	border: 1px solid #c94058;
 }
 .navi-bar-square {
 	background: rgba(255,255,255,0.3);
 }
 .navi-bar-square-self {
-	background: rgb(86 79 87 / 70%);
+	background: rgb(230 144 160);
 }
 .navi-prev, .navi-next {
 	background: rgba(255,255,255,0.4);
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #d6d2d7;
+	color: #a55563;
 }

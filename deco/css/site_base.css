@@ -224,6 +224,7 @@ article img {
 	margin: 20px 0;
 }
 .stdalone img {
+	border: 5px double !important;
 	max-width:80%;
 	max-height: 470px;
 	padding: 12px; /* for border effect */

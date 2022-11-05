@@ -168,7 +168,7 @@ $p->html_open(1);
 
 <!-- ---------------backyard links----------------------- -->
 <?php $p->html_open(2); ?>
-<h3>&#10056; Individial Pages &#10056;</h3>
+<h2>&#10056; Individial Pages &#10056;</h2>
 <div class="archiv">
 <ul>
 <li><span class="archivname"><a href="/s/classical_composer_name_reference">Classical Composer Name Reference</a></span>
@@ -193,7 +193,7 @@ $p->html_open(1);
 </div>
 
 
-<h3>&#10046; Dead Archives &#10046;</h3>
+<h2>&#10046; Dead Archives &#10046;</h2>
 <div class="archiv"><ul>
 <li><span class="archivname"><a href="/cyouwa" target="_blank">Sea of Harmony</a>: </span><span class="archivdesc">self-translated KOKIA reviews around 2009~10 (no more updates)</span></li>
 </ul>
