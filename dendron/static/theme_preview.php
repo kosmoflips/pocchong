@@ -107,6 +107,38 @@ $p->html_open(1);
 <?php 	$p->html_close(2); ?>
 
 
+<!-- --------------mg index ------------------------------ -->
+<?php $p->html_open(2); ?>
+<h2>&#10047; 幻想調和::1:: &#10047;</h2>
+<div class="gallery">
+<div class="mgarchive-container">
+<a href="/mygirls/149"><img class="mgarchive-image" src="/img/g04/210221_moeb2_full.jpg.webp" alt="img" /></a>
+<div class="mgarchive-overlay">Möbius Mechanismus II<br />2021/02/21</div>
+</div>
+<div class="mgarchive-container">
+<a href="/mygirls/148"><img class="mgarchive-image" src="/img/g04/200814_capriccio_final.jpg.webp" alt="img" /></a>
+<div class="mgarchive-overlay">客人綺想曲 / Marebito Capriccio<br />2020/08/14</div>
+</div>
+<div class="mgarchive-container">
+<a href="/mygirls/147"><img class="mgarchive-image" src="/img/g04/200201_cutesouls_final.jpg.webp" alt="img" /></a>
+<div class="mgarchive-overlay">CUTE SOULS<br />2020/02/01</div>
+</div>
+<div class="mgarchive-container">
+<a href="/mygirls/146"><img class="mgarchive-image" src="/img/g04/190824_notturna_final.jpg.webp" alt="img" /></a>
+<div class="mgarchive-overlay">Serenata notturna<br />2019/08/24</div>
+</div>
+<div class="mgarchive-container">
+<a href="/mygirls/145"><img class="mgarchive-image" src="/img/g04/171013_lastshow_re_big.jpg.webp" alt="img" /></a>
+<div class="mgarchive-overlay">LAST SHOW redevelop<br />2017/10/13</div>
+</div>
+<div class="mgarchive-container">
+<a href="/mygirls/144"><img class="mgarchive-image" src="/img/g04/170828_iroglass_big.jpg.webp" alt="img" /></a>
+<div class="mgarchive-overlay">色硝子の裏側に乙女たちの音合わせ<br />2017/08/28</div>
+</div>
+</div><!-- gallery -->
+<?php $p->html_close(2); ?>
+
+
 <!-- --------------mg single preview ------------------------------ -->
 <?php $p->html_open(2); ?>
 <div><!-- artwork block begins -->
