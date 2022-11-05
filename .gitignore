@@ -4,3 +4,5 @@ axon/
 userdata.ini
 *.sqlite
 samune/
+site_theme_sandbox.css
+*.lnk
