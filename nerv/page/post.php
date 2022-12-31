@@ -9,8 +9,8 @@ foreach ($p->data as $entry) {
 	print_post_single($p,$entry);
 }
 $p->html_close(1);
-
-//-------------------------
+?>
+<?php // ----- subs -----
 function process_data_post ($pobj=null,$id=null,$page=0) {
 	if (!$pobj) {
 		return null;
@@ -43,16 +43,53 @@ function process_data_post ($pobj=null,$id=null,$page=0) {
 	$pobj->navi['bar']=$navibar??null;
 	$pobj->data=$posts; // is array()
 }
+function process_img_alt_tag ($matches, $tag="") {
+	if (!preg_match('/<a/', $matches[1])) { # only decide if to add lightbox tag when <img> isn't wrapped by <a href="xxx">
+		$url=trim($matches[2]);
+		$rest=$matches[3];
+		if (preg_match('/alt=\s*["\'](.*?)["\']/', $rest, $zz)) { # when alt="xxx" is present
+			$altstr=trim($zz[1]);
+			if ($altstr == "!lightbox") { # my special tag to DISABLE using lightbox
+				return ($matches[0]); # original <img> line
+			}
+			elseif (!preg_match('/\S/', $altstr)) { # alt="" (all empty string), use original img url
+				$url2=$url;
+			}
+			elseif ($altstr == 'lightbox' ) { # alt="lightbox", use original img url
+				$url2=$url;
+			}
+			else { # alt="SUPPOSED_TO_BE_AN_URL" , will use the new URL as ligntbox linked target
+				$url2=$altstr;
+			}
+		} else { # alt="xxx" isn't present, use original img url
+			$url2=$url;
+		}
+		$x=sprintf ('<a href="%s" data-lightbox="pid%s"><img src="%s"%s></a>', $url2, $tag, $url, $rest);
+		return ($x);
+	} else {
+		return $matches[0];
+	}
+}
+function add_lightbox_tag ($content='', $tag="uniq_string") { # convert <img ...> not wrapped by <a> with lightbox tag. treat all images in one post as a set
+	# find pattern as: <a href=...><img src...></a>; <a> pair is optional
+	$content = preg_replace_callback (
+		'/(<a href=.+?>)?<img \s+ src \s* = \s* [\'"] (.*?) [\'"] (.*?)>(<\/a\s*>)?/x', # being careful here and included places for possible white spaces
+		function ($matches) use ($tag) { return (process_img_alt_tag($matches, $tag)); },
+		$content
+	);
+	return ($content);
+}
+?>
+<?php // ----- print single post -----
 function print_post_single($p,$entry) {
 	$posturl=POC_DB['POST']['url'].'/'.$entry['id'];
+	$entry2=add_lightbox_tag($entry['content'], $entry['id']); # add lightbox for <img> if alt="!lightbox" isn't present
 	$p->html_open(2);
 	?>
 <div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],4,$entry['gmt']) ?></a></div>
 <h3><a href="<?php echo $posturl ?>"><?php echo rand_deco_symbol(), ' ',$entry['title']; ?></a></h3>
 <article>
 <?php
-# convert for lightbox. need custom flag if not want to use it?
-$entry2=add_lightbox_tag($entry['content'], $entry['id']);
 echo $entry2,"\n";
 print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
 ?>
@@ -60,28 +97,4 @@ print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
 <?php
 	$p->html_close(2);
 } // close print_post_single()
-function add_lightbox_tag ($content='', $tag="uniq_string") { # convert <img ...> not wrapped by <a> with lightbox tag. treat all images in one post as a set
-	# find pattern as: <a href=...><img src...></a>; <a> pair is optional
-	$content = preg_replace_callback ('/(<a href=.+?>)?<img\s+src="(.+?)"(.*?)>(<\/a\s*>)?/', function ($matches) use ($tag) {
-		if (!preg_match('/<a/', $matches[1])) { # only add lightbox if no <a href...> defined outside, and target URL should be inside alt=""
-			$url=$matches[2];
-			$rest=$matches[3];
-			if (preg_match('/alt=["\'](\S+)["\']/', $rest, $zz)) { # alt="SOMETHING"
-				if ($zz[1] == 'lightbox') { # if using alt="lightbox", it means will apply lightbox, but using source URL. no better resolution. << purpose: to save some typing
-					$url2=$url;
-				} else { # will assume alt="original_resolution_img_link" and lightbox to this
-					$url2=$zz[1];
-				}
-			} else {
-				$url2=$url;
-			}
-			$x=sprintf ('<a href="%s" data-lightbox="pid%s"><img src="%s"%s></a>', $url2, $tag, $url, $rest);
-			return ($x);
-		} else {
-			return $matches[0];
-		}
-	}, $content);
-	return ($content);
-}
-
 ?>
