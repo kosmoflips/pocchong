@@ -1,6 +1,9 @@
 desktop.ini
 error.log
-axon/
 userdata.ini
-*.sqlite
+
+axon/
 samune/
+
+*.sqlite
+*.lnk
