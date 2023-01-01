@@ -8,8 +8,8 @@ on github since 2021-08-25
  - [axon] db, image, other binary stuff
 	 - not on github, OneDrive only
  - [cgi-bin] not in use but still keep it as a tradition
+ - [deco] css/js stuff
  - [dendron]
-	 - [deco] css/js stuff
 	 - [static] individual static pages
 	 - independent sub-sites
  - [nerv] core php file set

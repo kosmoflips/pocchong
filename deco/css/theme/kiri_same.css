@@ -1,6 +1,6 @@
 /* colour scheme -- iroshizuku: kiri-same*/
 body {
-	background: #c9c8c5 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	background: #a7adb9 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -8,62 +8,62 @@ body {
 }
 /* general text color */
 body, .netabare:hover, .archiv li a, textarea {
-	color:#28240c;
+	color:#19242d;
 }
 /* must put on top or will overwrite later "a" */
 a:link, a:hover, a:visited {
-	color: #21a100;
+	color: #2675e4;
 }
 
 /*-----------post---------------*/
 .datetime, .datetime a {
-	color: #679c64;
+	color: #e75f5f;
 }
 /* inline-box: for "edit" button when cookie is alive*/
 /* post-shell: applies trans-white bg , or a second img on top, etc...*/
 .post-shell, .inline-box {
 	background: rgba(255,255,255,0.85);
-	border: 1px solid rgb(113 110 95);
+	border: 1px solid rgb(95 102 113);
 }
 .post-inner {
 	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
 }
 .post-inner h2, .post-inner h3 {
-	background: #d3d3d2;
-	box-shadow: 0 5px 6px #babab3;
+	background: #c7cedc;
+	box-shadow: 0 5px 6px #9ca5b7;
 }
 .post-inner h2, .post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
-	color: #595852;
+	color: #525659;
 }
 .post-inner h3:hover {
-	background: #b7b4a4;
+	background: #abbdd3;
 }
 .post-inner h4 {
-	border-left: 11px solid #b7b6af;
-	border-bottom: 2px dotted #b7b6af;
+	border-left: 11px solid #a3b6cd;
+	border-bottom: 2px dotted #a3b6cd;
 }
 .post-inner h4, .archiv-year a, .archiv-year a:hover {
-	color: #636262;
+	color: #4e6786;
 }
 
 
 /*-------archiv -------*/
 .archiv-year { /* same as post h4 */
-	border-left: 12px solid #b7b6af;
+	border-left: 12px solid #4e6786;
 }
 .archiv li {
-	border-bottom: 1px #8b876c dashed;
+	border-bottom: 1px #4e6786 dashed;
 }
 .archiv li:hover {
-	background: rgb(222 221 211 / 40%);
+	background: #dee2e7;
 }
 
 
 blockquote, textarea, pre, .netabare {
-	background: rgb(214 211 198 / 40%);
+	background: rgb(198 208 214 / 40%);
 }
 blockquote {
-	box-shadow: 3px 3px 4px #9b919e78;
+	box-shadow: 3px 3px 4px rgb(145 153 158 / 47%);
 }
 .netabare {
 	color:transparent;
@@ -82,23 +82,23 @@ blockquote {
 }
 ul#menu li, ul#menu ul.sub-menu li {
 	background: rgba(255,255,255,0.7);
-	border: 1px solid #aba78e;
+	border: 1px solid #7c8cb1;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: #68665e;
+	color: #44667a;
 }
 ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	color: #fff;
 }
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: rgb(144 143 140 / 80%);
-	border: 1px solid rgb(80 80 77 / 60%);
+	background: rgb(149 173 200 / 70%);
+	border: 1px solid #77839a;
 }
 
 /*--------- layout -----*/
 #master-wrap {
 	background: rgb(255 255 255 / 0.4);
-	border: 2px solid rgb(135 134 126 / 60%);
+	border: 2px solid rgb(62 92 145 / 60%);
 }
 
 
@@ -106,7 +106,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 /* .gallery-img-frame: force the div to properly contain the floated images: */
 /* .mgarchive-container: MG archive page, hover-to-show-title effect */
 article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
-	border-color: #a7a083 !important; /* need important or the stdalone border will be overwritten, reason unknown */
+	border-color: #85a2be !important; /* need important or the stdalone border will be overwritten, reason unknown */
 }
 .mgarchive-container {
 	box-shadow: 1px 1px 3px #b1b1b1;
@@ -117,7 +117,7 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 	box-shadow: 3px 3px 4px #b1b1b1;
 }
 .mgarchive-overlay {
-	background: rgb(39 38 32 / 70%); /* Black see-through */
+	background: rgb(12 27 40 / 70%); /* Black see-through */
 	color: #f1f1f1;
 }
 .mg-h-line {
@@ -134,17 +134,17 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 	color: #fff;
 }
 .navi-bar-square, .navi-bar-square-self, .navi-prev, .navi-next {
-	border: 1px solid #5c5a4d;
+	border: 1px solid #4d515c;
 }
 .navi-bar-square {
 	background: rgba(255,255,255,0.3);
 }
 .navi-bar-square-self {
-	background: rgb(167 164 147);
+	background: rgb(147 154 167);
 }
 .navi-prev, .navi-next {
 	background: rgba(255,255,255,0.4);
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #6b6a64;
+	color: #64666b;
 }
