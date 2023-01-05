@@ -19,6 +19,9 @@ RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
 
 
 ##### redirect from clean url to source code #############
+# --------------- site-element location ----------------------
+RewriteRule ^deco/(.+)$ /dendron/deco/$1 [L,NC]
+
 # --------------- image storage location ----------------------
 RewriteRule ^img/(.+)$ /axon/samune/$1 [L,NC]
 
