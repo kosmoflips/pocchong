@@ -5,9 +5,9 @@
 <!-- javascript -->
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="/deco/js/lightbox/lightbox.js"></script>
-<!-- css -->
+<!-- layout css -->
 <link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
 <link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
-<!-- for working css only, remove following css when final theme file is done -->
-<link rel="stylesheet" type="text/css" href="/deco/css/site_theme_sandbox.css" />
+<!-- theme css -->
+<link rel="stylesheet" type="text/css" href="/deco/css/theme/hana_ikada.css" />
 <?php $this->html_head_stuff(); ?>
