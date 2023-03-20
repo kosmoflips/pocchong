@@ -1,6 +1,6 @@
 /* colour scheme -- iroshizuku: hana-ikada */
 body {
-	background: #f5ffe4 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	background: #fff4f4 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -8,92 +8,98 @@ body {
 }
 /* general text color */
 body, .netabare:hover, .archiv li a, textarea {
-	color:#182003;
+	color:#20030c;
 }
 /* must put on top or will overwrite later "a" */
 a:link, a:hover, a:visited {
-	color: #5db000;
+	color: #3488ff;
 }
 
 /*-----------post---------------*/
 .datetime, .datetime a {
-	color: #f0842d;
+	color: #939000;
 }
 /* inline-box: for "edit" button when cookie is alive*/
 /* post-shell: applies trans-white bg , or a second img on top, etc...*/
 .post-shell, .inline-box { /* applies trans-white bg , or a second img on top, etc...*/
 	background: rgba(255,255,255,0.7);
-	border: 1px solid #63a400;
+	border: 1px solid #f37e7e;
 }
 .post-inner {
 	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
 }
 .post-inner h2, .post-inner h3 {
-	background: #dcf5ba;
-	box-shadow: 0 5px 6px rgb(187 211 154);
+	background: #ee4f4f;
+	box-shadow: 0 5px 6px rgb(219 120 120);
 }
 .post-inner h2, .post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
-	color: #648337;
+	color: #fff06c;
 }
 .post-inner h3:hover {
-	background: rgb(173 199 137);
-}
-.post-inner h4, .archiv-year a, .archiv-year a:hover {
-	color: #9f349a;
+	background: rgb(194 1 1);
 }
 .post-inner h4 {
-	border-left: 11px solid #d575d1;
-	border-bottom: 2px dotted #d575d1;
+	border-left: 11px solid #02ad1b;
+	border-bottom: 2px dotted #02ad1b;
 }
+.post-inner h4, .archiv-year a, .archiv-year a:hover {
+	color: #009416;
+}
+
 
 /*-------archiv -------*/
 .archiv-year { /* same as post h4 */
-	border-left: 12px solid #d575d1;
+	border-left: 12px solid #02ad1b;
 }
 .archiv li {
-	border-bottom: 1px #7e9c0b dashed;
+	border-bottom: 1px #005e0e dashed;
 }
 .archiv li:hover {
-	background: rgb(150 196 105 / 30%);
+	background: rgb(162 128 151 / 10%);
 }
 
 blockquote, textarea, pre, .netabare {
-	background: rgb(246 244 197 / 50%);
+	background: rgb(255 255 255 / 0.7);
 }
 blockquote {
-	box-shadow: 3px 3px 4px #bcbc9d;
+	box-shadow: 3px 3px 4px #d4cbcf;
 }
+.netabare {
+	color:transparent;
+}
+
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
+	background: url("/deco/theme/img/mizuhiki_red_pink.png") top left no-repeat;
 }
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/img/top_text_bluered.png") top left no-repeat;
+	background:url("/deco/theme/img/header_pink_blue.png") top left no-repeat;
 	background-position: 475px 20px; /* this MUST present in theme.css to support above background */
 }
 ul#menu li, ul#menu ul.sub-menu li {
-	background: rgb(255 244 176 / 70%);
-	border: 1px solid #9f9b12;
+	background: rgba(255,255,255,0.7);
+	border: 1px solid #109902;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: rgb(135 121 14);
+	color: rgb(2 123 0);
 }
 ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
-	color: #817a06;
+	color: #fff;
 }
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: #e4e14e;
-	border: 1px solid #a5a10c;
+	background: #50b175;
+	border: 1px solid #47c86b;
 }
 
 /*--------- layout -----*/
 #master-wrap {
 	background: rgb(255 255 255 / 0.6);
-	border: 2px solid #b76bff;
+	border: 2px solid #ff6161;
 }
+
 
 /*-------- img for both post and mg -----------*/
 /* .gallery-img-frame: force the div to properly contain the floated images: */
@@ -121,23 +127,23 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 
 /*--------footer-------*/
 .navi-bar a, .navi-bar-square a, .navi-prev a, .navi-next a {
-	color:#ad5bd8;
+	color:#239500;
 }
 .navi-bar-square-self a {
 	color: #fff;
 }
 .navi-bar-square, .navi-bar-square-self, .navi-prev, .navi-next {
-	border: 1px solid #ad5bd8;
+	border: 1px solid #d10000;
 }
 .navi-bar-square {
 	background: rgba(255,255,255,0.3);
 }
 .navi-bar-square-self {
-	background: #cd8cee;
+	background: rgb(199 69 69);
 }
 .navi-prev, .navi-next {
 	background: rgba(255,255,255,0.4);
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #67a713;
+	color: #d71010;
 }

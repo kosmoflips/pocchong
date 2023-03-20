@@ -25,7 +25,7 @@ pre {
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
+	background: url("/deco/theme/img/mizuhiki_red_pink.png") top left no-repeat;
 }
 
 /*--------- layout -----*/
@@ -133,7 +133,7 @@ article img {
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/img/top_text_bluered.png") top left no-repeat;
+	background:url("/deco/theme/img/header_pink_blue.png") top left no-repeat;
 	background-position: 475px 20px; /* this MUST present in theme.css to support above background */
 }
 ul#menu li, ul#menu ul.sub-menu li {

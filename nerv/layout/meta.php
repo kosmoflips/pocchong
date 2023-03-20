@@ -9,5 +9,5 @@
 <link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
 <link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
 <!-- theme css -->
-<link rel="stylesheet" type="text/css" href="/deco/css/theme/hana_ikada.css" />
+<link rel="stylesheet" type="text/css" href="/deco/theme/hana_ikada.css" />
 <?php $this->html_head_stuff(); ?>
