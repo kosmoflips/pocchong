@@ -155,7 +155,7 @@ pre {
 	line-height: 200%;
 	margin:10px auto;
 	vertical-align:middle;
-	font-family: "Lucida Console", monospace;
+	font-family: "Yu Gothic", Meiryo;
 	display:block; /*in case I put it in a <span>*/
 	white-space: nowrap; /* limit this elem to be in one line*/
 	overflow: hidden;
