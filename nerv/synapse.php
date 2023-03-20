@@ -19,6 +19,12 @@ if (isset($_SESSION) and isset($_SESSION["time_out"]) and ($_SESSION["time_out"]
 chklogin();
 
 ?>
+<?php // ----- system msg pages -----
+function show404 () {
+	http_response_code(404);
+	die();
+}
+?>
 <?php // ----- common subs -----
 function readini ($file,$soft=true) { # file=ini_file_path; soft=true will NOT return 500 but return null instead
 	if (file_exists($file)) {

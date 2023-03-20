@@ -9,8 +9,6 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 
 
-
-
 ########## special redirects ###########
 RewriteRule ^backyard/?$ /nerv/page/static_index.php [L,NC]
 RewriteRule ^about/?$ /s/about [L,NC]
@@ -27,6 +25,13 @@ RewriteRule ^img/(.+)$ /axon/samune/$1 [L,NC]
 
 #--------------- general static pages----------------
 RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
+
+#--------------- non-indexed static pages----------------
+# v for private
+# use direct filename for *.html
+RewriteRule ^v/([^/]+)\.html/?$ /dendron/static2/$1.html [L,NC]
+# redirect to use static template for *.php to apply for site-wide styling
+RewriteRule ^v/([^/]+)/?$ /nerv/page/static.php?file=$1.php&private=1 [L,NC]
 
 # --------------- archiv ----------------------
 RewriteRule ^archiv/y/(\d+)/?$ /nerv/page/archiv.php?year=$1 [L,NC]
