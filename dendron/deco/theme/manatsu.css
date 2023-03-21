@@ -1,6 +1,6 @@
-/* colour scheme -- iroshizuku: hana-ikada */
+/* colour scheme -- manatsu - midsummer */
 body {
-	background: #f5ffe4 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	background: #f5ffe4 url("img/bg_manatsu.jpg") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -17,20 +17,20 @@ a:link, a:hover, a:visited {
 
 /*-----------post---------------*/
 .datetime, .datetime a {
-	color: #f0842d;
+	color: #937e10;
 }
 /* inline-box: for "edit" button when cookie is alive*/
 /* post-shell: applies trans-white bg , or a second img on top, etc...*/
 .post-shell, .inline-box { /* applies trans-white bg , or a second img on top, etc...*/
-	background: rgba(255,255,255,0.7);
+	background: rgba(255,255,255,0.76);
 	border: 1px solid #63a400;
 }
 .post-inner {
-	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+	/* background: url("/deco/img/splash_flower2.png") right bottom no-repeat; */
 }
 .post-inner h2, .post-inner h3 {
-	background: #dcf5ba;
-	box-shadow: 0 5px 6px rgb(187 211 154);
+	background: #b7d883;
+	box-shadow: 0 5px 6px #91aa6e;
 }
 .post-inner h2, .post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
 	color: #648337;
@@ -39,26 +39,26 @@ a:link, a:hover, a:visited {
 	background: rgb(173 199 137);
 }
 .post-inner h4, .archiv-year a, .archiv-year a:hover {
-	color: #9f349a;
+	color: #986495;
 }
 .post-inner h4 {
-	border-left: 11px solid #d575d1;
-	border-bottom: 2px dotted #d575d1;
+	border-left: 11px solid #986495;
+	border-bottom: 2px dotted #986495;
 }
 
 /*-------archiv -------*/
 .archiv-year { /* same as post h4 */
-	border-left: 12px solid #d575d1;
+	border-left: 12px solid #986495;
 }
 .archiv li {
 	border-bottom: 1px #7e9c0b dashed;
 }
 .archiv li:hover {
-	background: rgb(150 196 105 / 30%);
+	background: rgba(150,196,105,0.3);
 }
 
 blockquote, textarea, pre, .netabare {
-	background: rgb(246 244 197 / 50%);
+	background: rgba(246,244,197,0.5);
 }
 blockquote {
 	box-shadow: 3px 3px 4px #bcbc9d;
@@ -66,33 +66,33 @@ blockquote {
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/theme/img/mizuhiki_red_pink.png") top left no-repeat;
+	background: url("img/mizuhiki_green_yellow.png") top left no-repeat;
 }
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/theme/img/header_pink_blue.png") top left no-repeat;
+	background:url("img/header_brown_yellow.png") top left no-repeat;
 	background-position: 475px 20px; /* this MUST present in theme.css to support above background */
 }
 ul#menu li, ul#menu ul.sub-menu li {
-	background: rgb(255 244 176 / 70%);
+	background: rgba(255,244,176,0.6);
 	border: 1px solid #9f9b12;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: rgb(135 121 14);
+	color: #87790e;
 }
 ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	color: #817a06;
 }
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: #e4e14e;
+	background: rgba(205,246,50,0.45);
 	border: 1px solid #a5a10c;
 }
 
 /*--------- layout -----*/
 #master-wrap {
-	background: rgb(255 255 255 / 0.6);
-	border: 2px solid #b76bff;
+	background: rgba(255,255,255,0.55);
+	border: 2px solid #ffd813;
 }
 
 /*-------- img for both post and mg -----------*/
@@ -110,7 +110,7 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 	box-shadow: 3px 3px 4px #84a17c;
 }
 .mgarchive-overlay {
-	background: rgb(21 70 0 / 75%); /* Black see-through */
+	background: rgba(21,70,0,0.75); /* Black see-through */
 	color: #f1f1f1;
 }
 .mg-h-line {
@@ -121,23 +121,23 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 
 /*--------footer-------*/
 .navi-bar a, .navi-bar-square a, .navi-prev a, .navi-next a {
-	color:#ad5bd8;
+	color:#235607;
 }
 .navi-bar-square-self a {
-	color: #fff;
+	color: #d8f0cc;
 }
 .navi-bar-square, .navi-bar-square-self, .navi-prev, .navi-next {
-	border: 1px solid #ad5bd8;
+	border: 1px solid #235607;
 }
 .navi-bar-square {
 	background: rgba(255,255,255,0.3);
 }
 .navi-bar-square-self {
-	background: #cd8cee;
+	background: #439b14;
 }
 .navi-prev, .navi-next {
 	background: rgba(255,255,255,0.4);
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #67a713;
+	color: #fbe086;
 }

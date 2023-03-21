@@ -1,6 +1,7 @@
 /* colour scheme -- iroshizuku: hana-ikada */
 body {
-	background: #fff4f4 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	/* https://www.pexels.com/photo/christmas-board-decors-1303098/ */
+	background: #fff4f4 url("img/bg_seitan.jpg") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -26,7 +27,7 @@ a:link, a:hover, a:visited {
 	border: 1px solid #f37e7e;
 }
 .post-inner {
-	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+	/* background: url("/deco/img/splash_flower2.png") right bottom no-repeat; */
 }
 .post-inner h2, .post-inner h3 {
 	background: #ee4f4f;
@@ -55,11 +56,11 @@ a:link, a:hover, a:visited {
 	border-bottom: 1px #005e0e dashed;
 }
 .archiv li:hover {
-	background: rgb(162 128 151 / 10%);
+	background: rgba(162,128,151,0.1);
 }
 
 blockquote, textarea, pre, .netabare {
-	background: rgb(255 255 255 / 0.7);
+	background: rgba(255,255,255,0.7);
 }
 blockquote {
 	box-shadow: 3px 3px 4px #d4cbcf;
@@ -71,12 +72,12 @@ blockquote {
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/theme/img/mizuhiki_red_pink.png") top left no-repeat;
+	background: url("img/mizuhiki_gold_yellow.png") top left no-repeat;
 }
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/theme/img/header_pink_blue.png") top left no-repeat;
+	background:url("img/header_light_red.png") top left no-repeat;
 	background-position: 475px 20px; /* this MUST present in theme.css to support above background */
 }
 ul#menu li, ul#menu ul.sub-menu li {
@@ -96,7 +97,7 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 
 /*--------- layout -----*/
 #master-wrap {
-	background: rgb(255 255 255 / 0.6);
+	background: rgba(255,255,255,0.8);
 	border: 2px solid #ff6161;
 }
 
@@ -116,7 +117,7 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 	box-shadow: 3px 3px 4px #84a17c;
 }
 .mgarchive-overlay {
-	background: rgb(21 70 0 / 75%); /* Black see-through */
+	background: rgba(21,70,0,0.75); /* Black see-through */
 	color: #f1f1f1;
 }
 .mg-h-line {

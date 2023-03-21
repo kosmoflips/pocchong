@@ -1,6 +1,6 @@
-/* colour scheme -- iroshizuku: kiri-same*/
+/* colour scheme -- kirisame - drizzle */
 body {
-	background: #a7adb9 url("https:// encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsBoFVsNyNWlAJ7oD2Mfkw2PGHL0aCr2-tfaig_p0GECBimIroPBboOb91qzz-6IT8tw&usqp=CAU") no-repeat top right fixed;
+	background: #a7adb9 url("img/bg_kirisame.jpg") no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -26,7 +26,7 @@ a:link, a:hover, a:visited {
 	border: 1px solid rgb(95 102 113);
 }
 .post-inner {
-	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+	/* background: url("/deco/img/splash_flower2.png") right bottom no-repeat; */
 }
 .post-inner h2, .post-inner h3 {
 	background: #c7cedc;
@@ -60,10 +60,10 @@ a:link, a:hover, a:visited {
 
 
 blockquote, textarea, pre, .netabare {
-	background: rgb(198 208 214 / 40%);
+	background: rgba(198,208,214,0.4);
 }
 blockquote {
-	box-shadow: 3px 3px 4px rgb(145 153 158 / 47%);
+	box-shadow: 3px 3px 4px rgba(145,153,158,0.5);
 }
 .netabare {
 	color:transparent;
@@ -72,12 +72,12 @@ blockquote {
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/theme/img/mizuhiki_red_pink.png") top left no-repeat;
+	background: url("img/mizuhiki_yellow_white.png") top left no-repeat;
 }
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
 /* border: 1px solid red; */
-	background:url("/deco/theme/img/header_pink_blue.png") top left no-repeat;
+	background:url("img/header_blue_green.png") top left no-repeat;
 	background-position: 475px 20px; /* this MUST present in theme.css to support above background */
 }
 ul#menu li, ul#menu ul.sub-menu li {
@@ -91,14 +91,14 @@ ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	color: #fff;
 }
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: rgb(149 173 200 / 70%);
+	background: rgba(149,173,200,0.7);
 	border: 1px solid #77839a;
 }
 
 /*--------- layout -----*/
 #master-wrap {
-	background: rgb(255 255 255 / 0.4);
-	border: 2px solid rgb(62 92 145 / 60%);
+	background: rgba(255,255,255,0.66);
+	border: 2px solid rgba(62,92,145,0.6);
 }
 
 
@@ -117,7 +117,7 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 	box-shadow: 3px 3px 4px #b1b1b1;
 }
 .mgarchive-overlay {
-	background: rgb(12 27 40 / 70%); /* Black see-through */
+	background: rgba(12,27,40,0.7); /* Black see-through */
 	color: #f1f1f1;
 }
 .mg-h-line {
@@ -143,8 +143,8 @@ article img, .stdalone img, .gallery-img-frame, .mgarchive-container {
 	background: rgb(147 154 167);
 }
 .navi-prev, .navi-next {
-	background: rgba(255,255,255,0.4);
+	background: rgba(255,255,255,0.6);
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #64666b;
+	color: #f7f9ff;
 }
