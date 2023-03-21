@@ -12,7 +12,7 @@ $file=$fdir.'/'.$_GET['file'];
 if (file_exists($file)) {
 	include ($file);
 } else {
-	show404();
+	show_response(404);
 }
 echo '</article>',"\n";
 $p->html_close();

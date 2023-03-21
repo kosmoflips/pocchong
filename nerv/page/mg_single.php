@@ -12,8 +12,8 @@ $p->html_open();
 <div><!-- artwork block begins -->
 <h2><?php echo $symbol,' ', $p->data['main']['title'], ' ', $symbol; ?></h2>
 <?php
-print_mg_blockinfo($p->data['main']);
-print_mg_stdalone($p->data['stds']);
+print_mg_blockinfo($p->data['main'], $p->data['main']['epoch']);
+print_mg_stdalone($p->data['stds'], $p->data['main']['epoch']);
 print_mg_pcs($p->data['pcs']);
 print_edit_button(sprintf ("%s/?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
 ?>
@@ -56,10 +56,10 @@ function print_mg_blockinfo ($main=null) {
 <?php
 }
 
-function print_mg_stdalone ($stds=null) {
+function print_mg_stdalone ($stds=null, $epoch=0) {
 	foreach ($stds as $pc1) {
 		$imgsrc=mk_mg_img_url($pc1['img_url']);
-		$daurl=isset($pc1['da_url'])?mk_url_da($pc1['da_url']):'';
+		$daurl=isset($pc1['da_url'])?mk_url_da($pc1['da_url'], $epoch):'';
 		?>
 <div class="stdalone">
 <?php if ($daurl) { ?>
@@ -75,7 +75,7 @@ function print_mg_stdalone ($stds=null) {
 	}
 }
 
-function print_mg_pcs ($pcs) {
+function print_mg_pcs ($pcs, $epoch=0) { # epoch used to decide da ID
 	if (!empty($pcs)) {
 	?>
 <div class="mg-h-line"><b>..｡o○☆*:ﾟ･: Variations :･ﾟ:*☆○o｡..</b></div>
@@ -83,7 +83,7 @@ function print_mg_pcs ($pcs) {
 <?php
 	foreach ($pcs as $pc2) {
 	?>
-<span class="gallery-img-frame"><a href="<?php echo mk_url_da($pc2['da_url']); ?>"><img src="<?php echo mk_mg_img_url($pc2['img_url']); ?>" alt="" /></a></span>
+<span class="gallery-img-frame"><a href="<?php echo mk_url_da($pc2['da_url'], $epoch); ?>"><img src="<?php echo mk_mg_img_url($pc2['img_url']); ?>" alt="" /></a></span>
 <?php
 	}
 	?>
@@ -94,7 +94,7 @@ function print_mg_pcs ($pcs) {
 
 function process_data_mg_single($pobj,$id=0) {
 	if (!$pobj) {
-		return null;
+		show_response(500);
 	}
 
 	$page_title=POC_DB['MYGIRLS']['title2'];
@@ -106,12 +106,9 @@ function process_data_mg_single($pobj,$id=0) {
 		if (!empty($entry)) {
 			$page_title=$entry['title'];
 			$navi1=mk_navi_pair($k, POC_DB['MYGIRLS']['table'], $id,POC_DB['MYGIRLS']['url']);
+		} else {
+			show_response(404);
 		}
-	}
-
-	if (!$entry) {
-		jump(POC_DB['MYGIRLS']['url']);
-		exit;
 	}
 
 	if ($entry['post_id']) {

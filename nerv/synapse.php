@@ -20,9 +20,11 @@ chklogin();
 
 ?>
 <?php // ----- system msg pages -----
-function show404 () {
-	http_response_code(404);
-	die();
+function show_response ($code=200, $stophere=1) { # e.g. 404, 500
+	http_response_code($code);
+	if ($stophere) {
+		exit();
+	}
 }
 ?>
 <?php // ----- common subs -----

@@ -11,9 +11,20 @@ foreach ($p->data as $entry) {
 $p->html_close(1);
 
 //-------------------------
-function process_data_post ($pobj=null,$id=null,$page=0) {
+function check_post_access ($is_hidden=0) { # is_hidden is the value in DB , column "hide"
+	$canread=0;
+	if ($is_hidden) { # is hidden post, chk if can access
+		if (chklogin()) { # logged-in session, always grant access
+			$canread=1;
+		}
+	} else { # not a hidden post
+		$canread=1;
+	}
+	return ($canread);
+}
+function process_data_post ($pobj=null,$id=0,$page=0) {
 	if (!$pobj) {
-		return null;
+		show_response(500);
 	}
 	$pack=POC_DB['POST'];
 	$k=new PocDB();
@@ -23,21 +34,38 @@ function process_data_post ($pobj=null,$id=null,$page=0) {
 	if ($id) {
 		$entry1=$k->getRow('SELECT * FROM '.$pack['table'].' WHERE id=?',array($id));
 		if ($entry1) { #id exists
+			$canread=check_post_access($entry1['hide']);
+			if (!$canread) { # no access, return 403
+				show_response(403);
+			}
 			$posts[]=$entry1;
 			$page_title=$entry1['title'];
 			#prev/next info when showing only 1 id
 			$navipair=mk_navi_pair($k,$pack['table'],$id, $pack['url']);
+		} else {
+			show_response(404);
 		}
 	}
-	if (empty($posts)) { #index mode or id doesn't exist
+	else { # id isn't given, go to page mode
 		$totalrows=$k->countRows($pack['table']);
 		$totalpgs=calc_total_page($totalrows,$pack['max']);
+		if ($totalpgs<$curr) { # currently selected page > total pages
+			show_response(404);
+		}
 		$offset=calc_page_offset($curr,$pack['max']);
-		$posts=$k->getAll('SELECT id,title,epoch,gmt,content FROM '.$pack['table'].' ORDER BY epoch DESC LIMIT ?,?', array($offset,$pack['max']));
-		$baseurl_p=$pack['url'].$pack['url_page'];
-		$navibar=mk_navi_bar(1,$totalpgs,$pack['max'],$curr,$step,$baseurl_p);
+		$stat1='SELECT id,title,epoch,gmt,content FROM '.$pack['table'];
+		if (!chklogin()) { # not logged in, no access to hidden posts
+			$stat1.=' WHERE hide is null '; # only select non-hidden entries
+		}
+		$stat1.=' ORDER BY epoch DESC LIMIT ?,?';
+		$posts=$k->getAll($stat1, array($offset,$pack['max']));
+		if (!empty($posts)) {
+			$baseurl_p=$pack['url'].$pack['url_page'];
+			$navibar=mk_navi_bar(1,$totalpgs,$pack['max'],$curr,$step,$baseurl_p);
+		} else {
+			show_response(403);
+		}
 	}
-
 	$pobj->title=$page_title??$pack['title'];
 	$pobj->navi['pair']=$navipair??null;
 	$pobj->navi['bar']=$navibar??null;

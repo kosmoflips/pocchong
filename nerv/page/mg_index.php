@@ -31,6 +31,9 @@ function process_data_mg_index ($pobj=null,$page=0) {
 	$totalrows=$k->countRows(POC_DB['MYGIRLS']['table']);
 	$totalpg=calc_total_page($totalrows,POC_DB['MYGIRLS']['max_gallery']);
 	$curr=$page??1;
+	if ($totalpg<$curr) {
+		show_response(404);
+	}
 	$offset=calc_page_offset($curr, POC_DB['MYGIRLS']['max_gallery']);
 	$stat=sprintf ('SELECT %s.id "id",title,epoch,img_url FROM %s join %s on %s.rep_id = %s.id ORDER BY epoch DESC LIMIT ?,?', POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table_pcs'], POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table_pcs']);
 	$list=$k->getAll($stat, array($offset,POC_DB['MYGIRLS']['max_gallery']));

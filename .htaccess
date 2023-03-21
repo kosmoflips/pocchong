@@ -39,14 +39,14 @@ RewriteRule ^archiv/(\d+)/?$ /nerv/page/archiv.php?page=$1 [L,NC]
 RewriteRule ^archiv/?$ /nerv/page/archiv.php [L,NC]
 
 # ------------mygirls -------------
-RewriteRule ^mygirls/p/(\d*)/?$ /nerv/page/mg_index.php?page=$1 [L,NC]
-RewriteRule ^mygirls/(\d*) /nerv/page/mg_single.php?id=$1 [L,NC]
-RewriteRule ^mygirls/?$ /nerv/page/mg_index.php [L,NC]
+RewriteRule ^mygirls/p/(\d+)/?$ /nerv/page/mg_index.php?page=$1 [L,NC]
+RewriteRule ^mygirls/(\d+)/?$ /nerv/page/mg_single.php?id=$1 [L,NC]
+RewriteRule ^mygirls/? /nerv/page/mg_index.php [L,NC]
 
 #------------------ post -----------
-RewriteRule ^days/p/?(\d*) /nerv/page/post.php?page=$1 [L,NC]
-RewriteRule ^days/(\d*) /nerv/page/post.php?id=$1 [L,NC]
-RewriteRule ^days/?$ /nerv/page/post.php [L,NC]
+RewriteRule ^days/p/(\d+) /nerv/page/post.php?page=$1 [L,NC]
+RewriteRule ^days/(\d+)/?$ /nerv/page/post.php?id=$1 [L,NC]
+RewriteRule ^days/? /nerv/page/post.php [L,NC]
 
 
 # -------------------- admin pages --------------------------
