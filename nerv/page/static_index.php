@@ -17,13 +17,6 @@ $p->title=POC_DB['STATIC']['title'];
 $p->add_extra([$cssex]);
 $p->html_open();
 
-# exclude these pages in scan loop
-$exclude=[
-	'about.php',
-	'kaidan.php',
-	'theme_preview.php'
-	];
-
 # page.php => description
 $desrc=readini(ROOT.POC_DB['STATIC']['dir'].'/'.POC_DB['STATIC']['info']);
 // ----- parse static dir -----
@@ -31,9 +24,6 @@ $files=scandir(ROOT.POC_DB['STATIC']['dir']);
 $list=array();
 foreach ($files as $file) {
 	if (preg_match('/^_/', $file)) {
-		continue;
-	}
-	if (in_array(strtolower($file), $exclude)) {
 		continue;
 	}
 	if (preg_match('/(.+?)\.(php)$/i', $file,$x)) {

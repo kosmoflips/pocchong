@@ -70,6 +70,7 @@ pre {
 #master-wrap {
 	display: block;
 	margin: 25px auto 20px;
+	padding-bottom: 30px;
 	width: 1100px;
 }
 #content-wrap {
@@ -331,7 +332,7 @@ ul#menu li a, ul#menu li ul.sub-menu li a {
 
 /*--------footer-------*/
 #footer-navi {
-	margin: -30px auto 30px;
+	margin: -30px auto -5px;
 }
 .navi-bar {
 	display: block;

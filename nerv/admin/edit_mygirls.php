@@ -52,7 +52,7 @@ if (isset($DATA_IN['opt'])) { //submit,delete
 		exit;
 	}
 	elseif ($DATA_IN['opt'] == 'View') {
-		$reurl=sprintf ('%s/%s', POC_DB['MYGIRLS']['url'],$DATA_IN['main']['id']);
+		$reurl=sprintf ('%s?id=%s', POC_DB['MYGIRLS']['url'],$DATA_IN['main']['id']);
 		jump($reurl);
 	}
 	elseif ($DATA_IN['opt'] == 'Save') { // save currently editing content. set flag, do later

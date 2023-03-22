@@ -221,8 +221,7 @@ $p->html_open(1);
 </div><!-- #content-wrap -->
 </div><!-- #master-wrap -->
 <footer id="footer-global">
-<div class='credit'><a href="/about">2006-2022 kiyoko@FairyAria</a> | <a href="https://github.com/kosmoflips/pocchong/tree/d620f37b9e8066105fa430112fc7deb42546d4cf
-" target="_blank ">version: d620f37</a></div>
+<div class='credit'><a href="/about">2006-2022 kiyo@otoshigure</a> | <a href="https://github.com/kosmoflips/pocchong/" target="_blank ">version: 01010101</a></div>
 </footer>
 </body>
 </html>

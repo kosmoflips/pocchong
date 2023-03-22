@@ -59,8 +59,8 @@ function process_data_post ($pobj=null,$id=0,$page=0) {
 		}
 		$stat1.=' ORDER BY epoch DESC LIMIT ?,?';
 		$posts=$k->getAll($stat1, array($offset,$pack['max']));
-		if (!empty($posts)) {
-			$baseurl_p=$pack['url'].$pack['url_page'];
+		if (!empty($posts)) { # can get at least one post (doesnt count hidden post when there's no admin access)
+			$baseurl_p=$pack['url'].'?page=';
 			$navibar=mk_navi_bar(1,$totalpgs,$pack['max'],$curr,$step,$baseurl_p);
 		} else {
 			show_response(403);
@@ -72,7 +72,7 @@ function process_data_post ($pobj=null,$id=0,$page=0) {
 	$pobj->data=$posts; // is array()
 }
 function print_post_single($p,$entry) {
-	$posturl=POC_DB['POST']['url'].'/'.$entry['id'];
+	$posturl=POC_DB['POST']['url'].'?id='.$entry['id'];
 	$p->html_open(2);
 	?>
 <div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],4,$entry['gmt']) ?></a></div>
@@ -82,7 +82,7 @@ function print_post_single($p,$entry) {
 # convert for lightbox. need custom flag if not want to use it?
 $entry2=add_lightbox_tag($entry['content'], $entry['id']);
 echo $entry2,"\n";
-print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
+print_edit_button(POC_DB['POST']['edit'].'?id='.$entry['id']);
 ?>
 </article>
 <?php

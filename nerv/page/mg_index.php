@@ -4,6 +4,12 @@ require_once(NERV.'/lib_mg.php');
 require_once(NERV.'/lib_navicalc.php');
 // list index mode.
 
+$byid=$_GET['id'] ?? 0;
+if ($byid) {
+	include('mg_single.php');
+	exit();
+}
+
 $symbol=rand_deco_symbol();
 $p=new PocPage;
 process_data_mg_index($p,$_GET['page']??null);
@@ -28,18 +34,20 @@ function process_data_mg_index ($pobj=null,$page=0) {
 	}
 	$k=new PocDB();
 
-	$totalrows=$k->countRows(POC_DB['MYGIRLS']['table']);
-	$totalpg=calc_total_page($totalrows,POC_DB['MYGIRLS']['max_gallery']);
+	$dbinfo=POC_DB['MYGIRLS'];
+
+	$totalrows=$k->countRows($dbinfo['table']);
+	$totalpg=calc_total_page($totalrows,$dbinfo['max_gallery']);
 	$curr=$page??1;
 	if ($totalpg<$curr) {
 		show_response(404);
 	}
-	$offset=calc_page_offset($curr, POC_DB['MYGIRLS']['max_gallery']);
-	$stat=sprintf ('SELECT %s.id "id",title,epoch,img_url FROM %s join %s on %s.rep_id = %s.id ORDER BY epoch DESC LIMIT ?,?', POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table_pcs'], POC_DB['MYGIRLS']['table'], POC_DB['MYGIRLS']['table_pcs']);
-	$list=$k->getAll($stat, array($offset,POC_DB['MYGIRLS']['max_gallery']));
-	$page_title=sprintf ('%s::%d::',POC_DB['MYGIRLS']['title2'],$curr);
-	$baseurl=POC_DB['MYGIRLS']['url'].POC_DB['MYGIRLS']['url_index_page'];
-	$navibar=mk_navi_bar(1,$totalpg,POC_DB['MYGIRLS']['max_gallery'],$curr,POC_DB['navi_step'],$baseurl);
+	$offset=calc_page_offset($curr, $dbinfo['max_gallery']);
+	$stat=sprintf ('SELECT %s.id "id",title,epoch,img_url FROM %s join %s on %s.rep_id = %s.id ORDER BY epoch DESC LIMIT ?,?', $dbinfo['table'], $dbinfo['table'], $dbinfo['table_pcs'], $dbinfo['table'], $dbinfo['table_pcs']);
+	$list=$k->getAll($stat, array($offset,$dbinfo['max_gallery']));
+	$page_title=sprintf ('%s::%d::',$dbinfo['title2'],$curr);
+	$baseurl=$dbinfo['url'].'?page=';
+	$navibar=mk_navi_bar(1,$totalpg,$dbinfo['max_gallery'],$curr,POC_DB['navi_step'],$baseurl);
 
 	$pobj->title=$page_title;
 	$pobj->navi['bar']=$navibar??null;
@@ -53,7 +61,7 @@ function print_page_mg_index_item ($entry=null) {
 	$furl=mk_mg_img_url($entry['img_url']);
 ?>
 <div class="mgarchive-container">
-<a href="<?php echo POC_DB['MYGIRLS']['url'].'/'.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
+<a href="<?php echo POC_DB['MYGIRLS']['url'].'?id='.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
 <div class="mgarchive-overlay"><?php echo $entry['title'] ?><br /><?php echo clock27($entry['epoch'],5) ?></div>
 </div>
 <?php

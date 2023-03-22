@@ -24,7 +24,7 @@ $offset=calc_page_offset($curr,$maxperpage);
 $query=sprintf ('SELECT id,title,epoch,gmt FROM %s ORDER BY epoch DESC LIMIT ?,?', $table);
 $lists=$k->getAll($query, array($offset, $maxperpage));
 $actionurl=sprintf ('/a/edit_%s', $table);
-$selurl=sprintf ('/a/list_table/%s/page', $table);
+$selurl=sprintf ('/a/list_table?sel=%s&page=', $table);
 
 $PAGE=new PocPage;
 $PAGE->navi['bar']=mk_navi_bar(1,$totalpg,$maxperpage,$curr,POC_DB['navi_step'],$selurl);
@@ -51,8 +51,8 @@ foreach (array('del', 'id', 'date', 'title', 'edit') as $tt) {
 	echo "<th>", $tt,"</th>\n";
 }
 foreach ($lists as $entry) {
-	$viewurl=sprintf ('%s/%s', $viewbase, $entry['id']);
-	$editurl=sprintf ('%s/?id=%s', $editbase, $entry['id']);
+	$viewurl=sprintf ('%s?id=%s', $viewbase, $entry['id']);
+	$editurl=sprintf ('%s?id=%s', $editbase, $entry['id']);
 ?>
 <tr>
 <td><input type="checkbox" name="del_id[]" value="<?php echo $entry['id'] ?>" /></td>

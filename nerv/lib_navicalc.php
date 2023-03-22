@@ -1,21 +1,21 @@
 <?php // -------- navi-bar related ---------------
 function mk_navi_pair ($k=null,$table='',$cid=1, $url='') {
-	// var_dump ($k);
 	if (!$k or !$table) { return array(); }
 	$n0=$k->_getNext($table,$cid,0);
 	$p0=$k->_getNext($table,$cid,1);
 	$navi1=array();
+	# query url here should be universal for all , /pagename?id=xxxx
 	if (isset($n0)) {
-		$navi1['next']['url']=sprintf ('%s/%d', $url, $n0['id']);
+		$navi1['next']['url']=sprintf ('%s?id=%d', $url, $n0['id']);
 		$navi1['next']['title']=$n0['title'];
 	}
 	if (isset($p0)) {
-		$navi1['prev']['url']=sprintf ('%s/%d', $url, $p0['id']);
+		$navi1['prev']['url']=sprintf ('%s?id=%d', $url, $p0['id']);
 		$navi1['prev']['title']=$p0['title'];
 	}
 	return $navi1;
 }
-function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/') { // new version! urlbase has leading but no trailing slash / offset, useful for year as page e.g. 2006..2009
+function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/') { // new version! urlbase e.g. "/post" in "/post?id=12"
 	$smin=5; // minimal for one side is 5
 	if ($perpage>($last-$first+1)) {
 		$perpage=5; // randomly given
@@ -67,7 +67,7 @@ function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/
 		'prev'=>($curr==$first)?0:($curr-1),
 		'next'=>($curr==$last)?0:($curr+1),
 		'curr'=>$curr,
-		'url'=>$urlbase, // ready to be connected with id e.g. "url/id"
+		'url'=>$urlbase // ready to be connected with query, e.g. ?id=2
 	);
 }
 function calc_total_page($totalrows=1,$max_per_page=1) {

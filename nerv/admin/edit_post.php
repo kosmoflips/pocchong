@@ -33,7 +33,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 		jump($redirectlist);
 	}
 	elseif ($DATA_IN['opt'] == 'View') {
-		$redirect=POC_DB['POST']['url'].'/'.$DATA_IN['id'];
+		$redirect=sprintf ('%s?id=%s', POC_DB['POST']['url'], $DATA_IN['id']);
 		jump($redirect);
 	}
 	elseif ($DATA_IN['opt'] == 'Preview') { // -------- print_post_entry. copied from page_post.php  . may not be synced. purpose is to preview css/style etc.

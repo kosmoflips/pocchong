@@ -44,11 +44,10 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 		$cpage=$year; // no need to verify year anymore
 		$list1=$k->getAll($base_stat.' WHERE year=? ORDER by epoch', array($_GET['year']-2000)); # year mode, order asc
 		$listall[$year]=$list1;
-		$url_yr=POC_DB['ARCHIV']['url'].POC_DB['ARCHIV']['url_year'];
 		$TITLE.=POC_DB['separator'].$year;
-		$navibar=mk_navi_bar(POC_DB['year-start'], $year_last,1,$cpage,POC_DB['navi_step'],$url_yr);
+		$navibar=mk_navi_bar(POC_DB['year-start'], $year_last,1,$cpage,POC_DB['navi_step'],POC_DB['ARCHIV']['url'].'?year=');
 	}
-	else { #non year mode
+	else { #non year mode, go by page (one page has fixed number of items)
 		$totalrows=$k->countRows(POC_DB['ARCHIV']['table']);
 		$totalpgs=calc_total_page($totalrows,POC_DB['ARCHIV']['max']);
 		$offset=calc_page_offset($cpage,POC_DB['ARCHIV']['max']);
@@ -57,7 +56,7 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 			$thisyear=clock27($entry['epoch'],2,$entry['gmt']);
 			$listall[$thisyear][]=$entry;
 		}
-		$navibar=mk_navi_bar(1,$totalpgs,POC_DB['ARCHIV']['max'],$cpage,POC_DB['navi_step'],POC_DB['ARCHIV']['url']);
+		$navibar=mk_navi_bar(1,$totalpgs,POC_DB['ARCHIV']['max'],$cpage,POC_DB['navi_step'],POC_DB['ARCHIV']['url'].'?page=');
 	}
 	$pobj->title=$TITLE;
 	$pobj->navi['bar']=$navibar;
@@ -73,7 +72,7 @@ function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
 <?php
 	if (!$yearmode) {
 	?>
-<div class="archiv-year"><a href="<?php echo POC_DB['ARCHIV']['url'], POC_DB['ARCHIV']['url_year'],'/',$loopyear ?>"><?php echo $loopyear?></a></div>
+<div class="archiv-year"><a href="<?php echo POC_DB['ARCHIV']['url'],'?year=',$loopyear ?>"><?php echo $loopyear?></a></div>
 <?php
 	}
 	?>
@@ -90,7 +89,7 @@ function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
 
 function print_archiv_list_item ($entry=null) {
 	?>
-<li><a href="<?php echo POC_DB['POST']['url'],'/',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
+<li><a href="<?php echo POC_DB['POST']['url'],'?id=',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
 <?php
 }
 

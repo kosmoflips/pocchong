@@ -15,7 +15,7 @@ $p->html_open();
 print_mg_blockinfo($p->data['main'], $p->data['main']['epoch']);
 print_mg_stdalone($p->data['stds'], $p->data['main']['epoch']);
 print_mg_pcs($p->data['pcs']);
-print_edit_button(sprintf ("%s/?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
+print_edit_button(sprintf ("%s?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
 ?>
 </div><!-- closing artwork block -->
 <?php
@@ -32,7 +32,7 @@ function print_mg_blockinfo ($main=null) {
 <?php
 	if ($main['post_id'] and $main['rep_title']) {
 	?>
-<li>Liner notes: <a href="<?php echo POC_DB['POST']['url'],'/',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
+<li>Liner notes: <a href="<?php echo POC_DB['POST']['url'],'?id=',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
 <?php
 	}
 	if ($main['notes']) {
@@ -42,12 +42,12 @@ function print_mg_blockinfo ($main=null) {
 	}
 	if ($main['remake'] and $main['remake_title']) {
 	?>
-<li>New Remake: <a href="<?php echo POC_DB['MYGIRLS']['url'], '/', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
+<li>New Remake: <a href="<?php echo POC_DB['MYGIRLS']['url'], '?id=', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
 <?php
 	}
 	if ($main['remade_from'] and $main['remade_from_title']) {
 	?>
-<li>Remake of: <a href="<?php echo POC_DB['MYGIRLS']['url'], '/', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
+<li>Remake of: <a href="<?php echo POC_DB['MYGIRLS']['url'], '?id=', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
 <?php
 	}
 	?>

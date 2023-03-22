@@ -10,50 +10,46 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 
 ########## special redirects ###########
-RewriteRule ^backyard/?$ /nerv/page/static_index.php [L,NC]
-RewriteRule ^about/?$ /s/about [L,NC]
-RewriteRule ^gradient/?$ /nerv/gradient2D/gmixer_wrapper.php [L,NC]
-RewriteRule ^a/dosql/? /nerv/admin/dosql.php [L,NC]
+RewriteRule ^backyard/ /nerv/page/static_index.php [L,NC]
+RewriteRule ^about/ /v/about [L,NC]
+RewriteRule ^gradient/ /nerv/gradient2D/gmixer_wrapper.php [L,NC]
+RewriteRule ^a/dosql/ /nerv/admin/dosql.php [L,NC]
+
+
+##### general setup #############
+# js/css/img stuff
+RewriteRule ^deco/(.+)$ /dendron/deco/$1 [L,NC]
+# in-post img files
+RewriteRule ^img/(.+)$ /axon/samune/$1 [L,NC]
 
 
 ##### redirect from clean url to source code #############
-# --------------- site-element location ----------------------
-RewriteRule ^deco/(.+)$ /dendron/deco/$1 [L,NC]
 
-# --------------- image storage location ----------------------
-RewriteRule ^img/(.+)$ /axon/samune/$1 [L,NC]
-
-#--------------- general static pages----------------
+# ----- static pages -----
+# index of on-HP static pages
 RewriteRule ^s/([^/]+)/?$ /nerv/page/static.php?file=$1.php [L,NC]
-
-#--------------- non-indexed static pages----------------
-# v for private
+# non-indexed, v for private
 # use direct filename for *.html
 RewriteRule ^v/([^/]+)\.html/?$ /dendron/static2/$1.html [L,NC]
 # redirect to use static template for *.php to apply for site-wide styling
 RewriteRule ^v/([^/]+)/?$ /nerv/page/static.php?file=$1.php&private=1 [L,NC]
+# index of not-on-HP static pages
+RewriteRule ^v/ /nerv/page/static2_index.php [L,NC]
 
-# --------------- archiv ----------------------
-RewriteRule ^archiv/y/(\d+)/?$ /nerv/page/archiv.php?year=$1 [L,NC]
-RewriteRule ^archiv/(\d+)/?$ /nerv/page/archiv.php?page=$1 [L,NC]
-RewriteRule ^archiv/?$ /nerv/page/archiv.php [L,NC]
-
-# ------------mygirls -------------
-RewriteRule ^mygirls/p/(\d+)/?$ /nerv/page/mg_index.php?page=$1 [L,NC]
-RewriteRule ^mygirls/(\d+)/?$ /nerv/page/mg_single.php?id=$1 [L,NC]
-RewriteRule ^mygirls/? /nerv/page/mg_index.php [L,NC]
-
-#------------------ post -----------
-RewriteRule ^days/p/(\d+) /nerv/page/post.php?page=$1 [L,NC]
-RewriteRule ^days/(\d+)/?$ /nerv/page/post.php?id=$1 [L,NC]
-RewriteRule ^days/? /nerv/page/post.php [L,NC]
+# ----- other main pages -----
+# mygirls
+RewriteRule ^mygirls/ /nerv/page/mg_index.php [L,NC]
+# archiv
+RewriteRule ^archiv/ /nerv/page/archiv.php [L,NC]
+# post
+RewriteRule ^days/ /nerv/page/post.php [L,NC]
 
 
 # -------------------- admin pages --------------------------
 # general redirects
 RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /nerv/admin/list_table.php?sel=$1&page=$2 [L,NC]
 RewriteRule ^a/list_page/(\d+)/?$ /nerv/admin/list_page.php?page=$1 [L,NC]
-RewriteRule ^a/(edit_[^/]+)/?$ /nerv/admin/$1.php [L,NC]
+RewriteRule ^a/(edit_[^/]+)/ /nerv/admin/$1.php [L,NC]
 RewriteRule ^a/([^/]+)/? /nerv/admin/$1.php [L,NC]
 RewriteRule ^a/?$ /nerv/admin/login.php [L,NC]
 
