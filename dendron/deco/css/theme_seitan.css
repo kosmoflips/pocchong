@@ -1,0 +1,42 @@
+/* colour scheme -- iroshizuku: hana-ikada */
+
+:root {
+	--body-img: url("../img/bg_seitan.jpg");
+	--mizuhiki: url("../img/mizuhiki_gold_yellow.png");
+	--title-img: url("../img/header_light_red.png");
+	--body-bg: #fff4f4;
+	--master-wrap-border: #ff6161;
+	--master-wrap-bg: rgba(255,255,255,0.75);
+	--body-text-color: #20030c;
+	--body-link-color: #3488ff;
+	--post-date-color: #939000;
+	--post-shell-bg: rgba(255,255,255,0.7);
+	--post-shell-border: #f37e7e;
+	--post-h3-bg: #ee4f4f;
+	--post-h3-bg-hover: #c20101;
+	--post-h3-color: #fff06c;
+	--post-h4-border: #02ad1b;
+	--post-h4-color: #009416;
+	--post-box-shadow: #c09b9b;
+	--post-block-bg: rgba(212,203,207,0.55);
+	--archiv-list-hover: rgba(162,128,151,0.1);
+	--archiv-list-border: #005e0e;
+	--menu-border: #109902;
+	--menu-color: #027b00;
+	--menu-bg: rgba(255,255,255,0.7);
+	--menu-hover-bg: #50b175;
+	--menu-hover-color: #fff;
+	--menu-hover-border: #b9446d;
+	--gallery-img-border: rgba(255,255,255,0.6);
+	--gallery-grid-overlay-bg: rgba(21,70,0,0.75);
+	--gallery-grid-overlay-color: #f1f1f1;
+	--gallery-border: #9d9328;
+	--gallery-box-shadow: #8ea688;
+	--navi-color: #239500;
+	--navi-color-current: #fff;
+	--navi-color-hover: #fff;
+	--navi-box-border: #d10000;
+	--navi-square-bg: rgba(255,255,255,0.4);
+	--navi-square-bg-current: #c74545;
+	--credit-color: #fdff03;
+}

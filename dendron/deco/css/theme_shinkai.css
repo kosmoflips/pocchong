@@ -1,0 +1,42 @@
+/* colour scheme -- shinkai - deep sea */
+
+:root {
+	--body-img: url("../img/bg_shinkai.jpg");
+	--mizuhiki: url("../img/mizuhiki_blue_light.png");
+	--title-img: url("../img/header_dark_blue.png");
+	--body-bg: #1A5DBC;
+	--master-wrap-border: #c6ecf6;
+	--master-wrap-bg: rgba(255,255,255,0.4);
+	--body-text-color: #16358C;
+	--body-link-color: #de0c8a;
+	--post-date-color: #000f67;
+	--post-shell-bg: rgba(255,255,255,0.85);
+	--post-shell-border: #3C77B0;
+	--post-h3-bg: #7386BA;
+	--post-h3-bg-hover: #9DB4CB;
+	--post-h3-color: #f1f3fc;
+	--post-h4-border: #455DA3;
+	--post-h4-color: #001c4b;
+	--post-box-shadow: rgba(102,116,157,0.6);
+	--post-block-bg: rgba(22,53,140,0.1);
+	--archiv-list-hover: rgba(22,53,140,0.1);
+	--archiv-list-border: #5e76ad;
+	--menu-border: #6871BD;
+	--menu-color: #1D1152;
+	--menu-bg: rgba(255,255,255,0.7);
+	--menu-hover-bg: #455DA3;
+	--menu-hover-color: #fff;
+	--menu-hover-border: #6E8297;
+	--gallery-img-border: rgba(255,255,255,0.6);
+	--gallery-grid-overlay-bg: rgba(0, 0, 0, 0.7);
+	--gallery-grid-overlay-color: #f1f1f1;
+	--gallery-border: #6A93C5;
+	--gallery-box-shadow: #A5BFDD;
+	--navi-color: #16358c;
+	--navi-color-current: #dbebef;
+	--navi-color-hover: #fff;
+	--navi-box-border: #1b4c9f;
+	--navi-square-bg: rgba(255,255,255,0.6);
+	--navi-square-bg-current: rgba(22,53,140,0.7);
+	--credit-color: #D0D6E8;
+}

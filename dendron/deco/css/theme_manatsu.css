@@ -1,0 +1,42 @@
+/* colour scheme -- manatsu - midsummer */
+
+:root {
+	--body-img: url("../img/bg_manatsu.jpg");
+	--mizuhiki: url("../img/mizuhiki_green_yellow.png");
+	--title-img: url("../img/header_brown_yellow.png");
+	--body-bg: #f5ffe4;
+	--master-wrap-border: #ffd813;
+	--master-wrap-bg: rgba(255,255,255,0.55);
+	--body-text-color: #182003;
+	--body-link-color: #5db000;
+	--post-date-color: #937e10;
+	--post-shell-bg: rgba(255,255,255,0.75);
+	--post-shell-border: #63a400;
+	--post-h3-bg: #b7d883;
+	--post-h3-bg-hover: #aad56f;
+	--post-h3-color: #648337;
+	--post-h4-border: #986495;
+	--post-h4-color: #754072;
+	--post-box-shadow: #bcbc9d;
+	--post-block-bg: rgba(246,244,197,0.5);
+	--archiv-list-hover: rgba(150,196,105,0.3);
+	--archiv-list-border: #7e9c0b;
+	--menu-border: #9f9b12;
+	--menu-color: #87790e;
+	--menu-bg: rgba(255,244,176,0.6);
+	--menu-hover-bg: rgba(205,246,50,0.45);
+	--menu-hover-color: #817a06;
+	--menu-hover-border: #a5a10c;
+	--gallery-img-border: rgba(255,255,255,0.6);
+	--gallery-grid-overlay-bg: rgba(21,70,0,0.75);
+	--gallery-grid-overlay-color: #f1f1f1;
+	--gallery-border: #a6a16a;
+	--gallery-box-shadow: #84a17c;
+	--navi-color: #235607;
+	--navi-color-current: #235607;
+	--navi-color-hover: #fff;
+	--navi-box-border: #235607;
+	--navi-square-bg: rgba(255,255,255,0.4);
+	--navi-square-bg-current: #c3e1b4;
+	--credit-color: #fbe086;
+}

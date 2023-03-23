@@ -2,32 +2,51 @@
 body {
 	font-size: 110%;
 	font-family: Exo,"Yu Gothic UI", sans-serif;
+	background: var(--body-bg) var(--body-img) no-repeat top right fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
-/* class=p as <p>*/
-.p { margin: 10px auto; }
+/* must put on top or will overwrite later "a" inside a class */
+a:hover {
+	text-decoration: underline;
+}
+a:link, a:visited {
+	text-decoration: none;
+}
+a:link, a:hover, a:visited {
+	color: var(--body-link-color);
+}
+
+.p { margin: 10px auto; } /* class=p as <p>*/
 .bigger { font-size:130%; }
 .smaller { font-size:80%; }
 .exbig { font-size:180%; }
 .exsmall { font-size:50%; }
 
-a:hover { text-decoration: underline; }
-a:link, a:visited { text-decoration: none; }
+/* general text color */
+body, .netabare:hover, .archiv li a, textarea {
+	color: var(--body-text-color);
+}
+.netabare {
+	background: var(--post-block-bg);
+	color:transparent;
+}
 
-
-/* while changing its position, remember to also adjust "ul#menu li ul.sub-menu" */
+/* -- ul is relative to "ul#menu li ul.sub-menu" -- */
 ul {
 	list-style-type: square;
 	padding-left:30px;
 }
 blockquote {
+	background: var(--post-block-bg);
 	border-radius: 2px;
+	box-shadow: 3px 3px 4px var(--post-box-shadow);
 	margin:20px auto;
 	padding:15px 20px;
 	width: 85%;
-}
-/* for code */
-textarea {
 }
 pre {
 	padding: 15px 20px;
@@ -37,12 +56,13 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-.netabare {
-	color:transparent;
+textarea {
+	background: var(--post-block-bg);
 }
 
 /*-------- header ---------*/
 #header-img {
+	background: var(--mizuhiki) top left no-repeat;
 	display:inline-block;
 	position: absolute;
 	width: 480px;
@@ -62,12 +82,14 @@ pre {
 	height:85px;
 }
 
-/*--------- layout -----*/
+/*------- main content layout -----*/
 #master-wrap, #post-list-wrap .datetime, .post-shell, .post-inner h3, .post-inner, .post-inner blockquote {
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
 #master-wrap {
+	background: var(--master-wrap-bg);
+	border: 2px solid var(--master-wrap-border);
 	display: block;
 	margin: 25px auto 20px;
 	padding-bottom: 30px;
@@ -99,7 +121,12 @@ pre {
 .datetime a {
 	text-decoration: none;
 }
+datetime, .datetime a {
+	color: var(--post-date-color);
+}
 .inline-box { /* for "edit" button when cookie is alive*/
+	background: var(--post-shell-bg);
+	border: 1px solid var(--post-shell-border);
 	display: inline-block;
 	font-size: 90%;
 	margin:auto auto 10px 20px;
@@ -107,17 +134,22 @@ pre {
 	padding: 5px;
 }
 .post-shell { /* applies trans-white bg , or a second img on top, etc...*/
+	background: var(--post-shell-bg);
 	border-radius: 3px;
+	border: 1px solid var(--post-shell-border);
 	margin-bottom: 35px;
 	padding: 10px 0 15px;
 }
 .post-shell:last-child {
 	margin-bottom: -15px;
 }
-.post-inner {
+.post-inner { /* add background here if want to show a bg for each post's div */
 	padding: 15px 30px 10px;
 }
 .post-inner h2, .post-inner h3 {
+	background: var(--post-h3-bg);
+	box-shadow: 0 5px 6px var(--post-box-shadow);
+	color: var(--post-h3-color);
 	border-radius: 3px;
 	font-family: 'Milonga', cursive;
 }
@@ -130,11 +162,21 @@ pre {
 	margin: 22px -35px 18px;
 	padding: 10px 33px;
 }
+.post-inner h3:hover {
+	background: var(--post-h3-bg-hover);
+}
 .post-inner h3 a {
+	color: var(--post-h3-color);
 	display: inline-block;
 	width: 100%;
 }
+.post-inner h3 a:hover {
+	color: var(--post-h3-color);
+}
 .post-inner h4 {
+	border-left: 11px solid var(--post-h4-border);
+	border-bottom: 2px dotted var(--post-h4-border);
+	color: var(--post-h4-color);
 	margin-bottom: -2px;
 	padding: 1px 0 3px 8px;
 }
@@ -142,9 +184,6 @@ pre {
 	margin: 30px 10px 25px;
 	line-height: 28px;
 }
-
-/*------- custom content tags------------*/
-/*---- hard coded custom horizontal line deco ----*/
 .line {
 	color:#8266de; /* used when browser doesn't work with gradient or is of non=webkit */
 	max-width:95%;
@@ -165,6 +204,7 @@ pre {
 
 /*-------archiv -------*/
 .archiv-year {
+	border-left: 12px solid var(--post-h4-border);
 	padding: 6px;
 	margin-bottom: 5px;
 	font-weight: bold;
@@ -172,6 +212,7 @@ pre {
 	padding-left: 10px;
 }
 .archiv-year a, .archiv-year a:hover {
+	color: var(--post-h4-color);
 	font-family: 'Milonga';
 }
 .archiv {
@@ -184,9 +225,13 @@ pre {
 }
 .archiv li {
 	padding-top: 7px;
+	border-bottom: 1px var(--archiv-list-border) dashed;
 }
 .archiv li a {
 	text-decoration:none;
+}
+.archiv li:hover {
+	background: var(--archiv-list-hover);
 }
 .archiv li:hover a:link, .archiv li:hover a:visited {
 	font-weight: bold;
@@ -214,7 +259,7 @@ article img {
 	margin: 5px;
 	max-height:400px;
 	max-width: 55%;
-	border: 6px double;
+	border: 6px double var(--gallery-border) !important;
 }
 
 /*------- mygirls image frame -------*/
@@ -227,7 +272,9 @@ article img {
 	margin: 20px 0;
 }
 .stdalone img {
-	border: 5px double !important;
+	background: var(--gallery-img-border);
+	border: 5px double var(--gallery-border) !important;
+	box-shadow: 3px 3px 4px var(--gallery-box-shadow);
 	max-width:80%;
 	max-height: 470px;
 	padding: 12px; /* for border effect */
@@ -236,8 +283,9 @@ article img {
 
 /*--- MG archive page, hover-to-show-title effect ---*/
 .mgarchive-container {
-	border: 4px double;
+	border: 4px double var(--gallery-border) !important;
 	box-sizing: border-box;
+	box-shadow: 1px 1px 3px var(--gallery-box-shadow);
 	display:inline-block;
 	margin: 5px 3px;
 	padding: 2px;
@@ -250,8 +298,10 @@ article img {
 	box-sizing: border-box;
 }
 .mgarchive-overlay {
-	bottom: 0;
+	background: var(--gallery-grid-overlay-bg);
 	box-sizing: border-box;
+	bottom: 0;
+	color: var(--gallery-grid-overlay-color);
 	font-weight:bold;
 	padding: 5px;
 	margin-left: -3px;
@@ -266,7 +316,7 @@ article img {
 }
 .gallery-img-frame { /* force the div to properly contain the floated images: */
 	clear:none;
-	border: 4px double;
+	border: 4px double var(--gallery-border) !important;
 	display:inline-block;
 	height: 200px;
 	margin: 0;
@@ -279,6 +329,8 @@ article img {
 	height: 100%;
 }
 .mg-h-line {
+	border-bottom: 3px double var(--gallery-border);
+	text-shadow: 2px 2px 2px var(--gallery-box-shadow);
 	display:block;
 	font-size: 130%;
 	margin-top: 25px;
@@ -287,8 +339,11 @@ article img {
 	margin: auto;
 }
 
+
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
+	background: var(--title-img) top left no-repeat;
+	background-position: 475px 20px; /* this MUST present to support above background */
 	display:inline-block;
 	font-family: 'Milonga', "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
 	width: 100%;
@@ -315,19 +370,27 @@ ul#menu li:hover ul.sub-menu { /* show sub menu on hover */
 	display:block;
 }
 ul#menu li, ul#menu ul.sub-menu li {
-	/* background: rgba(255,255,255,0.7); */
+	background: var(--menu-bg);
+	border: 1px solid var(--menu-border);
     display: inline-block;
     list-style-type: none;
 	text-align:center;
 	z-index: 30;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
+	color: var(--menu-color);
     display:inline-block;
 	font-weight:bold;
     padding: 4px;
 	text-decoration: none;
 }
-
+ul#menu li:hover, ul#menu ul.sub-menu li:hover {
+	background: var(--menu-hover-bg);
+	border: 1px solid var(--menu-hover-border);
+}
+ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
+	color: var(--menu-hover-color);
+}
 
 
 /*--------footer-------*/
@@ -339,18 +402,26 @@ ul#menu li a, ul#menu li ul.sub-menu li a {
 	font-size: 90%;
 	text-align: center;
 }
-.navi-bar-square, .navi-bar-square-self {
+.navi-bar-square {
+	background: var(--navi-square-bg);
+	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	padding: 2px 8px;
 }
 .navi-bar-square-self {
+	background: var(--navi-square-bg-current);
+	border: 1px solid var(--navi-box-border);
+	display: inline-block;
 	font-weight: bold;
+	padding: 2px 8px;
 }
 .navi-single {
 	/* background : pink; */
 	margin-bottom: 15px;
 }
 .navi-prev, .navi-next {
+	background: var(--navi-square-bg);
+	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	font-size: 92%;
 	padding: 3px 10px;
@@ -366,11 +437,18 @@ ul#menu li a, ul#menu li ul.sub-menu li a {
 	float: right;
 	text-align:right;
 }
+.navi-bar a, .navi-bar-square a, .navi-prev a, .navi-next a {
+	color: var(--navi-color);
+}
+.navi-bar-square-self a { /* keep this one AFTER other .a */
+	color: var(--navi-color-current);
+}
 .navi-bar a:hover, .navi-bar-square:hover, .navi-next:hover, .navi-prev:hover {
 	font-weight: bold;
 	text-decoration: underline;
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
+	color: var(--credit-color);
 	font-size: 90%;
 	text-decoration: none;
 	font-weight: bold;

@@ -5,9 +5,9 @@
 <!-- javascript -->
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="/deco/js/lightbox/lightbox.js"></script>
+<!-- theme css -->
+<link rel="stylesheet" type="text/css" href="/deco/css/theme_shinkai.css" />
 <!-- layout css -->
 <link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
 <link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
-<!-- theme css -->
-<link rel="stylesheet" type="text/css" href="/deco/theme/hana_ikada.css" />
 <?php $this->html_head_stuff(); ?>

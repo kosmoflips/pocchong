@@ -1,0 +1,42 @@
+/* colour scheme -- ajisai */
+	
+:root {
+	--body-img: url("../img/bg_ajisai.jpg");
+	--mizuhiki: url("../img/mizuhiki_blue_purple.png");
+	--title-img: url("../img/header_pink_blue.png");
+	--body-bg: #9ba5ca;
+	--master-wrap-border: #c9d2ff;
+	--master-wrap-bg: rgba(255,255,255,0.6);
+	--body-text-color: #1d1c25;
+	--body-link-color: #ea0689;
+	--post-date-color: #1eab06;
+	--post-shell-bg: rgba(255,255,255,0.85);
+	--post-shell-border: #3f9bde;
+	--post-h3-bg: #6981dc;
+	--post-h3-bg-hover: #a1b0e9;
+	--post-h3-color: #f1f3fc;
+	--post-h4-border: #3f9bde;
+	--post-h4-color: #d18fd6;
+	--post-box-shadow: #93a0b9;
+	--post-block-bg: rgb(80 82 144 / 10%);
+	--archiv-list-hover: rgba(73,208,72,0.1);
+	--archiv-list-border: #9386a4;
+	--menu-border: #1149a0;
+	--menu-color: #6a58a0;
+	--menu-bg: rgba(255,255,255,0.7);
+	--menu-hover-bg: #98c0ee;
+	--menu-hover-color: #fff;
+	--menu-hover-border: #1168a0;
+	--gallery-img-border: rgba(255,255,255,0.6);
+	--gallery-grid-overlay-bg: rgba(15,29,91,0.75);
+	--gallery-grid-overlay-color: #f1f1f1;
+	--gallery-border: #838ca7;
+	--gallery-box-shadow: #acb2c6;
+	--navi-color: #175e1a;
+	--navi-color-current: #175e1a;
+	--navi-color-hover: #fff;
+	--navi-box-border: #1b4c9f;
+	--navi-square-bg: rgba(255,255,255,0.6);
+	--navi-square-bg-current: #6796d0;
+	--credit-color: #e1e7fc;
+}
