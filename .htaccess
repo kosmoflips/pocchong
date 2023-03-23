@@ -11,7 +11,7 @@ RewriteRule ^(.*)$ http://www.pocchong.de/$1 [R=301,L,NC]
 
 ########## special redirects ###########
 RewriteRule ^backyard/ /nerv/page/static_index.php [L,NC]
-RewriteRule ^about/ /v/about [L,NC]
+RewriteRule ^about/ /s/_about [L,NC]
 RewriteRule ^gradient/ /nerv/gradient2D/gmixer_wrapper.php [L,NC]
 RewriteRule ^a/dosql/ /nerv/admin/dosql.php [L,NC]
 
