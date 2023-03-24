@@ -1,0 +1,42 @@
+/* colour scheme -- kirisame - drizzle */
+
+:root {
+	--body-img: url("../img/bg_kirisame.jpg");
+	--mizuhiki: url("../img/mizuhiki_yellow_white.png");
+	--title-img: url("../img/header_blue_green.png");
+	--body-bg: #a7adb9;
+	--master-wrap-border: #5476b2;
+	--master-wrap-bg: rgba(255,255,255,0.6);
+	--body-text-color: #19242d;
+	--body-link-color: #2a83ff;
+	--post-date-color: #88647d;
+	--post-shell-bg: rgba(255,255,255,0.85);
+	--post-shell-border: #5f6671;
+	--post-title-bg: #c7cedc;
+	--post-title-bg-hover: #a9b1ca;
+	--post-title-color: #525659;
+	--post-box-shadow: #9ca5b7;
+	--post-h4-border: #a3b6cd;
+	--post-h4-color: #506988;
+	--post-blockquote-bg: rgba(198,208,214,0.4);
+	--archiv-list-bg-hover: #dee2e7;
+	--archiv-list-border-bottom: #4e6786;
+	--menu-bg: rgba(255,255,255,0.7);
+	--menu-border: #7c8cb1;
+	--menu-color: #44667a;
+	--menu-hover-bg: rgb(114 141 171 / 70%);
+	--menu-hover-border: #77839a;
+	--menu-hover-color: #fff;
+	--gallery-stdalone-border: rgba(255,255,255,0.6);
+	--gallery-grid-overlay-bg: rgba(12,27,40,0.7);
+	--gallery-grid-overlay-color: #f1f1f1;
+	--gallery-border: #85a2be;
+	--gallery-box-shadow: #b1b1b1;
+	--navi-color: #46443e;
+	--navi-color-current: #fff;
+	--navi-color-hover: #fff;
+	--navi-box-border: #4d5465;
+	--navi-box-bg: rgba(255,255,255,0.4);
+	--navi-box-bg-current: #939aa7;
+	--credit-color: #e1e1dd;
+}

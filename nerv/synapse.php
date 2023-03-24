@@ -1,15 +1,17 @@
 <?php 	// ------------ system config, keep on top----------------
+define ('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
 
-define ('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define ('NERV', ROOT.'/nerv');
+// ----- load db and layout libs -----
+require_once (NERV.'/poc_db.php'); // db(sqlite) connection
+require_once (NERV.'/poc_page.php'); // page layout
 
 // ------ get site config through ini ------
 define('POC_DB', readini(NERV.'/db_config.ini') );
 define('POC_META', POC_DB['META'] );
 define('POC_LAYOUT', NERV.'/layout' );
 
-require_once (NERV.'/poc_db.php'); // db(sqlite) connection
-require_once (NERV.'/poc_page.php'); // page layout
+// ----- other internal constants -----
+define('POC_YEAR_START', 2006); # first posted year
 
 // ----- add session , if logged on, can see 'edit' button -----
 session_start();
@@ -17,7 +19,13 @@ if (isset($_SESSION) and isset($_SESSION["time_out"]) and ($_SESSION["time_out"]
 	session_destroy();
 }
 chklogin();
-
+?>
+<?php // ----- system stuff -----
+function show_response ($code=200) { # e.g. 404, 500
+	http_response_code($code);
+	echo "<h1>HTTP Resonse Code: ", $code, '<hr />┐(・ω・)┌</h1>';
+	die();
+}
 ?>
 <?php // ----- common subs -----
 function readini ($file,$soft=true) { # file=ini_file_path; soft=true will NOT return 500 but return null instead
@@ -154,3 +162,81 @@ function print_edit_button ($edit_url='') {
 	}
 }
 ?>
+<?php // ----- mygirls related -----
+function mk_mg_img_url ($path='') { # convert stored in db img path to site-defined img path
+# made on 2022-oct-28, since i switch to host image on localhost instead of google
+	return ('/img/'.$path);
+}
+function mk_url_google_img ($url='',$size='') { // input  has no https://
+# as of 2022-Mar-5 , new url format on blogger: https://blogger.googleusercontent.com/img/a/a_super_long_string=s320
+# for old googleusercontent link [https://lh4.googleusercontent.com/string-for-this-img/may-contain-multiple-slashes/s500/], keep as is unless they stop working.
+	if (!$url) { return ''; }
+	if (!$size) {
+		$size='s800';
+	}
+	if (preg_match('/blogger.googleusercontent.com/',$url)) {
+		$url=preg_replace('/=[swh]\d+\/?$/i', '', $url);
+		$url2=sprintf ('https://%s=%s', $url,$size);
+	}
+	else { # old url style
+		$t=explode ('/', $url);
+		$fname=array_pop($t);
+		array_pop($t); #remove size << supposed to always be there, didn't tested!
+		// if (!$size or !preg_match('/^[hws]\d+/i', $size)) { #simple check. should work for most cases
+		# url has no defined size. OR user doesn't give new size
+			// $size='s800';
+		// }
+		$url2=sprintf ('https://%s/%s/%s', (implode ( '/', $t)), $size, $fname);
+	}
+	return $url2;
+}
+function mk_url_da($url='', $epoch=0) { #feed in string after ../art/. uses my dA account
+	if ($url) {
+		// return "http://kosmoflips.deviantart.com/art/".$url; // old url format
+		$daid= $epoch<1613950800 ? 'kosmoflips':'sinfinmelodia'; # given epoch is right after "marebito"
+		return "https://www.deviantart.com/".$daid."/art/".$url;
+	} else {
+		return '';
+	}
+}
+
+?>
+<?php // ----- static page related -----
+function fname2name ($file='') { # split filename by "_" and return name by uc first letter -- unless define a new name later
+	# remove last elem: php OR other extension
+	$file=basename($file);
+	if (preg_match('/\./', $file )) {
+		$x0=preg_split('/\./', $file);
+		array_pop($x0);
+		$x1=$x0[0];
+	} else {
+		$x1=$file;
+	}
+	$fsub=preg_split('/_/', $x1);
+	foreach (array_keys($fsub) as $i) {
+		$fsub[$i]=ucfirst($fsub[$i]);
+	}
+	return (implode(' ',$fsub) );
+}
+function static_page_open ($title='No Title') {
+	$symbol=rand_deco_symbol();
+	echo '<h2>', $symbol,' ', $title,' ',$symbol, '</h2>', "\n";
+	echo '<article>', "\n";
+}
+?>
+<?php // -------------- admin edit page related --------------
+function write_preview_sash () {
+	?>
+<div style="z-index:20;position:fixed;background:rgba(0,0,0,0.7);padding:20px 0;text-align:center;display:block;width:100%;left:-100px;top:50px;font-size:30px;font-weight:bold;color:white;transform: rotate(-20deg)">PREVIEW</div>
+<?php
+}
+function print_system_msg ($msg='') { // admin submit-page edit only
+	if (!empty($msg)) {
+		?>
+<div class="system-msg">system message: <?php echo $msg ?></div>
+<?php
+	}
+}
+
+?>
+

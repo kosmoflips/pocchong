@@ -75,7 +75,7 @@ PocPage::html_admin();
 		<b>rep:</b><input type="radio" name="set_rep_id" value="<?php echo $pcs['id'] ?>" <?php echo !empty($pcs['is_rep'])?'checked':'' ?> /> || 
 		<b>DELETE this?</b> <input type="checkbox" name="DEL_pcs[]" value="<?php echo $pcs['id'] ?>" /><br />
 		<b>da_url: </b>
-			https://www.deviantart.com/kosmoflips/art/<input type="text" size="45" name="<?php echo $namepre ?>[da_url]" maxlength="255" size="50" value="<?php echo $pcs['da_url'] ?>" /><br />
+			https://www.deviantart.com/<?php echo $info['epoch']>1613950800?'sinfinmelodia':'kosmoflips' ?>/art/<input type="text" size="45" name="<?php echo $namepre ?>[da_url]" maxlength="255" size="50" value="<?php echo $pcs['da_url'] ?>" /><br />
 		<b>img_url: </b>/img/<input type="text" size="75" name="<?php echo $namepre ?>[img_url]" maxlength="255" size="120" value="<?php echo $pcs['img_url'] ?>" placeholder="g00/000000_image.jpg.webp" />
 	</td>
 	</tr>

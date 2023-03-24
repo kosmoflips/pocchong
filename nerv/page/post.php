@@ -1,6 +1,5 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_navicalc.php');
 
 $p=new PocPage;
 process_data_post($p,$_GET['id']??null, $_GET['page']??null);
@@ -11,34 +10,62 @@ foreach ($p->data as $entry) {
 $p->html_close(1);
 ?>
 <?php // ----- subs -----
-function process_data_post ($pobj=null,$id=null,$page=0) {
-	if (!$pobj) {
-		return null;
+function check_post_access ($is_hidden=0) { # is_hidden is the value in DB , column "hide"
+	$canread=0;
+	if ($is_hidden) { # is hidden post, chk if can access
+		if (chklogin()) { # logged-in session, always grant access
+			$canread=1;
+		}
+	} else { # not a hidden post
+		$canread=1;
 	}
-	$pack=POC_DB['POST'];
+	return ($canread);
+}
+function process_data_post ($pobj=null,$id=0,$page=0) {
+	if (!$pobj) {
+		show_response(500);
+	}
+	// $pack=POC_DB_POST;
 	$k=new PocDB();
-	$step=POC_DB['navi_step'];
+	$step=POC_NAVI_STEP;
 	$curr=$page??1; #current page index
 	$posts=array();
 	if ($id) {
-		$entry1=$k->getRow('SELECT * FROM '.$pack['table'].' WHERE id=?',array($id));
+		$entry1=$k->getRow('SELECT * FROM '.POC_DB_POST['table'].' WHERE id=?',array($id));
 		if ($entry1) { #id exists
+			$canread=check_post_access($entry1['hide']);
+			if (!$canread) { # no access, return 403
+				show_response(403);
+			}
 			$posts[]=$entry1;
 			$page_title=$entry1['title'];
 			#prev/next info when showing only 1 id
-			$navipair=mk_navi_pair($k,$pack['table'],$id, $pack['url']);
+			$navipair=mk_navi_pair($k,POC_DB_POST['table'],$id, POC_DB_POST['url']);
+		} else {
+			show_response(404);
 		}
 	}
-	if (empty($posts)) { #index mode or id doesn't exist
-		$totalrows=$k->countRows($pack['table']);
-		$totalpgs=calc_total_page($totalrows,$pack['max']);
-		$offset=calc_page_offset($curr,$pack['max']);
-		$posts=$k->getAll('SELECT id,title,epoch,gmt,content FROM '.$pack['table'].' ORDER BY epoch DESC LIMIT ?,?', array($offset,$pack['max']));
-		$baseurl_p=$pack['url'].$pack['url_page'];
-		$navibar=mk_navi_bar(1,$totalpgs,$pack['max'],$curr,$step,$baseurl_p);
+	else { # id isn't given, go to page mode
+		$totalrows=$k->countRows(POC_DB_POST['table']);
+		$totalpgs=calc_total_page($totalrows,POC_DB_POST['max']);
+		if ($totalpgs<$curr) { # currently selected page > total pages
+			show_response(404);
+		}
+		$offset=calc_page_offset($curr,POC_DB_POST['max']);
+		$stat1='SELECT id,title,epoch,gmt,content FROM '.POC_DB_POST['table'];
+		if (!chklogin()) { # not logged in, no access to hidden posts
+			$stat1.=' WHERE hide is null '; # only select non-hidden entries
+		}
+		$stat1.=' ORDER BY epoch DESC LIMIT ?,?';
+		$posts=$k->getAll($stat1, array($offset,POC_DB_POST['max']));
+		if (!empty($posts)) { # can get at least one post (doesnt count hidden post when there's no admin access)
+			$baseurl_p=POC_DB_POST['url'].'?page=';
+			$navibar=mk_navi_bar(1,$totalpgs,POC_DB_POST['max'],$curr,$step,$baseurl_p);
+		} else {
+			show_response(403);
+		}
 	}
-
-	$pobj->title=$page_title??$pack['title'];
+	$pobj->title=$page_title??POC_DB_POST['title'];
 	$pobj->navi['pair']=$navipair??null;
 	$pobj->navi['bar']=$navibar??null;
 	$pobj->data=$posts; // is array()
@@ -82,7 +109,7 @@ function add_lightbox_tag ($content='', $tag="uniq_string") { # convert <img ...
 ?>
 <?php // ----- print single post -----
 function print_post_single($p,$entry) {
-	$posturl=POC_DB['POST']['url'].'/'.$entry['id'];
+	$posturl=POC_DB_POST['url'].'?id='.$entry['id'];
 	$entry2=add_lightbox_tag($entry['content'], $entry['id']); # add lightbox for <img> if alt="!lightbox" isn't present
 	$p->html_open(2);
 	?>
@@ -91,7 +118,7 @@ function print_post_single($p,$entry) {
 <article>
 <?php
 echo $entry2,"\n";
-print_edit_button(POC_DB['POST']['edit'].'/?id='.$entry['id']);
+print_edit_button(POC_DB_POST['edit'].'?id='.$entry['id']);
 ?>
 </article>
 <?php

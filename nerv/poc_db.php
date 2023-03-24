@@ -1,3 +1,39 @@
+<?php // ----- db table info ----
+const POC_DB_POST = array(
+	'title' => 'Days',
+	'table' => 'post',
+	'url' => '/days/',
+	'max' => 7, # show N posts per page
+	'edit' => '/a/edit_post/'
+);
+
+const POC_DB_MG = array(
+	'title' => 'MyGirls',
+	'title2' => "幻想調和",
+	'table' => 'mygirls',
+	'table_link' => 'mygirls_link',
+	'table_pcs' => 'mygirls_pcs',
+	'url' => '/mygirls/',
+	'edit' => '/a/edit_mygirls/',
+	'max_gallery' => 12
+);
+
+const POC_DB_ARCHIV = array(
+	'title' => 'Archiv',
+	'table' => 'post',
+	'url' => '/archiv/',
+	'max' => 50
+);
+
+const POC_DB_STATIC = array(
+	'title' => 'Backyard',
+	'url_index' => '/backyard/',
+	'url' => '/s',
+	'dir' => '/dendron/static', # for indexed static pages
+	'dir2' => '/dendron/static2', # for non-indexed 'private' pages
+	'info' => '_desrc.ini'
+);
+?>
 <?php // ----------- db access. in a class obj ---------------
 
 /* --------- enable following in php.ini ------------
@@ -7,8 +43,12 @@ enable extension=pdo_sqlite
 -----------------*/
 
 class PocDB {
+
+// const POC_DB_FILE = $_SERVER['DOCUMENT_ROOT'].'/axon/pocchong_data.sqlite';
+const POC_DB_FILE = '/axon/pocchong_data.sqlite';
+
 public function connect() {
-	$dbfile=ROOT.POC_DB['dbfile'];
+	$dbfile=$_SERVER['DOCUMENT_ROOT'].$this::POC_DB_FILE;
 	if (file_exists($dbfile) ) {
 		$dbh = new PDO('sqlite:'.$dbfile);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

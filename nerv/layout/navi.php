@@ -39,7 +39,7 @@ function print_navi_bar($bar=null) {
 <?php
 	if ($bar['prev']) { //9664 = left pointing triangle
 	?>
-<span><a href="<?php echo $bar['url'],'/',$bar['prev'] ?>">&#9664;&#9664;</a> </span><?php } ?>
+<span><a href="<?php echo $bar['url'],$bar['prev'] ?>">&#9664;&#9664;</a> </span><?php } ?>
 <?php // bar block
 	foreach ($bar['block'] as $block) {
 		if ($block[0]==0) { ?>
@@ -52,14 +52,14 @@ function print_navi_bar($bar=null) {
 					$navi_class.='-self';
 				}
 			?>
-<span class="<?php echo $navi_class ?>"><a href="<?php echo $bar['url'] ?>/<?php echo $i ?>"><?php echo $i ?></a></span>
+<span class="<?php echo $navi_class ?>"><a href="<?php echo $bar['url'], $i ?>"><?php echo $i ?></a></span>
 <?php
 			}
 		}
 	}
 	if ($bar['next']) { //9654 = right pointing triangle
 	?>
-<span> <a href="<?php echo $bar['url'],'/',$bar['next'] ?>">&#9654;&#9654;</a></span>
+<span> <a href="<?php echo $bar['url'],$bar['next'] ?>">&#9654;&#9654;</a></span>
 <?php
 	}
 	?>

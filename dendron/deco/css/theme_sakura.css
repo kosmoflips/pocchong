@@ -1,0 +1,42 @@
+/* colour scheme -- iroshizuku: hana-ikada */
+
+:root {
+	--body-img: url("../img/bg_sakura.jpg");
+	--mizuhiki: url("../img/mizuhiki_red_pink.png");
+	--title-img: url("../img/header_light_red.png");
+	--body-bg: #ffe8f4;
+	--master-wrap-border: #f9acc6;
+	--master-wrap-bg: rgba(255,255,255,0.4);
+	--body-text-color: #694d56;
+	--body-link-color: #2fb800;
+	--post-date-color: #68829b;
+	--post-shell-bg: rgba(255,255,255,0.85);
+	--post-shell-border: #ed3e78;
+	--post-title-bg: #ffd2e1;
+	--post-title-bg-hover: #ffecf2;
+	--post-title-color: #de4a7a;
+	--post-h4-border: #ff8ea2;
+	--post-h4-color: #9f516a;
+	--post-box-shadow: #e7c7d1;
+	--post-blockquote-bg: rgba(204,126,139,0.1);
+	--archiv-list-bg-hover: rgba(135,132,138,0.1);
+	--archiv-list-border-bottom: #66616b;
+	--menu-bg: rgba(255,255,255,0.7);
+	--menu-border: #ff80ac;
+	--menu-color: #ce507c;
+	--menu-hover-bg: #ec8bad;
+	--menu-hover-border: #b9446d;
+	--menu-hover-color: #fff;
+	--gallery-stdalone-border: rgba(255,255,255,0.6);
+	--gallery-grid-overlay-bg: rgba(96,0,24,0.75);
+	--gallery-grid-overlay-color: #f1f1f1;
+	--gallery-border: #d28f9b;
+	--gallery-box-shadow: #cea6ad;
+	--navi-color: #8c5861;
+	--navi-color-current: #8c5861;
+	--navi-color-hover: #fff;
+	--navi-box-border: #c94058;
+	--navi-box-bg: rgba(255,255,255,0.4);
+	--navi-box-bg-current: #e690a0;
+	--credit-color: #620817;
+}

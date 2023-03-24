@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_static.php');
+
 // for listing all static pages, and individual side-projects
 //only use  target="_blank"  when not using the site style
 
@@ -13,26 +13,17 @@ ul:last-child {
 	margin-bottom: unset;
 }
 </style>';
-$p->title=POC_DB['STATIC']['title'];
+$p->title=POC_DB_STATIC['title'];
 $p->add_extra([$cssex]);
 $p->html_open();
 
-# exclude these pages in scan loop
-$exclude=[
-	'about.php',
-	'kaidan.php',
-	];
-
 # page.php => description
-$desrc=readini(ROOT.POC_DB['STATIC']['dir'].'/'.POC_DB['STATIC']['info']);
+$desrc=readini($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir'].'/'.POC_DB_STATIC['info']);
 // ----- parse static dir -----
-$files=scandir(ROOT.POC_DB['STATIC']['dir']);
+$files=scandir($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir']);
 $list=array();
 foreach ($files as $file) {
 	if (preg_match('/^_/', $file)) {
-		continue;
-	}
-	if (in_array(strtolower($file), $exclude)) {
 		continue;
 	}
 	if (preg_match('/(.+?)\.(php)$/i', $file,$x)) {
@@ -43,7 +34,7 @@ foreach ($files as $file) {
 $symbol2=rand_deco_symbol();
 $symbol3=rand_deco_symbol();
 ?>
-<h3><?php echo $symbol2 ?> Individial Pages <?php echo $symbol2 ?></h3>
+<h2><?php echo $symbol2 ?> Individial Pages <?php echo $symbol2 ?></h2>
 <div class="archiv">
 <ul>
 <?php
@@ -61,7 +52,7 @@ foreach ($list as $row) {
 </div>
 
 
-<h3><?php echo $symbol3 ?> Dead Archives <?php echo $symbol3 ?></h3>
+<h2><?php echo $symbol3 ?> Dead Archives <?php echo $symbol3 ?></h2>
 <div class="archiv"><ul>
 <li><span class="archivname"><a href="/cyouwa" target="_blank">Sea of Harmony</a>: </span><span class="archivdesc">self-translated KOKIA reviews around 2009~10 (no more updates)</span></li>
 </ul>

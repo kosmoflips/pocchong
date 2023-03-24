@@ -1,18 +1,23 @@
-/* base theme, layout + colours. for new colour scheme files, load after this css */
-/*
-past google fonts:
-Cherry Cream Soda
-Milonga
-*/
+/* base layout */
 body {
-	color:#373737;
 	font-size: 110%;
 	font-family: Exo,"Yu Gothic UI", sans-serif;
-	background: #7294ba url("/deco/img/oceanreflect3.jpg") no-repeat top right fixed;
+	background: var(--body-bg) var(--body-img) no-repeat top right fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+/* must put on top or will overwrite later "a" inside a class */
+a:hover {
+	text-decoration: underline;
+}
+a:link, a:visited {
+	text-decoration: none;
+}
+a:link, a:hover, a:visited {
+	color: var(--body-link-color);
 }
 
 .p { margin: 10px auto; } /* class=p as <p>*/
@@ -21,29 +26,29 @@ body {
 .exbig { font-size:180%; }
 .exsmall { font-size:50%; }
 
-a:hover { text-decoration: underline; }
-a:link, a:visited { text-decoration: none; }
-a:link, a:hover, a:visited { color: #de0c8a; }
+/* general text color */
+body, .netabare:hover, .archiv li a, textarea {
+	color: var(--body-text-color);
+}
+.netabare {
+	background: var(--post-blockquote-bg);
+	color:transparent;
+}
 
-
-ul { /* while changing its position, remember to also adjust "ul#menu li ul.sub-menu" */
+/* -- ul is relative to "ul#menu li ul.sub-menu" -- */
+ul {
 	list-style-type: square;
 	padding-left:30px;
 }
 blockquote {
-	background: rgba(22,53,140,0.1);
+	background: var(--post-blockquote-bg);
 	border-radius: 2px;
-	box-shadow: 3px 3px 4px #bdc4e5;
+	box-shadow: 3px 3px 4px var(--post-box-shadow);
 	margin:20px auto;
 	padding:15px 20px;
 	width: 85%;
 }
-textarea {
-	background: rgba(22,53,140,0.1);
-	border-radius: 2px;
-}
-pre { /* both are for codes */
-	background: rgba(22,53,140,0.1);
+pre {
 	padding: 15px 20px;
 	white-space: pre-wrap;       /* CSS 3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -51,61 +56,52 @@ pre { /* both are for codes */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-
+textarea {
+	background: var(--post-blockquote-bg);
+}
 
 /*-------- header ---------*/
 #header-img {
-	background: url("/deco/img/top_mizuhiki_blue.png") top left no-repeat;
+	background: var(--mizuhiki) top left no-repeat;
 	display:inline-block;
 	position: absolute;
 	width: 480px;
 	height:303px;
 	z-index:15;
 }
-#header-outer {
-	/* height:285px; */
-	/*>=height of the top mizuhiki img*/
-	/* position:relative; */
-	/* border: 1px solid red; */
-}
 #header-outer h1 {
 	display:none;
 }
 #headerlink { /* for linking header to homepage*/
-/* border:1px blue solid; */
 	display:block;
 	position: absolute;
 	z-index:20;
 	top:60px;
 	left:595px;
-	width:380px;
+	width:415px;
 	height:85px;
 }
 
-/*--------- layout -----*/
+/*------- main content layout -----*/
 #master-wrap, #post-list-wrap .datetime, .post-shell, .post-inner h3, .post-inner, .post-inner blockquote {
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
 #master-wrap {
-	background: rgba(255,255,255,0.4);
-	/* background: lightblue; */
-	border: 2px solid rgba(9,68,125,0.6);
+	background: var(--master-wrap-bg);
+	border: 2px solid var(--master-wrap-border);
 	display: block;
 	margin: 25px auto 20px;
+	padding-bottom: 30px;
 	width: 1100px;
 }
 #content-wrap {
 /* background: yellow; */
-	/* padding-left: 35px; */
 	margin-top:15px;
-	/* text-align: center; */
 }
 #mainlayer { /* style relies on the positioning of image */
 	/* background: pink; */
-	/* display: inline-block; */
 	width: 960px;
-	/* margin-left: 50px; */
 	margin: auto;
 }
 #post-list-wrap {
@@ -117,85 +113,77 @@ pre { /* both are for codes */
 /*-----------post---------------*/
 .datetime {
 	/* background: pink; */
-	color: #000f67;
 	font-size: 80%;
 	font-weight: bold;
 	margin-bottom: -17px;
 	text-align: right;
-	/* margin-right:35px; */
 }
 .datetime a {
-	color: #000f67;
 	text-decoration: none;
 }
+datetime, .datetime a {
+	color: var(--post-date-color);
+}
 .inline-box { /* for "edit" button when cookie is alive*/
-	background: rgba(255,255,255,0.7);
-	border: 1px solid #000f67;
+	background: var(--post-shell-bg);
+	border: 1px solid var(--post-shell-border);
 	display: inline-block;
 	font-size: 90%;
 	margin:auto auto 10px 20px;
 	text-align:center;
 	padding: 5px;
-	/* width:50px; */
 }
 .post-shell { /* applies trans-white bg , or a second img on top, etc...*/
-	background: rgba(255,255,255,0.85);
-	border: 1px solid rgba(11,85,156,0.8);
+	background: var(--post-shell-bg);
 	border-radius: 3px;
-	/* box-shadow: 3px 3px 4px #dc7bb8; */
+	border: 1px solid var(--post-shell-border);
 	margin-bottom: 35px;
 	padding: 10px 0 15px;
 }
 .post-shell:last-child {
 	margin-bottom: -15px;
 }
-.post-inner {
-	background: url("/deco/img/splash_flower2.png") right bottom no-repeat; /* affects post block's bg */
+.post-inner { /* add background here if want to show a bg for each post's div */
 	padding: 15px 30px 10px;
 }
 .post-inner h2, .post-inner h3 {
-	background: rgba(22,53,140,0.8);
+	background: var(--post-title-bg);
+	box-shadow: 0 5px 6px var(--post-box-shadow);
+	color: var(--post-title-color);
 	border-radius: 3px;
 	font-family: 'Milonga', cursive;
-	box-shadow: 0 5px 6px rgba(22,53,140,0.6);
 }
 .post-inner h2 {
-	color: #fff;
 	text-align:center;
 	padding: 10px 15px;
 	margin: 2px 0 20px;
 }
 .post-inner h3 {
-	/* background: yellow; */
 	margin: 22px -35px 18px;
 	padding: 10px 33px;
 }
+.post-inner h3:hover {
+	background: var(--post-title-bg-hover);
+}
 .post-inner h3 a {
+	color: var(--post-title-color);
 	display: inline-block;
 	width: 100%;
-	/* background: pink; */
 }
-.post-inner h3, .post-inner h3 a, .post-inner h3 a:hover {
-	color: #fff;
+.post-inner h3 a:hover {
+	color: var(--post-title-color);
 }
-.post-inner h3:hover {
-	background: rgba(22, 53, 140, 0.5);
-}
-.post-inner h4 { /* for in-post h4's*/
-	border-left: 11px solid rgba(22,53,140,0.8);
-	border-bottom: 2px dotted rgba(22,53,140,0.8);
-	color: #001c4b;
+.post-inner h4 {
+	border-left: 11px solid var(--post-h4-border);
+	border-bottom: 2px dotted var(--post-h4-border);
+	color: var(--post-h4-color);
 	margin-bottom: -2px;
 	padding: 1px 0 3px 8px;
 }
 .post-inner article {
-	/* background: yellow; */
-	/* background-image: repeating-linear-gradient(transparent 0px, transparent 29px, #ce4444 30px); */
 	margin: 30px 10px 25px;
 	line-height: 28px;
 }
-
-/*------- custom content tags------------*/
 .line {
 	color:#8266de; /* used when browser doesn't work with gradient or is of non=webkit */
 	max-width:95%;
@@ -207,49 +195,24 @@ pre { /* both are for codes */
 	line-height: 200%;
 	margin:10px auto;
 	vertical-align:middle;
-	font-family: "Lucida Console", monospace;
+	font-family: "Yu Gothic", Meiryo;
 	display:block; /*in case I put it in a <span>*/
 	white-space: nowrap; /* limit this elem to be in one line*/
 	overflow: hidden;
-}
-.netabare {
-	color:transparent;
-	background: rgba(22,53,140,0.1);
-}
-.netabare:hover {
-	color:#373737;
-}
-
-.idx-preview img {
-	height:100%;
-}
-.idx-preview {
-	float: right;
-	height: 150px;
-	padding: 5px;
-	/* margin-left: 10px; */
-}
-.idx-txt a:visited, .idx-txt a:hover, .idx-txt a {
-	color:#373737;
-}
-.idx-txt {
-	width: 100%;
-	font-size: 95%;
 }
 
 
 /*-------archiv -------*/
 .archiv-year {
-/* background: lime; */
+	border-left: 12px solid var(--post-h4-border);
 	padding: 6px;
 	margin-bottom: 5px;
-	border-left: 12px solid rgba(22,53,140,0.8);
 	font-weight: bold;
 	font-size: 105%;
 	padding-left: 10px;
 }
 .archiv-year a, .archiv-year a:hover {
-	color: #16358c;
+	color: var(--post-h4-color);
 	font-family: 'Milonga';
 }
 .archiv {
@@ -261,15 +224,14 @@ pre { /* both are for codes */
 	padding-inline-start: 0;
 }
 .archiv li {
-	border-bottom: 1px #5e76ad dashed;
 	padding-top: 7px;
-}
-.archiv li:hover {
-	background: rgba(22,53,140,0.1);
+	border-bottom: 1px var(--archiv-list-border-bottom) dashed;
 }
 .archiv li a {
-	color: #373737;
 	text-decoration:none;
+}
+.archiv li:hover {
+	background: var(--archiv-list-bg-hover);
 }
 .archiv li:hover a:link, .archiv li:hover a:visited {
 	font-weight: bold;
@@ -294,10 +256,10 @@ pre { /* both are for codes */
 /*-------- img for both post and mg -----------*/
 article img {
 	padding: 3px;
-	border: 6px double #6A93C5;
 	margin: 5px;
 	max-height:400px;
 	max-width: 55%;
+	border: 6px double var(--gallery-border) !important;
 }
 
 /*------- mygirls image frame -------*/
@@ -310,45 +272,20 @@ article img {
 	margin: 20px 0;
 }
 .stdalone img {
-	background: rgba(255,255,255,0.6);
-	border: 6px double #6A93C5;
-	box-shadow: 3px 3px 4px #A5BFDD;
+	background: var(--gallery-stdalone-border);
+	border: 5px double var(--gallery-border) !important;
+	box-shadow: 3px 3px 4px var(--gallery-box-shadow);
 	max-width:80%;
 	max-height: 470px;
 	padding: 12px; /* for border effect */
 }
 
-/*
-article img:hover , .stdalone img:hover {
-	max-width:100%;
-	max-height:100%;
-}
-*/
-
-/*
-.stdalone img:hover, .gallery-img-frame img:hover {
-	/* opacity: 0.6; * /
-	background: rgba(0,0,0,0.4);
-}
-*/
-
-/* transition, separate def as it's shared for <article img> and .stdalone */
-/*
-article img, .stdalone img {
-	/ * doesn't work for stdalone for some reason right now* /
-	transition:max-width,max-height 1s,1s;
-	-o-transition-delay: 1s;
-	-moz-transition-delay: 1s;
-	-webkit-transition-delay: 1s;
-    transition-delay: 1s;
-}
-*/
 
 /*--- MG archive page, hover-to-show-title effect ---*/
 .mgarchive-container {
-	border: 4px double #6A93C5;
-	box-shadow: 1px 1px 3px #8ca86f;
+	border: 4px double var(--gallery-border) !important;
 	box-sizing: border-box;
+	box-shadow: 1px 1px 3px var(--gallery-box-shadow);
 	display:inline-block;
 	margin: 5px 3px;
 	padding: 2px;
@@ -357,17 +294,14 @@ article img, .stdalone img {
 }
 .mgarchive-image { /* Make the image to responsive */
 	display: block;
-	/* width: 100%; */
-	/* height: auto; */
-	/* width: auto; */
 	height:100%;
 	box-sizing: border-box;
 }
 .mgarchive-overlay {
-	background: rgba(0, 0, 0, 0.7); /* Black see-through */
-	bottom: 0;
+	background: var(--gallery-grid-overlay-bg);
 	box-sizing: border-box;
-	color: #f1f1f1;
+	bottom: 0;
+	color: var(--gallery-grid-overlay-color);
 	font-weight:bold;
 	padding: 5px;
 	margin-left: -3px;
@@ -381,8 +315,8 @@ article img, .stdalone img {
   opacity: 1;
 }
 .gallery-img-frame { /* force the div to properly contain the floated images: */
-	border: 4px double #6A93C5;
 	clear:none;
+	border: 4px double var(--gallery-border) !important;
 	display:inline-block;
 	height: 200px;
 	margin: 0;
@@ -395,21 +329,21 @@ article img, .stdalone img {
 	height: 100%;
 }
 .mg-h-line {
-	border-bottom: 3px double rgba(22,53,140,0.8);
+	border-bottom: 3px double var(--gallery-border);
+	text-shadow: 2px 2px 2px var(--gallery-box-shadow);
 	display:block;
 	font-size: 130%;
 	margin-top: 25px;
 	text-align:center;
-	text-shadow: 2px 2px 2px rgba(22,53,140,0.8);
 	width: 90%;
 	margin: auto;
 }
 
+
 /*------menu bar-----------*/
 #menu-out { /* shell for both menu and img version of h1 */
-/* border: 1px solid red; */
-	background:url("/deco/img/top_text_bluered.png") top left no-repeat;
-	background-position: 475px 20px;
+	background: var(--title-img) top left no-repeat;
+	background-position: 475px 20px; /* this MUST present to support above background */
 	display:inline-block;
 	font-family: 'Milonga', "Book Antiqua","Palatino Linotype", Palatino, "MS Mincho", serif;
 	width: 100%;
@@ -436,100 +370,85 @@ ul#menu li:hover ul.sub-menu { /* show sub menu on hover */
 	display:block;
 }
 ul#menu li, ul#menu ul.sub-menu li {
-	background: rgba(255,255,255,0.7);
-	border: 1px solid rgb(104,113,189,0.5);
+	background: var(--menu-bg);
+	border: 1px solid var(--menu-border);
     display: inline-block;
     list-style-type: none;
 	text-align:center;
 	z-index: 30;
 }
 ul#menu li a, ul#menu li ul.sub-menu li a {
-	color: rgba(29,17,82,1);
+	color: var(--menu-color);
     display:inline-block;
 	font-weight:bold;
     padding: 4px;
 	text-decoration: none;
 }
-ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
-	color: #fff;
-}
 ul#menu li:hover, ul#menu ul.sub-menu li:hover {
-	background: rgba(22,53,140,0.8);
-	border: 1px solid rgba(13,46,82,0.6);
+	background: var(--menu-hover-bg);
+	border: 1px solid var(--menu-hover-border);
 }
-
-#___gcse_0 {
-	margin: -10px !important;
-}
-.gsc-control-cse {
-	background-color: transparent !important;
-	border: none !important;
+ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
+	color: var(--menu-hover-color);
 }
 
 
 /*--------footer-------*/
 #footer-navi {
-	margin: -30px auto 30px;
-	/* background: yellow; */
-}
-.navi-bar a, .navi-bar-square a {
-	color:#16358c;
-}
-.navi-bar-square-self a {
-	color: #fff;
+	margin: -30px auto -5px;
 }
 .navi-bar {
-	/* border: 1px blue solid; */
 	display: block;
 	font-size: 90%;
 	text-align: center;
 }
-.navi-bar-square, .navi-bar-square-self {
-	border: 1px solid #16358c;
+.navi-bar-square {
+	background: var(--navi-box-bg);
+	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	padding: 2px 8px;
 }
-.navi-bar-square {
-	/* background: rgba(22,53,140,0.1); */
-	background: rgba(255,255,255,0.3);
-}
 .navi-bar-square-self {
-	background: rgba(22,53,140,0.7);
+	background: var(--navi-box-bg-current);
+	border: 1px solid var(--navi-box-border);
+	display: inline-block;
 	font-weight: bold;
+	padding: 2px 8px;
 }
 .navi-single {
 	/* background : pink; */
-	/* display: flex; */
 	margin-bottom: 15px;
 }
 .navi-prev, .navi-next {
-	/* background: rgba(22,53,140,0.1); */
-	background: rgba(255,255,255,0.4);
-	border: 1px solid rgba(22,53,140,0.3);
+	background: var(--navi-box-bg);
+	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	font-size: 92%;
 	padding: 3px 10px;
 	max-width: 45%;
 }
 .navi-prev a, .navi-next a {
-	color:#16358c;
 	text-decoration: none;
-	/* text-shadow: 1px 1px #7c9d41; */
 }
 .navi-prev {
-	/* float: left; */
 	text-align:left;
 }
 .navi-next {
 	float: right;
 	text-align:right;
 }
+.navi-bar a, .navi-bar-square a, .navi-prev a, .navi-next a {
+	color: var(--navi-color);
+}
+.navi-bar-square-self a { /* keep this one AFTER other .a */
+	color: var(--navi-color-current);
+}
 .navi-bar a:hover, .navi-bar-square:hover, .navi-next:hover, .navi-prev:hover {
 	font-weight: bold;
 	text-decoration: underline;
 }
 .credit, .credit a:link, .credit a:hover, .credit a:visited {
-	color: #D0D6E8;
+	color: var(--credit-color);
 	font-size: 90%;
 	text-decoration: none;
 	font-weight: bold;
@@ -539,4 +458,11 @@ ul#menu li:hover, ul#menu ul.sub-menu li:hover {
 	font-size: 85%;
 	text-align: center;
 	padding-bottom: 25px;
+}
+/*--- on-footer theme selector ---*/
+select {
+	opacity: 0.75;
+}
+select:hover {
+	opacity: 1;
 }
