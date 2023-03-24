@@ -4,18 +4,79 @@
 // can be accessed from: /s/theme_preview
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_navicalc.php');
 
 $p=new PocPage;
-$p->html_open(1);
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>test</title>
+<!-- google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Milonga&display=swap&subset=latin-ext" rel="stylesheet" /><!-- font-family: 'Milonga', cursive; -->
+<link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
+<!-- javascript -->
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="/deco/js/lightbox/lightbox.js"></script>
+<script src="/deco/js/change_css_in_situ.js"></script>
+<!-- theme css -->
+<link rel="stylesheet" type="text/css" href="<?php echo mk_css_file_path($_COOKIE['theme']??'', 1); ?>" />
+<!-- layout css -->
+<link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
+<link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
+</head>
+<body>
+<div id="master-wrap">
+<header id="header-outer">
+<div id="header-img"></div>
+<a href="/"><span id="headerlink"></span></a>
+<h1><a href="/">音時雨 ～Regentropfen～</a></h1>
+<div id="menu-out">
+<ul id="menu">
+<li><a href="/days/">Days</a></li>
+<li><a href="/archiv/">Archiv</a>
+</li>
+<li><a href="/mygirls/">MyGirls</a></li>
+<li><a href="/gradient/" target="_blank">Gradient</a></li>
+<li><a href="/backyard/">Backyard</a>
+
+<!-- FIX LATER
+< ?php if (isset (POCCHONG['STATIC']['set'])) { ?>
+	<ul class="sub-menu">
+< ?php // links here open in new window
+	foreach (POCCHONG['STATIC']['set'] as $ff => $tt) { ?>
+		<li><a href="< ?php echo $ff ?>">< ?php echo $tt ?></a></li>
+< ?php
+	} ?>
+	</ul>
+< ?php } ?>
+-->
+
+</li>
+<li><a href="/about/">About</a></li>
+</ul>
+</div><!-- id="menu-out" -->
+</header>
+<div id="content-wrap">
+<div id="mainlayer">
+<div id="post-list-wrap">
 <!-- ---------------posts x2---------------------------------------- -->
 
 <?php 	$p->html_open(2); ?>
 <div class="datetime"><a href="#">2022-Oct-22 (Sat), 12:00@GMT-7</a></div>
 <h3><a href="#"><?php echo rand_deco_symbol(); ?> Tester entry title</a></h3>
 <article>
+
+
+
+<select id="css-chooser1" onchange="changeCSS()">
+  <option value="" disabled selected>theme</option>
+  <option value="ajisai">ajisai</option>
+  <option value="kirisame">kirisame</option>
+</select>
+
+
+
 <div class="p">random text copied online</div>
 
 <h4>font sizes</h4>
@@ -92,7 +153,7 @@ $p->html_open(1);
 <li><a href="/days/682"><span class="archivdate">Oct-22</span> Autumn coming</a></li>	
 <li><a href="/days/681"><span class="archivdate">Oct-10</span> 怒涛の三連休</a></li>	
 <li><a href="/days/680"><span class="archivdate">Sep-25</span> The worst paid book (so far)</a></li>	
-<li><a href="/days/679"><span class="archivdate">Jul-22</span> Déraciné in a rush</a></li>	
+<li><a href="/days/679"><span class="archivdate">Jul-22</span> Deracine in a rush</a></li>	
 <li><a href="/days/678"><span class="archivdate">Jul-02</span> After a long journey</a></li>	
 <li><a href="/days/677"><span class="archivdate">Mar-05</span> 今度こそ本気(マジ)モード</a></li>	
 </ul>
@@ -113,7 +174,7 @@ $p->html_open(1);
 <div class="gallery">
 <div class="mgarchive-container">
 <a href="/mygirls/149"><img class="mgarchive-image" src="/img/g04/210221_moeb2_full.jpg.webp" alt="img" /></a>
-<div class="mgarchive-overlay">Möbius Mechanismus II<br />2021/02/21</div>
+<div class="mgarchive-overlay">Mobius Mechanismus II<br />2021/02/21</div>
 </div>
 <div class="mgarchive-container">
 <a href="/mygirls/148"><img class="mgarchive-image" src="/img/g04/200814_capriccio_final.jpg.webp" alt="img" /></a>
@@ -221,7 +282,7 @@ $p->html_open(1);
 </div><!-- #content-wrap -->
 </div><!-- #master-wrap -->
 <footer id="footer-global">
-<div class='credit'><a href="/about">2006-2022 kiyo@otoshigure</a> | <a href="https://github.com/kosmoflips/pocchong/" target="_blank ">version: 01010101</a></div>
+<?php include('../../nerv/layout/footer.php')?>
 </footer>
 </body>
 </html>

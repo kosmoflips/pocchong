@@ -459,3 +459,10 @@ ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	text-align: center;
 	padding-bottom: 25px;
 }
+/*--- on-footer theme selector ---*/
+select {
+	opacity: 0.75;
+}
+select:hover {
+	opacity: 1;
+}

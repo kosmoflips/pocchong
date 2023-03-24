@@ -1,4 +1,4 @@
-<?php
+<?php // ----- class for page layout; especially for vars relies on internal process by other included files -----
 class PocPage {
 public $head=array(
 		'css'=>array(), // css path
@@ -74,11 +74,6 @@ public function html_head_stuff () { // custom head stuff, used in layout/meta.p
 	}
 }
 
-// css seletor
-public function show_theme_selector() {
-	echo 123;
-}
-
 // admin navi bar
 public function html_admin_navi () {
 	include (POC_LAYOUT.'/navi.php');
@@ -92,5 +87,37 @@ static function html_admin ($close=0) {
 }
 
 } // class closing bracket
-
+?>
+<?php // ----- css file related -----
+// ----- layout related functions but doesnt require global var
+function show_theme_selector() { // css seletor. use in footer to show a drop down menu of available themes, define in db-ini file
+	$curr_theme=$_COOKIE['theme'] ?? '';
+	echo '<select id="css-chooser" onchange="changeCSS()">', "\n";
+	if (!$curr_theme or $curr_theme == '_default_' or !array_key_exists($curr_theme, POC_DB['THEME'])) { # cookie recorded theme doesn't exist or isn't found in defined css list
+		$curr_theme=POC_DB['THEME']['_default_'];
+	}
+	# loop defined themes and print drop down menu
+	echo '<option value="" disabled>theme</option>',"\n";
+	foreach (POC_DB['THEME'] as $fcss=>$v) {
+		if ($fcss == '_default_') {
+			continue;
+		}
+		printf ('<option value="%s"%s>%s</option>%s',
+			$fcss,
+			$curr_theme == $fcss? ' selected':'',
+			$fcss, "\n" );
+	}
+	// print reset button to use server default theme
+	echo '<option value="_default_">reset</option>',"\n";
+	echo '</select>',"\n";
+}
+function mk_css_file_path ($csstag='', $showdefault=0) {
+	$cssfile='/deco/css/theme_'.$csstag.'.css';
+	$cssfile2=ROOT.'/dendron'.$cssfile; // real path on disk
+	if (file_exists($cssfile2)) {
+		return ($cssfile);
+	} else {
+		return ('/deco/css/theme_'.POC_DB['THEME']['_default_'].'.css');
+	}
+}
 ?>

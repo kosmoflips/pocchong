@@ -1,5 +1,4 @@
 <?php 	// ------------ system config, keep on top----------------
-
 define ('ROOT', $_SERVER['DOCUMENT_ROOT']);
 define ('NERV', ROOT.'/nerv');
 
@@ -17,9 +16,8 @@ if (isset($_SESSION) and isset($_SESSION["time_out"]) and ($_SESSION["time_out"]
 	session_destroy();
 }
 chklogin();
-
 ?>
-<?php // ----- system msg pages -----
+<?php // ----- system stuff -----
 function show_response ($code=200, $stophere=1) { # e.g. 404, 500
 	http_response_code($code);
 	if ($stophere) {
