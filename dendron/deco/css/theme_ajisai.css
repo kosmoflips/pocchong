@@ -6,7 +6,7 @@
 	--title-img: url("../img/header_pink_blue.png");
 	--body-bg: #9ba5ca;
 	--master-wrap-border: #c9d2ff;
-	--master-wrap-bg: rgba(255,255,255,0.6);
+	--master-wrap-bg: rgba(255,255,255,0.65);
 	--body-text-color: #1d1c25;
 	--body-link-color: #ea0689;
 	--post-date-color: #1eab06;
@@ -24,7 +24,7 @@
 	--menu-bg: rgba(255,255,255,0.7);
 	--menu-border: #1149a0;
 	--menu-color: #6a58a0;
-	--menu-hover-bg: #98c0ee;
+	--menu-hover-bg: rgba(95,134,194,0.4);
 	--menu-hover-border: #1168a0;
 	--menu-hover-color: #fff;
 	--gallery-stdalone-border: rgba(255,255,255,0.6);
@@ -33,7 +33,7 @@
 	--gallery-border: #838ca7;
 	--gallery-box-shadow: #acb2c6;
 	--navi-color: #175e1a;
-	--navi-color-current: #175e1a;
+	--navi-color-current: #f0fff0;
 	--navi-color-hover: #fff;
 	--navi-box-border: #1b4c9f;
 	--navi-box-bg: rgba(255,255,255,0.6);

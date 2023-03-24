@@ -24,8 +24,8 @@
 	--menu-bg: rgba(255,255,255,0.7);
 	--menu-border: #109902;
 	--menu-color: #027b00;
-	--menu-hover-bg: #50b175;
-	--menu-hover-border: #b9446d;
+	--menu-hover-bg: rgba(45,155,86,0.7);
+	--menu-hover-border: #45841c;
 	--menu-hover-color: #fff;
 	--gallery-stdalone-border: rgba(255,255,255,0.6);
 	--gallery-grid-overlay-bg: rgba(21,70,0,0.75);

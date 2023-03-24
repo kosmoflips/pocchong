@@ -1,7 +1,7 @@
 /* colour scheme -- iroshizuku: hana-ikada */
 
 :root {
-	--body-img: url("../img/bg_hana_ikada.jpg");
+	--body-img: url("../img/bg_sakura.jpg");
 	--mizuhiki: url("../img/mizuhiki_red_pink.png");
 	--title-img: url("../img/header_light_red.png");
 	--body-bg: #ffe8f4;
@@ -38,5 +38,5 @@
 	--navi-box-border: #c94058;
 	--navi-box-bg: rgba(255,255,255,0.4);
 	--navi-box-bg-current: #e690a0;
-	--credit-color: #a55563;
+	--credit-color: #620817;
 }
