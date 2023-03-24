@@ -15,7 +15,7 @@ function fname2name ($file='') { # split filename by "_" and return name by uc f
 	}
 	return (implode(' ',$fsub) );
 }
-function static_page_open ($title) {
+function static_page_open ($title='No Title') {
 	$symbol=rand_deco_symbol();
 	echo '<h2>', $symbol,' ', $title,' ',$symbol, '</h2>', "\n";
 	echo '<article>', "\n";
