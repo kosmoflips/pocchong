@@ -31,7 +31,7 @@ body, .netabare:hover, .archiv li a, textarea {
 	color: var(--body-text-color);
 }
 .netabare {
-	background: var(--post-block-bg);
+	background: var(--post-blockquote-bg);
 	color:transparent;
 }
 
@@ -41,7 +41,7 @@ ul {
 	padding-left:30px;
 }
 blockquote {
-	background: var(--post-block-bg);
+	background: var(--post-blockquote-bg);
 	border-radius: 2px;
 	box-shadow: 3px 3px 4px var(--post-box-shadow);
 	margin:20px auto;
@@ -57,7 +57,7 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 textarea {
-	background: var(--post-block-bg);
+	background: var(--post-blockquote-bg);
 }
 
 /*-------- header ---------*/
@@ -147,9 +147,9 @@ datetime, .datetime a {
 	padding: 15px 30px 10px;
 }
 .post-inner h2, .post-inner h3 {
-	background: var(--post-h3-bg);
+	background: var(--post-title-bg);
 	box-shadow: 0 5px 6px var(--post-box-shadow);
-	color: var(--post-h3-color);
+	color: var(--post-title-color);
 	border-radius: 3px;
 	font-family: 'Milonga', cursive;
 }
@@ -163,15 +163,15 @@ datetime, .datetime a {
 	padding: 10px 33px;
 }
 .post-inner h3:hover {
-	background: var(--post-h3-bg-hover);
+	background: var(--post-title-bg-hover);
 }
 .post-inner h3 a {
-	color: var(--post-h3-color);
+	color: var(--post-title-color);
 	display: inline-block;
 	width: 100%;
 }
 .post-inner h3 a:hover {
-	color: var(--post-h3-color);
+	color: var(--post-title-color);
 }
 .post-inner h4 {
 	border-left: 11px solid var(--post-h4-border);
@@ -225,13 +225,13 @@ datetime, .datetime a {
 }
 .archiv li {
 	padding-top: 7px;
-	border-bottom: 1px var(--archiv-list-border) dashed;
+	border-bottom: 1px var(--archiv-list-border-bottom) dashed;
 }
 .archiv li a {
 	text-decoration:none;
 }
 .archiv li:hover {
-	background: var(--archiv-list-hover);
+	background: var(--archiv-list-bg-hover);
 }
 .archiv li:hover a:link, .archiv li:hover a:visited {
 	font-weight: bold;
@@ -272,7 +272,7 @@ article img {
 	margin: 20px 0;
 }
 .stdalone img {
-	background: var(--gallery-img-border);
+	background: var(--gallery-stdalone-border);
 	border: 5px double var(--gallery-border) !important;
 	box-shadow: 3px 3px 4px var(--gallery-box-shadow);
 	max-width:80%;
@@ -403,13 +403,13 @@ ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	text-align: center;
 }
 .navi-bar-square {
-	background: var(--navi-square-bg);
+	background: var(--navi-box-bg);
 	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	padding: 2px 8px;
 }
 .navi-bar-square-self {
-	background: var(--navi-square-bg-current);
+	background: var(--navi-box-bg-current);
 	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	font-weight: bold;
@@ -420,7 +420,7 @@ ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	margin-bottom: 15px;
 }
 .navi-prev, .navi-next {
-	background: var(--navi-square-bg);
+	background: var(--navi-box-bg);
 	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	font-size: 92%;
