@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_static.php');
+
 // for listing all static pages, and individual side-projects
 //only use  target="_blank"  when not using the site style
 

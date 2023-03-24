@@ -1,7 +1,5 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_mg.php');
-require_once(NERV.'/lib_navicalc.php');
 // display 1 work only, fetch by id.
 
 $symbol=rand_deco_symbol();

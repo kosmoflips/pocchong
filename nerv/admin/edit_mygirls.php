@@ -1,7 +1,5 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_edit.php');
-require_once(NERV.'/lib_mg.php');
 $DATA_IN=$_POST;
 
 chklogin(1);

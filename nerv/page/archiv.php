@@ -1,6 +1,5 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
-require_once(NERV.'/lib_navicalc.php');
 
 $symbol=rand_deco_symbol();
 $p=new PocPage;

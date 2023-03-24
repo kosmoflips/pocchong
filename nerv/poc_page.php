@@ -13,15 +13,15 @@ public $navi=array(
 public $data=null;
 
 # assign css/js/extra (e.g. style) to $this->head
-public function add_css ($list=array()) {
+public function add_css ($list=array()) { # each item is link to css file
 	$x='css';
 	$this->_head(array($x=>$list));
 }
-public function add_js ($list=array()) {
+public function add_js ($list=array()) { # each item is link to js file
 	$x='js';
 	$this->_head(array($x=>$list));
 }
-public function add_extra ($list=array()) {
+public function add_extra ($list=array()) { # full block of code to place in <head>
 	$x='extra';
 	$this->_head(array($x=>$list));
 }
@@ -74,6 +74,12 @@ public function html_head_stuff () { // custom head stuff, used in layout/meta.p
 	}
 }
 
+// css seletor
+public function show_theme_selector() {
+	echo 123;
+}
+
+// admin navi bar
 public function html_admin_navi () {
 	include (POC_LAYOUT.'/navi.php');
 }
