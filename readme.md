@@ -6,13 +6,14 @@ on github since 2021-08-25
 ## file structure
 
  - [axon] db, image, other binary stuff
-	 - not on github, OneDrive only
+	 - Note things in this folder are mostly binary and are synced to OneDrive only
  - [cgi-bin] not in use but still keep it as a tradition
- - [deco] css/js stuff
  - [dendron]
-	 - [static] individual static pages
+	 - [deco] css/js stuff
+	 - [static] individual static pages (indexed)
+	 - [static2] individual static pages (self-use, not indexed)
 	 - independent sub-sites
- - [nerv] core php file set
+ - [nerv] core php stuff
 
 
 ## notes
@@ -30,3 +31,4 @@ on github since 2021-08-25
 - [20-08-15] ["mare" stable](https://github.com/kosmoflips/pocchong/tree/f779c00f27ec0ee09e34c190efc37e020a94aa2a)
 - [22-03-29] [leave /cgi-bin since php upgrade](https://github.com/kosmoflips/pocchong/tree/f1563a37e3eb09267cde6083e3f665be66f1ece1)
 - [22-10-28] [local image hosting reconstruction](https://github.com/kosmoflips/pocchong/tree/c0f8b8b4cba5388ac7fb691aa9fd2a125aead819)
+- [23-03-24] [css theme selector](https://github.com/kosmoflips/pocchong/tree/63873c09a8d3045e1717eadb9f243d4044719e67)
