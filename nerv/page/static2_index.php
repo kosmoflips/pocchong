@@ -9,7 +9,7 @@ $p->title="non-listed static pages";
 $p->html_open();
 
 // ----- parse static dir -----
-$files=scandir(ROOT.POC_DB['STATIC']['dir2']);
+$files=scandir($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir2']);
 $list=array();
 foreach ($files as $file) {
 	if (preg_match('/^\.+$/', $file)) {

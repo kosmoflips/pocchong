@@ -13,14 +13,14 @@ ul:last-child {
 	margin-bottom: unset;
 }
 </style>';
-$p->title=POC_DB['STATIC']['title'];
+$p->title=POC_DB_STATIC['title'];
 $p->add_extra([$cssex]);
 $p->html_open();
 
 # page.php => description
-$desrc=readini(ROOT.POC_DB['STATIC']['dir'].'/'.POC_DB['STATIC']['info']);
+$desrc=readini($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir'].'/'.POC_DB_STATIC['info']);
 // ----- parse static dir -----
-$files=scandir(ROOT.POC_DB['STATIC']['dir']);
+$files=scandir($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir']);
 $list=array();
 foreach ($files as $file) {
 	if (preg_match('/^_/', $file)) {

@@ -19,7 +19,7 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 		return null;
 	}
 	$k=new PocDB();
-	$TITLE=POC_DB['ARCHIV']['title'];
+	$TITLE=POC_DB_ARCHIV['title'];
 
 	$year_last=$k->yearlast(1);
 
@@ -27,7 +27,7 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 	$yearmode=0;
 	if ($year) {
 		$yearmode=1;
-		if ($year<POC_DB['year-start']) {
+		if ($year<POC_YEAR_START) {
 			$yearmode=0;
 		} else {
 			if ($year>$year_last) {
@@ -38,24 +38,24 @@ function process_data_archiv ($pobj=null, $year=0, $page=0) {
 
 	$cpage=$page??1; #current offset for page, non-year only
 	$listall=array();
-	$base_stat='SELECT id,title,epoch,gmt FROM '.POC_DB['ARCHIV']['table'];
+	$base_stat='SELECT id,title,epoch,gmt FROM '.POC_DB_ARCHIV['table'];
 	if ($yearmode) {
 		$cpage=$year; // no need to verify year anymore
 		$list1=$k->getAll($base_stat.' WHERE year=? ORDER by epoch', array($_GET['year']-2000)); # year mode, order asc
 		$listall[$year]=$list1;
-		$TITLE.=POC_DB['separator'].$year;
-		$navibar=mk_navi_bar(POC_DB['year-start'], $year_last,1,$cpage,POC_DB['navi_step'],POC_DB['ARCHIV']['url'].'?year=');
+		$TITLE.='::'.$year;
+		$navibar=mk_navi_bar(POC_YEAR_START, $year_last,1,$cpage,POC_NAVI_STEP,POC_DB_ARCHIV['url'].'?year=');
 	}
 	else { #non year mode, go by page (one page has fixed number of items)
-		$totalrows=$k->countRows(POC_DB['ARCHIV']['table']);
-		$totalpgs=calc_total_page($totalrows,POC_DB['ARCHIV']['max']);
-		$offset=calc_page_offset($cpage,POC_DB['ARCHIV']['max']);
-		$list=$k->getAll($base_stat.' ORDER BY epoch DESC LIMIT ?,?', array($offset,POC_DB['ARCHIV']['max']));
+		$totalrows=$k->countRows(POC_DB_ARCHIV['table']);
+		$totalpgs=calc_total_page($totalrows,POC_DB_ARCHIV['max']);
+		$offset=calc_page_offset($cpage,POC_DB_ARCHIV['max']);
+		$list=$k->getAll($base_stat.' ORDER BY epoch DESC LIMIT ?,?', array($offset,POC_DB_ARCHIV['max']));
 		foreach ($list as $entry) {
 			$thisyear=clock27($entry['epoch'],2,$entry['gmt']);
 			$listall[$thisyear][]=$entry;
 		}
-		$navibar=mk_navi_bar(1,$totalpgs,POC_DB['ARCHIV']['max'],$cpage,POC_DB['navi_step'],POC_DB['ARCHIV']['url'].'?page=');
+		$navibar=mk_navi_bar(1,$totalpgs,POC_DB_ARCHIV['max'],$cpage,POC_NAVI_STEP,POC_DB_ARCHIV['url'].'?page=');
 	}
 	$pobj->title=$TITLE;
 	$pobj->navi['bar']=$navibar;
@@ -71,7 +71,7 @@ function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
 <?php
 	if (!$yearmode) {
 	?>
-<div class="archiv-year"><a href="<?php echo POC_DB['ARCHIV']['url'],'?year=',$loopyear ?>"><?php echo $loopyear?></a></div>
+<div class="archiv-year"><a href="<?php echo POC_DB_ARCHIV['url'],'?year=',$loopyear ?>"><?php echo $loopyear?></a></div>
 <?php
 	}
 	?>
@@ -88,7 +88,7 @@ function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
 
 function print_archiv_list_item ($entry=null) {
 	?>
-<li><a href="<?php echo POC_DB['POST']['url'],'?id=',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
+<li><a href="<?php echo POC_DB_POST['url'],'?id=',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
 <?php
 }
 

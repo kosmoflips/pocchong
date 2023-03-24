@@ -3,9 +3,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $p=new PocPage;
 if (array_key_exists('private', $_GET)) {
-	$fdir=ROOT.POC_DB['STATIC']['dir2'];
+	$fdir=$_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir2'];
 } else {
-	$fdir=ROOT.POC_DB['STATIC']['dir'];
+	$fdir=$_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir'];
 }
 $file=$fdir.'/'.$_GET['file'];
 if (file_exists($file)) {

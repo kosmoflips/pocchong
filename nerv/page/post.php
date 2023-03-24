@@ -25,13 +25,13 @@ function process_data_post ($pobj=null,$id=0,$page=0) {
 	if (!$pobj) {
 		show_response(500);
 	}
-	$pack=POC_DB['POST'];
+	// $pack=POC_DB_POST;
 	$k=new PocDB();
-	$step=POC_DB['navi_step'];
+	$step=POC_NAVI_STEP;
 	$curr=$page??1; #current page index
 	$posts=array();
 	if ($id) {
-		$entry1=$k->getRow('SELECT * FROM '.$pack['table'].' WHERE id=?',array($id));
+		$entry1=$k->getRow('SELECT * FROM '.POC_DB_POST['table'].' WHERE id=?',array($id));
 		if ($entry1) { #id exists
 			$canread=check_post_access($entry1['hide']);
 			if (!$canread) { # no access, return 403
@@ -40,38 +40,38 @@ function process_data_post ($pobj=null,$id=0,$page=0) {
 			$posts[]=$entry1;
 			$page_title=$entry1['title'];
 			#prev/next info when showing only 1 id
-			$navipair=mk_navi_pair($k,$pack['table'],$id, $pack['url']);
+			$navipair=mk_navi_pair($k,POC_DB_POST['table'],$id, POC_DB_POST['url']);
 		} else {
 			show_response(404);
 		}
 	}
 	else { # id isn't given, go to page mode
-		$totalrows=$k->countRows($pack['table']);
-		$totalpgs=calc_total_page($totalrows,$pack['max']);
+		$totalrows=$k->countRows(POC_DB_POST['table']);
+		$totalpgs=calc_total_page($totalrows,POC_DB_POST['max']);
 		if ($totalpgs<$curr) { # currently selected page > total pages
 			show_response(404);
 		}
-		$offset=calc_page_offset($curr,$pack['max']);
-		$stat1='SELECT id,title,epoch,gmt,content FROM '.$pack['table'];
+		$offset=calc_page_offset($curr,POC_DB_POST['max']);
+		$stat1='SELECT id,title,epoch,gmt,content FROM '.POC_DB_POST['table'];
 		if (!chklogin()) { # not logged in, no access to hidden posts
 			$stat1.=' WHERE hide is null '; # only select non-hidden entries
 		}
 		$stat1.=' ORDER BY epoch DESC LIMIT ?,?';
-		$posts=$k->getAll($stat1, array($offset,$pack['max']));
+		$posts=$k->getAll($stat1, array($offset,POC_DB_POST['max']));
 		if (!empty($posts)) { # can get at least one post (doesnt count hidden post when there's no admin access)
-			$baseurl_p=$pack['url'].'?page=';
-			$navibar=mk_navi_bar(1,$totalpgs,$pack['max'],$curr,$step,$baseurl_p);
+			$baseurl_p=POC_DB_POST['url'].'?page=';
+			$navibar=mk_navi_bar(1,$totalpgs,POC_DB_POST['max'],$curr,$step,$baseurl_p);
 		} else {
 			show_response(403);
 		}
 	}
-	$pobj->title=$page_title??$pack['title'];
+	$pobj->title=$page_title??POC_DB_POST['title'];
 	$pobj->navi['pair']=$navipair??null;
 	$pobj->navi['bar']=$navibar??null;
 	$pobj->data=$posts; // is array()
 }
 function print_post_single($p,$entry) {
-	$posturl=POC_DB['POST']['url'].'?id='.$entry['id'];
+	$posturl=POC_DB_POST['url'].'?id='.$entry['id'];
 	$p->html_open(2);
 	?>
 <div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],4,$entry['gmt']) ?></a></div>
@@ -81,7 +81,7 @@ function print_post_single($p,$entry) {
 # convert for lightbox. need custom flag if not want to use it?
 $entry2=add_lightbox_tag($entry['content'], $entry['id']);
 echo $entry2,"\n";
-print_edit_button(POC_DB['POST']['edit'].'?id='.$entry['id']);
+print_edit_button(POC_DB_POST['edit'].'?id='.$entry['id']);
 ?>
 </article>
 <?php

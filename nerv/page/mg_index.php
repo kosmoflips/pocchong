@@ -31,7 +31,7 @@ function process_data_mg_index ($pobj=null,$page=0) {
 	}
 	$k=new PocDB();
 
-	$dbinfo=POC_DB['MYGIRLS'];
+	$dbinfo=POC_DB_MG;
 
 	$totalrows=$k->countRows($dbinfo['table']);
 	$totalpg=calc_total_page($totalrows,$dbinfo['max_gallery']);
@@ -44,7 +44,7 @@ function process_data_mg_index ($pobj=null,$page=0) {
 	$list=$k->getAll($stat, array($offset,$dbinfo['max_gallery']));
 	$page_title=sprintf ('%s::%d::',$dbinfo['title2'],$curr);
 	$baseurl=$dbinfo['url'].'?page=';
-	$navibar=mk_navi_bar(1,$totalpg,$dbinfo['max_gallery'],$curr,POC_DB['navi_step'],$baseurl);
+	$navibar=mk_navi_bar(1,$totalpg,$dbinfo['max_gallery'],$curr,POC_NAVI_STEP,$baseurl);
 
 	$pobj->title=$page_title;
 	$pobj->navi['bar']=$navibar??null;
@@ -58,14 +58,14 @@ function print_page_mg_index_item ($entry=null) {
 	$furl=mk_mg_img_url($entry['img_url']);
 ?>
 <div class="mgarchive-container">
-<a href="<?php echo POC_DB['MYGIRLS']['url'].'?id='.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
+<a href="<?php echo POC_DB_MG['url'].'?id='.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
 <div class="mgarchive-overlay"><?php echo $entry['title'] ?><br /><?php echo clock27($entry['epoch'],5) ?></div>
 </div>
 <?php
 }
 
 function get_random_img($k,$id=0) {
-	$urls=$k->getAll('select img_url from '.POC_DB['MYGIRLS']['table_pcs'].' where title_id=?', array($id));
+	$urls=$k->getAll('select img_url from '.POC_DB_MG['table_pcs'].' where title_id=?', array($id));
 	if (empty($urls)) {
 		return '';
 	} else {

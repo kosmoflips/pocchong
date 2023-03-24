@@ -13,7 +13,7 @@ $p->html_open();
 print_mg_blockinfo($p->data['main'], $p->data['main']['epoch']);
 print_mg_stdalone($p->data['stds'], $p->data['main']['epoch']);
 print_mg_pcs($p->data['pcs']);
-print_edit_button(sprintf ("%s?id=%s", POC_DB['MYGIRLS']['edit'], $p->data['main']['id']));
+print_edit_button(sprintf ("%s?id=%s", POC_DB_MG['edit'], $p->data['main']['id']));
 ?>
 </div><!-- closing artwork block -->
 <?php
@@ -30,7 +30,7 @@ function print_mg_blockinfo ($main=null) {
 <?php
 	if ($main['post_id'] and $main['rep_title']) {
 	?>
-<li>Liner notes: <a href="<?php echo POC_DB['POST']['url'],'?id=',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
+<li>Liner notes: <a href="<?php echo POC_DB_POST['url'],'?id=',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
 <?php
 	}
 	if ($main['notes']) {
@@ -40,12 +40,12 @@ function print_mg_blockinfo ($main=null) {
 	}
 	if ($main['remake'] and $main['remake_title']) {
 	?>
-<li>New Remake: <a href="<?php echo POC_DB['MYGIRLS']['url'], '?id=', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
+<li>New Remake: <a href="<?php echo POC_DB_MG['url'], '?id=', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
 <?php
 	}
 	if ($main['remade_from'] and $main['remade_from_title']) {
 	?>
-<li>Remake of: <a href="<?php echo POC_DB['MYGIRLS']['url'], '?id=', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
+<li>Remake of: <a href="<?php echo POC_DB_MG['url'], '?id=', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
 <?php
 	}
 	?>
@@ -95,43 +95,43 @@ function process_data_mg_single($pobj,$id=0) {
 		show_response(500);
 	}
 
-	$page_title=POC_DB['MYGIRLS']['title2'];
+	$page_title=POC_DB_MG['title2'];
 
 	$k=new PocDB();
 
 	if ($id) {
-		$entry=$k->getRow('SELECT * FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?',array($id));
+		$entry=$k->getRow('SELECT * FROM '.POC_DB_MG['table'].' WHERE id=?',array($id));
 		if (!empty($entry)) {
 			$page_title=$entry['title'];
-			$navi1=mk_navi_pair($k, POC_DB['MYGIRLS']['table'], $id,POC_DB['MYGIRLS']['url']);
+			$navi1=mk_navi_pair($k, POC_DB_MG['table'], $id,POC_DB_MG['url']);
 		} else {
 			show_response(404);
 		}
 	}
 
 	if ($entry['post_id']) {
-		$rep_title=$k->getOne('SELECT title FROM '.POC_DB['POST']['table'].' WHERE id=?', array($entry['post_id']));
+		$rep_title=$k->getOne('SELECT title FROM '.POC_DB_POST['table'].' WHERE id=?', array($entry['post_id']));
 		if ($rep_title) {
 			$entry['rep_title']=$rep_title;
 		}
 	}
 
 	if ($entry['remake']) {
-		$remake=$k->getOne('SELECT title FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?', array($entry['remake']));
+		$remake=$k->getOne('SELECT title FROM '.POC_DB_MG['table'].' WHERE id=?', array($entry['remake']));
 		if ($remake) {
 			$entry['remake_title']=$remake;
 		}
 	}
 
 	if ($entry['remade_from']) {
-		$remade=$k->getOne('SELECT title FROM '.POC_DB['MYGIRLS']['table'].' WHERE id=?', array($entry['remade_from']));
+		$remade=$k->getOne('SELECT title FROM '.POC_DB_MG['table'].' WHERE id=?', array($entry['remade_from']));
 		if ($remade) {
 			$entry['remade_from_title']=$remade;
 		}
 	}
 
 	// get all pcs from associated main title id
-	$pcs0=$k->getAll('SELECT * FROM '.POC_DB['MYGIRLS']['table_pcs'].' WHERE title_id=?', array($id));
+	$pcs0=$k->getAll('SELECT * FROM '.POC_DB_MG['table_pcs'].' WHERE title_id=?', array($id));
 	$stds=array();
 	$pcs=array();
 	foreach ($pcs0 as $row) {
