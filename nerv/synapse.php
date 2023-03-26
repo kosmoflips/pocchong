@@ -193,8 +193,7 @@ function mk_url_google_img ($url='',$size='') { // input  has no https://
 function mk_url_da($url='', $epoch=0) { #feed in string after ../art/. uses my dA account
 	if ($url) {
 		// return "http://kosmoflips.deviantart.com/art/".$url; // old url format
-		$daid= $epoch<1613950800 ? 'kosmoflips':'sinfinmelodia'; # given epoch is right after "marebito"
-		return "https://www.deviantart.com/".$daid."/art/".$url;
+		return "https://www.deviantart.com/kosmoflips/art/".$url;
 	} else {
 		return '';
 	}

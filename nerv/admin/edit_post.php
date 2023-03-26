@@ -100,7 +100,7 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 		$pile[]=$DATA_IN['year']; // year only need for INSERT
 		$k->dosql($stat, $pile);
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',POC_DB_POST['edit'],$id);
+	$rurl=sprintf ('%s?id=%s&dst=1',POC_DB_POST['edit'],$id);
 	jump($rurl);
 }
 jump($redirectlist);

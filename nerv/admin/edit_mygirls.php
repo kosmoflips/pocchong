@@ -255,7 +255,7 @@ if ($usrsubmit) { // edit/update from $DATA_IN
 	if ( $newrep != $crep ) { // -- update rep_id ---
 		$k->dosql('UPDATE '.POC_DB_MG['table'].' SET rep_id=? where id=?', array($newrep,$main['id']));
 	}
-	$rurl=sprintf ('%s/?id=%s&dst=1',POC_DB_MG['edit'],$main['id'] );
+	$rurl=sprintf ('%s?id=%s&dst=1',POC_DB_MG['edit'],$main['id'] );
 	jump($rurl);
 }
 
