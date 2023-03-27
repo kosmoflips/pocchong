@@ -26,26 +26,26 @@ function print_mg_blockinfo ($main=null) {
 	?>
 <blockquote>
 <ul>
-<li><?php echo clock27($main['epoch'],0,$main['gmt']); ?></li>
+<li><b>Finalised on:</b> <?php echo clock27($main['epoch'],5,$main['gmt']); ?></li>
 <?php
 	if ($main['post_id'] and $main['rep_title']) {
 	?>
-<li>Liner notes: <a href="<?php echo POC_DB_POST['url'],'?id=',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
+<li><b>Liner notes:</b> <a href="<?php echo POC_DB_POST['url'],'?id=',$main['post_id']; ?>"><?php echo $main['rep_title'] ?></a></li>
 <?php
 	}
 	if ($main['notes']) {
 	?>
-<li>Inspiration: <?php echo $main['notes']; ?></li>
+<li><b>Inspiration:</b> <?php echo $main['notes']; ?></li>
 <?php
 	}
 	if ($main['remake'] and $main['remake_title']) {
 	?>
-<li>New Remake: <a href="<?php echo POC_DB_MG['url'], '?id=', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
+<li><b>New Remake:</b> <a href="<?php echo POC_DB_MG['url'], '?id=', $main['remake']; ?>"><?php echo $main['remake_title']; ?></a></li>
 <?php
 	}
 	if ($main['remade_from'] and $main['remade_from_title']) {
 	?>
-<li>Remake of: <a href="<?php echo POC_DB_MG['url'], '?id=', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
+<li><b>Remake of:</b> <a href="<?php echo POC_DB_MG['url'], '?id=', $main['remade_from']; ?>"><?php echo $main['remade_from_title']; ?></a></li>
 <?php
 	}
 	?>
