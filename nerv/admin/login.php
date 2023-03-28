@@ -20,7 +20,7 @@ elseif (isset($_POST['login'])) {
 }
 
 if ($loginflag) {
-	jump ('/a/superzone.php');
+	include ('superzone.php');
 } else { # show log in screen
 	PocPage::html_admin();
 	if (!$loginflag) { // login failed. show login form ?>
