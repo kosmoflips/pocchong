@@ -4,7 +4,7 @@ const POC_DB_POST = array(
 	'table' => 'post',
 	'url' => '/days/',
 	'max' => 7, # show N posts per page
-	'edit' => '/a/edit_post.php'
+	'edit' => '/a/edit_post/'
 );
 
 const POC_DB_MG = array(
@@ -14,7 +14,7 @@ const POC_DB_MG = array(
 	'table_link' => 'mygirls_link',
 	'table_pcs' => 'mygirls_pcs',
 	'url' => '/mygirls/',
-	'edit' => '/a/edit_mygirls.php',
+	'edit' => '/a/edit_mygirls/',
 	'max_gallery' => 12
 );
 
