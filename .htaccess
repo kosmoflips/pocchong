@@ -49,9 +49,9 @@ RewriteRule ^days/ /nerv/page/post.php [L,NC]
 # general redirects
 # RewriteRule ^a/list_table/(\w+)/page/(\d+)/?$ /nerv/admin/list_table.php?sel=$1&page=$2 [L,NC]
 # RewriteRule ^a/list_page/(\d+)/?$ /nerv/admin/list_page.php?page=$1 [L,NC]
-RewriteRule ^a/(edit_[^/]+)/ /nerv/admin/$1.php [L,NC]
-RewriteRule ^a/([^/]+)/? /nerv/admin/$1.php [L,NC]
+# RewriteRule ^a/(edit_[^/]+)/ /nerv/admin/$1.php [L,NC]
 RewriteRule ^a/$ /nerv/admin/login.php [L,NC]
+RewriteRule ^a/(.+) /nerv/admin/$1 [L,NC]
 
 
 # ####### no more change, archive pages #######

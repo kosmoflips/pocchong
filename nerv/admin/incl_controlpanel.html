@@ -1,8 +1,17 @@
+<h4>Pages</h4>
 <ul>
-<li><a href="/a/edit_post/?new=1">new post</a> | <a href="/a/list_table?sel=post">list posts</a></li>
-<li><a href="/a/edit_mygirls/?new=1">new art</a> | <a href="/a/list_table?sel=mygirls">list artworks</a></li>
-<li>for static pages, go to /static and edit manually</a></li>
+<li><a href="/a/edit_post.php?new=1">new post</a> | <a href="/a/list_table.php?sel=post">list posts</a></li>
+<li><a href="/a/edit_mygirls.php?new=1">new art</a> | <a href="/a/list_table.php?sel=mygirls">list artworks</a></li>
+<li>for static pages, go to /static or /static2 and edit manually</a></li>
 </ul>
+
+<hr />
+
+<h4>Update</h4>
+<ul>
+<li><a href="/a/pull_from_github.php">pull from github origin</a></li>
+</ul>
+
 
 <hr />
 
@@ -10,9 +19,8 @@
 <form action="/a/dosql/" method="post" target="">
 <h4>do SQL</h4>
 <ul>
-	<li>split each SQL statement with semicolon ";",</li>
-	<li><b>if semicolon is required in statement, will cause problem!</b></li>
-	<li>in that case just use DB browser and do edits there.</li>
+	<li>split each SQL statement with semicolon ";" -- the statement doesn't deal with escaping ";"</li>
+	<li><b>complicated statements should be directly done using DB-browser, etc.</b></li>
 	<li>use leading "#" for comment</li>
 </ul>
 <textarea class="lined" rows="15" cols="70" name="sql">
