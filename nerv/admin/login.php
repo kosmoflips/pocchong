@@ -22,7 +22,17 @@ elseif (isset($_POST['login'])) {
 if ($loginflag) {
 	jump ('/a/superzone.php');
 } else { # show log in screen
-	include('incl_login_screen.php');
+	PocPage::html_admin();
+	if (!$loginflag) { // login failed. show login form ?>
+	<div style="text-align: center;">
+	<?php
+		print_errors($error);
+		include (NERV.'/admin/incl_loginform.html');
+	?>
+	</div>
+	<?php
+	}
+	PocPage::html_admin(1);
 }
 
 ?>
