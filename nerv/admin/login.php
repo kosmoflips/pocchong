@@ -1,5 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/admin/adminfunc.php');
 
 $error=array();
 $loginflag=0;
@@ -18,57 +19,10 @@ elseif (isset($_POST['login'])) {
 	$loginflag=chklogin();
 }
 
+if ($loginflag) {
+	jump ('/a/superzone.php');
+} else { # show log in screen
+	include('incl_login_screen.php');
+}
 
-// --------- write html ------------
-PocPage::html_admin();
-if (!$loginflag) { // login failed. show login form ?>
-<div style="text-align: center;">
-<?php
-	print_errors($error);
-	include (NERV.'/admin/incl_loginform.html');
-?>
-</div>
-<?php
-} else { // login okay. set up session values
-?>
-logged in as: <?php echo $_SESSION['username'] ?><br />
-session timeout: <?php echo clock27($_SESSION["time_out"],0,-7,1) ?><br />
-<hr />
-<?php
-include(NERV.'/admin/incl_controlpanel.html');
-}
-PocPage::html_admin(1);
-
-
-// --------------- sub -------------------
-function print_errors($error=null) {
-	if (isset($error)) {
-		echo "<div>\n";
-		foreach ($error as $line) {
-			echo $line, "<br />\n";
-		}
-		echo "</div>\n";
-	}
-}
-function login($usr='', $pw='') {
-	if ($usr and $pw) {
-		define('TMP_ADMIN_USER_DATA','/axon/userdata.ini');
-		$usr=strtolower($usr);
-		$admin_info=readini($_SERVER['DOCUMENT_ROOT'].TMP_ADMIN_USER_DATA);
-		if (isset($admin_info[$usr])) {
-			if (password_verify ( ($usr.$pw), $admin_info[$usr]) ) {
-				# generate pass by running password_hash( (lowercase_user+pass ), PASSWORD_BCRYPT )
-				$_SESSION["POCCHONG_LOGIN_TOKEN"] = true;
-				$_SESSION["username"] = $usr;
-				$_SESSION["time_out"] = time() + 3600 * 2.5;
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
-function logout() {
-	session_destroy();
-	header("Location: /a/");
-}
 ?>
