@@ -1,5 +1,8 @@
 <?php # get git version
-$gvfile=$_SERVER['DOCUMENT_ROOT'].'/.git/refs/heads/master'; # master only, doesn't consider if on a branch
+$headfile=$_SERVER['DOCUMENT_ROOT'].'/.git/HEAD';
+$headref=file_get_contents($headfile);
+preg_match('/ref:\s*(.+?)$/', $headref,$loc1);
+$gvfile=$_SERVER['DOCUMENT_ROOT'].'/.git/'.($loc1[1]??'refs/heads/master'); # current head hash or master (default)
 if (file_exists($gvfile)) {
 	$gver=file_get_contents($gvfile);
 	$gver1=substr($gver,0,7);
