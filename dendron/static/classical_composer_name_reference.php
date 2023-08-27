@@ -11,7 +11,7 @@ Quick reference for tagging cue files.<br />
 <br />
 <b>[A]</b><br />
 <ul>
-<li>Isaac Albeniz</li>
+<li>Isaac Albéniz</li>
 <li>Tomaso Giovanni Albinoni</li>
 <li>Anton Stepanovich Arensky</li>
 </ul>
@@ -21,6 +21,7 @@ Quick reference for tagging cue files.<br />
 <li>Ludwig van Beethoven</li>
 <li>Hector Berlioz</li>
 <li>Georges Bizet</li>
+<li>François-Adrien Boieldieu</li>
 <li>Alexander Borodin</li>
 <li>Johannes Brahms</li>
 <li>Benjamin Britten</li>
@@ -29,13 +30,14 @@ Quick reference for tagging cue files.<br />
 <b>[C]</b><br />
 <ul>
 <li>Emmanuel Chabrier</li>
-<li>Frederic Chopin</li>
+<li>Frédéric Chopin</li>
 </ul>
 <b>[D]</b><br />
 <ul>
 <li>Louis-Claude Daquin</li>
 <li>Claude Debussy</li>
-<li>Antonin Dvo?ak</li>
+<li>Carl Ditters Von Dittersdorf</li>
+<li>Antonín Dvořák</li>
 </ul>
 <b>[F]</b><br />
 <ul>
@@ -44,6 +46,7 @@ Quick reference for tagging cue files.<br />
 </ul>
 <b>[G]</b><br />
 <ul>
+<li>Reinhold Glière</li>
 <li>Christoph Willibald Gluck</li>
 <li>Louis Moreau Gottschalk</li>
 <li>Percy Grainger</li>
@@ -52,7 +55,7 @@ Quick reference for tagging cue files.<br />
 </ul>
 <b>[H]</b><br />
 <ul>
-<li>Georg Friedrich Handel</li>
+<li>Georg Friedrich Händel</li>
 <li>Joseph Haydn</li>
 <li>Gustav Holst</li>
 </ul>
@@ -85,6 +88,7 @@ Quick reference for tagging cue files.<br />
 <ul>
 <li>Sergei Rachmaninoff</li>
 <li>Jean-Philippe Rameau</li>
+<li>Joaquín Rodrigo</li>
 <li>Nikolai Rimsky-Korsakov</li>
 </ul>
 <b>[S]</b><br />
@@ -95,7 +99,7 @@ Quick reference for tagging cue files.<br />
 <li>Robert Schumann</li>
 <li>Dmitri Shostakovich</li>
 <li>Jean Sibelius</li>
-<li>Bed?ich Smetana</li>
+<li>Bedřich Smetana</li>
 <li>Eduard Strauss</li>
 <li>Johann Strauss I</li>
 <li>Johann Strauss II</li>
