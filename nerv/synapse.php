@@ -1,4 +1,8 @@
 <?php 	// ------------ system config, keep on top----------------
+
+# SUPER IMPORTANT INFO:
+# TO MAKE SURE JUMP WORKS PROPERLY, THERE SHOULD NOT BE ANY EXTRA WHITE SPACE OUTSIDE OF ANY <php> TAGS!
+
 define ('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
 
 // ----- load db and layout libs -----
@@ -146,12 +150,13 @@ function jump($url='/') { // redirect. saves some writing
 	header("Location: ".$url);
 	exit;
 }
-function chklogin($retreat=0) {
+function chklogin($redirect_to_login_page=0) {
 	if (isset($_SESSION['POCCHONG_LOGIN_TOKEN'])) {
 		return 1;
 	} else {
-		if ($retreat) { // if given, redirect to login page when login fails
-			header("Location: /a/");
+		if ($redirect_to_login_page) { // if given, redirect to login page when login fails
+			jump('/a/');
+			die ('log in is required, click <a href="/a/">here</a> to log in.'); # put a die here just in case so following contents won't be shown
 		}
 		return 0;
 	}
@@ -238,4 +243,3 @@ function print_system_msg ($msg='') { // admin submit-page edit only
 }
 
 ?>
-
