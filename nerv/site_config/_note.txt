@@ -1,0 +1,7 @@
+at least on windows, must be hard link or git won't pick up content changes
+
+>mklink /h nerv\site_config\httpd_config.txt D:\local\Apache24\conf\httpd.conf
+
+>mklink /h nerv\site_config\php_ini.txt D:\local\php\php.ini
+
+>mklink /h nerv\site_config\httpd_vhosts.txt D:\local\Apache24\conf\extra\httpd-vhosts.conf
