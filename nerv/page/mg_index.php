@@ -42,7 +42,7 @@ function process_data_mg_index ($pobj=null,$page=0) {
 	$offset=calc_page_offset($curr, $dbinfo['max_gallery']);
 	$stat=sprintf ('SELECT %s.id "id",title,epoch,img_url FROM %s join %s on %s.rep_id = %s.id ORDER BY epoch DESC LIMIT ?,?', $dbinfo['table'], $dbinfo['table'], $dbinfo['table_pcs'], $dbinfo['table'], $dbinfo['table_pcs']);
 	$list=$k->getAll($stat, array($offset,$dbinfo['max_gallery']));
-	$page_title=sprintf ('%s::%d::',$dbinfo['title2'],$curr);
+	$page_title=sprintf ('%s -%s-',$dbinfo['title2'],number2roman($curr));
 	$baseurl=$dbinfo['url'].'?page=';
 	$navibar=mk_navi_bar(1,$totalpg,$dbinfo['max_gallery'],$curr,POC_NAVI_STEP,$baseurl);
 
