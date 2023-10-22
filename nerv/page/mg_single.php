@@ -26,7 +26,7 @@ function print_mg_blockinfo ($main=null) {
 	?>
 <blockquote>
 <ul>
-<li><b>Finalised on:</b> <?php echo clock27($main['epoch'],5,$main['gmt']); ?></li>
+<li><b>Finalised on:</b> <?php echo clock27($main['epoch'],3,$main['gmt']); ?></li>
 <?php
 	if ($main['post_id'] and $main['rep_title']) {
 	?>

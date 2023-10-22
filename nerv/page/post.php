@@ -113,7 +113,7 @@ function print_post_single($p,$entry) {
 	$entry2=add_lightbox_tag($entry['content'], $entry['id']); # add lightbox for <img> if alt="!lightbox" isn't present
 	$p->html_open(2);
 	?>
-<div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],4,$entry['gmt']) ?></a></div>
+<div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],0,$entry['gmt']) ?></a></div>
 <h3><a href="<?php echo $posturl ?>"><?php echo rand_deco_symbol(), ' ',$entry['title']; ?></a></h3>
 <article>
 <?php

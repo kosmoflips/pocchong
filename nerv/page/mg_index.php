@@ -59,7 +59,7 @@ function print_page_mg_index_item ($entry=null) {
 ?>
 <div class="mgarchive-container">
 <a href="<?php echo POC_DB_MG['url'].'?id='.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
-<div class="mgarchive-overlay"><?php echo $entry['title'] ?><br /><?php echo clock27($entry['epoch'],5) ?></div>
+<div class="mgarchive-overlay"><?php echo $entry['title'] ?><br /><?php echo clock27($entry['epoch'],3) ?></div>
 </div>
 <?php
 }

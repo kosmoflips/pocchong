@@ -43,7 +43,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 		write_preview_sash();
 		echo '<article>',"\n";
 		// timestamp line
-		printf ('<div class="datetime">%s</div>%s', clock27( time(),4,-7,0), "\n");
+		printf ('<div class="datetime">%s</div>%s', clock27( time(),0,POC_META['default_gmt'],0), "\n");
 		// title as <h3>
 		printf ('<h3>* %s *</h3>%s', (isset($DATA_IN['title'])? $DATA_IN['title'] : 'No Title'), "\n");
 		echo (isset($DATA_IN['content'])?$DATA_IN['content']:''),"\n";
@@ -72,7 +72,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 	}
 	else { // new content
 		$edit['content']='';
-		$edit['gmt']=-7; #default TZ
+		$edit['gmt']=POC_META['default_gmt'];
 		$edit['epoch']=time();
 		$edit['insert']=1;
 		$edit['id']='';

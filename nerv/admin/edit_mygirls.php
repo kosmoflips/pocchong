@@ -101,7 +101,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 		$info['title']='';
 		$info['year']=date('Y')-2000;
 		$info['epoch']=time();
-		$info['gmt']=-7;
+		$info['gmt']=POC_META['default_gmt'];
 		$info['post_id']='';
 		$info['rep_id']='';
 		$info['notes']='';

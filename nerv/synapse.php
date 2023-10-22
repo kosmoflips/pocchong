@@ -114,7 +114,7 @@ function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &ti
 		}
 	}
 	$epoch=isset($epoch)?$epoch:time();
-	$gmt=isset($gmt)? $gmt : -7;
+	$gmt=isset($gmt)? $gmt : POC_META['default_gmt'];
 
 // -------------- process time hash ----------------
 	$h_offset=date('O'); #server hour offset
@@ -134,25 +134,17 @@ function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &ti
 // test $epoch = 1483607582; actual time = Thu, 05 Jan 2017 02:13:02 -0700 (24H)
 	if ($format==1) { return date('M-d', $epoch); } // Jan-04
 	elseif ($format==2) { return date('Y',$epoch); } // 2017
-	elseif ($format==3) { return date('ymd',$epoch); } // 170104
-	elseif ($format==4) { // post format : 2018-Nov-13 (Tue), 26:51@GMT-7
+	elseif ($format==3) { return date('Y/m/d',$epoch); } // 2017/01/04
+	// elseif ($format==6) { return $epoch; } // epoch
+	// elseif ($format==7) { // Jan 1, 2020, 25:21
+		// return (date('M d, Y', $epoch)).sprintf(", %s:%s", (date('H', $epoch) + $shiftday), (date("i", $epoch)));
+	// }
+	else { // default post format : 2018-Nov-13 (Tue), 26:51@GMT-7
 		return sprintf ( "%s, %s:%s@GMT%+02d",
 			date("Y-M-d (D)",$epoch),
 			(date('H', $epoch) + $shiftday),
 			date("i",$epoch),
 			$gmt
-		);
-	}
-	elseif ($format==5) { return date('Y/m/d',$epoch); } // YYYY/MM/dd
-	elseif ($format==6) { return $epoch; } // epoch
-	elseif ($format==7) { // Jan 1, 2020, 25:21
-		return (date('M d, Y', $epoch)).sprintf(", %s:%s", (date('H', $epoch) + $shiftday), (date("i", $epoch)));
-	}
-	else { // default format. January 4, 2017, 26:13 (27H)
-		return sprintf ( "%s, %s:%s",
-			date('F j, Y', $epoch),
-			(date('H', $epoch) + $shiftday),
-			date('i', $epoch)
 		);
 	}
 }
