@@ -37,11 +37,10 @@ if (isset($_GET['dst']) and $_GET['dst']==3) {
 	print_system_msg('selected entry(s) deleted.');
 }
 ?>
-<div><a href="<?php echo $editbase ?>/?new=1">Create New</a>
+<div><a href="<?php echo $editbase ?>/?new=1">Create New</a></div>
 <?php
 $PAGE->html_admin_navi();
 ?>
-</div>
 <form action="<?php echo $actionurl ?>" method="post" accept-charset="utf-8" >
 <input type="hidden" name="list_view_chk" value="1" />
 <table>
