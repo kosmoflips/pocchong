@@ -6,10 +6,10 @@ exit();
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $p=new PocPage;
-$p->add_css(['/deco/css/index.css']);
-$p->add_css(['/deco/css/index_tweeter.css']);
-$p->add_js(['/deco/js/fetch_tweet.js']);
-$p->add_extra(['<link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet">']);
+// $p->add_css(['/deco/css/index.css']);
+// $p->add_css(['/deco/css/index_tweeter.css']);
+// $p->add_js(['/deco/js/fetch_tweet.js']);
+$p->add_head_html_block(['<link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet">']);
 $p->html_open();
 ?>
 

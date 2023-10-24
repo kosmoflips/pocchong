@@ -1,7 +1,8 @@
 <?php
 $title=fname2name($_SERVER['REDIRECT_URL']);
 $p->title=$title;
-$extra=['
+$extra=[
+<<<STYLEBLOCK
 <!-- link rel="stylesheet" type="text/css" href="/deco/js/smiley.js" -->
 <style>
 .smiley {
@@ -31,8 +32,9 @@ td, th {
 	border-style: solid;
 }
 </style>
-'];
-$p->add_extra($extra);
+STYLEBLOCK
+];
+$p->add_html_head_block($extra);
 $p->html_open();
 static_page_open($title);
 ?>

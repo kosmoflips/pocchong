@@ -1,10 +1,6 @@
 <?php // ----- class for page layout; especially for vars relies on internal process by other included files -----
 class PocPage {
-public $head=array(
-		'css'=>array(), // css path
-		'js'=>array(), // js path
-		'extra'=>array(), // complete closed html tag
-	);
+public $head=array();
 public $title=null;
 public $navi=array(
 	'pair'=>null,
@@ -13,65 +9,43 @@ public $navi=array(
 public $data=null;
 
 # assign css/js/extra (e.g. style) to $this->head
-public function add_css ($list=array()) { # each item is link to css file
-	$x='css';
-	$this->_head(array($x=>$list));
-}
-public function add_js ($list=array()) { # each item is link to js file
-	$x='js';
-	$this->_head(array($x=>$list));
-}
-public function add_extra ($list=array()) { # full block of code to place in <head>
-	$x='extra';
-	$this->_head(array($x=>$list));
-}
-protected function _head ($data=array()) { // add css/js/other tags into <head>
-	foreach ($data as $k=>$v) {
-		foreach ($v as $c) {
-			$this->head[$k][]=$c;
-		}
+public function add_html_head_block ($list=array()) { # input array, each element is a complete block of code to be placed in <head>, e.g. <script ...> <style>
+	foreach ($list as $elem) {
+		$this->head[]=$elem;
 	}
 }
 
 // write html subs
-public function html_open ($sel=0) { #  sel=2, entry open; sel=1; master open; entry=0, entry + master open
-	if ($sel!=2) {
+public function html_open ($mode=0) { #  mode=2, entry open (e.g. for one single post); mode=1; master open (does NOT have entry open); mode=0, entry + master open (page with one post block)
+	if ($mode!=2) {
 		include (POC_LAYOUT.'/site_master1.php');
 	}
-	if ($sel!=1) {
+	if ($mode!=1) {
 		include (POC_LAYOUT.'/entry_open.html');
 	}
 }
-public function html_close ($sel=0) { # sel =2, entry close; sel=1 , master close, sel=0, entry+master close
-	if ($sel!=1) {
+public function html_close ($mode=0) { # mode same as html_open
+	if ($mode!=1) {
 		include (POC_LAYOUT.'/entry_close.html');
 	}
-	if ($sel!=2) {
+	if ($mode!=2) {
 		include (POC_LAYOUT.'/site_master2.php');
 	}
 }
-public function html_head_title () {
+public function print_html_head_title () {
 	if ($this->title) {
 		echo $this->title,' | ';
 	}
 	echo POC_META['alias'];
 }
-public function html_head_stuff () { // custom head stuff, used in layout/meta.php
-	if (!empty($this->head['js'])) {//extra js in array
-		foreach ($this->head['js'] as $js) {
-			echo '<script src="', $js, '"></script>',"\n";
-		}
-	}
-	if (!empty($this->head['css'])) {//extra css array
-		foreach ($this->head['css'] as $css) {
-			echo '<link rel="stylesheet" type="text/css" href="', $css, '" />',"\n";
-		}
-	}
-	if (!empty($this->head['extra'])) {//other, inline css/js
-		foreach ($this->head['extra'] as $line) {
+public function print_html_head_block () { // custom head stuff, used in layout/meta.php
+	echo "<!-- user given head blocks: start-->\n";
+	if (sizeof($this->head)>0) {
+		foreach ($this->head as $line) {
 			echo $line,"\n";
 		}
 	}
+	echo "<!-- user given head blocks: end-->\n";
 }
 
 // admin navi bar

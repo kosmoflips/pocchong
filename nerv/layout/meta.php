@@ -1,4 +1,4 @@
-<title><?php $this->html_head_title() ?></title>
+<title><?php $this->print_html_head_title() ?></title>
 <!-- google fonts -->
 <link href="https://fonts.googleapis.com/css?family=Milonga&display=swap&subset=latin-ext" rel="stylesheet" /><!-- font-family: 'Milonga', cursive; -->
 <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet" />
@@ -11,4 +11,4 @@
 <!-- layout css -->
 <link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
 <link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
-<?php $this->html_head_stuff(); ?>
+<?php $this->print_html_head_block(); ?>

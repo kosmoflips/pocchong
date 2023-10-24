@@ -5,16 +5,19 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 //only use  target="_blank"  when not using the site style
 
 $p=new PocPage;
-$cssex='<style>
+$cssex=
+<<<STYLEBLOCK
+<style>
 ul {
 	margin-bottom: 45px;
 }
 ul:last-child {
 	margin-bottom: unset;
 }
-</style>';
+</style>
+STYLEBLOCK;
 $p->title=POC_DB_STATIC['title'];
-$p->add_extra([$cssex]);
+$p->add_html_head_block([$cssex]);
 $p->html_open();
 
 # page.php => description

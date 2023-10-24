@@ -6,7 +6,7 @@ ol li {
 border-bottom: 1px solid #88a9bc;
 }
 </style>'];
-$p->add_extra($extra);
+$p->add_html_head_block($extra);
 $p->html_open();
 static_page_open($title);
 ?>

@@ -57,7 +57,7 @@ span {
 }
 </style>
 '];
-$p->add_extra($extra);
+$p->add_html_head_block($extra);
 $p->html_open();
 static_page_open($title);
 ?>
