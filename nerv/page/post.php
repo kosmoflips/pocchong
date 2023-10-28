@@ -118,10 +118,10 @@ function print_post_single($p,$entry) {
 <article>
 <?php
 echo $entry2,"\n";
-print_edit_button(POC_DB_POST['edit'].'?id='.$entry['id']);
 ?>
 </article>
 <?php
+	print_edit_button(POC_DB_POST['edit'].'?id='.$entry['id']);
 	$p->html_close(2);
 } // close print_post_single()
 ?>
