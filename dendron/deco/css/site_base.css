@@ -26,6 +26,11 @@ a:link, a:hover, a:visited {
 .exbig { font-size:180%; }
 .exsmall { font-size:50%; }
 
+/* post image size, use inside div or span */
+.img-small img {
+	max-height: 150px;
+}
+
 /* general text color */
 body, .netabare:hover, .archiv li a, textarea {
 	color: var(--body-text-color);
