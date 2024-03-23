@@ -63,7 +63,6 @@ if (isset($DATA_IN['opt'])) { //submit,delete
 elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	$info=array();
 	$tagidx=$k->getTags();
-
 	if (isset($_GET['id'])) { // edit existing entry
 		$info=$k->getRow('SELECT * FROM '.POC_DB_MG['table'].' WHERE id=?',array($_GET['id']));
 		if (empty($info)) { // given id is false , redirect to list
