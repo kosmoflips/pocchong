@@ -11,16 +11,20 @@ if (isset($_GET['sel']) and $_GET['sel']=="mygirls") {
 	$table=POC_DB_MG['table'];
 	$viewbase=POC_DB_MG['url'];
 	$editbase=POC_DB_MG['edit'];
+	$qextra='art_id as "id"';
+	// $artid=1;
 } else {
 	$table=POC_DB_POST['table'];
 	$viewbase=POC_DB_POST['url'];
 	$editbase=POC_DB_POST['edit'];
+	$qextra='id';
+	// $artid=1;
 }
 $maxperpage=40; # how many items per page
 $totalpg=calc_total_page($k->countRows($table), $maxperpage);
 $curr=$_GET['page']??1;
 $offset=calc_page_offset($curr,$maxperpage);
-$query=sprintf ('SELECT id,title,epoch,gmt FROM %s ORDER BY epoch DESC LIMIT ?,?', $table);
+$query=sprintf ('SELECT %s,title,epoch,gmt FROM %s ORDER BY epoch DESC LIMIT ?,?', $qextra, $table);
 $lists=$k->getAll($query, array($offset, $maxperpage));
 $actionurl=sprintf ('/a/edit_%s', $table);
 $selurl=sprintf ('/a/list_table?sel=%s&page=', $table);

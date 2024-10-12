@@ -97,6 +97,7 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { #load page to edit
 	elseif (isset($_GET['new'])) { // make a new entry
 		$info['insert']=1;
 		$info['id']='';
+		$info['art_id']=($k->getOne('SELECT art_id FROM '.POC_DB_MG['table'].' ORDER BY epoch DESC LIMIT 1') +1);
 		$info['title']='';
 		$info['year']=date('Y')-2000;
 		$info['epoch']=time();
