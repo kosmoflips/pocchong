@@ -97,6 +97,36 @@ function rand_deco_symbol($id=0) {
 	$randnum=rand(0, (count($set) -1));
 	return $set[$randnum];
 }
+function peek($var=null,$stop=0) {
+	echo '<pre>';
+	var_dump($var);
+	echo '</pre>';
+	if ($stop) {
+		exit;
+	}
+}
+function jump($url='/') { // redirect. saves some writing
+	header("Location: ".$url);
+	exit;
+}
+function chklogin($redirect_to_login_page=0) {
+	if (isset($_SESSION['POCCHONG_LOGIN_TOKEN'])) {
+		return 1;
+	} else {
+		if ($redirect_to_login_page) { // if given, redirect to login page when login fails
+			jump('/a/');
+			die ('log in is required, click <a href="/a/">here</a> to log in.'); # put a die here just in case so following contents won't be shown
+		}
+		return 0;
+	}
+}
+function print_edit_button ($edit_url='') {
+	if (chklogin() and $edit_url) {
+		echo '<div class="inline-box"><a href="',$edit_url,'">Edit</a></div>',"\n";
+	}
+}
+?>
+<?php // ---------- time work -------
 function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &time27()
 // use either 24 or 27 H mode. process return hash.
 # 27-H Mode: time <= 3:00 AM, continue from 24 (0:00 AM=> 24:00, 2:59 AM => 26:59, 3:00 AM => no change)
@@ -148,32 +178,14 @@ function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &ti
 		);
 	}
 }
-function peek($var=null,$stop=0) {
-	echo '<pre>';
-	var_dump($var);
-	echo '</pre>';
-	if ($stop) {
-		exit;
-	}
-}
-function jump($url='/') { // redirect. saves some writing
-	header("Location: ".$url);
-	exit;
-}
-function chklogin($redirect_to_login_page=0) {
-	if (isset($_SESSION['POCCHONG_LOGIN_TOKEN'])) {
-		return 1;
+function get_newest_year () {
+	$k=new PocDB();
+	$yr1=$k->getOne('SELECT year FROM '.POC_DB_POST['table'].' ORDER BY year DESC LIMIT 1');
+	$yr2=$k->getOne('SELECT year FROM '.POC_DB_MG['table'].' ORDER BY year DESC LIMIT 1');
+	if ($yr1>$yr2) {
+		return $yr1;
 	} else {
-		if ($redirect_to_login_page) { // if given, redirect to login page when login fails
-			jump('/a/');
-			die ('log in is required, click <a href="/a/">here</a> to log in.'); # put a die here just in case so following contents won't be shown
-		}
-		return 0;
-	}
-}
-function print_edit_button ($edit_url='') {
-	if (chklogin() and $edit_url) {
-		echo '<div class="inline-box"><a href="',$edit_url,'">Edit</a></div>',"\n";
+		return $yr2;
 	}
 }
 ?>

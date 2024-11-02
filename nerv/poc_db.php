@@ -22,7 +22,8 @@ const POC_DB_ARCHIV = array(
 	'title' => 'Archiv',
 	'table' => 'post',
 	'url' => '/archiv/',
-	'max' => 50
+	'max' => 50,
+	'yr_max' => 3
 );
 
 const POC_DB_STATIC = array(

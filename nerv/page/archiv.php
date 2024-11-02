@@ -3,93 +3,55 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $symbol=rand_deco_symbol();
 $p=new PocPage;
-process_data_archiv($p,$_GET['year']??null,$_GET['page']??null);
+$k=new PocDB();
+
+$curr_page=$_GET['page']??1;
+$year_newest=get_newest_year();
+$total_yrs=$year_newest+2000-POC_YEAR_START+1;
+$total_pgs=calc_total_page($total_yrs,POC_DB_ARCHIV['yr_max']);
+$curr_yr=$year_newest-calc_page_offset($curr_page,POC_DB_ARCHIV['yr_max']);
+$curr_yr2=$curr_yr-POC_DB_ARCHIV['yr_max']+1;
+// peek(array($curr_yr2, $curr_yr),1);
+$p->navi['bar']=mk_navi_bar(1,$total_pgs,POC_DB_ARCHIV['yr_max'],$curr_page,POC_NAVI_STEP,POC_DB_ARCHIV['url'].'?page=');
+$p->title=POC_DB_ARCHIV['title'];
+
+$arv=array();
+foreach (array('post','mygirls') as $tb) {
+	$basestat=sprintf('SELECT id,title,epoch,gmt FROM %s WHERE year>=? AND year<=? ORDER BY epoch DESC', $tb);
+	$get1=$k->getAll($basestat, array($curr_yr2, $curr_yr));
+	foreach ($get1 as $x) {
+		$yr=clock27($x['epoch'], 2, $x['gmt']);
+		$x['table']=$tb=='post'?1:2;
+		# would be nearly impossible for my post/art have the same epoch
+		$arv[$yr][$x['epoch']]=$x;
+	}
+}
+
+# order by epoch desc
+krsort($arv);
+// peek($arv,1);
+
 $p->html_open();
 ?>
 <h2><?php echo $symbol,' ', $p->title,' ',$symbol ?></h2>
 <?php
-foreach ($p->data['list'] as $loopyear=>$ylist) {
-	print_archiv_block($p->data['yearmode'],$loopyear,$ylist);
-}
-$p->html_close();
-
-//--------------------------------
-function process_data_archiv ($pobj=null, $year=0, $page=0) {
-	if (!$pobj) {
-		return null;
-	}
-	$k=new PocDB();
-	$TITLE=POC_DB_ARCHIV['title'];
-
-	$year_last=$k->yearlast(1);
-
-	# setup yearmode if valid
-	$yearmode=0;
-	if ($year) {
-		$yearmode=1;
-		if ($year<POC_YEAR_START) {
-			$yearmode=0;
-		} else {
-			if ($year>$year_last) {
-				$yearmode=0; # no new posts created since last post stored in db
-			}
-		}
-	}
-
-	$cpage=$page??1; #current offset for page, non-year only
-	$listall=array();
-	$base_stat='SELECT id,title,epoch,gmt FROM '.POC_DB_ARCHIV['table'];
-	if ($yearmode) {
-		$cpage=$year; // no need to verify year anymore
-		$list1=$k->getAll($base_stat.' WHERE year=? ORDER by epoch', array($_GET['year']-2000)); # year mode, order asc
-		$listall[$year]=$list1;
-		$TITLE.='::'.$year;
-		$navibar=mk_navi_bar(POC_YEAR_START, $year_last,1,$cpage,POC_NAVI_STEP,POC_DB_ARCHIV['url'].'?year=');
-	}
-	else { #non year mode, go by page (one page has fixed number of items)
-		$totalrows=$k->countRows(POC_DB_ARCHIV['table']);
-		$totalpgs=calc_total_page($totalrows,POC_DB_ARCHIV['max']);
-		$offset=calc_page_offset($cpage,POC_DB_ARCHIV['max']);
-		$list=$k->getAll($base_stat.' ORDER BY epoch DESC LIMIT ?,?', array($offset,POC_DB_ARCHIV['max']));
-		foreach ($list as $entry) {
-			$thisyear=clock27($entry['epoch'],2,$entry['gmt']);
-			$listall[$thisyear][]=$entry;
-		}
-		$navibar=mk_navi_bar(1,$totalpgs,POC_DB_ARCHIV['max'],$cpage,POC_NAVI_STEP,POC_DB_ARCHIV['url'].'?page=');
-	}
-	$pobj->title=$TITLE;
-	$pobj->navi['bar']=$navibar;
-	$pobj->data=array(
-		'list'=>$listall,
-		'yearmode'=>$yearmode,
-	);
-}
-
-function print_archiv_block ($yearmode=0,$loopyear=0,$ylist=null) {
-	?>
+foreach ($arv as $loopyear=>$ylist) {
+?>
 <div class="archiv">
-<?php
-	if (!$yearmode) {
-	?>
 <div class="archiv-year"><a href="<?php echo POC_DB_ARCHIV['url'],'?year=',$loopyear ?>"><?php echo $loopyear?></a></div>
-<?php
-	}
-	?>
 <ul>
 <?php
+	krsort($ylist); # order both post/mg by epoch
 	foreach ($ylist as $entry) {
-		print_archiv_list_item($entry);
+?>
+<li><a href="<?php echo $entry['table']==1?POC_DB_POST['url']:POC_DB_MG['url'],'?id=',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span><?php echo $entry['table']==1?"&#128211;":"&#127912;"; ?> <?php echo $entry['title'] ?></a></li>	
+<?php
 	}
 	?>
 </ul>
 </div><!-- archiv -->
 <?php
 }
-
-function print_archiv_list_item ($entry=null) {
-	?>
-<li><a href="<?php echo POC_DB_POST['url'],'?id=',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span> <?php echo $entry['title'] ?></a></li>	
-<?php
-}
+$p->html_close();
 
 ?>
