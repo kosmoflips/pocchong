@@ -10,7 +10,7 @@ table {
 }
 td {
 	border: none;
-	font-size: 70%;
+	font-size: 90%;
 	vertical-align: top;
 	margin: 0;
 	padding: 0;
@@ -20,20 +20,14 @@ td.card:hover {
 	background: rgba(0,0,0,0.1);
 	opacity: 0.5;
 }
-.cardblock {
-	margin: 10px;
-	text-align: center;
+.mincardnum {
+	background: rgba(0,0,0,0.1);
+	font-weight:bold;
 }
 td img {
 	border: 4px double #999 !important;
 	width: 115px;
 	max-width: 100% !important;
-}
-.right img {
-	background: #ffa7a7;
-}
-.left img {
-	background: #a7c4ff;
 }
 </style>
 '];
@@ -42,41 +36,135 @@ $p->html_open();
 static_page_open($title);
 ?>
 
-<div>
-<table style="float: left; width: 35%; border-right: 1px solid;">
-<tr>
-<th colspan="2">Groß</th>
-</tr>
-<tr>
-<td>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros00.jpg" alt="Der NARR" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros02.jpg" alt="Die HOHEPRIESTERIN" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros04.jpg" alt="Der HERRSCHER" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros06.jpg" alt="Die LIEBENDEN" /></a>ciara + ornstein doll??</span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros08.jpg" alt="KRAFT" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros10.jpg" alt="RAD des SCHICKSALS" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros12.jpg" alt="Der GEHÄNGTE" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros14.jpg" alt="MÄßIGKEIT" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros16.jpg" alt="Der TURM" /></a></span>
-<span><a href="/mygirls/?id=151"><img src="/img/cst/gros/230401_gros_18_card.jpg.webp" alt="Der MOND" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros20.jpg" alt="GERICHT" /></a></span>
-</td>
-<td>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros01.jpg" alt="Der MAGIER" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros03.jpg" alt="Die HERRSCHERIN" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros05.jpg" alt="Der HIEROPHANT" /></a></span>
-<span><a href="/mygirls/?id=162"><img src="/img/cst/gros/240217_gros07_wagon_card.jpg.webp" alt="Der WAGEN" /></a></span>
-<span><a href="/mygirls/?id=150"><img src="/img/cst/gros/230324_gros_09_card.jpg.webp" alt="Der EREMIT" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros11.jpg" alt="GERECHTIGKEIT" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros13.jpg" alt="TOD" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros15.jpg" alt="Der TEUFEL" /></a></span>
-<span><a href="/mygirls/?id=154"><img src="/img/cst/gros/230927_g17_star_card.jpg.webp" alt="Der STERN" /></a></span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros19.jpg" alt="Die SONNE" /></a>sun bug??</span>
-<span><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/gros21.jpg" alt="Die WELT" /></a></span>
-</td>
-</tr>
+<?php # define id/card link
+$cardlink=array(
+	'gros'=>array(
+		# 0-5
+		0, '湿った長杖', '逆棘の杖槍', 'Fil, デュナシャンドラ＋鎌 FACE RIGHT', 172, 0,
+		# 6-11
+		'ciara + artrias doll', 162,0,150,0, 0,
+		# 12-17
+		169, 'ivy', 'lyra, redesign', 'らんらん？', 0,154,
+		# 18-21
+		151, 'ER sunflower/shadow flowers (water reflection)', 0, 0
+	),
+	'stae'=>array( -1,
+		'marie ブラボ松明＋教会黒セット',0,158,0,0,
+		'lumi, spirit worms',165,173,'lotte, use 1s design','創星雨+星見セット',
+		155,'caria piercer magic',171,0
+	),
+	'kelc'=>array( -1,
+		'teri ER 星見台',167,'flame butterfly bin','blood vial x3. Iosefka Blood Vial.',157,
+		'marie, Hintertomb, Pthumeru Ihyll, Lower Pthumeru, Central Pthumeru, Isz, Loran','sere',166,'nata. ER pots','ari. cup tower 1 3 5 + one in hand',
+		174,'kyri 秘薬瓶','トリーナさんのお花＋花びら盃',159
+	),
+	'schw'=>array(-1,
+		170,0,0,164,0,
+		'ER ash blade x6??','ice rapier','ER sword grave + white noble set',0,153,
+		'teri','lyra, half of staff-knight. caria sword magic',161,'nameless sword-spear'
+	),
+	'muen'=>array(-1,
+		160,175,'sunekosuri x3, one in dark realm','lyra. bb blood-gem','teri. mibu-ballon x5, 桜竜まえの人の着物',
+		156,'lumi hang on ice tree','ari 儚い小宇宙x 8',163,'mia. golden tree seeds',
+		'lumi hammer+ball magic OR 神託のBIGシャボン',168,'nata ブラボ ランタン',0
+	)
+);
+
+function print_card_html($card_id, $card_key) {
+	global $cardlink;
+	global $k;
+	$gx=$cardlink[$card_key][$card_id];
+	if (preg_match('/^\d+$/', $gx)) {
+		$gid=$gx;
+		$txt='';
+	} else {
+		$txt=$gx;
+		$gid=0;
+	}
+	$gid2=0;
+	$img=sprintf ('cstmp/%s%02d.jpg', $card_key, $card_id);
+	$data=$k->getAll("select img_url from mygirls_pcs where title_id=?", array($gid));
+	foreach ($data as $link) { # find 'card' img link
+		if (preg_match('/_card/', $link['img_url'])) {
+			$img=$link['img_url'];
+			$gid2=$gid;
+			break;
+		}
+	}
+	printf ('<a href="/mygirls/?id=%d"%s><img src="/img/%s" alt="%s-%d" /></a>%s', $gid2, ($gid2==0? ' onclick="return false"' : ''), $img, $card_key, $card_id, $txt);
+}
+function numberToRomanRepresentation($number) {
+	# https://stackoverflow.com/questions/14994941/numbers-to-roman-numbers-with-php
+    $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
+    $returnValue = '';
+    while ($number > 0) {
+        foreach ($map as $roman => $int) {
+            if($number >= $int) {
+                $number -= $int;
+                $returnValue .= $roman;
+                break;
+            }
+        }
+    }
+    return $returnValue;
+}
+?>
+
+<table>
+<?php # ----- major -----
+$ntd=6;
+$ncol=ceil(22/$ntd);
+
+$k=new PocDB();
+
+for ($row1=0; $row1<$ncol; $row1++) {
+	for ($rep1=1; $rep1<=2; $rep1++) {
+		if ($rep1==1) {
+			echo '<tr class="mincardnum">',"\n";
+		} else {
+			echo "<tr>\n";
+		}
+		for ($col1=0; $col1<$ntd; $col1++) {
+			$ci=$col1+$row1*$ntd;
+			if ($rep1==1) {
+				echo "<th>";
+			} else {
+				echo "<td>";
+			}
+			if (array_key_exists($ci, $cardlink['gros'])) {
+				if ($rep1==1) {
+					if ($ci==0) {
+						$num='O';
+					} elseif ($ci<0) {
+						$num='';
+					} else {
+						$num=numberToRomanRepresentation($ci);
+					}
+					echo $num;
+				} else {
+					if ($ci>=0) {
+						 print_card_html($ci, 'gros');
+						 echo "\n";
+					} else {
+						echo "<td></td>";
+					}
+				}
+			} else {
+				if ($rep1==1) {
+					echo "</th>\n";
+				} else {
+					echo "</td>\n";
+				}
+			}
+		}
+	}
+	echo "</tr>\n";
+}
+?>
 </table>
 
+
+<!-- minor card -->
 <table>
 <tr>
 <th>Stäbe</th>
@@ -84,89 +172,17 @@ static_page_open($title);
 <th>Schwerer</th>
 <th>Münzen</th>
 </tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae01.jpg" /></a>湿った長杖+dark circle</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc01.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw01.jpg" /></a>ds3 spiral sword</td>
-<td class="left"><a href="/mygirls/?id=160"><img src="/img/cst/muen/240117_muen01_card.jpg.webp" /></a></td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae02.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc02.jpg" /></a>kodama cup + dojo set + cat ear</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw02.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen02.jpg" /></a>fire keeper eyes</td>
-</tr>
-<tr>
-<td class="right"><a href="/mygirls/?id=158"><img src="/img/cst/stae/240104_stae03_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc03.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw03.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen03.jpg" /></a>sunekosuri x3+higan-bana skill</td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae04.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc04.jpg" /></a>ds3 種火x4</td>
-<td class="right"><a href="/mygirls/?id=164"><img src="/img/cst/schw/240226_schw04_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen04.jpg" /></a>bb blood-gem</td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae05.jpg" /></a></td>
-<td class="left"><a href="/mygirls/?id=157"><img src="/img/cst/kelc/231225_kelc05_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw05.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen05.jpg" /></a>mibu-ballon x5</td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae06.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc07.jpg" /></a>marie</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw06.jpg" /></a></td>
-<td class="left"><a href="/mygirls/?id=156"><img src="/img/cst/muen/231122_muen06_card.jpg.webp" /></a></td>
-</tr>
-<tr>
-<td class="right"><a href="/mygirls/?id=165"><img src="/img/cst/stae/240317_stae07_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc09.jpg" /></a>Bonfire Ascetic x7, sere</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw07.jpg" /></a>moonlight sword + ER wolf set</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen07.jpg" /></a></td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae08.jpg" /></a></td>
-<td class="left"><a href="/mygirls/?id=166" onclick="return false"><img src="/img/cst/kelc/240322_kelc08_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw08.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen08.jpg" /></a>rainbow stone crystal cave</td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae09.jpg" /></a>use 1's concept. white branches</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc10.jpg" /></a>nata, BB chalice</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw09.jpg" /></a></td>
-<td class="right"><a href="/mygirls/?id=163"><img src="/img/cst/muen/240222_muen09_card.jpg.webp" /></a></td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae10.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc08.jpg" /></a>ari. cup tower 1 1 2 4 + red blue bottles</td>
-<td class="left"><a href="/mygirls/?id=153"><img src="/img/cst/schw/230916_schw_10_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen10.jpg" /></a>golden tree seeds</td>
-</tr>
-<tr>
-<td class="right"><a href="/mygirls/?id=155"><img src="/img/cst/stae/231109_stae11_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc11.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw11.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen11.jpg" /></a>BB sigil</td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae12.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc12.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw12.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen12.jpg" /></a>meteorite icon??</td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae13.jpg" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/kelc13.jpg" /></a></td>
-<td class="left"><a href="/mygirls/?id=161"><img src="/img/cst/schw/240129_schw13_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen13.jpg" /></a></td>
-</tr>
-<tr>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/stae14.jpg" /></a></td>
-<td class="left"><a href="/mygirls/?id=159"><img src="/img/cst/kelc/240116_kelc14_card.jpg.webp" /></a></td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/schw14.jpg" /></a>sakura dragon's sohaya</td>
-<td class=""><a href="/mygirls/?id=0" onclick="return false"><img src="/img/cstmp/muen14.jpg" /></a>sekiro dragon tear</td>
-</tr>
+<?php
+for ($row1=1; $row1<=14; $row1++) {
+	echo '<tr><td colspan="4" class="mincardnum">', $row1,"</td></tr>\n";
+	echo "<tr>\n";
+	foreach (array('stae','kelc','schw','muen') as $cardname) {
+		echo "<td>";
+		print_card_html($row1, $cardname);
+		echo "</td>\n";
+	}
+	echo "</tr>\n";
+}
+?>
 </table>
-</div>
+
