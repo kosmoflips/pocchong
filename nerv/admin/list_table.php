@@ -8,13 +8,13 @@ $table='';
 $viewbase='';
 $editbase='';
 if (isset($_GET['sel']) and $_GET['sel']=="mygirls") {
-	$table=POC_DB_MG['table'];
+	$table='mygirls';
 	$viewbase=POC_DB_MG['url'];
 	$editbase=POC_DB_MG['edit'];
 	$qextra=',art_id';
 	// $artid=1;
 } else {
-	$table=POC_DB_POST['table'];
+	$table='post';
 	$viewbase=POC_DB_POST['url'];
 	$editbase=POC_DB_POST['edit'];
 	$qextra='';

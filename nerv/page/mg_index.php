@@ -9,52 +9,29 @@ if ($byid) {
 
 $symbol=rand_deco_symbol();
 $p=new PocPage;
-process_data_mg_index($p,$_GET['page']??null);
+$k=new PocDB();
+
+$pcs_per_page=POC_DB_MG['max_gallery'];
+$totalrows=$k->countRows('mygirls');
+$totalpg=calc_total_page($totalrows,$pcs_per_page);
+$curr=$_GET['page']??1;
+if ($totalpg<$curr) {
+	show_response(404);
+}
+$offset=calc_page_offset($curr, $pcs_per_page);
+$pdata=$k->getAll('SELECT mygirls.id "id",title,epoch,img_url FROM mygirls JOIN mygirls_pcs ON mygirls.rep_id = mygirls_pcs.id ORDER BY epoch DESC LIMIT ?,?', array($offset,$pcs_per_page));
+
+$p->title=sprintf ('%s :: %s',POC_DB_MG['title2'],number2roman($curr));
+
+$baseurl=POC_DB_MG['url'].'?page=';
+$p->navi['bar']=mk_navi_bar(1,$totalpg,$pcs_per_page,$curr,POC_NAVI_STEP,$baseurl);
+
 $p->html_open();
 ?>
 <h2><?php echo $symbol,' ', $p->title,' ', $symbol; ?></h2>
 <div class="gallery">
 <?php
-foreach ($p->data as $entry) {
-	print_page_mg_index_item($entry);
-}
-?>
-</div><!-- gallery -->
-<?php
-$p->html_close();
-
-
-//------------------
-function process_data_mg_index ($pobj=null,$page=0) {
-	if (!$pobj) {
-		return null;
-	}
-	$k=new PocDB();
-
-	$dbinfo=POC_DB_MG;
-
-	$totalrows=$k->countRows($dbinfo['table']);
-	$totalpg=calc_total_page($totalrows,$dbinfo['max_gallery']);
-	$curr=$page??1;
-	if ($totalpg<$curr) {
-		show_response(404);
-	}
-	$offset=calc_page_offset($curr, $dbinfo['max_gallery']);
-	$stat=sprintf ('SELECT %s.id "id",title,epoch,img_url FROM %s join %s on %s.rep_id = %s.id ORDER BY epoch DESC LIMIT ?,?', $dbinfo['table'], $dbinfo['table'], $dbinfo['table_pcs'], $dbinfo['table'], $dbinfo['table_pcs']);
-	$list=$k->getAll($stat, array($offset,$dbinfo['max_gallery']));
-	$page_title=sprintf ('%s -%s-',$dbinfo['title2'],number2roman($curr));
-	$baseurl=$dbinfo['url'].'?page=';
-	$navibar=mk_navi_bar(1,$totalpg,$dbinfo['max_gallery'],$curr,POC_NAVI_STEP,$baseurl);
-
-	$pobj->title=$page_title;
-	$pobj->navi['bar']=$navibar??null;
-	$pobj->data=$list;
-}
-
-function print_page_mg_index_item ($entry=null) {
-	if (empty($entry['img_url'])) { #incase stdalone isn't set up, choose a random one
-		$entry['img_url']=get_random_img($k,$entry['id']);
-	}
+foreach ($pdata as $entry) {
 	$furl=mk_mg_img_url($entry['img_url']);
 ?>
 <div class="mgarchive-container">
@@ -63,15 +40,9 @@ function print_page_mg_index_item ($entry=null) {
 </div>
 <?php
 }
-
-function get_random_img($k,$id=0) {
-	$urls=$k->getAll('select img_url from '.POC_DB_MG['table_pcs'].' where title_id=?', array($id));
-	if (empty($urls)) {
-		return '';
-	} else {
-		shuffle($urls);
-		return $urls[0];
-	}
-}
+?>
+</div><!-- gallery -->
+<?php
+$p->html_close();
 
 ?>

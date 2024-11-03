@@ -5,7 +5,7 @@ $DATA_IN=$_POST;
 // ------------ data process --------------
 chklogin(1);
 $k=new PocDB();
-$redirectlist='/a/list_table?sel='.POC_DB_POST['table'];
+$redirectlist='/a/list_table?sel=post';
 
 #dst=3: entries deleted in list mode / 2: pieces deleted in page-edit mode / 1: entry updated
 
@@ -61,7 +61,7 @@ if (isset($DATA_IN['opt'])) { // delete, jump to public link, preview , edit/ins
 elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 	$edit=array();
 	if (isset($_GET['id'])) { // edit existing post
-		$edit=$k->getRow('SELECT * FROM '.POC_DB_POST['table'].' WHERE id=?', array($_GET['id']));
+		$edit=$k->getRow('SELECT * FROM post WHERE id=?', array($_GET['id']));
 		if (isset($edit)) {
 			$edit['update']=1;
 			$edit['id']=$_GET['id'];
@@ -79,13 +79,13 @@ elseif (isset($_GET['new']) or isset($_GET['id'])) { // edit post page
 		$edit['title']='';
 		$edit['year']=date('Y')-2000;
 	}
-	include(NERV.'/admin/incl_'.POC_DB_POST['table'].'editor.php');
+	include(NERV.'/admin/incl_posteditor.php');
 	exit;
 }
 
 if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 	$pile=array($DATA_IN['title'],$DATA_IN['epoch'],$DATA_IN['gmt'],$DATA_IN['content']);
-	$s0=POC_DB_POST['table'].' SET title=?,epoch=?,gmt=?,content=?';
+	$s0='post SET title=?,epoch=?,gmt=?,content=?';
 	$stat='';
 	$id=isset($DATA_IN['id'])?$DATA_IN['id']:0;
 	if (isset($DATA_IN['update'])) { // update existing record
@@ -94,8 +94,8 @@ if ($usrsubmit) { // work on submitted data. from edit current or add new entry
 		$k->dosql($stat,$pile);
 	}
 	elseif (isset($DATA_IN['insert'])) { // insert new record
-		$id=$k->nextID(POC_DB_POST['table']);
-		$stat='INSERT INTO '.POC_DB_POST['table'].' ("id","title","epoch","gmt","content","year") VALUES(?,?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
+		$id=$k->nextID('post');
+		$stat='INSERT INTO post ("id","title","epoch","gmt","content","year") VALUES(?,?,?,?,?,?)'; //even in case the id is occupied, error should arise since no duplicate in id is allowed
 		array_unshift ($pile, $id);
 		$pile[]=$DATA_IN['year']; // year only need for INSERT
 		$k->dosql($stat, $pile);
@@ -107,11 +107,11 @@ jump($redirectlist);
 
 
 function _del_post($k=null,$id=0) {
-	$linked=$k->getOne('SELECT id FROM '.POC_DB_MG['table'].' WHERE post_id=?',array($id));
+	$linked=$k->getOne('SELECT id FROM mygirls WHERE post_id=?',array($id));
 	if (!empty($linked)) {
-		$k->dosql('UPDATE '.POC_DB_MG['table'].' SET post_id=? where id=?',array(null,$linked));
+		$k->dosql('UPDATE mygirls SET post_id=? where id=?',array(null,$linked));
 	}
-	$k->dosql('DELETE FROM '.POC_DB_POST['table'].' WHERE id=?', array($id));
+	$k->dosql('DELETE FROM post WHERE id=?', array($id));
 }
 
 
