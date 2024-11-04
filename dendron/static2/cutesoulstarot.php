@@ -59,14 +59,14 @@ $cardlink=array(
 		174,'kyri 秘薬瓶','トリーナさんのお花＋花びら盃',159
 	),
 	'schw'=>array(-1,
-		170,0,0,164,0,
-		'ER ash blade x6??','ice rapier','ER sword grave + white noble set',0,153,
-		'teri','lyra, half of staff-knight. caria sword magic',161,'nameless sword-spear'
+		170,'不死斬りx2',0,164,0,
+		'DS3 dancer x2, ER fire/mag x4','moonlight swords ルド聖、月光、DS3,2,1,古き、ER in BB costume 武器工房','use 9 design','ER sword grave + white noble set',153,
+		'teri',0,161,'storm ruler/nameless sword-spear'
 	),
 	'muen'=>array(-1,
 		160,175,'sunekosuri x3, one in dark realm','lyra. bb blood-gem','teri. mibu-ballon x5, 桜竜まえの人の着物',
 		156,'lumi hang on ice tree','ari 儚い小宇宙x 8',163,'mia. golden tree seeds',
-		'lumi hammer+ball magic OR 神託のBIGシャボン',168,'nata ブラボ ランタン',0
+		'lumi hammer+ball magic OR 神託のBIGシャボン',168,'nata, DS3 DLC huge broken egg? / ブラボ ランタン',0
 	)
 );
 

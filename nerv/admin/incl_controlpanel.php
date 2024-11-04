@@ -1,14 +1,15 @@
 <ul>
-<li><a href="/a/edit_post/?new=1">new post</a> | <a href="/a/list_table?sel=post">list posts</a></li>
-<li><a href="/a/edit_mygirls/?new=1">new art</a> | <a href="/a/list_table?sel=mygirls">list artworks</a></li>
-<li>for static pages, go to /static and edit manually</a></li>
+<li><a href="<?php echo POC_DB_POST['new']; ?>">new post</a> | <a href="<?php echo POC_DB_POST['admin_list']; ?>">list posts</a></li>
+<li><a href="<?php echo POC_DB_MG['new']; ?>">new art</a> | <a href="<?php echo POC_DB_MG['admin_list']; ?>">list artworks</a></li>
+<li>for static pages, go to <code>/static</code> and edit manually</a></li>
 </ul>
 
 <hr />
 
 <h4>Tools</h4>
 <ul>
-	<li><a href="https://www.epochconverter.com">Epoch converter</a></li>
+	<li><a href="https://www.epochconverter.com" target="_blank">Epoch converter</a></li>
+	<li><a href="https://texteditor.com/emoji/" target="_blank">emoji picker</a></li>
 </ul>
 
 <hr />

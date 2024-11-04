@@ -1,40 +1,3 @@
-<?php // ----- db table info ----
-const POC_DB_POST = array(
-	'title' => 'Days',
-	'table' => 'post',
-	'url' => '/days/',
-	'max' => 7, # show N posts per page
-	'edit' => '/a/edit_post/'
-);
-
-const POC_DB_MG = array(
-	'title' => 'MyGirls',
-	'title2' => "幻想調和",
-	'table' => 'mygirls',
-	'table_link' => 'mygirls_link',
-	'table_pcs' => 'mygirls_pcs',
-	'url' => '/mygirls/',
-	'edit' => '/a/edit_mygirls/',
-	'max_gallery' => 12
-);
-
-const POC_DB_ARCHIV = array(
-	'title' => 'Archiv',
-	'table' => 'post',
-	'url' => '/archiv/',
-	'max' => 50,
-	'yr_max' => 3
-);
-
-const POC_DB_STATIC = array(
-	'title' => 'Backyard',
-	'url_index' => '/backyard/',
-	'url' => '/s',
-	'dir' => '/dendron/static', # for indexed static pages
-	'dir2' => '/dendron/static2', # for non-indexed 'private' pages
-	'info' => '_desrc.ini'
-);
-?>
 <?php // ----------- db access. in a class obj ---------------
 
 /* --------- enable following in php.ini ------------
@@ -45,7 +8,6 @@ enable extension=pdo_sqlite
 
 class PocDB {
 
-// const POC_DB_FILE = $_SERVER['DOCUMENT_ROOT'].'/axon/pocchong_data.sqlite';
 const POC_DB_FILE = '/axon/pocchong_data.sqlite';
 
 public function connect() {
@@ -122,6 +84,7 @@ public function getTags() { // return $tags->{$tag_id} = $tag_name
 	foreach ($tags0 as $tag1) {
 		$tags[$tag1['id']] = $tag1['name'];
 	}
+	ksort($tags); # sort by tag id
 	return $tags;
 }
 public function yearlast ($sel=0) { // return year 4 digits. get years of the most recent post from DB, so $k is required
@@ -147,6 +110,18 @@ public function nextID ($table=null) { // for INSERT . return current last id +1
 	}
 	return ($id+1);
 }
-
+public function prepNew ($table=null) { // prepare a new entry for input table
+	$stru=array();
+	if (isset($table)) {
+		$stat=sprintf('PRAGMA table_info(%s)', $table);
+		$info=$this->getAll($stat);
+		if (!empty($info)) {
+			foreach ($info as $row) {
+				$stru[$row['name']]=isset($row['dflt_value'])?$row['dflt_value']:'';
+			}
+		}
+	}
+	return ($stru ?? null);
+}
 } // closing class
 ?>

@@ -242,8 +242,16 @@ datetime, .datetime a {
 .archiv li:hover a:link, .archiv li:hover a:visited {
 	font-weight: bold;
 }
+.archivicon {
+	/* width: 50px; */
+	display: inline-block;
+	padding-right: 10px;
+	letter-spacing: -5px;
+	/* text-align: center; */
+	/* background: pink; */
+}
 .archivdate {
-	width: 11%;
+	width: 100px;
 	display: inline-block;
 	text-align:right;
 	margin-right: 15px;

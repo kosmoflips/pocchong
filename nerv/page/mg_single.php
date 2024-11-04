@@ -20,21 +20,25 @@ if ($id) {
 
 // get all pcs from associated main title id
 $pcs0=$k->getAll('SELECT * FROM mygirls_pcs WHERE title_id=?', array($id));
-$stds=array();
+$repid=$k->getOne('SELECT rep_id FROM mygirls WHERE id=?', array($id))??0;
 $pcs=array();
 foreach ($pcs0 as $row) {
-	if ($row['stdalone']) {
-		$stds[]=$row;
+	if ($repid==$row['id']) {
+		$std=$row;
 	} else {
 		$pcs[]=$row;
 	}
 }
 shuffle($pcs);
-if (empty($stds)) { // if no given stdalone, get 1 random pcs from shuffed $pcs
-	$stds[]=array_pop($pcs);
+if (empty($std)) {
+	if (!empty($pcs)) { // if no given stdalone, get 1 random pcs from shuffed $pcs
+		$std=array_pop($pcs);
+	} else {
+		$std['img_url']=POC_IMG_PLACEHOLDER;
+	}
 }
 
-$p->navi['pair']=mk_navi_pair($k, POC_DB_MG['table'], $id,POC_DB_MG['url']);
+$p->navi['pair']=mk_navi_pair($k, 'mygirls', $id,POC_DB_MG['url']);
 $p->html_open();
 ?>
 <div><!-- artwork block begins -->
@@ -66,11 +70,11 @@ if ($entry['remade_from']) {
 ?>
 </ul>
 </blockquote>
+
 <?php
-// ----- stdalone -----
-foreach ($stds as $pc1) {
-	$imgsrc=mk_mg_img_url($pc1['img_url']);
-	$daurl=isset($pc1['da_url'])?mk_url_da($pc1['da_url'], $entry['epoch']):'';
+// ----- rep -----
+$imgsrc=mk_mg_img_url($std['img_url']);
+$daurl=isset($std['da_url'])?mk_url_da($std['da_url'], $entry['epoch']):'';
 ?>
 <div class="stdalone">
 <?php
@@ -89,9 +93,8 @@ if ($daurl) {
 ?>
 <br />
 </div><!-- .stdalone -->
-<?php
-}
 
+<?php
 // ----- pcs -----
 if (!empty($pcs)) {
 ?>

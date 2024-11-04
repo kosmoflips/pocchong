@@ -17,7 +17,7 @@ $p->title=POC_DB_ARCHIV['title'];
 
 $arv=array();
 foreach (array('post','mygirls') as $tb) {
-	$basestat=sprintf('SELECT id,title,epoch,gmt FROM %s WHERE year>=? AND year<=? ORDER BY epoch DESC', $tb);
+	$basestat=sprintf('SELECT id,title,epoch,gmt,hide FROM %s WHERE year>=? AND year<=? ORDER BY epoch DESC', $tb);
 	$get1=$k->getAll($basestat, array($curr_yr2, $curr_yr));
 	foreach ($get1 as $x) {
 		$yr=clock27($x['epoch'], 2, $x['gmt']);
@@ -44,7 +44,11 @@ foreach ($arv as $loopyear=>$ylist) {
 	krsort($ylist); # order both post/mg by epoch
 	foreach ($ylist as $entry) {
 ?>
-<li><a href="<?php echo $entry['table']==1?POC_DB_POST['url']:POC_DB_MG['url'],'?id=',$entry['id'] ?>"><span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span><?php echo $entry['table']==1?"&#128211;":"&#127912;"; ?> <?php echo $entry['title'] ?></a></li>	
+<li><a href="<?php echo $entry['table']==1?POC_DB_POST['url']:POC_DB_MG['url'],'?id=',$entry['id'] ?>">
+	<span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span>
+	<span class="archivicon"><?php echo $entry['table']==1?"&#128211;":"&#127912;"; ?><?php echo $entry['hide']==1?"&#128273;":""; ?></span>
+	<?php echo $entry['title'] ?>
+</a></li>	
 <?php
 	}
 	?>

@@ -64,8 +64,6 @@ static function html_admin ($close=0) {
 ?>
 <?php // ----- navi-bar related -----
 
-define('POC_NAVI_STEP', 2);
-
 function mk_navi_pair ($k=null,$table='',$cid=1, $url='') {
 	if (!$k or !$table) { return array(); }
 	$n0=$k->_getNext($table,$cid,0);
@@ -154,14 +152,14 @@ function calc_page_offset($curr_page=1,$max_per_page=0) { #return offset for SQL
 function show_theme_selector() { // css seletor. use in footer to show a drop down menu of available themes, define in db-ini file
 	$curr_theme=$_COOKIE['theme'] ?? '';
 	echo '<select id="css-chooser" onchange="changeCSS()">', "\n";
-	if (!$curr_theme or $curr_theme == '_default_' or !array_key_exists($curr_theme, POC_DB['THEME'])) { # cookie recorded theme doesn't exist or isn't found in defined css list
-		$curr_theme=POC_DB['THEME']['_default_'];
+	if (!$curr_theme or !in_array($curr_theme, POC_THEME)) { # cookie recorded theme doesn't exist or isn't found in defined css list
+		$curr_theme=POC_THEME[0];
 	}
 	# loop defined themes and print drop down menu
 	echo '<option value="" disabled>theme</option>',"\n";
-	foreach (POC_DB['THEME'] as $fcss=>$v) {
-		if ($fcss == '_default_') {
-			continue;
+	foreach (POC_THEME as $i=>$fcss) {
+		if ($i==0) {
+			continue; # skip 0/default
 		}
 		printf ('<option value="%s"%s>%s</option>%s',
 			$fcss,
@@ -178,7 +176,7 @@ function mk_css_file_path ($csstag='', $showdefault=0) {
 	if (file_exists($cssfile2)) {
 		return ($cssfile);
 	} else {
-		return ('/deco/css/theme_'.POC_DB['THEME']['_default_'].'.css');
+		return ('/deco/css/theme_'.POC_THEME[0].'.css');
 	}
 }
 ?>

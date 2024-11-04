@@ -3,19 +3,14 @@
 # SUPER IMPORTANT INFO:
 # TO MAKE SURE JUMP WORKS PROPERLY, THERE SHOULD NOT BE ANY EXTRA WHITE SPACE OUTSIDE OF ANY <php> TAGS!
 
-define ('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
+define('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
+
+// ------ site constants/configs ------
+include(NERV.'/constants.php'); # defined constants
 
 // ----- load db and layout libs -----
 require_once (NERV.'/poc_db.php'); // db(sqlite) connection
 require_once (NERV.'/poc_page.php'); // page layout
-
-// ------ get site config through ini ------
-define('POC_DB', readini(NERV.'/db_config.ini') );
-define('POC_META', POC_DB['META'] );
-define('POC_LAYOUT', NERV.'/layout' );
-
-// ----- other internal constants -----
-define('POC_YEAR_START', 2006); # first posted year
 
 // ----- add session , if logged on, can see 'edit' button -----
 session_start();
@@ -180,8 +175,8 @@ function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &ti
 }
 function get_newest_year () {
 	$k=new PocDB();
-	$yr1=$k->getOne('SELECT year FROM '.POC_DB_POST['table'].' ORDER BY year DESC LIMIT 1');
-	$yr2=$k->getOne('SELECT year FROM '.POC_DB_MG['table'].' ORDER BY year DESC LIMIT 1');
+	$yr1=$k->getOne('SELECT year FROM post ORDER BY year DESC LIMIT 1');
+	$yr2=$k->getOne('SELECT year FROM mygirls ORDER BY year DESC LIMIT 1');
 	if ($yr1>$yr2) {
 		return $yr1;
 	} else {
@@ -224,6 +219,15 @@ function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
 	} else {
 		return '';
 	}
+}
+function cleanimgurl ($url='') {
+	$pattern1='/^https?:?/';
+	$pattern2='/^[\/:]/';
+	while (preg_match($pattern1, $url) or preg_match($pattern2, $url)) {
+		$url=preg_replace($pattern1,'',$url);  # remove http(s)
+		$url=preg_replace($pattern2,'',$url);  # remove leading slash '/' or ":"
+	}
+	return $url;
 }
 
 ?>
