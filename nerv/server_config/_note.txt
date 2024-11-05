@@ -1,0 +1,74 @@
+backup as of 2023-06-18
+----------------------------------------------------------
+C:\Windows\System32\drivers\etc\hosts
+D:\local\Apache24\conf\httpd.conf
+D:\local\Apache24\conf\extra\httpd-vhosts.conf
+D:\local\php\php.ini
+----------------------------------------------------------
+using apache 2.4.52 and php 8.1.2
+From Apache lounge and PHP x64 TS as directed on php site.
+have a few changes in config files, both apache and php
+
+!! MAKE SURE TO ADD APACHE AND PHP TO SYSTEM PATH !!
+
+NOTE: php files placed in OneDrive won't be read. symbolic link by mklink can't solve this either. so move server-folder outside of onedrive and keep in mind to sync often.
+
+
+- in Admin CMD, go to Apache's dir/bin, type "httpd.exe -k install", and normally it should work
+
+- for "php.ini" in php folder
+	- enable the following:
+		- extension=mbstring
+		- extension=pdo_sqlite
+		- extension=sqlite3
+		- extension_dir = "ext" << for specifying where modules reside
+		- sqlite3.extension_dir = << the dll should be in root. just uncomment
+
+- replace "httpd.conf" using my backup
+	- server root
+	- server name
+	- enable CGI
+	- lines with "POCCHONG" (or whatever dir path)
+	- end of ref file, for php and perl shebang
+	- other lines tagged with "KIYO"
+- replace "httpd-vhosts.conf" using my backup
+	- server name
+	- 2nd server info
+- add into Windows' system variable %PATH% : "D:\Apache24" and "D:\php", reboot may be required (at least php, not sure about apache)
+- update "C:\Windows\System32\Drivers\etc\hosts", add at end of file "127.0.0.1       my-custom-server-name.com"
+
+>ignore windows shebang for apache:
+	http://httpd.apache.org/docs/2.2/mod/core.html#scriptinterpretersource
+	> add into httpd.conf: ScriptInterpreterSource Registry-Strict
+	> add perl path in regedit [HKEY_CLASSES_ROOT] for both ".pl" and ".cgi"
+		HCR\.pl\Shell\ExecCGI\Command\(Default) => C:\strawberry\perl\bin\perl.exe
+
+
+
+------------------------------------
+
+some old info
+
+>Apache + CGI config for localhost
+	http://www.pocchong.de/post/412
+
+>apache + php
+	http://www.pocchong.de/post/634
+
+>new memos
+	http://www.pocchong.de/post/658
+
+>additional localhost paths
+	https://stackoverflow.com/questions/19313928/httpd-conf-setting-up-a-second-localhost-to-a-different-localpath
+	
+-------------------------------------------
+
+
+	
+at least on windows, must be hard link or git won't pick up content changes
+
+>mklink /h nerv\site_config\httpd_config.txt D:\local\Apache24\conf\httpd.conf
+
+>mklink /h nerv\site_config\php_ini.txt D:\local\php\php.ini
+
+>mklink /h nerv\site_config\httpd_vhosts.txt D:\local\Apache24\conf\extra\httpd-vhosts.conf

@@ -1,8 +1,6 @@
 <?php 	// ------------ system config, keep on top----------------
 
-# SUPER IMPORTANT INFO:
-# TO MAKE SURE JUMP WORKS PROPERLY, THERE SHOULD NOT BE ANY EXTRA WHITE SPACE OUTSIDE OF ANY <php> TAGS!
-
+// ------ everything starts here -------
 define('NERV', $_SERVER['DOCUMENT_ROOT'].'/nerv');
 
 // ------ site constants/configs ------
@@ -22,8 +20,9 @@ chklogin();
 <?php // ----- system stuff -----
 function show_response ($code=200) { # e.g. 404, 500
 	http_response_code($code);
-	echo "<h1>HTTP Resonse Code: ", $code, '<hr />┐(・ω・)┌</h1>';
-	die();
+	$_GET['code']=$code;
+	include(NERV.'/my_httpd.php');
+	exit;
 }
 ?>
 <?php // ----- common subs -----

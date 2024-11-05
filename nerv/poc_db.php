@@ -8,7 +8,7 @@ enable extension=pdo_sqlite
 
 class PocDB {
 
-const POC_DB_FILE = '/axon/pocchong_data.sqlite';
+const POC_DB_FILE = '/binary/pocchong_data.sqlite';
 
 public function connect() {
 	$dbfile=$_SERVER['DOCUMENT_ROOT'].$this::POC_DB_FILE;

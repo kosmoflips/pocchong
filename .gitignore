@@ -2,8 +2,8 @@ desktop.ini
 error.log
 userdata.ini
 
-axon/
-samune/
+binary/
+image_files/
 
 *.sqlite
 *.lnk

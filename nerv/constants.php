@@ -47,8 +47,8 @@ const POC_DB_STATIC = array(
 	'title' => 'Backyard',
 	'url_index' => '/backyard/',
 	'url' => '/s',
-	'dir' => '/dendron/static', # for indexed static pages
-	'dir2' => '/dendron/static2', # for non-indexed 'private' pages
+	'dir' => '/pages/static', # for indexed static pages
+	'dir2' => '/pages/static2', # for non-indexed 'private' pages
 	'info' => '_desrc.ini'
 );
 
@@ -57,7 +57,7 @@ const POC_LAYOUT = NERV.'/layout';
 const POC_NAVI_STEP = 2;
 # css theme files
 const POC_THEME = array(
-'shinkai', # use [0] for default
-'ajisai', 'kirisame', 'natsugusa', 'sakura', 'shinkai', 'xmas'
+	'shinkai', # use [0] for default
+	'ajisai', 'kirisame', 'natsugusa', 'sakura', 'shinkai', 'xmas'
 );
 ?>

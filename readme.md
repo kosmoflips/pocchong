@@ -32,3 +32,4 @@ on github since 2021-08-25
 - [22-03-29] [leave /cgi-bin since php upgrade](https://github.com/kosmoflips/pocchong/tree/f1563a37e3eb09267cde6083e3f665be66f1ece1)
 - [22-10-28] [local image hosting reconstruction](https://github.com/kosmoflips/pocchong/tree/c0f8b8b4cba5388ac7fb691aa9fd2a125aead819)
 - [23-03-24] [css theme selector](https://github.com/kosmoflips/pocchong/tree/63873c09a8d3045e1717eadb9f243d4044719e67)
+- [24-11-03] [major structural update](https://github.com/kosmoflips/pocchong/tree/85faf974074b334d13d981c278d0840d605e265f)

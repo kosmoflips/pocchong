@@ -10,7 +10,7 @@ function print_errors($error=null) {
 }
 function login($usr='', $pw='') {
 	if ($usr and $pw) {
-		define('TMP_ADMIN_USER_DATA','/axon/userdata.ini');
+		define('TMP_ADMIN_USER_DATA','/binary/userdata.ini');
 		$usr=strtolower($usr);
 		$admin_info=readini($_SERVER['DOCUMENT_ROOT'].TMP_ADMIN_USER_DATA);
 		if (isset($admin_info[$usr])) {

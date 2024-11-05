@@ -16,6 +16,12 @@ public function add_html_head_block ($list=array()) { # input array, each elemen
 }
 
 // write html subs
+public function httpd_open () {
+	include (POC_LAYOUT.'/layout_httpd_1.php');
+}
+public function httpd_close () {
+	include (POC_LAYOUT.'/layout_httpd_2.php');
+}
 public function html_open ($mode=0) { #  mode=2, entry open (e.g. for one single post); mode=1; master open (does NOT have entry open); mode=0, entry + master open (page with one post block)
 	if ($mode!=2) {
 		include (POC_LAYOUT.'/site_master1.php');
@@ -39,13 +45,13 @@ public function print_html_head_title () {
 	echo POC_META['alias'];
 }
 public function print_html_head_block () { // custom head stuff, used in layout/meta.php
-	echo "<!-- user given head blocks: start-->\n";
 	if (sizeof($this->head)>0) {
+		echo "<!-- user given head blocks: start-->\n";
 		foreach ($this->head as $line) {
 			echo $line,"\n";
 		}
+		echo "<!-- user given head blocks: end-->\n";
 	}
-	echo "<!-- user given head blocks: end-->\n";
 }
 
 // admin navi bar
@@ -172,7 +178,7 @@ function show_theme_selector() { // css seletor. use in footer to show a drop do
 }
 function mk_css_file_path ($csstag='', $showdefault=0) {
 	$cssfile='/deco/css/theme_'.$csstag.'.css';
-	$cssfile2=$_SERVER['DOCUMENT_ROOT'].'/dendron'.$cssfile; // real path on disk
+	$cssfile2=$_SERVER['DOCUMENT_ROOT'].$cssfile; // real path on disk
 	if (file_exists($cssfile2)) {
 		return ($cssfile);
 	} else {
