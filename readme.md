@@ -5,15 +5,20 @@ on github since 2021-08-25
 
 ## file structure
 
- - [axon] db, image, other binary stuff
-	 - Note things in this folder are mostly binary and are synced to OneDrive only
+ - [binary] binary stuff NOT saved on github
+   - database file, backups
+   - old theme css archives
+   - non-used smiley files
  - [cgi-bin] not in use but still keep it as a tradition
- - [dendron]
-	 - [deco] css/js stuff
-	 - [static] individual static pages (indexed)
-	 - [static2] individual static pages (self-use, not indexed)
-	 - independent sub-sites
- - [nerv] core php stuff
+ - [deco]
+   - css
+   - images for css
+   - javascripts
+- [image_files]
+   - image files embeded into posts, in webp format to save space
+   - large/HD files should be uploaded to OneDrive and get the share link from there
+- [nerv] core php
+- [pages] static pages
 
 
 ## notes
@@ -32,4 +37,4 @@ on github since 2021-08-25
 - [22-03-29] [leave /cgi-bin since php upgrade](https://github.com/kosmoflips/pocchong/tree/f1563a37e3eb09267cde6083e3f665be66f1ece1)
 - [22-10-28] [local image hosting reconstruction](https://github.com/kosmoflips/pocchong/tree/c0f8b8b4cba5388ac7fb691aa9fd2a125aead819)
 - [23-03-24] [css theme selector](https://github.com/kosmoflips/pocchong/tree/63873c09a8d3045e1717eadb9f243d4044719e67)
-- [24-11-03] [major structural update](https://github.com/kosmoflips/pocchong/tree/85faf974074b334d13d981c278d0840d605e265f)
+- [24-11-05] [major structural update & optimise functions](https://github.com/kosmoflips/pocchong/commit/9c70c39d64698b1a14c521f5c26b42e33498e468)
