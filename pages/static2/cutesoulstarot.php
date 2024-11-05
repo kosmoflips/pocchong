@@ -1,7 +1,7 @@
 <?php
-$title='Cute Souls Tarot Deck';
-$p->title=$title;
-$extra=['
+$p->title='Cute Souls Tarot Deck';
+$p->static_open(1);
+?>
 <style>
 table {
 	border: none;
@@ -30,10 +30,8 @@ td img {
 	max-width: 100% !important;
 }
 </style>
-'];
-$p->add_html_head_block($extra);
-$p->html_open();
-static_page_open($title);
+<?php
+$p->static_open(2);
 ?>
 
 <?php # define id/card link

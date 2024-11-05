@@ -1,9 +1,10 @@
 <?php
 // ＵＴＦ－８　ＡＮＣＨＯＲ
-$title=fname2name($_SERVER['REDIRECT_URL']);
-$p->title=$title;
-$p->html_open();
-static_page_open($title);
+$p->title='';
+$p->static_open(1);
 ?>
-
-<!-- html content code , NO <article> tag! -->
+<!-- custom style stuff -->
+<?php
+$p->static_open(2);
+?>
+<!-- html content -->

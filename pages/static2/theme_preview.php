@@ -1,74 +1,17 @@
 <?php
-// THIS PAGE DOESN'T BELONG TO BACKYARD
-// this page only serves as a sandbox preview when I edit site-wise CSS themes
-// can be accessed from: /s/theme_preview
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 
 $p=new PocPage;
+
+$p->html_open(1);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>test</title>
-<!-- google fonts -->
-<link href="https://fonts.googleapis.com/css?family=Milonga&display=swap&subset=latin-ext" rel="stylesheet" /><!-- font-family: 'Milonga', cursive; -->
-<link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
-<!-- javascript -->
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-<script src="/deco/js/lightbox/lightbox.js"></script>
-<script src="/deco/js/change_css_in_situ.js"></script>
-<!-- theme css -->
-<link rel="stylesheet" type="text/css" href="<?php echo mk_css_file_path($_COOKIE['theme']??'', 1); ?>" />
-<!-- layout css -->
-<link rel="stylesheet" type="text/css" href="/deco/js/lightbox/lightbox.css" />
-<link rel="stylesheet" type="text/css" href="/deco/css/site_base.css" />
-</head>
-<body>
-<div id="master-wrap">
-<header id="header-outer">
-<div id="header-img"></div>
-<a href="/"><span id="headerlink"></span></a>
-<h1><a href="/">音時雨 ～Regentropfen～</a></h1>
-<div id="menu-out">
-<ul id="menu">
-<li><a href="/days/">Days</a></li>
-<li><a href="/archiv/">Archiv</a>
-</li>
-<li><a href="/mygirls/">MyGirls</a></li>
-<li><a href="/gradient/" target="_blank">Gradient</a></li>
-<li><a href="/backyard/">Backyard</a>
-
-<!-- FIX LATER
-< ?php if (isset (POCCHONG['STATIC']['set'])) { ?>
-	<ul class="sub-menu">
-< ?php // links here open in new window
-	foreach (POCCHONG['STATIC']['set'] as $ff => $tt) { ?>
-		<li><a href="< ?php echo $ff ?>">< ?php echo $tt ?></a></li>
-< ?php
-	} ?>
-	</ul>
-< ?php } ?>
--->
-
-</li>
-<li><a href="/about/">About</a></li>
-</ul>
-</div><!-- id="menu-out" -->
-</header>
-<div id="content-wrap">
-<div id="mainlayer">
-<div id="post-list-wrap">
 <!-- ---------------posts x2---------------------------------------- -->
-
 <?php 	$p->html_open(2); ?>
 <div class="datetime"><a href="#">2022-Oct-22 (Sat), 12:00@GMT-7</a></div>
 <h3><a href="#"><?php echo rand_deco_symbol(); ?> Tester entry title</a></h3>
 <article>
-
-
-
 <select id="css-chooser1" onchange="changeCSS()">
   <option value="" disabled selected>theme</option>
   <option value="ajisai">ajisai</option>
@@ -260,9 +203,6 @@ $p=new PocPage;
 </ul>
 </div>
 <?php $p->html_close(2); ?>
-
-
-
 
 
 </div><!-- #post-list-wrap -->

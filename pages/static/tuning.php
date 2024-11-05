@@ -1,7 +1,7 @@
 <?php
-$title=fname2name($_SERVER['REDIRECT_URL']);
-$p->title=$title;
-$extra=['
+$p->title='Tuning Chart';
+$p->static_open(1);
+?>
 <style>
 table {
 	border-collapse: collapse;
@@ -46,12 +46,7 @@ table {
 .rest { border: 1px solid #DBB8DB; }
 .rest li:hover { background: #EDDCED; }
 </style>
-'];
-$p->add_html_head_block($extra);
-$p->html_open();
-static_page_open($title);
-?>
-
+<?php $p->static_open(2); ?>
 <div style="text-align:center"><a href="http://en.wikipedia.org/wiki/Piano_key_frequencies" target="_blank">source: wikipedia</a></div>
 <table class="key-chart">
 <tr>

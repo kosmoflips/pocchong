@@ -1,7 +1,7 @@
 <?php
-$title=fname2name($_SERVER['REDIRECT_URL']);
-$p->title=$title;
-$extra=['
+$p->title='About';
+$p->static_open(1);
+?>
 <style>
 /*
 span {
@@ -56,12 +56,9 @@ span {
 	border: dotted 1px rgb(200,132,184);
 }
 </style>
-'];
-$p->add_html_head_block($extra);
-$p->html_open();
-static_page_open($title);
+<?php
+$p->static_open(2);
 ?>
-
 <div class="codebox" style="line-height: 1.2; white-space: pre-wrap;">
 <span class="sc2">##### more links first #####</span>
 <span class="sc2"># contact: kosmoflips [at/gmail/dot/com]</a></span>

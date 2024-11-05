@@ -5,34 +5,18 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 //only use  target="_blank"  when not using the site style
 
 $p=new PocPage;
-$cssex=
-<<<STYLEBLOCK
-<style>
-ul {
-	margin-bottom: 45px;
-}
-ul:last-child {
-	margin-bottom: unset;
-}
-</style>
-STYLEBLOCK;
 $p->title=POC_DB_STATIC['title'];
-$p->add_html_head_block([$cssex]);
-$p->html_open();
+$p->static_open(0,1);
 
-# page.php => description
-$desrc=readini($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir'].'/'.POC_DB_STATIC['info']);
-// ----- parse static dir -----
-$files=scandir($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir']);
-$list=array();
-foreach ($files as $file) {
-	if (preg_match('/^_/', $file)) {
-		continue;
-	}
-	if (preg_match('/(.+?)\.(php)$/i', $file,$x)) {
-		array_push( $list, array('name'=>fname2name($file),'link'=>$x[1]) );
-	}
-}
+$slist=array(
+# x(.php) => title, description
+'classical' => array('Classical Composer Names', 'for tagging purpose'),
+'freetype' => array('Free Type', 'enlarge typed text for kanji study'),
+'linearts' => array('Line Arts', 'plain text based horizontal decoration lines'),
+'mg_palette' => array('MG Palette','standard colour reference chart'),
+'myo_smiley' => array("MyOpera Smileys", "MyOpera legacy smiley list"),
+'tuning'=> array('Tuning Chart', 'pitch frequency for tuning')
+);
 
 $symbol2=rand_deco_symbol();
 $symbol3=rand_deco_symbol();
@@ -41,12 +25,11 @@ $symbol3=rand_deco_symbol();
 <div class="archiv">
 <ul>
 <?php
-foreach ($list as $row) {
+foreach ($slist as $fn => $row) {
 ?>
-<li><span class="archivname"><a href="/s/<?php echo $row['link']; ?>"><?php echo $row['name']; ?></a></span>
-	<?php if (array_key_exists($row['link'],$desrc)) { ?>
-	<span class="archivdesc"><?php echo $desrc[$row['link']]; ?></span>
-	<?php } ?>
+<li>
+	<span class="archivname" style="margin-right: 7px;"><a href="/s/<?php echo $fn; ?>"><?php echo $row[0]??'No Title'; ?></a></span>
+	<span class="archivdesc"><?php echo $row[1]??''; ?></span>
 </li>
 <?php
 }

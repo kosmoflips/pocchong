@@ -17,7 +17,7 @@ if (isset($_SESSION) and isset($_SESSION["time_out"]) and ($_SESSION["time_out"]
 }
 chklogin();
 ?>
-<?php // ----- system stuff -----
+<?php // ----- server stuff -----
 function show_response ($code=200) { # e.g. 404, 500
 	http_response_code($code);
 	$_GET['code']=$code;
@@ -188,6 +188,7 @@ function mk_mg_img_url ($path='') { # convert stored in db img path to site-defi
 # made on 2022-oct-28, since i switch to host image on localhost instead of google
 	return ('/img/'.$path);
 }
+/*
 function mk_url_google_img ($url='',$size='') { // input  has no https://
 # as of 2022-Mar-5 , new url format on blogger: https://blogger.googleusercontent.com/img/a/a_super_long_string=s320
 # for old googleusercontent link [https://lh4.googleusercontent.com/string-for-this-img/may-contain-multiple-slashes/s500/], keep as is unless they stop working.
@@ -211,6 +212,7 @@ function mk_url_google_img ($url='',$size='') { // input  has no https://
 	}
 	return $url2;
 }
+*/
 function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
 	if ($url) {
 		// return "http://kosmoflips.deviantart.com/art/".$url; // old url format
@@ -228,37 +230,9 @@ function cleanimgurl ($url='') {
 	}
 	return $url;
 }
-
-?>
-<?php // ----- static page related -----
-function fname2name ($file='') { # split filename by "_" and return name by uc first letter -- unless define a new name later
-	# remove last elem: php OR other extension
-	$file=basename($file);
-	if (preg_match('/\./', $file )) {
-		$x0=preg_split('/\./', $file);
-		array_pop($x0);
-		$x1=$x0[0];
-	} else {
-		$x1=$file;
-	}
-	$fsub=preg_split('/_/', $x1);
-	foreach (array_keys($fsub) as $i) {
-		$fsub[$i]=ucfirst($fsub[$i]);
-	}
-	return (implode(' ',$fsub) );
-}
-function static_page_open ($title='No Title') {
-	$symbol=rand_deco_symbol();
-	echo '<h2>', $symbol,' ', $title,' ',$symbol, '</h2>', "\n";
-	echo '<article>', "\n";
-}
 ?>
 <?php // -------------- admin edit page related --------------
-function write_preview_sash () {
-	?>
-<div style="z-index:20;position:fixed;background:rgba(0,0,0,0.7);padding:20px 0;text-align:center;display:block;width:100%;left:-100px;top:50px;font-size:30px;font-weight:bold;color:white;transform: rotate(-20deg)">PREVIEW</div>
-<?php
-}
+/*
 function print_system_msg ($msg='') { // admin submit-page edit only
 	if (!empty($msg)) {
 		?>
@@ -266,5 +240,89 @@ function print_system_msg ($msg='') { // admin submit-page edit only
 <?php
 	}
 }
+*/
+?>
+<?php // ----- navi-bar related -----
+function mk_navi_pair ($k=null,$table='',$cid=1, $url='') {
+	if (!$k or !$table) { return array(); }
+	$n0=$k->_getNext($table,$cid,0);
+	$p0=$k->_getNext($table,$cid,1);
+	$navi1=array();
+	# query url here should be universal for all , /pagename?id=xxxx
+	if (isset($n0)) {
+		$navi1['next']['url']=sprintf ('%s?id=%d', $url, $n0['id']);
+		$navi1['next']['title']=$n0['title'];
+	}
+	if (isset($p0)) {
+		$navi1['prev']['url']=sprintf ('%s?id=%d', $url, $p0['id']);
+		$navi1['prev']['title']=$p0['title'];
+	}
+	return $navi1;
+}
+function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/') { // new version! urlbase e.g. "/post" in "/post?id=12"
+	$smin=5; // minimal for one side is 5
+	if ($perpage>($last-$first+1)) {
+		$perpage=5; // randomly given
+	}
+	if ($curr>$last) {
+		$curr=1;
+	}
+	$block=array();
+	$begin=0;
+	$end=0;
+	if (($curr-$step-1)<=$first) {
+		$begin=$first;
+	}
+	if ($curr+$step>=($last-1)) {
+		$end=$last;
+	}
 
+	if ($begin==$first and $end==$last) { //whole bar
+		$block[]=array($first,$last);
+	} else {
+		if ($begin==$first) { // first half
+			if (($curr+$step-$first+1)<$smin) {
+				$block[]=array($first,($smin+$first-1));
+			} else {
+				$block[]=array($first,($curr+$step));
+			}
+			$block[]=array(0,0);
+			$block[]=array($last,$last);
+		}
+		elseif ($end==$last) { //last half
+			$block[]=array($first,$first);
+			$block[]=array(0,0);
+			if (($last-$smin)<($curr-$step)) {
+				$block[]=array(($last-$smin+1),$last);
+			} else {
+				$block[]=array(($curr-$step),$last);
+			}
+		}
+		else {//middle
+			$block[]=array($first,$first);
+			$block[]=array(0,0);
+			$block[]=array(($curr-$step),($curr+$step));
+			$block[]=array(0,0);
+			$block[]=array($last,$last);
+		}
+	}
+	return array(
+		'block'=>$block,
+		'prev'=>($curr==$first)?0:($curr-1),
+		'next'=>($curr==$last)?0:($curr+1),
+		'curr'=>$curr,
+		'url'=>$urlbase // ready to be connected with query, e.g. ?id=2
+	);
+}
+function calc_total_page($totalrows=1,$max_per_page=1) {
+	$pgtotal=intdiv ($totalrows,$max_per_page);
+	if ($totalrows%$max_per_page) { $pgtotal++; }
+	return $pgtotal;
+}
+function calc_page_offset($curr_page=1,$max_per_page=0) { #return offset for SQL. MUST ensure $curr (current page) is right . better use after &verify_current_page()
+	if ($curr_page <1) {
+		$curr_page=1;
+	}
+	return (($curr_page-1)*$max_per_page);
+}
 ?>

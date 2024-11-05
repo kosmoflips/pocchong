@@ -5,8 +5,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 //only use  target="_blank"  when not using the site style
 
 $p=new PocPage;
-$p->title="non-listed static pages";
-$p->html_open();
+$p->title='Unlisted Pages';
+$p->static_open(0);
 
 // ----- parse static dir -----
 $files=scandir($_SERVER['DOCUMENT_ROOT'].POC_DB_STATIC['dir2']);
@@ -23,17 +23,17 @@ foreach ($files as $file) {
 	} else {
 		$link=$file;
 	}
-	array_push( $list, array('name'=>$file,'link'=>$link) );
+	array_push( $list, array($file,$link) );
 }
 
 ?>
-<h3>Non-listed Individial Pages</h3>
+
 <div>
 <ul>
 <?php
 foreach ($list as $row) {
 ?>
-<li><a href="/v/<?php echo $row['link']; ?>"><?php echo $row['name']; ?></a></li>
+<li><a href="/v/<?php echo $row[1]; ?>"><?php echo $row[0]; ?></a></li>
 <?php
 }
 ?>

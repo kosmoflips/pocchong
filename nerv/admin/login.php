@@ -26,7 +26,13 @@ if ($loginflag) {
 	if (!$loginflag) { // login failed. show login form ?>
 	<div style="text-align: center;">
 	<?php
-		print_errors($error);
+		if (isset($error)) {
+			echo "<div>\n";
+			foreach ($error as $line) {
+				echo $line, "<br />\n";
+			}
+			echo "</div>\n";
+		}
 		include (NERV.'/admin/incl_loginform.html');
 	?>
 	</div>

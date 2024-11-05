@@ -40,7 +40,7 @@ if (isset($info['insert'])) {
 <tr><td><b>gmt*</b></td>
 	<td><input type="number" min="-12" max="12" size="4" name="main[gmt]" maxlength="2" value="<?php echo $info['gmt'] ?>" required /></td></tr>
 <tr><td><b>year*</b></td>
-	<td><input type="number" name="main[year]" maxlength="2" value="<?php echo ($info['year']??(date('Y')-2000)) ?>" readonly /> (shown as year-2000) if really want to change, use SQL</td></tr>
+	<td>20<input type="number" name="main[year]" maxlength="2" value="<?php echo ($info['year']??(date('Y', $info['epoch'])-2000)) ?>" readonly /> if really want to change, use SQL</td></tr>
 <tr><td><b>rep_id (current)</b></td>
 	<td><input type="number" size="4" name="curr_rep_id" maxlength="11" value="<?php echo $info['rep_id'] ?>" readonly></td></tr>
 <tr><td><b>post_id (for liner notes)</b></td>

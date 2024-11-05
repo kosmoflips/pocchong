@@ -1,15 +1,7 @@
 <?php
-$title='YouTube lists';
-$p->title=$title;
-$extra=['
-<style>
-</style>
-'];
-$p->add_html_head_block($extra);
-$p->html_open();
-static_page_open($title);
+$p->title='YouTube lists';
+$p->static_open();
 ?>
-
 <h4>2BRO</h4>
 <ul>
 <li><a href="https://www.youtube.com/playlist?list=PL1Z1KdfmKuebaRiSNxWbMUVZgA3tUrXfE" target="_blank">ダークソウル３/弟者,兄者,おついち</a></li>

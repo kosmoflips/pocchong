@@ -1,4 +1,5 @@
 <?php
+/*
 function print_errors($error=null) {
 	if (isset($error)) {
 		echo "<div>\n";
@@ -8,6 +9,7 @@ function print_errors($error=null) {
 		echo "</div>\n";
 	}
 }
+*/
 function login($usr='', $pw='') {
 	if ($usr and $pw) {
 		define('TMP_ADMIN_USER_DATA','/binary/userdata.ini');

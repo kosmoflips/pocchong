@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-<?php include(POC_LAYOUT.'/meta.php'); ?>
+<?php include(POC_LAYOUT.'/html_head.php'); ?>
 </head>
 <body>
 <div id="master-wrap" style="margin-top:80px; width: 80%">

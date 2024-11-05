@@ -1,10 +1,18 @@
 <?php
+if (!isset($this->navi)) {
+?>
+<div id="footer-navi">
+<?php
 if ($this->navi['pair']) { // next or prev
 	print_navi_pair($this->navi['pair']);
 }
 if (isset($this->navi['bar'])) { // navi bar 1 2 3 ... last
 	print_navi_bar($this->navi['bar']);
 }
+?>
+</div><!-- .footer-navi -->
+<?php } ?>
+<?php // ------------- subs -----------
 
 // ---------print_navi_pair -------
 function print_navi_pair ($npair=null) {

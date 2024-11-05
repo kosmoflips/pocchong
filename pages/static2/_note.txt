@@ -1,1 +1,0 @@
-put static pages for personal use here, so pages aren't indexed by static.php

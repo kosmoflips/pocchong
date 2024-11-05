@@ -1,8 +1,6 @@
 <?php
-$title=fname2name($_SERVER['REDIRECT_URL']);
-$p->title=$title;
-$p->html_open();
-static_page_open($title);
+$p->title='Classical Composer Names';
+$p->static_open(0);
 ?>
 
 Quick reference for tagging cue files.<br />

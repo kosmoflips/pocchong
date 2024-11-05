@@ -1,15 +1,13 @@
 <?php
-$title="Line Arts";
-$p->title=$title;
-$extra=['<style>
+$p->title="Line Arts";
+$p->static_open(1);
+?>
+<style>
 ol li {
 border-bottom: 1px solid #88a9bc;
 }
-</style>'];
-$p->add_html_head_block($extra);
-$p->html_open();
-static_page_open($title);
-?>
+</style>
+<?php $p->static_open(2); ?>
 <div>separating "art" lines for decoration. while using from a random choice, type in cmd shell:<br />
 <code>perl -e "print 1+ int rand X" where X is the total number of lines.</code></div>
 

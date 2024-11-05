@@ -1,3 +1,26 @@
+<?php
+function show_theme_selector() { // css seletor. use in footer to show a drop down menu of available themes, define in db-ini file
+	$curr_theme=$_COOKIE['theme'] ?? '';
+	echo '<select id="css-chooser" onchange="changeCSS()">', "\n";
+	if (!$curr_theme or !in_array($curr_theme, POC_THEME)) { # cookie recorded theme doesn't exist or isn't found in defined css list
+		$curr_theme=POC_THEME[0];
+	}
+	# loop defined themes and print drop down menu
+	echo '<option value="" disabled>theme</option>',"\n";
+	foreach (POC_THEME as $i=>$fcss) {
+		if ($i==0) {
+			continue; # skip 0/default
+		}
+		printf ('<option value="%s"%s>%s</option>%s',
+			$fcss,
+			$curr_theme == $fcss? ' selected':'',
+			$fcss, "\n" );
+	}
+	// print reset button to use server default theme
+	echo '<option value="_default_">reset</option>',"\n";
+	echo '</select>',"\n";
+}
+?>
 <?php # get git version
 $headfile=$_SERVER['DOCUMENT_ROOT'].'/.git/HEAD';
 $headref=file_get_contents($headfile);

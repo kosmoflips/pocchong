@@ -41,7 +41,7 @@ $PAGE->html_admin();
 ?>
 <div><a href="/a/">Return to Control Panel</a> || <a href="<?php echo $mknewbase; ?>">Create New</a></div>
 <?php
-$PAGE->html_admin_navi();
+include (POC_LAYOUT.'/body_navi.php');
 ?>
 <form action="<?php echo $actionurl; ?>" method="post" accept-charset="utf-8" >
 <input type="hidden" name="list_view_chk" value="1" />

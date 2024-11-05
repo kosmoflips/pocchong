@@ -1,7 +1,7 @@
 <?php
-$title='Cute Souls Tarot Deck';
-$p->title=$title;
-$extra=['
+$p->title='Cute Souls Tarot Deck';
+$p->static_open(1);
+?>
 <style>
 table {
 	border: none;
@@ -28,10 +28,8 @@ span img {
 	width: 75px;
 }
 </style>
-'];
-$p->add_html_head_block($extra);
-$p->html_open();
-static_page_open($title);
+<?php
+$p->static_open(2);
 ?>
 
 <div style="text-align:center"><a href="http://localhost:801/randomcard.php" >random 3 cards</a></div>

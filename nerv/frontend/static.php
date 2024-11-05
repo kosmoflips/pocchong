@@ -13,6 +13,8 @@ if (file_exists($file)) {
 } else {
 	show_response(404);
 }
-echo '</article>',"\n";
+?>
+</article>
+<?php
 $p->html_close();
 ?>
