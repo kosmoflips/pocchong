@@ -21,8 +21,8 @@
 #	::1             localhost
 
 127.0.0.1 pocchong.local
-127.0.0.1 sand.box
-
+127.0.0.1 sandbox.local
+127.0.0.1 celeokt.local
 
 
 127.0.0.1 activate.adobe.com
