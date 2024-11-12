@@ -57,7 +57,7 @@ $cardlink=array(
 		174,'kyri 秘薬瓶','トリーナさんのお花＋花びら盃',159
 	),
 	'schw'=>array(-1,
-		170,'不死斬りx2',0,164,0,
+		170,'不死斬りx2',0,164,176,
 		'DS3 dancer x2, ER fire/mag x4','moonlight swords ルド聖、月光、DS3,2,1,古き、ER in BB costume 武器工房','use 9 design','ER sword grave + white noble set',153,
 		'teri',0,161,'storm ruler/nameless sword-spear'
 	),
@@ -89,22 +89,7 @@ function print_card_html($card_id, $card_key) {
 			break;
 		}
 	}
-	printf ('<a href="/mygirls/?id=%d"%s><img src="/img/%s" alt="%s-%d" /></a>%s', $gid2, ($gid2==0? ' onclick="return false"' : ''), $img, $card_key, $card_id, $txt);
-}
-function numberToRomanRepresentation($number) {
-	# https://stackoverflow.com/questions/14994941/numbers-to-roman-numbers-with-php
-    $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
-    $returnValue = '';
-    while ($number > 0) {
-        foreach ($map as $roman => $int) {
-            if($number >= $int) {
-                $number -= $int;
-                $returnValue .= $roman;
-                break;
-            }
-        }
-    }
-    return $returnValue;
+	printf ('<td><a href="/mygirls/?id=%d"%s><img src="/img/%s" alt="%s-%d" /></a>%s</td>%s', $gid2, ($gid2==0? ' onclick="return false"' : ''), $img, $card_key, $card_id, $txt, "\n");
 }
 ?>
 
@@ -125,33 +110,13 @@ for ($row1=0; $row1<$ncol; $row1++) {
 		for ($col1=0; $col1<$ntd; $col1++) {
 			$ci=$col1+$row1*$ntd;
 			if ($rep1==1) {
-				echo "<th>";
-			} else {
-				echo "<td>";
+				echo "<th>", number2roman($ci), "</th>";
 			}
-			if (array_key_exists($ci, $cardlink['gros'])) {
-				if ($rep1==1) {
-					if ($ci==0) {
-						$num='O';
-					} elseif ($ci<0) {
-						$num='';
-					} else {
-						$num=numberToRomanRepresentation($ci);
-					}
-					echo $num;
+			else {
+				if (array_key_exists($ci, $cardlink['gros']) and $ci>=0) {
+					print_card_html($ci, 'gros');
 				} else {
-					if ($ci>=0) {
-						 print_card_html($ci, 'gros');
-						 echo "\n";
-					} else {
-						echo "<td></td>";
-					}
-				}
-			} else {
-				if ($rep1==1) {
-					echo "</th>\n";
-				} else {
-					echo "</td>\n";
+					echo "<td></td>\n";
 				}
 			}
 		}
@@ -175,9 +140,7 @@ for ($row1=1; $row1<=14; $row1++) {
 	echo '<tr><td colspan="4" class="mincardnum">', $row1,"</td></tr>\n";
 	echo "<tr>\n";
 	foreach (array('stae','kelc','schw','muen') as $cardname) {
-		echo "<td>";
 		print_card_html($row1, $cardname);
-		echo "</td>\n";
 	}
 	echo "</tr>\n";
 }

@@ -127,7 +127,7 @@ textarea {
 .datetime a {
 	text-decoration: none;
 }
-datetime, .datetime a {
+.datetime, .datetime a {
 	color: var(--post-date-color);
 }
 .inline-box { /* for "edit" button when cookie is alive*/
@@ -421,6 +421,7 @@ ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	border: 1px solid var(--navi-box-border);
 	display: inline-block;
 	padding: 2px 8px;
+	margin: 3px;
 }
 .navi-bar-square-self {
 	background: var(--navi-box-bg-current);
@@ -428,6 +429,7 @@ ul#menu li:hover a, ul#menu ul.sub-menu li:hover a {
 	display: inline-block;
 	font-weight: bold;
 	padding: 2px 8px;
+	margin: 3px;
 }
 .navi-single {
 	/* background : pink; */

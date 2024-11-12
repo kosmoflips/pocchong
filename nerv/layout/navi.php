@@ -1,6 +1,3 @@
-<?php
-if (!isset($this->navi)) {
-?>
 <div id="footer-navi">
 <?php
 if ($this->navi['pair']) { // next or prev
@@ -11,67 +8,46 @@ if (isset($this->navi['bar'])) { // navi bar 1 2 3 ... last
 }
 ?>
 </div><!-- .footer-navi -->
-<?php } ?>
-<?php // ------------- subs -----------
 
-// ---------print_navi_pair -------
+<?php // ------------- subs -----------
 function print_navi_pair ($npair=null) {
 	if (!isset($npair)) {
 		return null;
 	}
-	?>
-<div class="navi-single"><!-- single navi wrap -->
-<?php
+	echo '<div class="navi-single"><!-- single navi wrap -->',"\n";
 	if (isset($npair['prev'])) { // &#8678; = left pointing arrow
-	?>
-<div class="navi-prev"><a href="<?php echo $npair['prev']['url'] ?>">&#8678; <?php echo $npair['prev']['title'] ?></a></div>
-<?php
+		printf ('<div class="navi-prev"><a href="%s">&#8678; %s</a></div>%s', $npair['prev']['url'], $npair['prev']['title'], "\n");
 	}
 	if (isset($npair['next'])) { // &#8680; = right pointing arrow
-	?>
-<div class="navi-next"><a href="<?php echo $npair['next']['url']?>"><?php echo $npair['next']['title'] ?> &#8680;</a></div>
-<?php
+		printf ('<div class="navi-next"><a href="%s">%s &#8680;</a></div>%s', $npair['next']['url'], $npair['next']['title'], "\n");
 	}
-	?>
-</div><!-- single navi wrap -->
-<?php
+	echo '</div><!-- single navi wrap -->',"\n";
 }
 
-// ---------print_navi_bar -------
 function print_navi_bar($bar=null) {
 	if (!isset($bar)) {
 		return null;
 	}
-	?>
-<div class="navi-bar">
-<?php
+	echo '<div class="navi-bar">',"\n";
 	if ($bar['prev']) { //9664 = left pointing triangle
-	?>
-<span><a href="<?php echo $bar['url'],$bar['prev'] ?>">&#9664;&#9664;</a> </span><?php } ?>
-<?php // bar block
+		printf ('<span><a href="%s">&#9664;&#9664;</a></span>', mk_page_view_url($bar['tableid'],$bar['prev'],$bar['admin_list_mode']));
+	}
 	foreach ($bar['block'] as $block) {
-		if ($block[0]==0) { ?>
-<span>&#65381;&#65381;</span>
-<?php
+		if ($block[0]==0) {
+			echo '<span>&#65381;&#65381;</span>';
 		} else {
 			for ($i=$block[0];$i<=$block[1];$i++) {
 				$navi_class='navi-bar-square';
 				if ($i==$bar['curr']) { // self
 					$navi_class.='-self';
 				}
-			?>
-<span class="<?php echo $navi_class ?>"><a href="<?php echo $bar['url'], $i ?>"><?php echo $i ?></a></span>
-<?php
+				printf ('<span class="%s"><a href="%s">%d</a></span>', $navi_class, mk_page_view_url($bar['tableid'], $i,$bar['admin_list_mode']), $i,);
 			}
 		}
 	}
 	if ($bar['next']) { //9654 = right pointing triangle
-	?>
-<span> <a href="<?php echo $bar['url'],$bar['next'] ?>">&#9654;&#9654;</a></span>
-<?php
+		printf ('<span><a href="%s">&#9654;&#9654;</a></span>', mk_page_view_url($bar['tableid'],$bar['next'],$bar['admin_list_mode']));
 	}
-	?>
-</div><!-- .navi-bar -->
-<?php
+	echo '</div><!-- .navi-bar -->',"\n";
 }
 ?>

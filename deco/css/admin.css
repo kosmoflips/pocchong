@@ -23,7 +23,9 @@ textarea {
 	padding:20px;
 	background: rgba(255,255,255,0.7);
 }
-
+.navi-bar span {
+	margin: 3px;
+}
 .navi-bar-square-self {
 	font-weight: bold;
 }

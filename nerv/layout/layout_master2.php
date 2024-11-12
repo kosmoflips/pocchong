@@ -1,10 +1,10 @@
 </div><!-- #post-list-wrap -->
-<?php include(POC_LAYOUT.'/navi.php'); ?>
+<?php $this->show_navi_bar(); ?>
 </div><!-- #mainlayer-->
 </div><!-- #content-wrap -->
 </div><!-- #master-wrap -->
 <footer id="footer-global">
-<?php include(POC_LAYOUT.'/footer.php'); ?>
+<?php $this->show_footer(); ?>
 </footer>
 </body>
 </html>

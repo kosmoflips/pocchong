@@ -18,7 +18,7 @@ const POC_DB_POST = array(
 	// 'table' => 'post',
 	'url' => '/days/',
 	'max' => 3, # show N posts per page
-	'admin_list'=>'/a/list_table/?sel=post',
+	'admin_list'=>'/a/list_table/?sel=1',
 	'new' => '/a/post_new/',
 	'edit' => '/a/post_edit/',
 	'save' => '/a/post_save/'
@@ -30,7 +30,7 @@ const POC_DB_MG = array(
 	// 'table_link' => 'mygirls_link',
 	// 'table_pcs' => 'mygirls_pcs',
 	'url' => '/mygirls/',
-	'admin_list'=>'/a/list_table/?sel=mygirls',
+	'admin_list'=>'/a/list_table/?sel=2',
 	'new' => '/a/mg_new/',
 	'edit' => '/a/mg_edit/',
 	'save' => '/a/mg_save/',
@@ -49,7 +49,6 @@ const POC_DB_STATIC = array(
 	'url' => '/s',
 	'dir' => '/pages/static', # for indexed static pages
 	'dir2' => '/pages/static2', # for non-indexed 'private' pages
-	'info' => '_desrc.ini'
 );
 
 // ----------- layout stuff ----------

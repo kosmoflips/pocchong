@@ -4,7 +4,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php');
 chklogin(1);
 $k=new PocDB();
 
-$editedurl=POC_DB_MG['edit'].'?id='.($_POST['main']['id']??0);
+$editedurl=mk_id_view_url(2, $_POST['main']['id']??0, 1);
 
 // ---- delete -----
 if (isset($_POST['opt'])) {

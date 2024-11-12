@@ -4,7 +4,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nerv/synapse.php'); ?>
 <html>
 <head>
 <meta charset="utf-8" />
-<!--<title>Super Zone</title>-->
 <?php
 $fname=basename($_SERVER['SCRIPT_FILENAME'], '.php');
 ?>

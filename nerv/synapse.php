@@ -43,8 +43,11 @@ function readini ($file,$soft=true) { # file=ini_file_path; soft=true will NOT r
 }
 function number2roman ($number=0) {
 	# code from: https://stackoverflow.com/a/15023547/3566819
-	if ($number<=0) {
+	if ($number<0) {
 		return ($number);
+	}
+	elseif ($number==0) {
+		return 'O';
 	}
 	$map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
     $returnValue = '';
@@ -120,7 +123,7 @@ function print_edit_button ($edit_url='') {
 	}
 }
 ?>
-<?php // ---------- time work -------
+<?php // ----- time work -----
 function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &time27()
 // use either 24 or 27 H mode. process return hash.
 # 27-H Mode: time <= 3:00 AM, continue from 24 (0:00 AM=> 24:00, 2:59 AM => 26:59, 3:00 AM => no change)
@@ -172,15 +175,41 @@ function clock27 ($epoch=null, $format=0, $gmt=-7, $time24=0) { // old name: &ti
 		);
 	}
 }
-function get_newest_year () {
-	$k=new PocDB();
-	$yr1=$k->getOne('SELECT year FROM post ORDER BY year DESC LIMIT 1');
-	$yr2=$k->getOne('SELECT year FROM mygirls ORDER BY year DESC LIMIT 1');
-	if ($yr1>$yr2) {
-		return $yr1;
-	} else {
-		return $yr2;
+?>
+<?php // ----- make url -----
+function get_const_by_id ($tableid=0) {
+	if ($tableid==1) {
+		$x=POC_DB_POST;
 	}
+	elseif ($tableid==2) {
+		$x=POC_DB_MG;
+	}
+	elseif ($tableid==3) {
+		$x=POC_DB_ARCHIV;
+	}
+	else {
+		$x=null;
+	}
+	return $x;
+}
+function mk_page_view_url ($tableid=1, $page=0, $adminlist=0) {
+	if ($adminlist) { # admin's list mode
+		$url=sprintf ('/a/list_table?sel=%s&page=%s', $tableid,$page);
+	} else {
+		$url=get_const_by_id($tableid)['url']??'/';
+		$url.=sprintf ('?page=%s',$page);
+	}
+	return $url;
+}
+function mk_id_view_url ($tableid=1, $id=0, $edit=0) {
+	$x=get_const_by_id($tableid);
+	if ($edit) {
+		$url=$x['edit']??'/';
+	} else {
+		$url=$x['url']??'/';
+	}
+	$url.=sprintf ('?id=%s',$id);
+	return $url;
 }
 ?>
 <?php // ----- mygirls related -----
@@ -188,31 +217,6 @@ function mk_mg_img_url ($path='') { # convert stored in db img path to site-defi
 # made on 2022-oct-28, since i switch to host image on localhost instead of google
 	return ('/img/'.$path);
 }
-/*
-function mk_url_google_img ($url='',$size='') { // input  has no https://
-# as of 2022-Mar-5 , new url format on blogger: https://blogger.googleusercontent.com/img/a/a_super_long_string=s320
-# for old googleusercontent link [https://lh4.googleusercontent.com/string-for-this-img/may-contain-multiple-slashes/s500/], keep as is unless they stop working.
-	if (!$url) { return ''; }
-	if (!$size) {
-		$size='s800';
-	}
-	if (preg_match('/blogger.googleusercontent.com/',$url)) {
-		$url=preg_replace('/=[swh]\d+\/?$/i', '', $url);
-		$url2=sprintf ('https://%s=%s', $url,$size);
-	}
-	else { # old url style
-		$t=explode ('/', $url);
-		$fname=array_pop($t);
-		array_pop($t); #remove size << supposed to always be there, didn't tested!
-		// if (!$size or !preg_match('/^[hws]\d+/i', $size)) { #simple check. should work for most cases
-		# url has no defined size. OR user doesn't give new size
-			// $size='s800';
-		// }
-		$url2=sprintf ('https://%s/%s/%s', (implode ( '/', $t)), $size, $fname);
-	}
-	return $url2;
-}
-*/
 function mk_url_da($url='') { #feed in string after ../art/. uses my dA account
 	if ($url) {
 		// return "http://kosmoflips.deviantart.com/art/".$url; // old url format
@@ -231,35 +235,27 @@ function cleanimgurl ($url='') {
 	return $url;
 }
 ?>
-<?php // -------------- admin edit page related --------------
-/*
-function print_system_msg ($msg='') { // admin submit-page edit only
-	if (!empty($msg)) {
-		?>
-<div class="system-msg">system message: <?php echo $msg ?></div>
-<?php
-	}
-}
-*/
-?>
 <?php // ----- navi-bar related -----
-function mk_navi_pair ($k=null,$table='',$cid=1, $url='') {
-	if (!$k or !$table) { return array(); }
+function mk_navi_pair ($k=null, $tableid=0, $cid=1) {
+	if (!$k or !$tableid) {
+		return array();
+	}
+	$table=$tableid==1?'post':'mygirls';
 	$n0=$k->_getNext($table,$cid,0);
 	$p0=$k->_getNext($table,$cid,1);
 	$navi1=array();
 	# query url here should be universal for all , /pagename?id=xxxx
 	if (isset($n0)) {
-		$navi1['next']['url']=sprintf ('%s?id=%d', $url, $n0['id']);
+		$navi1['next']['url']=mk_id_view_url($tableid, $n0['id']);
 		$navi1['next']['title']=$n0['title'];
 	}
 	if (isset($p0)) {
-		$navi1['prev']['url']=sprintf ('%s?id=%d', $url, $p0['id']);
+		$navi1['prev']['url']=mk_id_view_url($tableid, $p0['id']);
 		$navi1['prev']['title']=$p0['title'];
 	}
 	return $navi1;
 }
-function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/') { // new version! urlbase e.g. "/post" in "/post?id=12"
+function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $tableid=1, $adminlist=0) { // tableid. 1:post, 2:mg, 3: archiv
 	$smin=5; // minimal for one side is 5
 	if ($perpage>($last-$first+1)) {
 		$perpage=5; // randomly given
@@ -311,7 +307,8 @@ function mk_navi_bar ($first=1,$last=1,$perpage=1, $curr=1, $step=0, $urlbase='/
 		'prev'=>($curr==$first)?0:($curr-1),
 		'next'=>($curr==$last)?0:($curr+1),
 		'curr'=>$curr,
-		'url'=>$urlbase // ready to be connected with query, e.g. ?id=2
+		'tableid'=>$tableid,
+		'admin_list_mode'=>$adminlist?1:0,
 	);
 }
 function calc_total_page($totalrows=1,$max_per_page=1) {

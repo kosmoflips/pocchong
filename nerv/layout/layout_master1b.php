@@ -2,7 +2,7 @@
 <body>
 <div id="master-wrap">
 <header id="header-outer">
-<?php include(POC_LAYOUT.'/headerline.php'); ?>
+<?php $this->show_headerline(); ?>
 </header>
 <div id="content-wrap">
 <div id="mainlayer">

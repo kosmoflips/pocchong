@@ -23,9 +23,8 @@ if ($loginflag) {
 	include ('superzone.php');
 } else { # show log in screen
 	PocPage::html_admin();
-	if (!$loginflag) { // login failed. show login form ?>
-	<div style="text-align: center;">
-	<?php
+	if (!$loginflag) { // login failed. show login form
+		echo '<div style="text-align: center;">',"\n";
 		if (isset($error)) {
 			echo "<div>\n";
 			foreach ($error as $line) {
@@ -34,9 +33,7 @@ if ($loginflag) {
 			echo "</div>\n";
 		}
 		include (NERV.'/admin/incl_loginform.html');
-	?>
-	</div>
-	<?php
+		echo '</div>',"\n";
 	}
 	PocPage::html_admin(1);
 }

@@ -6,13 +6,12 @@ $p=new PocPage;
 $k=new PocDB();
 
 $curr_page=$_GET['page']??1;
-$year_newest=get_newest_year();
+$year_newest=$k->get_newest_year();
 $total_yrs=$year_newest+2000-POC_YEAR_START+1;
 $total_pgs=calc_total_page($total_yrs,POC_DB_ARCHIV['yr_max']);
 $curr_yr=$year_newest-calc_page_offset($curr_page,POC_DB_ARCHIV['yr_max']);
 $curr_yr2=$curr_yr-POC_DB_ARCHIV['yr_max']+1;
-// peek(array($curr_yr2, $curr_yr),1);
-$p->navi['bar']=mk_navi_bar(1,$total_pgs,POC_DB_ARCHIV['yr_max'],$curr_page,POC_NAVI_STEP,POC_DB_ARCHIV['url'].'?page=');
+$p->navi['bar']=mk_navi_bar(1,$total_pgs,POC_DB_ARCHIV['yr_max'],$curr_page,POC_NAVI_STEP,3);
 $p->title=POC_DB_ARCHIV['title'];
 
 $arv=array();
@@ -29,12 +28,11 @@ foreach (array('post','mygirls') as $tb) {
 
 # order by epoch desc
 krsort($arv);
-// peek($arv,1);
 
 $p->html_open();
-?>
-<h2><?php echo $symbol,' ', $p->title,' ',$symbol ?></h2>
-<?php
+
+printf ('<h2>%s %s %s</h2>%s', $symbol, $p->title, $symbol, "\n");
+
 foreach ($arv as $loopyear=>$ylist) {
 ?>
 <div class="archiv">
@@ -43,15 +41,16 @@ foreach ($arv as $loopyear=>$ylist) {
 <?php
 	krsort($ylist); # order both post/mg by epoch
 	foreach ($ylist as $entry) {
-?>
-<li><a href="<?php echo $entry['table']==1?POC_DB_POST['url']:POC_DB_MG['url'],'?id=',$entry['id'] ?>">
-	<span class="archivdate"><?php echo clock27($entry['epoch'],1,$entry['gmt']) ?></span>
-	<span class="archivicon"><?php echo $entry['table']==1?"&#128211;":"&#127912;"; ?><?php echo $entry['hide']==1?"&#128273;":""; ?></span>
-	<?php echo $entry['title'] ?>
-</a></li>	
-<?php
+		printf ('<li><a href="%s"><span class="archivdate">%s</span><span class="archivicon">%s%s</span>%s</a></li>%s',
+			mk_id_view_url($entry['table'],$entry['id']),
+			clock27($entry['epoch'],1,$entry['gmt']),
+			($entry['table']==1?"&#128211;":"&#127912;"), # note,art emoji
+			($entry['hide']==1?"&#128273;":""),
+			$entry['title'],
+			"\n"
+		);
 	}
-	?>
+?>
 </ul>
 </div><!-- archiv -->
 <?php

@@ -38,7 +38,7 @@ if (empty($std)) {
 	}
 }
 
-$p->navi['pair']=mk_navi_pair($k, 'mygirls', $id,POC_DB_MG['url']);
+$p->navi['pair']=mk_navi_pair($k, 2, $id);
 $p->html_open();
 ?>
 <div><!-- artwork block begins -->
@@ -49,7 +49,7 @@ $p->html_open();
 <?php
 if ($entry['post_id']) {
 ?>
-<li><b>Liner notes:</b> <a href="<?php echo POC_DB_POST['url'],'?id=',$entry['post_id']; ?>"><?php echo $k->getOne('SELECT title FROM post WHERE id=?', array($entry['post_id'])); ?></a></li>
+<li><b>Liner notes:</b> <a href="<?php echo mk_id_view_url(1,$entry['post_id']); ?>"><?php echo $k->getOne('SELECT title FROM post WHERE id=?', array($entry['post_id'])); ?></a></li>
 <?php
 }
 if ($entry['notes']) {
@@ -59,12 +59,12 @@ if ($entry['notes']) {
 }
 if ($entry['remake']) {
 ?>
-<li><b>New Remake:</b> <a href="<?php echo POC_DB_MG['url'], '?id=', $entry['remake']; ?>"><?php echo $k->getOne('SELECT title FROM mygirls WHERE id=?', array($entry['remake'])); ?></a></li>
+<li><b>New Remake:</b> <a href="<?php echo mk_id_view_url(2,$entry['remake']); ?>"><?php echo $k->getOne('SELECT title FROM mygirls WHERE id=?', array($entry['remake'])); ?></a></li>
 <?php
 }
 if ($entry['remade_from']) {
 ?>
-<li><b>Remake of:</b> <a href="<?php echo POC_DB_MG['url'], '?id=', $entry['remade_from']; ?>"><?php echo $k->getOne('SELECT title FROM mygirls WHERE id=?', array($entry['remade_from'])); ?></a></li>
+<li><b>Remake of:</b> <a href="<?php echo mk_id_view_url(2,$entry['remade_from']); ?>"><?php echo $k->getOne('SELECT title FROM mygirls WHERE id=?', array($entry['remade_from'])); ?></a></li>
 <?php
 }
 ?>
@@ -111,7 +111,7 @@ foreach ($pcs as $pc2) {
 <?php
 }
 
-print_edit_button(sprintf ("%s?id=%s", POC_DB_MG['edit'], $entry['id']));
+print_edit_button(mk_id_view_url(2, $entry['id']));
 ?>
 </div><!-- closing artwork block -->
 <?php

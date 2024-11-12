@@ -23,8 +23,7 @@ $pdata=$k->getAll('SELECT mygirls.id "id",title,epoch,img_url FROM mygirls JOIN 
 
 $p->title=sprintf ('%s :: %s',POC_DB_MG['title2'],number2roman($curr));
 
-$baseurl=POC_DB_MG['url'].'?page=';
-$p->navi['bar']=mk_navi_bar(1,$totalpg,$pcs_per_page,$curr,POC_NAVI_STEP,$baseurl);
+$p->navi['bar']=mk_navi_bar(1,$totalpg,$pcs_per_page,$curr,POC_NAVI_STEP, 2);
 
 $p->html_open();
 ?>
@@ -35,7 +34,7 @@ foreach ($pdata as $entry) {
 	$furl=mk_mg_img_url($entry['img_url']);
 ?>
 <div class="mgarchive-container">
-<a href="<?php echo POC_DB_MG['url'].'?id='.$entry['id'] ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
+<a href="<?php echo mk_id_view_url(2,$entry['id']); ?>"><img class="mgarchive-image" src="<?php echo $furl ?>" alt="img" /></a>
 <div class="mgarchive-overlay"><?php echo $entry['title'] ?><br /><?php echo clock27($entry['epoch'],3) ?></div>
 </div>
 <?php

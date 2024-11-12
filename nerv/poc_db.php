@@ -123,5 +123,14 @@ public function prepNew ($table=null) { // prepare a new entry for input table
 	}
 	return ($stru ?? null);
 }
+public function get_newest_year () {
+	$yr1=$this->getOne('SELECT year FROM post ORDER BY year DESC LIMIT 1');
+	$yr2=$this->getOne('SELECT year FROM mygirls ORDER BY year DESC LIMIT 1');
+	if ($yr1>$yr2) {
+		return $yr1;
+	} else {
+		return $yr2;
+	}
+}
 } // closing class
 ?>

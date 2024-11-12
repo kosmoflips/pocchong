@@ -4,9 +4,7 @@ PocPage::html_admin();
 <div><a href="<?php echo POC_DB_POST['admin_list']; ?>">go back to list (edits are discarded)</a>
 <?php
 if (isset($edit['update'])) {
-?>
-|| <a href="<?php echo POC_DB_POST['url'],'?id=',$edit['id']; ?>" target="_blank">View</a></div>
-<?php
+	printf (' || <a href="%s" target="_blank">View</a></div>', mk_id_view_url(1,$edit['id']));
 }
 ?>
 
@@ -14,12 +12,12 @@ if (isset($edit['update'])) {
 <form action="<?php echo POC_DB_POST['save']; ?>" method="post" accept-charset="utf-8" target="">
 
 <?php
-	if (isset($edit['update'])) { ?>
-<input type="hidden" name="update" value="1" />
-<?php	}
-	if (isset($edit['insert'])) { ?>
-<input type="hidden" name="insert" value="1" />
-<?php	}
+	if (isset($edit['update'])) {
+		echo '<input type="hidden" name="update" value="1" />',"\n";
+	}
+	if (isset($edit['insert'])) {
+		echo '<input type="hidden" name="insert" value="1" />',"\n";
+}
 ?>
 <table>
 <tr><td><b>id*</b></td><td><input type="number" name="entry[id]" maxlength="11" value="<?php echo $edit['id'] ?>" readonly /></td></tr>
@@ -47,7 +45,6 @@ if (isset($edit['update'])) {
 }
 ?>
 </form>
-
 <?php
 PocPage::html_admin(1);
 ?>

@@ -2,29 +2,22 @@
 // relies on edit_mygirls.php. won't work if used independently
 PocPage::html_admin();
 ?>
-<div><a href="<?php echo POC_DB_MG['admin_list']; ?>">go back to list (edits are discarded)</a>
-<?php
+<div><a href="<?php echo POC_DB_MG['admin_list']; ?>">go back to list (edits are discarded)</a><?php
 if (isset($info['update'])) {
-?>
-|| <a href="<?php echo POC_DB_MG['url'],'?id=',$info['id']; ?>" target="_blank">View</a>
-<?php
+	printf (' || <a href="%s" target="_blank">View</a>', mk_id_view_url(2,$info['id']));
 }
-?>
-</div>
+?></div>
+
 <hr />
 
 <h4>main info</h4>
 <form action="<?php echo POC_DB_MG['save']; ?>" method="post" accept-charset="utf-8" target="">
 <?php
 if (isset($info['update'])) {
-?>
-<input type="hidden" name="update" value="1" />
-<?php
+	echo '<input type="hidden" name="update" value="1" />',"\n";
 }
 if (isset($info['insert'])) {
-?>
-<input type="hidden" name="insert" value="1" />
-<?php
+	echo '<input type="hidden" name="insert" value="1" />',"\n";
 }
 ?>
 
@@ -62,20 +55,16 @@ if (isset($info['insert'])) {
 
 <h4>tags</h4>
 <table><!--tag list-->
-<tr><td>
-<?php
+<tr><td><?php
 $tagidx=$k->getTags();
 foreach ($tagidx as $idx=>$tagid) {
 	$chked=0;
 	if (!empty($info['tags']) and in_array($idx, $info['tags'])) {
 		$chked=1;
 	}
-?>
-<input type="checkbox" name="tags[]" value="<?php echo $idx; ?>" <?php echo $chked?'checked':''; ?> /><?php echo $tagid; ?> ||
-<?php
+	printf ('<input type="checkbox" name="tags[]" value="%s" %s />%s ||', $idx, ($chked?'checked':''), $tagid);
 }
-?>
-</td></tr>
+?></td></tr>
 </table><!--tag table ends-->
 
 <hr />
@@ -107,9 +96,7 @@ foreach ($info['pcs'] as $pcs) {
 <td style="padding:0 !important;">
 <?php
 if (!empty($pcs['url_preview'])) {
-?>
-<img src="<?php echo $pcs['url_preview']; ?>" width="120">
-<?php
+	printf ('<img src="%s" width="120">', $pcs['url_preview']);
 }
 ?>
 </td>
@@ -117,12 +104,12 @@ if (!empty($pcs['url_preview'])) {
 	<input type="radio" name="set_rep_id" value="<?php echo $pcs['id']; ?>" <?php echo !empty($pcs['is_rep'])?'checked':''; ?> />
 </td>
 <td>
-<b>id:</b><input type="text" name="<?php echo $namepre; ?>[id]" maxlength="11" size="3" value="<?php echo $pcs['id']; ?>" readonly /><br />
-<b>img: </b> /img/<input type="text" name="<?php echo $namepre; ?>[img_url]" maxlength="255" size="83" value="<?php echo $pcs['img_url']; ?>" placeholder="subdir/000000_image_file_name.jpg.webp" /><br />
-<b>dA: </b> https://www.deviantart.com/kosmoflips/art/<input type="text" name="<?php echo $namepre; ?>[da_url]" maxlength="255" size="45" value="<?php echo $pcs['da_url'] ?>" /><br />
+	<b>id:</b><input type="text" name="<?php echo $namepre; ?>[id]" maxlength="11" size="3" value="<?php echo $pcs['id']; ?>" readonly /><br />
+	<b>img: </b> /img/<input type="text" name="<?php echo $namepre; ?>[img_url]" maxlength="255" size="83" value="<?php echo $pcs['img_url']; ?>" placeholder="subdir/000000_image_file_name.jpg.webp" /><br />
+	<b>dA: </b> https://www.deviantart.com/kosmoflips/art/<input type="text" name="<?php echo $namepre; ?>[da_url]" maxlength="255" size="45" value="<?php echo $pcs['da_url'] ?>" /><br />
 </td>
 <td>
-<input type="checkbox" name="DEL_pcs[]" value="<?php echo $pcs['id']; ?>" <?php echo isset($pcs['new_pc'])?"disabled":""; ?>/>
+	<input type="checkbox" name="DEL_pcs[]" value="<?php echo $pcs['id']; ?>" <?php echo isset($pcs['new_pc'])?"disabled":""; ?>/>
 </td>
 </tr>
 <?php

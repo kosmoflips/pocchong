@@ -5,6 +5,7 @@ $p=new PocPage;
 $k=new PocDB();
 $curr=$_GET['page']??1; #current page index
 $id=$_GET['id']??0;
+$tableid=1;
 $posts=array();
 if ($id) {
 	$entry1=$k->getRow('SELECT * FROM post WHERE id=?',array($id));
@@ -16,7 +17,7 @@ if ($id) {
 		$posts[]=$entry1;
 		$page_title=$entry1['title'];
 		#prev/next info when showing only 1 id
-		$navipair=mk_navi_pair($k,'post',$id, POC_DB_POST['url']);
+		$navipair=mk_navi_pair($k,1,$id);
 	} else {
 		show_response(404);
 	}
@@ -36,8 +37,7 @@ else { # id isn't given, go to page mode
 	$stat1.=' ORDER BY epoch DESC LIMIT ?,?';
 	$posts=$k->getAll($stat1, array($offset,$entry_per_page));
 	if (!empty($posts)) { # can get at least one post (doesnt count hidden post when there's no admin access)
-		$baseurl_p=POC_DB_POST['url'].'?page=';
-		$navibar=mk_navi_bar(1,$totalpgs,$entry_per_page,$curr,POC_NAVI_STEP,$baseurl_p);
+		$navibar=mk_navi_bar(1,$totalpgs,$entry_per_page,$curr,POC_NAVI_STEP, $tableid);
 	} else {
 		show_response(403);
 	}
@@ -48,19 +48,18 @@ $p->navi['bar']=$navibar??null;
 
 $p->html_open(1);
 foreach ($posts as $entry) {
-	$posturl=POC_DB_POST['url'].'?id='.$entry['id'];
 	$entry2=add_lightbox_tag($entry['content'], $entry['id']); # add lightbox for <img> if alt="!lightbox" isn't present
 	$p->html_open(2);
 ?>
-<div class="datetime"><a href="<?php echo $posturl ?>"><?php echo clock27( $entry['epoch'],0,$entry['gmt']) ?></a></div>
-<h3><a href="<?php echo $posturl ?>"><?php echo rand_deco_symbol(), ' ',$entry['title']; ?></a></h3>
+<div class="datetime"><?php echo clock27( $entry['epoch'],0,$entry['gmt']) ?></div>
+<h3><a href="<?php echo mk_id_view_url(1,$entry['id']); ?>"><?php echo rand_deco_symbol(), ' ',$entry['title']; ?></a></h3>
 <article>
 <?php
 echo $entry2,"\n";
 ?>
 </article>
 <?php
-	print_edit_button(POC_DB_POST['edit'].'?id='.$entry['id']);
+	print_edit_button(mk_id_view_url(1,$entry['id']));
 	$p->html_close(2);
 }
 $p->html_close(1);

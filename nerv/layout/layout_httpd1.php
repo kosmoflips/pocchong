@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<?php include(POC_LAYOUT.'/meta.php'); ?>
-<?php include(POC_LAYOUT.'/style.php'); ?>
+<?php $this->show_meta(); ?>
+<?php $this->show_style(); ?>
 </head>
 <body>
 <div id="master-wrap" style="margin-top:80px; width: 80%">

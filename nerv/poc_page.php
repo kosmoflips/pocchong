@@ -1,6 +1,5 @@
-<?php // ----- class for page layout; especially for vars relies on internal process by other included files -----
+<?php // ----- class for page layout, init -----
 class PocPage {
-// public $head=array();
 public $title=null;
 public $navi=array(
 	'pair'=>null,
@@ -8,16 +7,8 @@ public $navi=array(
 	);
 public $data=null;
 
-/*
-# assign css/js/extra (e.g. style) to $this->head
-public function add_html_head_block ($list=array()) { # input array, each element is a complete block of code to be placed in <head>, e.g. <script ...> <style>
-	foreach ($list as $elem) {
-		$this->head[]=$elem;
-	}
-}
-*/
 
-// write html subs
+// ----- layout builders-----
 public function httpd_open () {
 	include (POC_LAYOUT.'/layout_httpd1.php');
 }
@@ -50,25 +41,11 @@ public function static_open ($half=0, $hide_title_bar=0) {
 		include (POC_LAYOUT.'/entry_open.html');
 		if (!$hide_title_bar) {
 			$symbol=rand_deco_symbol();
-?>
-<h2><?php echo $symbol,' ', $this->title??'no title',' ',$symbol; ?></h2>
-<article>
-<?php
+			printf ("<h2>%s %s %s</h2>\n", $symbol, $this->title??'no title', $symbol);
+			echo "<article>\n";
 		}
 	}
 }
-/*
-public function print_html_head_block () { // custom head stuff, used in layout/meta.php
-	if (sizeof($this->head)>0) {
-		echo "<!-- user given head blocks: start-->\n";
-		foreach ($this->head as $line) {
-			echo $line,"\n";
-		}
-		echo "<!-- user given head blocks: end-->\n";
-	}
-}
-*/
-
 // admin navi bar
 static function html_admin ($close=0) {
 	if (!$close) {
@@ -76,6 +53,29 @@ static function html_admin ($close=0) {
 	} else {
 		include (POC_LAYOUT.'/layout_admin2.php');
 	}
+}
+
+
+// ------ include page elements ------
+public function show_navi_bar () {
+	if (isset($this->navi)) {
+		include (POC_LAYOUT.'/navi.php');
+	}
+}
+public function show_footer() {
+	include(POC_LAYOUT.'/footer.php');
+}
+public function show_menu() {
+	include(POC_LAYOUT.'/menu.php');
+}
+public function show_meta() {
+	include(POC_LAYOUT.'/meta.php');
+}
+public function show_style() {
+	include(POC_LAYOUT.'/style.php');
+}
+public function show_headerline() {
+	include(POC_LAYOUT.'/headerline.php');
 }
 
 } // class closing bracket

@@ -1,15 +1,4 @@
 <?php
-/*
-function print_errors($error=null) {
-	if (isset($error)) {
-		echo "<div>\n";
-		foreach ($error as $line) {
-			echo $line, "<br />\n";
-		}
-		echo "</div>\n";
-	}
-}
-*/
 function login($usr='', $pw='') {
 	if ($usr and $pw) {
 		define('TMP_ADMIN_USER_DATA','/binary/userdata.ini');

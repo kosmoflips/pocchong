@@ -21,27 +21,18 @@ $p->httpd_open();
 ?>
 <h1><?php echo $p->title; ?></h1>
 <div style="margin-top:50px">
-URI <code><u><?php echo $_SERVER['REQUEST_URI']; ?></u></code> 
-<?php
+URI <code><u><?php echo $_SERVER['REQUEST_URI']; ?></u></code> <?php
 if ($code==403) {
-?>
-requires to log in before viewing.
-<?php
+	echo 'requires to log in before viewing.';
 }
 elseif ($code==404) {
-?>
-does not exist.
-<?php
+	echo 'does not exist.';
 }
 elseif ($code==500) {
-?>
-has caused the server to die.
-<?php
+	echo 'has caused the server to die.';
 }
 elseif ($code==503) {
-?>
-is temporarily not available.
-<?php
+	echo 'is temporarily not available.';
 }
 ?>
 </div>

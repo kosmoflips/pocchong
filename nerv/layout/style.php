@@ -12,7 +12,7 @@ $cssfile2=$_SERVER['DOCUMENT_ROOT'].$cssfile; // real path on disk
 if (file_exists($cssfile2)) {
 	echo $cssfile;
 } else {
-	echo '/deco/css/theme_'.POC_THEME[0].'.css';
+	echo '/deco/css/theme_',POC_THEME[0],'.css';
 }
 ?>" />
 <!-- layout css -->

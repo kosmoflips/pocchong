@@ -48,7 +48,8 @@ else { // insert new record
 }
 $k->dosql($stat, $val1);
 
-jump(POC_DB_POST['edit'].'?id='.$id1);
+// jump(POC_DB_POST['edit'].'?id='.$id1);
+jump(mk_id_view_url(1,$id1));
 
 
 // ------- subs ------------
